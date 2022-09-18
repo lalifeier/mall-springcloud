@@ -1,0 +1,5 @@
+spring:
+  cloud:
+    sentinel:
+      transport:
+        dashboard: localhost:8080

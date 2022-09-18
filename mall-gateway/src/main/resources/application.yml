@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    gateway:
+      routes:
+        - id: mall-auth
+          uri: lb://mall-auth
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=1
+        - id: mall-admin
+          uri: lb://mall-admin
+          predicates:
+            - Path=/admin/**
+          filters:
+            - StripPrefix=1
+      discovery:
+        locator:
+          enabled: true

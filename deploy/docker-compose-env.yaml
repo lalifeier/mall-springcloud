@@ -1,0 +1,91 @@
+version: "3.7"
+
+networks:
+  app_net:
+    external: true
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    hostname: mysql
+    ports:
+      - 3306:3306
+    networks:
+      - app_net
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - MYSQL_USER=lalifeir
+      - MYSQL_PASSWORD=123456
+      - MYSQL_ROOT_PASSWORD=123456
+    volumes:
+      - ./mysql/conf.d:/etc/mysql/conf.d
+      - /data/mysql/data:/var/lib/mysql
+      - /data/mysql/logs:/var/log/mysql
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    hostname: redis
+    ports:
+      - 6379:6379
+    networks:
+      - app_net
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./redis/redis.conf:/etc/redis/redis.conf
+      - /data/redis/data:/data
+    command:
+      - redis-server
+      - /etc/redis/redis.conf
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - app_net
+    restart: always
+    privileged: true
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./data/nginx/logs:/var/log/nginx
+      # - /code:/var/www/html
+
+
+
+
+#  http://127.0.0.1:8848/nacos
+#  初始账号密码为 nacos/nacos
+  nacos:
+    image: nacos/nacos-server:v2.1.1
+    container_name: nacos
+    ports:
+      - 8848:8848
+      - 9848:9848
+    networks:
+      - app_net
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - MODE=standalone
+      - NACOS_APPLICATION_PORT=8848
+#      - SPRING_DATASOURCE_PLATFORM=mysql
+#      - MYSQL_SERVICE_HOST=mysql
+#      - MYSQL_SERVICE_PORT=3306
+#      - MYSQL_SERVICE_USER=root
+#      - MYSQL_SERVICE_PASSWORD=123456
+#      - MYSQL_SERVICE_DB_NAME=nacos_config
+      - JVM_XMS=256m
+      - JVM_XMX=256m
+    volumes:
+      - /data/nacos/logs:/home/nacos/logs
+#      - /data/nacos/init.d/custom.properties:/home/nacos/init.d/custom.properties

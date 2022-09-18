@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <Properties>
+<!--        <property name="APP_NAME">${spring:spring.application.name}</property>-->
+<!--        <property name="LOG_STASH_HOST">${spring:logstash.host}</property>-->
+<!--        <property name="LOG_STASH_PORT">${spring:logstash.port}</property>-->
+        <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight{%-5level}[%thread] %style{%logger{36}}{cyan} : %msg%n" />
+        <property name="FILE_PATH" value="./logs" />
+    </Properties>
+
+    <appenders>
+        <!-- 控制台日志 -->
+        <console name="CONSOLE" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}" disableAnsi="false" noConsoleNoAnsi="false"/>
+        </console>
+
+        <!-- 文件日志 -->
+        <RollingFile name="FILE_INFO"
+                     fileName="${FILE_PATH}/info.log"
+                     filePattern="${FILE_PATH}/$${date:yyyy-MM}/${FILE_NAME}-%d{yyyy-MM-dd}-INFO_%i.log.gz">
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="100MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="100"/>
+        </RollingFile>
+
+        <RollingFile name="FILE_WARN"
+                     fileName="${FILE_PATH}/warn.log"
+                     filePattern="${FILE_PATH}/$${date:yyyy-MM}/${FILE_NAME}-%d{yyyy-MM-dd}-WARN_%i.log.gz">
+            <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="100MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="100"/>
+        </RollingFile>
+
+        <RollingFile name="FILE_ERROR"
+                     fileName="${FILE_PATH}/error.log"
+                     filePattern="${FILE_PATH}/$${date:yyyy-MM}/${FILE_NAME}-%d{yyyy-MM-dd}-ERROR_%i.log.gz">
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="100MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="100"/>
+        </RollingFile>
+
+        <socket name="LOG_STASH" host="localhost" port="4560" protocol="TCP">
+            <JsonLayout compact="true" eventEol="true" />
+            <PatternLayout pattern="%d{yyyy.MM.dd 'at' HH:mm:ss z} %-5level %class{36} %M() @%L - %msg%n"/>
+        </socket>
+    </appenders>
+
+    <loggers>
+        <logger name="org.springframework" level="INFO"/>
+        <logger name="org.mybatis" level="INFO"/>
+        <logger name="com.alibaba.nacos.client.naming" level="INFO"/>
+
+        <root level="debug">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE_INFO"/>
+            <appender-ref ref="FILE_WARN"/>
+            <appender-ref ref="FILE_ERROR"/>
+<!--            <appender-ref ref="LOG_STASH"/>-->
+        </root>
+    </loggers>
+</configuration>
