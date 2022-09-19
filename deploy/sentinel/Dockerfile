@@ -8,8 +8,7 @@ ADD https://github.com/alibaba/Sentinel/releases/download/1.8.5/sentinel-dashboa
 
 WORKDIR ${SENTINEL_HOME}
 
-COPY entrypoint.sh /entrypoint.sh
+EXPOSE 8858
+EXPOSE 8719
 
-RUN chmod +x /entrypoint.sh
-
-CMD ["/entrypoint.sh"]
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dserver.port=8858", "-Dcsp.sentinel.api.port=8719", "-Dcsp.sentinel.dashboard.server=localhost:8858", "-Dproject.name=sentinel-dashboard", "-jar", "/opt/sentinel-dashboard/sentinel-dashboard.jar"]

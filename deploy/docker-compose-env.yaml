@@ -89,3 +89,21 @@ services:
     volumes:
       - /data/nacos/logs:/home/nacos/logs
 #      - /data/nacos/init.d/custom.properties:/home/nacos/init.d/custom.properties
+
+
+#  http://127.0.0.1::8858
+#  初始账号密码为 sentinel/sentinel
+  sentinel-dashboard:
+    image: sentinel-dashboard:1.8.5
+    container_name: sentinel-dashboard
+    build:
+      context: ./sentinel
+      dockerfile: Dockerfile
+    ports:
+      - 8858:8858
+      - 8719:8719
+    networks:
+      - app_net
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
