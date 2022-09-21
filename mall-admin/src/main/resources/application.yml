@@ -11,11 +11,11 @@ spring:
   jpa:
     show-sql: true
     database: mysql
-    database-platform: org.hibernate.dialect.MySQL5Dialec
+#    database-platform: org.hibernate.dialect.MySQL5Dialec
     properties:
       hibernate:
         format_sql: true
     hibernate:
       ddl-auto: none
-      naming:
-        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+#      naming:
+#        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
