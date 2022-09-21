@@ -22,6 +22,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public final Response handleRuntimeException(Exception ex) {
+        log.debug("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
         return Response.buildFailure(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR), ex.getMessage());
     }
 

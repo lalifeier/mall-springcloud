@@ -1,16 +1,17 @@
 package com.github.lalifeier.mall.admin.presentation.rest;
 
 
-import java.util.List;
-
 import com.github.lalifeier.mall.admin.applicaiton.query.UserQueryApplicationService;
 import com.github.lalifeier.mall.admin.domain.aggregate.user.entity.User;
 import com.github.lalifeier.mall.common.dto.Response;
 import com.github.lalifeier.mall.common.exception.BizException;
+import com.github.lalifeier.mall.common.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 
 @RestController
@@ -22,16 +23,20 @@ public class UserController {
     @Autowired
     UserQueryApplicationService userQueryApplicationService;
 
-    @GetMapping("/hi")
-    public Response hi(){
+    @Autowired
+    RedisService redisService;
 
+    @GetMapping("/hi")
+    public Response hi() {
+        redisService.set("test", "123");
         int a = 1 / 0;
 
-        throw new BizException("xxxxxxxxxxxx");
+        throw new BizException("123");
 //        return Response.buildSuccess();
     }
+
     @GetMapping
-    public List<User> query(){
+    public List<User> query() {
         return null;
     }
 
