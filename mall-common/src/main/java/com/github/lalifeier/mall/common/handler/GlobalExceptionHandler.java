@@ -15,15 +15,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(BizException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Response handleBizException(BizException ex) {
-        return Response.buildFailure(ex.getErrCode(), ex.getMessage());
+    public Response handleBizException(BizException e) {
+        return Response.buildFailure(e.getErrCode(), e.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public final Response handleRuntimeException(Exception ex) {
-        log.debug("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-        return Response.buildFailure(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR), ex.getMessage());
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public final Response handleRuntimeException(Exception e) {
+        return Response.buildFailure(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR), e.getMessage());
     }
 
 //    @Override
