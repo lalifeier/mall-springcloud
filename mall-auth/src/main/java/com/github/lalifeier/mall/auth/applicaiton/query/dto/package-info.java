@@ -1,0 +1,1 @@
+package com.github.lalifeier.auth.applicaiton.query.dto;

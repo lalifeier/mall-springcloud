@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mall-auth</artifactId>
+    <artifactId>mall-monitor</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
