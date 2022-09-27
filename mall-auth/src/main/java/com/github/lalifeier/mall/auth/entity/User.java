@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.auth.infrastructure.persistent.entity;
+package com.github.lalifeier.mall.auth.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

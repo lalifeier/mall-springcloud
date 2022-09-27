@@ -1,1 +1,1 @@
-package com.github.lalifeier.mall.auth.presentation.rest;
+package com.github.lalifeier.mall.demo.presentation.rest;

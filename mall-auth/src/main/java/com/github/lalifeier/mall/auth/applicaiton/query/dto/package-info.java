@@ -1,1 +1,1 @@
-package com.github.lalifeier.auth.applicaiton.query.dto;
+package com.github.lalifeier.mall.auth.applicaiton.query.dto;

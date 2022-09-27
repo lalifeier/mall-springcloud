@@ -1,1 +1,1 @@
-package com.github.lalifeier.mall.auth.domain;
+package com.github.lalifeier.mall.demo.domain;

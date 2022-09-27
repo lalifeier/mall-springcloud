@@ -1,1 +1,1 @@
-package com.github.lalifeier.mall.auth.applicaiton.command.impl;
+package com.github.lalifeier.mall.demo.applicaiton.command.impl;

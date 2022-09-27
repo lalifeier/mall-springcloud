@@ -1,7 +1,7 @@
-package com.github.lalifeier.mall.auth.applicaiton.query;
+package com.github.lalifeier.mall.demo.applicaiton.query;
 
 
-import com.github.lalifeier.mall.auth.infrastructure.persistent.entity.User;
+import com.github.lalifeier.mall.demo.infrastructure.persistent.entity.User;
 
 import java.util.List;
 

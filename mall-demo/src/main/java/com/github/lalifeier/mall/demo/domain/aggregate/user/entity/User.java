@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.auth.domain.aggregate.user.entity;
+package com.github.lalifeier.mall.demo.domain.aggregate.user.entity;
 
 import lombok.Data;
 

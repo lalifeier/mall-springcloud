@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.auth.infrastructure.config;
+package com.github.lalifeier.mall.demo.infrastructure.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
@@ -16,14 +16,14 @@ import java.util.Arrays;
 @MapperScan("com.github.lalifeier.mall.auth.infrastructure.persistent.mapper")
 public class MybatisPlusConfig {
 
-    public PaginationInnerInterceptor innerInterceptor(){
+    public PaginationInnerInterceptor innerInterceptor() {
         PaginationInnerInterceptor interceptor = new PaginationInnerInterceptor();
         interceptor.setDbType(DbType.MYSQL);
         return interceptor;
     }
 
     @Bean
-    public MybatisPlusInterceptor mybatisPlusInterceptor(){
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
         mybatisPlusInterceptor.setInterceptors(Arrays.asList(innerInterceptor()));
         return mybatisPlusInterceptor;

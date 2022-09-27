@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.auth.domain.aggregate.user.repository;
+package com.github.lalifeier.mall.demo.domain.aggregate.user.repository;
 
-public interface UserRepository  {
+public interface UserRepository {
 }

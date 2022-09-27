@@ -1,1 +1,1 @@
-package com.github.lalifeier.mall.auth.presentation.rpc;
+package com.github.lalifeier.mall.demo.presentation.rpc;

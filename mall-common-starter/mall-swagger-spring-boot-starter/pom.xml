@@ -11,9 +11,19 @@
 
     <artifactId>mall-swagger-spring-boot-starter</artifactId>
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.github.lalifeier</groupId>
+            <artifactId>mall-common-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.github.xiaoymin</groupId>-->
+<!--            <artifactId>knife4j-springdoc-ui</artifactId>-->
+<!--        </dependency>-->
+    </dependencies>
 
 </project>

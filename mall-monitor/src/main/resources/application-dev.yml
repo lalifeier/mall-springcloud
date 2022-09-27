@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://localhost:8848
+        username: nacos
+        password: nacos

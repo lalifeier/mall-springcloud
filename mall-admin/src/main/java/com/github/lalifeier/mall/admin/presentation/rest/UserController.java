@@ -3,7 +3,7 @@ package com.github.lalifeier.mall.admin.presentation.rest;
 
 import com.github.lalifeier.mall.admin.applicaiton.query.UserQueryApplicationService;
 import com.github.lalifeier.mall.admin.domain.aggregate.user.entity.User;
-import com.github.lalifeier.mall.common.service.RedisService;
+import com.github.lalifeier.mall.common.annotation.IgnoreResponseAdvice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +20,13 @@ public class UserController {
     @Autowired
     UserQueryApplicationService userQueryApplicationService;
 
-    @Autowired
-    RedisService redisService;
+//    @Autowired
+//    RedisService redisService;
 
     @GetMapping("hello")
     public String hello() {
+
+//        int a = 4 / 0;
         return "Hello SpringBoot with Swagger3.0";
     }
 

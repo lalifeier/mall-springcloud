@@ -1,13 +1,14 @@
 package com.github.lalifeier.mall.auth;
 
-import org.springframework.boot.SpringApplication;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
 @SpringBootTest
-public class MallAuthApplicationTest {
+public class MallAuthApplicationTests {
 
-    public static void main(String[] args) {
-        SpringApplication.run(MallAuthApplicationTest.class, args);
+    @Test
+    public void contextLoad() {
     }
 }
+

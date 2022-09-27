@@ -11,13 +11,13 @@
 
     <modules>
         <module>mall-common-spring-boot-starter</module>
-        <module>mall-log-spring-boot-starter</module>
         <module>mall-swagger-spring-boot-starter</module>
         <module>mall-redis-spring-boot-starter</module>
         <module>mall-feign-spring-boot-starter</module>
+        <module>mall-logging-spring-boot-starter</module>
     </modules>
 
-    <artifactId>mall-common-start</artifactId>
+    <artifactId>mall-common-starter</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 </project>

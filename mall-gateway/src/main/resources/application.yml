@@ -3,6 +3,13 @@ server:
 
 spring:
   application:
+    name: mall-gateway
+
+  #  mvc:
+  #    pathmatch:
+  #      matching-strategy: ant_path_matcher
+
+  cloud:
     gateway:
       routes:
         - id: mall-auth
@@ -20,3 +27,18 @@ spring:
       discovery:
         locator:
           enabled: true
+
+
+secure:
+  ignore:
+    urls: #配置白名单路径
+      - "/doc.html"
+      - "/swagger-resources/**"
+      - "/swagger/**"
+      - "/*/v3/api-docs"
+      - "/*/*.js"
+      - "/*/*.css"
+      - "/*/*.png"
+      - "/*/*.ico"
+      - "/webjars/**"
+      - "/actuator/**"

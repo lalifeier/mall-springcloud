@@ -1,18 +1,25 @@
 package com.github.lalifeier.mall.common.config;
 
 import com.github.lalifeier.mall.common.advice.GlobalExceptionAdvice;
+import com.github.lalifeier.mall.common.advice.GlobalResponseAdvice;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class CommonAutoConfiguration implements WebMvcConfigurer {
+public class CommonAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean({GlobalExceptionAdvice.class})
-    public GlobalExceptionAdvice exceptionAdvice() {
+    public GlobalExceptionAdvice globalExceptionAdvice() {
         return new GlobalExceptionAdvice();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean({GlobalResponseAdvice.class})
+    public GlobalResponseAdvice globalResponseAdvice() {
+        return new GlobalResponseAdvice();
     }
 
 //    @Override

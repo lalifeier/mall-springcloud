@@ -60,8 +60,8 @@ services:
       - ./data/nginx/logs:/var/log/nginx
       # - /code:/var/www/html
 
-#  http://127.0.0.1:8848/nacos
-#  初始账号密码为 nacos/nacos
+  #  http://127.0.0.1:8848/nacos
+  #  初始账号密码为 nacos/nacos
   nacos:
     image: nacos/nacos-server:v2.1.1
     container_name: nacos
@@ -75,20 +75,20 @@ services:
       - TZ=Asia/Shanghai
       - MODE=standalone
       - NACOS_APPLICATION_PORT=8848
-#      - SPRING_DATASOURCE_PLATFORM=mysql
-#      - MYSQL_SERVICE_HOST=mysql
-#      - MYSQL_SERVICE_PORT=3306
-#      - MYSQL_SERVICE_USER=root
-#      - MYSQL_SERVICE_PASSWORD=123456
-#      - MYSQL_SERVICE_DB_NAME=nacos_config
+      #      - SPRING_DATASOURCE_PLATFORM=mysql
+      #      - MYSQL_SERVICE_HOST=mysql
+      #      - MYSQL_SERVICE_PORT=3306
+      #      - MYSQL_SERVICE_USER=root
+      #      - MYSQL_SERVICE_PASSWORD=123456
+      #      - MYSQL_SERVICE_DB_NAME=nacos_config
       - JVM_XMS=256m
       - JVM_XMX=256m
     volumes:
       - /data/nacos/logs:/home/nacos/logs
-#      - /data/nacos/init.d/custom.properties:/home/nacos/init.d/custom.properties
+  #      - /data/nacos/init.d/custom.properties:/home/nacos/init.d/custom.properties
 
-#  http://127.0.0.1::8858
-#  初始账号密码为 sentinel/sentinel
+  #  http://127.0.0.1::8858
+  #  初始账号密码为 sentinel/sentinel
   sentinel-dashboard:
     image: sentinel-dashboard:1.8.5
     container_name: sentinel-dashboard
@@ -169,3 +169,57 @@ services:
     entrypoint: crond -f
     depends_on:
       - elasticsearch
+
+
+  rmqnamesrv:
+    image: apache/rocketmq:4.5.0
+    container_name: rmqnamesrv
+    ports:
+      - 9876:9876
+    networks:
+      - app_net
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - JAVA_OPT=-server -Xms512m -Xmx512m
+    volumes:
+      - /data/rocketmq/namesrv/logs:/home/rocketmq/logs
+      - /data/rocketmq/namesrv/store:/home/rocketmq/store
+    command: sh mqnamesrv
+
+  rmqbroker:
+    image: apache/rocketmq:4.5.0
+    container_name: rmqbroker
+    ports:
+      - 10909:10909
+      - 10911:10911
+      - 10912:10912
+    networks:
+      - app_net
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - NAMESRV_ADDR=rmqnamesrv:9876
+      - JAVA_OPT_EXT=-server -Xms512M -Xmx512M -Xmn256m
+    volumes:
+      - /data/rocketmq/broker/logs:/home/rocketmq/logs
+      - /data/rocketmq/broker/store:/home/rocketmq/store
+    #      - ./rocketmq/broker/conf/broker.conf:/home/rocketmq/rocketmq-4.5.0/conf/broker.conf
+    command: sh mqbroker
+    #    command: sh mqbroker -n namesrv:9876 -c ../conf/broker.conf
+    depends_on:
+      - rmqnamesrv
+
+  rmqconsole:
+    image: styletang/rocketmq-console-ng
+    container_name: rmqconsole
+    ports:
+      - 8080:8080
+    networks:
+      - app_net
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - JAVA_OPTS=-Drocketmq.namesrv.addr=rmqnamesrv:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false
+    depends_on:
+      - rmqnamesrv

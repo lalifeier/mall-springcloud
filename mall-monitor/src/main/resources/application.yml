@@ -1,0 +1,27 @@
+server:
+  port: 8001
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: mall-monitor
+    admin:
+      enabled: true
+  #      discovery:
+  #        ignored-services: ${spring.application.name}
+
+  security:
+    user:
+      name: admin
+      password: 123456
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+

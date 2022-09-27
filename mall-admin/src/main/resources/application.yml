@@ -12,30 +12,57 @@ spring:
     url: jdbc:mysql://localhost:3306/mall?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
     username: root
     password: 123456
+
   jpa:
     show-sql: true
     database: mysql
-    #    database-platform: org.hibernate.dialect.MySQL5Dialec
-    properties:
-      hibernate:
-        format_sql: true
     hibernate:
       ddl-auto: none
-  #      naming:
-  #        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
   redis:
     host: localhost
     port: 6379
     database: 0
     password:
 
-swagger:
-  enable: true
-  groupName: mall-admin
-  basePackage: com.github.lalifeier.mall.admin.presentation.rest
-  version: 1.0.0
-  title: 接口文档
-  description: 接口文档
-  contactName: lalifeier
-  contactEmail: lalifeier@gmail.com
-  contactUrl: https://lalifeier.github.io
+  cloud:
+    stream:
+      rocketmq:
+        binder:
+          name-server: 127.0.0.1:9876
+      bindings:
+        source1-out-0:
+          destination: source1
+#          content-type: application/json
+        sink1-in-0:
+          destination: sink1
+    function:
+      definition: source1;sink1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+springdoc:
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui
+  api-docs:
+    enabled: true
+    info:
+      title: 接口文档
+      description: 文档说明
+      contact:
+        name: lalifeier
+        email: lalifeier@gmail.com
+        url: https://lalifeier.github.io
+  packages-to-scan: com.github.lalifeier.mall.admin.presentation.rest

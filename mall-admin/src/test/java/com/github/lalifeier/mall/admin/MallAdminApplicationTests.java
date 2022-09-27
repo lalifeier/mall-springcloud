@@ -1,4 +1,4 @@
-package mall.admin;
+package com.github.lalifeier.mall.admin;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

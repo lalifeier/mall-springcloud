@@ -1,1 +1,1 @@
-package com.github.lalifeier.mall.auth.applicaiton.query.impl;
+package com.github.lalifeier.mall.demo.applicaiton.query.impl;

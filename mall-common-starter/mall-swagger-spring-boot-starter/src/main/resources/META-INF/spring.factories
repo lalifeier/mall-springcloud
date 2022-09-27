@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.github.lalifeier.common.swagger.config.SpringDocConfig
+com.github.lalifeier.common.swagger.config.SpringDocAutoConfig

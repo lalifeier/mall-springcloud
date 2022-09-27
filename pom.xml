@@ -14,12 +14,15 @@
     <artifactId>mall-springcloud</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+
     <modules>
         <module>mall-gateway</module>
         <module>mall-auth</module>
         <module>mall-admin</module>
-        <module>mall-common</module>
+        <module>mall-monitor</module>
+        <module>mall-common-starter</module>
     </modules>
+
     <name>mall</name>
     <description>Mall with Spring Cloud</description>
 
@@ -29,23 +32,23 @@
         <java.version>1.8</java.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <docker.maven.plugin.version>0.40.0</docker.maven.plugin.version>
+        <docker.host>http://localhost:2375</docker.host>
+        <docker-maven-plugin.version>0.40.2</docker-maven-plugin.version>
         <spring-boot.version>2.6.11</spring-boot.version>
         <spring-cloud.version>2021.0.4</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.4.0</spring-cloud-alibaba.version>
+        <spring-boot-admin.version>2.6.9</spring-boot-admin.version>
+        <spring-security-oauth2.version>2.5.2.RELEASE</spring-security-oauth2.version>
         <spring-cloud-starter-oauth2.version>2.2.5.RELEASE</spring-cloud-starter-oauth2.version>
-        <nimbus-jose-jwt.version>9.25</nimbus-jose-jwt.version>
-        <!--        <mybatis-starter.version>2.2.2</mybatis-starter.version>-->
-        <!--        <pagehelper-starter.version>1.4.3</pagehelper-starter.version>-->
+        <nimbus-jose-jwt.version>9.25.2</nimbus-jose-jwt.version>
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <mybatis-plus-generator.version>3.5.2</mybatis-plus-generator.version>
         <druid.version>1.2.12</druid.version>
         <mysql-connector.version>8.0.30</mysql-connector.version>
         <hutool.version>5.8.6</hutool.version>
-        <springdoc-openapi-ui.version>1.6.11</springdoc-openapi-ui.version>
+        <springdoc.version>1.6.11</springdoc.version>
         <knife4j.version>3.0.3</knife4j.version>
         <gson.version>2.9.1</gson.version>
-        <mall-common.version>1.0.0-SNAPSHOT</mall-common.version>
     </properties>
 
     <dependencies>
@@ -78,15 +81,10 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>cn.hutool</groupId>-->
-        <!--            <artifactId>hutool-all</artifactId>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.boot</groupId>-->
-        <!--            <artifactId>spring-boot-configuration-processor</artifactId>-->
-        <!--            <optional>true</optional>-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -115,25 +113,40 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!--mall通用模块-->
+            <!--mall start-->
             <dependency>
                 <groupId>com.github.lalifeier</groupId>
-                <artifactId>mall-common</artifactId>
-                <version>${mall-common.version}</version>
+                <artifactId>mall-common-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
             </dependency>
-            <!--MyBatis-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.mybatis.spring.boot</groupId>-->
-            <!--                <artifactId>mybatis-spring-boot-starter</artifactId>-->
-            <!--                <version>${mybatis-starter.version}</version>-->
-            <!--            </dependency>-->
-            <!--MyBatis分页插件-->
-            <!--            <dependency>-->
-            <!--                <groupId>com.github.pagehelper</groupId>-->
-            <!--                <artifactId>pagehelper-spring-boot-starter</artifactId>-->
-            <!--                <version>${pagehelper-starter.version}</version>-->
-            <!--            </dependency>-->
-            <!--Mybatis-Plus-->
+<!--            <dependency>-->
+<!--                <groupId>com.github.lalifeier</groupId>-->
+<!--                <artifactId>mall-log-spring-boot-starter</artifactId>-->
+<!--                <version>${project.version}</version>-->
+<!--            </dependency>-->
+            <dependency>
+                <groupId>com.github.lalifeier</groupId>
+                <artifactId>mall-swagger-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.lalifeier</groupId>
+                <artifactId>mall-redis-spring-boot-start</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--spring-boot-admin server-->
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-server</artifactId>
+                <version>${spring-boot-admin.version}</version>
+            </dependency>
+            <!-- spring-security-oauth2 -->
+            <dependency>
+                <groupId>org.springframework.security.oauth</groupId>
+                <artifactId>spring-security-oauth2</artifactId>
+                <version>${spring-security-oauth2.version}</version>
+            </dependency>
+            <!--MyBatis-Plus-->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -145,29 +158,34 @@
                 <artifactId>mybatis-plus-generator</artifactId>
                 <version>${mybatis-plus-generator.version}</version>
             </dependency>
-            <!--druid连接池-->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druid.version}</version>
-            </dependency>
             <!--Mysql数据库驱动-->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql-connector.version}</version>
             </dependency>
-            <!--Hutool Java工具包-->
+            <!--druid连接池-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <!--Hutool java工具类库-->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
-            <!--springdoc-->
+            <!--springDoc-->
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-ui</artifactId>
-                <version>${springdoc-openapi-ui.version}</version>
+                <version>${springdoc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-webflux-ui</artifactId>
+                <version>${springdoc.version}</version>
             </dependency>
             <!--Knife4j-->
             <dependency>
@@ -181,6 +199,19 @@
                 <artifactId>gson</artifactId>
                 <version>${gson.version}</version>
             </dependency>
+            <!--oauth2-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-oauth2</artifactId>
+                <version>${spring-cloud-starter-oauth2.version}</version>
+            </dependency>
+            <!--jwt-->
+            <dependency>
+                <groupId>com.nimbusds</groupId>
+                <artifactId>nimbus-jose-jwt</artifactId>
+                <version>${nimbus-jose-jwt.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -194,7 +225,63 @@
                     <fork>true</fork>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${docker-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>build-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <dockerHost>${docker.host}</dockerHost>
+                    <images>
+                        <image>
+                            <name>mall/${project.artifactId}:${project.version}</name>
+                            <build>
+                                <from>java:8</from>
+                                <assembly>
+                                    <targetDir>/</targetDir>
+                                    <descriptorRef>artifact</descriptorRef>
+                                </assembly>
+                                <entryPoint>["java", "-jar","-Dspring.profiles.active=prod","/${project.build.finalName}.jar"]</entryPoint>
+                                <maintainer>lalifeier</maintainer>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>aliyun</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>aliyun-plugin</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
 </project>

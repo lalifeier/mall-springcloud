@@ -1,8 +1,8 @@
-package com.github.lalifeier.mall.auth.domain.aggregate.user.service.impl;
+package com.github.lalifeier.mall.demo.domain.aggregate.user.service.impl;
 
-import com.github.lalifeier.mall.auth.domain.aggregate.user.service.UserDomainService;
+import com.github.lalifeier.mall.demo.domain.aggregate.user.service.UserDomainService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserDomainServiceImpl   implements UserDomainService {
+public class UserDomainServiceImpl implements UserDomainService {
 }

@@ -1,13 +1,15 @@
 package com.github.lalifeier.mall.admin.mq;
 
+import io.netty.util.internal.shaded.org.jctools.queues.MessagePassingQueue;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 
+import java.util.function.Consumer;
+
 @Slf4j
 @SpringBootTest
-public class Consumer {
-
+public class ConsumerTest {
 
     @Bean
     public Consumer<String> sink1() {

@@ -1,11 +1,12 @@
-package com.github.lalifeier.mall.common.config;
+package com.github.lalifeier.common.redis.config;
+
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
-import com.github.lalifeier.mall.common.service.RedisService;
-import com.github.lalifeier.mall.common.service.impl.RedisServiceImpl;
+import com.github.lalifeier.common.redis.service.RedisService;
+import com.github.lalifeier.common.redis.service.impl.RedisServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -13,7 +14,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-
 
 @Configuration
 public class RedisConfig {

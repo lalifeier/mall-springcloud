@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.auth.infrastructure.config;
+package com.github.lalifeier.mall.demo.infrastructure.config;
 
 public class SwaggerConfig {
 }

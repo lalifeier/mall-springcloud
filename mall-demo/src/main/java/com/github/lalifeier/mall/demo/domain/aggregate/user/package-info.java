@@ -1,1 +1,1 @@
-package com.github.lalifeier.mall.auth.domain.aggregate.user;
+package com.github.lalifeier.mall.demo.domain.aggregate.user;

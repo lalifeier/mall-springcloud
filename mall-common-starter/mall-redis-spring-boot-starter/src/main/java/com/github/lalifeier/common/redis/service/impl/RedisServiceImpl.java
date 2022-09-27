@@ -1,7 +1,8 @@
-package com.github.lalifeier.mall.common.service.impl;
+package com.github.lalifeier.common.redis.service.impl;
 
 
-import com.github.lalifeier.mall.common.service.RedisService;
+
+import com.github.lalifeier.common.redis.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 

@@ -5,39 +5,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig {
+public class SecurityConfig {
 
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
 //    @Bean
-//    public OAuth2AuthorizedClientManager authorizedClientManager(
-//            ClientRegistrationRepository clientRegistrationRepository,
-//            OAuth2AuthorizedClientRepository authorizedClientRepository) {
-//
-//        OAuth2AuthorizedClientProvider authorizedClientProvider =
-//                OAuth2AuthorizedClientProviderBuilder.builder()
-//                        .authorizationCode()
-//                        .refreshToken()
-//                        .clientCredentials()
-//                        .password()
-//                        .build();
-//
-//        DefaultOAuth2AuthorizedClientManager authorizedClientManager =
-//                new DefaultOAuth2AuthorizedClientManager(
-//                        clientRegistrationRepository, authorizedClientRepository);
-//        authorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);
-//
-//        return authorizedClientManager;
+//    public JwtDecoder jwtDecoder(KeyPair keyPair) {
+//        return NimbusJwtDecoder.withPublicKey((RSAPublicKey) keyPair.getPublic()).build();
 //    }
 
 
