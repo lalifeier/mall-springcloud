@@ -32,16 +32,24 @@ spring:
     oauth2:
       client:
         registration:
-          test:
-            client-id: test_client_1
+          messaging-gateway-oidc:
+            provider: gateway-client-provider
+            client-id: test_client
             client-secret: secret
-            redirect-uri:  'http://127.0.0.1:8080/foo/bar'
+            redirect-uri:  "{baseUrl}/login/oauth2/code/{registrationId}"
             authorization-grant-type: authorization_code
             client-authentication-method: client_secret_basic
-            scope: user.userInfo
+            scope:
+              - openid
+              - profile
+#            client-name: messaging-gateway-oidcs
         provider:
-          test:
+          gateway-client-provider:
             issuer-uri: http://localhost:8101
+      resourceserver:
+        jwt:
+          issuer-uri: http://127.0.0.1:8101
+          jwk-set-uri: http://127.0.0.1:8101/oauth2/jwks
 
 secure:
   ignore:

@@ -38,16 +38,12 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.time.Duration;
 import java.util.UUID;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 @Configuration(proxyBeanMethods = false)
 public class AuthorizationServerConfig {
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
-
-//    @Autowired
-//    JdbcTemplate jdbcTemplate;
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -63,27 +59,37 @@ public class AuthorizationServerConfig {
     @Bean
     public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("test_client_1")
-//                .clientSecret(passwordEncoder.encode("123456"))
+                .clientId("gateway_client")
                 .clientSecret("secret")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .authorizationGrantType(AuthorizationGrantType.PASSWORD)
+                .authorizationGrantType(AuthorizationGrantType.IMPLICIT)
                 .redirectUri("http://127.0.0.1:8080/login/oauth2/code/felord-client-oidc")
                 .redirectUri("http://127.0.0.1:8080/authorized")
                 .redirectUri("http://127.0.0.1:8080/foo/bar")
+                .redirectUri("https://www.baidu.com")
                 .scope(OidcScopes.OPENID)
+                .scope(OidcScopes.PROFILE)
                 .scope("user.userInfo")
-                .tokenSettings(TokenSettings.builder().build())
-                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
+                .tokenSettings(
+                        TokenSettings.builder()
+                                .accessTokenTimeToLive(Duration.ofHours(2))
+                                .refreshTokenTimeToLive(Duration.ofDays(30))
+                                .reuseRefreshTokens(true)
+                                .build()
+                )
+                .clientSettings(
+                        ClientSettings.builder()
+                                .requireAuthorizationConsent(true)
+                                .build()
+                )
                 .build();
-
-        //        return new InMemoryRegisteredClientRepository(registeredClient);
 
         JdbcRegisteredClientRepository registeredClientRepository = new JdbcRegisteredClientRepository(jdbcTemplate);
         registeredClientRepository.save(registeredClient);
-
         return registeredClientRepository;
     }
 
@@ -95,6 +101,13 @@ public class AuthorizationServerConfig {
     @Bean
     public OAuth2AuthorizationConsentService authorizationConsentService(JdbcTemplate jdbcTemplate, RegisteredClientRepository registeredClientRepository) {
         return new JdbcOAuth2AuthorizationConsentService(jdbcTemplate, registeredClientRepository);
+    }
+
+    @Bean
+    public ProviderSettings providerSettings(@Value("${server.port}") Integer port) {
+        return ProviderSettings.builder()
+                .issuer("http://localhost:" + port)
+                .build();
     }
 
     @Bean
@@ -126,11 +139,6 @@ public class AuthorizationServerConfig {
     @Bean
     public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
         return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
-    }
-
-    @Bean
-    public ProviderSettings providerSettings(@Value("${server.port}") Integer port) {
-        return ProviderSettings.builder().issuer("http://localhost:" + port).build();
     }
 
     @Bean
