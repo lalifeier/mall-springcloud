@@ -28,6 +28,20 @@ spring:
         locator:
           enabled: true
 
+  security:
+    oauth2:
+      client:
+        registration:
+          test:
+            client-id: test_client_1
+            client-secret: secret
+            redirect-uri:  'http://127.0.0.1:8080/foo/bar'
+            authorization-grant-type: authorization_code
+            client-authentication-method: client_secret_basic
+            scope: user.userInfo
+        provider:
+          test:
+            issuer-uri: http://localhost:8101
 
 secure:
   ignore:

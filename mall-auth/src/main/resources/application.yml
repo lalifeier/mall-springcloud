@@ -7,6 +7,12 @@ spring:
   application:
     name: mall-auth
 
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+        trace: true
 #  datasource:
 #    type: com.alibaba.druid.pool.DruidDataSource
 #    driver-class-name: com.mysql.jdbc.Driver
@@ -33,3 +39,8 @@ management:
     health:
       show-details: always
 
+logging:
+  level:
+    org.springframework.web: trace
+    org.springframework.security: debug
+    org.springframework.security.oauth2: debug
