@@ -18,18 +18,41 @@ spring:
             - Path=/auth/**
           filters:
             - StripPrefix=1
+        - id: mall-auth-login
+          uri: lb://mall-auth
+          predicates:
+            - Path=/login
+          filters:
+            - PreserveHostHeader
+        - id: mall-auth-token
+          uri: lb://mall-auth
+          predicates:
+            - Path=/oauth/token
+          filters:
+            - PreserveHostHeader
+        - id: mall-auth-authorize
+          uri: lb://mall-auth
+          predicates:
+            - Path=/oauth/authorize
+          filters:
+            - PreserveHostHeader
         - id: mall-admin
           uri: lb://mall-admin
           predicates:
             - Path=/admin/**
           filters:
             - StripPrefix=1
+
       discovery:
         locator:
           enabled: true
 
   security:
     oauth2:
+      resourceserver:
+        jwt:
+          #          issuer-uri: http://127.0.0.1:8101
+          jwk-set-uri: http://127.0.0.1:8101/oauth2/jwks
 #      client:
 #        registration:
 #          messaging-gateway-oidc:
@@ -46,14 +69,14 @@ spring:
 #        provider:
 #          gateway-client-provider:
 #            issuer-uri: http://localhost:8101
-      resourceserver:
-        jwt:
-          issuer-uri: http://127.0.0.1:8101
-          jwk-set-uri: http://127.0.0.1:8101/oauth2/jwks
 
 secure:
   ignore:
-    urls: #配置白名单路径
+    urls:
+      - "/actuator/**"
+      - "/oauth/token"
+      - "/oauth/authorize"
+      - "/login"
       - "/doc.html"
       - "/swagger-resources/**"
       - "/swagger/**"
@@ -63,4 +86,4 @@ secure:
       - "/*/*.png"
       - "/*/*.ico"
       - "/webjars/**"
-      - "/actuator/**"
+

@@ -25,16 +25,14 @@ public class GlobalResponseAdvice implements ResponseBodyAdvice<Object> {
     private ObjectMapper objectMapper;
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-//        if (returnType.getDeclaringClass().isAnnotationPresent(IgnoreResponseAdvice.class)) {
-//            return false;
-//        }
-//        if (Objects.requireNonNull(returnType.getMethod()).isAnnotationPresent(IgnoreResponseAdvice.class)) {
-//            return false;
-//        }
-//
-//        return true;
+        if (returnType.getDeclaringClass().isAnnotationPresent(IgnoreResponseAdvice.class)) {
+            return false;
+        }
+        if (Objects.requireNonNull(returnType.getMethod()).isAnnotationPresent(IgnoreResponseAdvice.class)) {
+            return false;
+        }
 
-        return false;
+        return true;
     }
 
     @Override
