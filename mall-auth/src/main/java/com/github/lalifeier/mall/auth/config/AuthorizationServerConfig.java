@@ -44,6 +44,9 @@ import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 @Configuration(proxyBeanMethods = false)
 public class AuthorizationServerConfig {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -60,23 +63,23 @@ public class AuthorizationServerConfig {
     public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("gateway_client")
-                .clientSecret("secret")
+                .clientSecret(passwordEncoder.encode("123456"))
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 .authorizationGrantType(AuthorizationGrantType.PASSWORD)
                 .authorizationGrantType(AuthorizationGrantType.IMPLICIT)
-                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/felord-client-oidc")
-                .redirectUri("http://127.0.0.1:8080/authorized")
-                .redirectUri("http://127.0.0.1:8080/foo/bar")
+//                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/felord-client-oidc")
+//                .redirectUri("http://127.0.0.1:8080/authorized")
+//                .redirectUri("http://127.0.0.1:8080/foo/bar")
                 .redirectUri("https://www.baidu.com")
                 .scope(OidcScopes.OPENID)
                 .scope(OidcScopes.PROFILE)
                 .scope("user.userInfo")
                 .tokenSettings(
                         TokenSettings.builder()
-                                .accessTokenTimeToLive(Duration.ofHours(2))
+                                .accessTokenTimeToLive(Duration.ofHours(12))
                                 .refreshTokenTimeToLive(Duration.ofDays(30))
                                 .reuseRefreshTokens(true)
                                 .build()
@@ -88,9 +91,12 @@ public class AuthorizationServerConfig {
                 )
                 .build();
 
-        JdbcRegisteredClientRepository registeredClientRepository = new JdbcRegisteredClientRepository(jdbcTemplate);
-        registeredClientRepository.save(registeredClient);
-        return registeredClientRepository;
+        JdbcRegisteredClientRepository jdbcRegisteredClientRepository = new JdbcRegisteredClientRepository(jdbcTemplate);
+        if (null == jdbcRegisteredClientRepository.findByClientId("gateway_client")) {
+            jdbcRegisteredClientRepository.save(registeredClient);
+        }
+
+        return jdbcRegisteredClientRepository;
     }
 
     @Bean

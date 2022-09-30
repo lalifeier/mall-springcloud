@@ -17,32 +17,35 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity(debug = true)
 public class SecurityConfig {
-//
-//    @Autowired
-//    private DataSource dataSource;
-
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests.anyRequest().authenticated()
                 )
-                .formLogin(Customizer.withDefaults());
+                .formLogin();
         return http.build();
     }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+//    }
 
     @Bean
     public UserDetailsService users() {
         UserDetails user = User.builder()
                 .username("user")
-                .password("password")
-                .passwordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder()::encode)
+                .password(passwordEncoder().encode("123456"))
                 .roles("USER")
                 .build();
         UserDetails admin = User.builder()
                 .username("admin")
-                .password("password")
-                .passwordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder()::encode)
+                .password(passwordEncoder().encode("123456"))
                 .roles("USER", "ADMIN")
                 .build();
         return new InMemoryUserDetailsManager(user, admin);
