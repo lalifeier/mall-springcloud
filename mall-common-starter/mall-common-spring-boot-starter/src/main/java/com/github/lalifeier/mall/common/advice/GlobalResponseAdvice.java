@@ -8,6 +8,7 @@ import com.github.lalifeier.mall.common.dto.SingleResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
@@ -17,12 +18,15 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import java.util.Objects;
 
+
 @Slf4j
+@Order(0)
 @RestControllerAdvice(basePackages = "com.github.lalifeier.mall")
 public class GlobalResponseAdvice implements ResponseBodyAdvice<Object> {
 
     @Autowired
     private ObjectMapper objectMapper;
+
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
         if (returnType.getDeclaringClass().isAnnotationPresent(IgnoreResponseAdvice.class)) {

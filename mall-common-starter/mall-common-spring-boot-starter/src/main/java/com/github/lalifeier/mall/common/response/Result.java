@@ -13,8 +13,7 @@ public class Result<T> extends ErrorInfo {
     public Result(int code, String msg) {
         super(code, msg);
     }
-
-
+    
     public static <T> Result<T> success(T data) {
         Result<T> result = new Result<>(SystemErrorCodes.SUCCESS.getCode(), SystemErrorCodes.SUCCESS.getMsg());
         result.data = data;
