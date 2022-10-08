@@ -8,6 +8,9 @@ import lombok.Getter;
 @Getter
 public class Result<T> extends ErrorInfo {
 
+    private Integer errCode;
+
+    private String errMessage;
     private T data;
 
     public Result(int code, String msg) {

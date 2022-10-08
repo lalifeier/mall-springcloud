@@ -7,8 +7,10 @@ import lombok.Getter;
 @Getter
 public enum SystemErrorCodes implements ErrorCode {
 
-    SUCCESS(0, "ok"),
-    SYSTEM_ERROR(1, "system error");
+    SUCCESS(0, "成功"),
+
+//    BIZ_ERROR(1 , "通用的业务逻辑错误"),
+    SYSTEM_ERROR(1, "未知的系统错误");
 
     private final int nodeNum;
     private final String msg;

@@ -21,21 +21,21 @@ import java.util.Map;
 public class GlobalExceptionAdvice {
     public static final Joiner.MapJoiner JOINER = Joiner.on(",").withKeyValueSeparator(": ");
 
-    @ExceptionHandler(BizException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Response handleBizException(BizException ex) {
-        log.error("==========================handleBizException==============================");
-        log.error(ex.getMessage(), ex);
-        return Response.buildFailure(ex.getErrCode(), ex.getMessage());
-    }
-
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public final Response handleException(Exception ex) {
-        log.error("==========================handleException==============================");
-        log.error(ex.getMessage(), ex);
-        return Response.buildFailure(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR), ex.getMessage());
-    }
+//    @ExceptionHandler(BizException.class)
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    public Response handleBizException(BizException ex) {
+//        log.error("==========================handleBizException==============================");
+//        log.error(ex.getMessage(), ex);
+//        return Response.buildFailure(ex.getErrCode(), ex.getMessage());
+//    }
+//
+//    @ExceptionHandler(Exception.class)
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    public final Response handleException(Exception ex) {
+//        log.error("==========================handleException==============================");
+//        log.error(ex.getMessage(), ex);
+//        return Response.buildFailure(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR), ex.getMessage());
+//    }
 
 
 //    @ResponseBody

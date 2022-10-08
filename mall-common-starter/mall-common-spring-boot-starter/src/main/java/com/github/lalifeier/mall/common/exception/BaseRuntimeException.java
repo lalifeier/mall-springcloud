@@ -3,36 +3,39 @@ package com.github.lalifeier.mall.common.exception;
 import com.github.lalifeier.mall.common.api.ErrorCode;
 import com.github.lalifeier.mall.common.api.ProjectModule;
 import com.github.lalifeier.mall.common.manager.ErrorInfo;
+import lombok.Getter;
 
-public abstract class BaseException extends RuntimeException implements IErrorCodeException {
+@Getter
+public abstract class BaseRuntimeException extends RuntimeException implements IErrorCodeException{
+
     final ErrorInfo errorInfo;
 
-    protected BaseException(String message) {
+    protected BaseRuntimeException(String message) {
         super(message);
         this.errorInfo = ErrorInfo.parse(message);
     }
 
-    protected BaseException(String message, Throwable cause) {
+    protected BaseRuntimeException(String message, Throwable cause) {
         super(message, cause);
         this.errorInfo = ErrorInfo.parse(message);
     }
 
-    protected BaseException(Throwable cause) {
+    protected BaseRuntimeException(Throwable cause) {
         super(cause);
         this.errorInfo = ErrorInfo.parse(cause.getMessage());
     }
 
-    protected BaseException(ErrorInfo errorInfo) {
+    protected BaseRuntimeException(ErrorInfo errorInfo) {
         super(errorInfo.toString());
         this.errorInfo = errorInfo;
     }
 
-    protected BaseException(ErrorCode errorCode) {
+    protected BaseRuntimeException(ErrorCode errorCode) {
         this(ErrorInfo.parse(errorCode));
         ProjectModule.check(projectModule(), errorCode.projectModule());
     }
 
-    protected BaseException(ErrorCode errorCode, Object... args) {
+    protected BaseRuntimeException(ErrorCode errorCode, Object... args) {
         this(ErrorInfo.parse(errorCode, args));
         ProjectModule.check(projectModule(), errorCode.projectModule());
     }
@@ -41,5 +44,5 @@ public abstract class BaseException extends RuntimeException implements IErrorCo
     public ErrorInfo getErrorInfo() {
         return errorInfo;
     }
-
 }
+

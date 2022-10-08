@@ -1,25 +1,40 @@
 package com.github.lalifeier.mall.common.exception;
 
+import com.github.lalifeier.mall.common.api.ErrorCode;
+import com.github.lalifeier.mall.common.api.ProjectModule;
+import com.github.lalifeier.mall.common.manager.ErrorInfo;
+import com.github.lalifeier.mall.common.system.SystemProjectModule;
+
 public class SysException extends BaseException {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String DEFAULT_ERR_CODE = "SYS_ERROR";
-
-    public SysException(String errMessage) {
-        super(DEFAULT_ERR_CODE, errMessage);
+    public SysException(String message) {
+        super(message);
     }
 
-    public SysException(String errCode, String errMessage) {
-        super(errCode, errMessage);
+    public SysException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    public SysException(String errMessage, Throwable e) {
-        super(DEFAULT_ERR_CODE, errMessage, e);
+    public SysException(Throwable cause) {
+        super(cause);
     }
 
-    public SysException(String errorCode, String errMessage, Throwable e) {
-        super(errorCode, errMessage, e);
+    public SysException(ErrorInfo errorInfo) {
+        super(errorInfo);
     }
 
+    public SysException(ErrorCode errorCode) {
+        super(errorCode);
+    }
+
+    public SysException(ErrorCode errorCode, Object... args) {
+        super(errorCode, args);
+    }
+
+    @Override
+    public ProjectModule projectModule() {
+        return SystemProjectModule.INSTANCE;
+    }
 }

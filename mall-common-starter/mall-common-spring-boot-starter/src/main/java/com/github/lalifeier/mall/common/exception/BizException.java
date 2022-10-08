@@ -1,25 +1,41 @@
 package com.github.lalifeier.mall.common.exception;
 
+import com.github.lalifeier.mall.common.api.ErrorCode;
+import com.github.lalifeier.mall.common.api.ProjectModule;
+import com.github.lalifeier.mall.common.manager.ErrorInfo;
+import com.github.lalifeier.mall.common.system.SystemProjectModule;
+
 public class BizException extends BaseException {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String DEFAULT_ERR_CODE = "BIZ_ERROR";
-
-    public BizException(String errMessage) {
-        super(DEFAULT_ERR_CODE, errMessage);
+    public BizException(String message) {
+        super(message);
     }
 
-    public BizException(String errCode, String errMessage) {
-        super(errCode, errMessage);
+    public BizException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    public BizException(String errMessage, Throwable e) {
-        super(DEFAULT_ERR_CODE, errMessage, e);
+    public BizException(Throwable cause) {
+        super(cause);
     }
 
-    public BizException(String errorCode, String errMessage, Throwable e) {
-        super(errorCode, errMessage, e);
+    public BizException(ErrorInfo errorInfo) {
+        super(errorInfo);
+    }
+
+    public BizException(ErrorCode errorCode) {
+        super(errorCode);
+    }
+
+    public BizException(ErrorCode errorCode, Object... args) {
+        super(errorCode, args);
+    }
+
+    @Override
+    public ProjectModule projectModule() {
+        return SystemProjectModule.INSTANCE;
     }
 
 }
