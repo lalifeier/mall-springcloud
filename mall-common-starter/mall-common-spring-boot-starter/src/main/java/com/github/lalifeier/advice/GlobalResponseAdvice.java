@@ -3,7 +3,7 @@ package com.github.lalifeier.advice;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.lalifeier.annotation.IgnoreResponseAdvice;
-import com.github.lalifeier.response.Response;
+import com.github.lalifeier.api.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
@@ -40,13 +40,13 @@ public class GlobalResponseAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         if (body == null) {
-            return Response.buildSuccess();
+            return Response.success();
         }
 
         if (body instanceof String) {
             try {
                 response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
-                return objectMapper.writeValueAsString(Response.of(body));
+                return objectMapper.writeValueAsString(Response.success(body));
             } catch (JsonProcessingException e) {
                 log.error(e.getMessage(), e);
                 throw new RuntimeException(e.getMessage(), e);
@@ -57,6 +57,6 @@ public class GlobalResponseAdvice implements ResponseBodyAdvice<Object> {
             return body;
         }
 
-        return Response.of(body);
+        return Response.success(body);
     }
 }

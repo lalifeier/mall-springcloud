@@ -1,7 +1,7 @@
 package com.github.lalifeier.exception;
 
 
-import com.github.lalifeier.api.ErrorCode;
+import com.github.lalifeier.api.IError;
 import com.github.lalifeier.api.ProjectModule;
 import com.github.lalifeier.manager.ErrorInfo;
 import lombok.Getter;
@@ -31,14 +31,14 @@ public abstract class BaseRuntimeException extends RuntimeException implements c
         this.errorInfo = errorInfo;
     }
 
-    protected BaseRuntimeException(ErrorCode errorCode) {
-        this(ErrorInfo.parse(errorCode));
-        ProjectModule.check(projectModule(), errorCode.projectModule());
+    protected BaseRuntimeException(IError IError) {
+        this(ErrorInfo.parse(IError));
+        ProjectModule.check(projectModule(), IError.projectModule());
     }
 
-    protected BaseRuntimeException(ErrorCode errorCode, Object... args) {
-        this(ErrorInfo.parse(errorCode, args));
-        ProjectModule.check(projectModule(), errorCode.projectModule());
+    protected BaseRuntimeException(IError IError, Object... args) {
+        this(ErrorInfo.parse(IError, args));
+        ProjectModule.check(projectModule(), IError.projectModule());
     }
 
     @Override

@@ -1,12 +1,12 @@
 package com.github.lalifeier.system;
 
 
-import com.github.lalifeier.api.ErrorCode;
+import com.github.lalifeier.api.IError;
 import com.github.lalifeier.manager.ErrorManager;
 import lombok.Getter;
 
 @Getter
-public enum HttpCodes implements ErrorCode {
+public enum HttpCodes implements IError {
 
     CONTINUE(100, "Continue"),
     SWITCHING_PROTOCOLS(101, "Switching Protocols"),
@@ -96,11 +96,11 @@ public enum HttpCodes implements ErrorCode {
     NETWORK_AUTHENTICATION_REQUIRED(511, "Network Authentication Required");
 
     private final int status;
-    private final String msg;
+    private final String message;
 
-    HttpCodes(int status, String msg) {
+    HttpCodes(int status, String message) {
         this.status = status;
-        this.msg = msg;
+        this.message = message;
         ErrorManager.register(SystemProjectModule.INSTANCE, this);
     }
 

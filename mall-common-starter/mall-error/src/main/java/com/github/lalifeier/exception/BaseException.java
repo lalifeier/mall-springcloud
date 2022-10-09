@@ -1,7 +1,7 @@
 package com.github.lalifeier.exception;
 
 
-import com.github.lalifeier.api.ErrorCode;
+import com.github.lalifeier.api.IError;
 import com.github.lalifeier.api.ProjectModule;
 import com.github.lalifeier.manager.ErrorInfo;
 
@@ -28,14 +28,14 @@ public abstract class BaseException extends RuntimeException implements com.gith
         this.errorInfo = errorInfo;
     }
 
-    protected BaseException(ErrorCode errorCode) {
-        this(ErrorInfo.parse(errorCode));
-        ProjectModule.check(projectModule(), errorCode.projectModule());
+    protected BaseException(IError IError) {
+        this(ErrorInfo.parse(IError));
+        ProjectModule.check(projectModule(), IError.projectModule());
     }
 
-    protected BaseException(ErrorCode errorCode, Object... args) {
-        this(ErrorInfo.parse(errorCode, args));
-        ProjectModule.check(projectModule(), errorCode.projectModule());
+    protected BaseException(IError IError, Object... args) {
+        this(ErrorInfo.parse(IError, args));
+        ProjectModule.check(projectModule(), IError.projectModule());
     }
 
     @Override

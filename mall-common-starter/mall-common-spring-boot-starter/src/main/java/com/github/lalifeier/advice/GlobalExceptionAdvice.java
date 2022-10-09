@@ -2,9 +2,9 @@ package com.github.lalifeier.advice;
 
 
 import com.github.lalifeier.manager.ErrorInfo;
-import com.github.lalifeier.response.Response;
+import com.github.lalifeier.api.Response;
 import com.github.lalifeier.system.HttpCodes;
-import com.github.lalifeier.system.SystemErrorCodes;
+import com.github.lalifeier.system.SystemError;
 import com.google.common.base.Joiner;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
@@ -41,14 +41,14 @@ public class GlobalExceptionAdvice {
             ErrorInfo errorInfo = ((com.github.lalifeier.exception.IErrorCodeException) e).getErrorInfo();
             Response<?> apiResult;
             if (errorInfo == null) {
-                apiResult = Response.buildFailure(SystemErrorCodes.SYSTEM_ERROR.getCode(), pair.getRight());
+                apiResult = Response.failure(SystemError.SYSTEM_ERROR.getCode(), pair.getRight());
             } else {
-                apiResult = Response.buildFailure(errorInfo.getCode(), errorInfo.getMsg());
+                apiResult = Response.failure(errorInfo.getCode(), errorInfo.getMsg());
             }
             return new ResponseEntity<>(apiResult, HttpStatus.OK);
         }
         log.error("error, request: {}", parseParam(request), e);
-        Response<String> errorResult = Response.buildFailure(SystemErrorCodes.SYSTEM_ERROR.getCode(), pair.getLeft().getClass().getSimpleName() + ": " + pair.getRight());
+        Response<String> errorResult = Response.failure(SystemError.SYSTEM_ERROR.getCode(), pair.getLeft().getClass().getSimpleName() + ": " + pair.getRight());
         return new ResponseEntity<>(errorResult, HttpStatus.OK);
     }
 
@@ -63,7 +63,7 @@ public class GlobalExceptionAdvice {
             builder.append(fieldError.getField() + fieldError.getDefaultMessage()).append(", ");
         }
         log.error("BadRequestException, request: {}", parseParam(request), e);
-        return new ResponseEntity<>(Response.buildFailure(HttpCodes.BAD_REQUEST.getStatus(), builder.toString()), HttpStatus.OK);
+        return new ResponseEntity<>(Response.failure(HttpCodes.BAD_REQUEST.getStatus(), builder.toString()), HttpStatus.OK);
     }
 
 

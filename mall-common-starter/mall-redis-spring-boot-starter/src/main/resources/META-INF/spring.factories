@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.github.lalifeier.config.RedisConfig
+com.github.lalifeier.config.RedisAutoConfig

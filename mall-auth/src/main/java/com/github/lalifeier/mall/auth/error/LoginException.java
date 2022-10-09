@@ -1,7 +1,7 @@
 package com.github.lalifeier.mall.auth.error;
 
 
-import com.github.lalifeier.api.ErrorCode;
+import com.github.lalifeier.api.IError;
 import com.github.lalifeier.api.ProjectModule;
 import com.github.lalifeier.exception.BaseException;
 import com.github.lalifeier.manager.ErrorInfo;
@@ -24,12 +24,12 @@ public class LoginException extends BaseException {
         super(errorInfo);
     }
 
-    protected LoginException(ErrorCode errorCode) {
-        super(errorCode);
+    protected LoginException(IError IError) {
+        super(IError);
     }
 
-    protected LoginException(ErrorCode errorCode, Object... args) {
-        super(errorCode, args);
+    protected LoginException(IError IError, Object... args) {
+        super(IError, args);
     }
 
     @Override

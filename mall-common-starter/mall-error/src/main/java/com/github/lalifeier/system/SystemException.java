@@ -1,7 +1,7 @@
 package com.github.lalifeier.system;
 
 
-import com.github.lalifeier.api.ErrorCode;
+import com.github.lalifeier.api.IError;
 import com.github.lalifeier.api.ProjectModule;
 import com.github.lalifeier.exception.BaseException;
 import com.github.lalifeier.manager.ErrorInfo;
@@ -25,12 +25,12 @@ public class SystemException extends BaseException {
         super(errorInfo);
     }
 
-    public SystemException(ErrorCode errorCode) {
-        super(errorCode);
+    public SystemException(IError IError) {
+        super(IError);
     }
 
-    public SystemException(ErrorCode errorCode, Object... args) {
-        super(errorCode, args);
+    public SystemException(IError IError, Object... args) {
+        super(IError, args);
     }
 
     @Override

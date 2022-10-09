@@ -1,8 +1,8 @@
 package com.github.lalifeier.manager;
 
 
-import com.github.lalifeier.api.ErrorCode;
-import com.github.lalifeier.system.SystemErrorCodes;
+import com.github.lalifeier.api.IError;
+import com.github.lalifeier.system.SystemError;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.slf4j.helpers.MessageFormatter;
@@ -27,17 +27,17 @@ public class ErrorInfo {
 
 
     public static ErrorInfo parse(String message) {
-        return ERROR_MSG_CODES_MAP.computeIfAbsent(message, it -> new ErrorInfo(SystemErrorCodes.SYSTEM_ERROR.getCode(), message));
+        return ERROR_MSG_CODES_MAP.computeIfAbsent(message, it -> new ErrorInfo(SystemError.SYSTEM_ERROR.getCode(), message));
     }
 
-    public static ErrorInfo parse(ErrorCode errorCode) {
-        int code = errorCode.getCode();
-        return NO_PARAM_CODES_MAP.computeIfAbsent(code, it -> new ErrorInfo(it, errorCode.getMsg()));
+    public static ErrorInfo parse(IError error) {
+        int code = error.getCode();
+        return NO_PARAM_CODES_MAP.computeIfAbsent(code, it -> new ErrorInfo(it, error.getMessage()));
     }
 
-    public static ErrorInfo parse(ErrorCode errorCode, Object... args) {
-        String msg = MessageFormatter.arrayFormat(errorCode.getMsg(), args).getMessage();
-        return new ErrorInfo(errorCode.getCode(), msg);
+    public static ErrorInfo parse(IError error, Object... args) {
+        String msg = MessageFormatter.arrayFormat(error.getMessage(), args).getMessage();
+        return new ErrorInfo(error.getCode(), msg);
     }
 
     @Override
