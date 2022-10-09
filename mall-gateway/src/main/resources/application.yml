@@ -1,9 +1,14 @@
 server:
   port: 8080
 
+
+
 spring:
   application:
     name: mall-gateway
+
+  #  main:
+  #    allow-bean-definition-overriding: true
 
   #  mvc:
   #    pathmatch:

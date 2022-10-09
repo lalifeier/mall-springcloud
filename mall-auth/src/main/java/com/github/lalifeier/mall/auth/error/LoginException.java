@@ -1,9 +1,10 @@
 package com.github.lalifeier.mall.auth.error;
 
-import com.github.lalifeier.mall.common.api.ErrorCode;
-import com.github.lalifeier.mall.common.api.ProjectModule;
-import com.github.lalifeier.mall.common.exception.BaseException;
-import com.github.lalifeier.mall.common.manager.ErrorInfo;
+
+import com.github.lalifeier.api.ErrorCode;
+import com.github.lalifeier.api.ProjectModule;
+import com.github.lalifeier.exception.BaseException;
+import com.github.lalifeier.manager.ErrorInfo;
 
 public class LoginException extends BaseException {
 

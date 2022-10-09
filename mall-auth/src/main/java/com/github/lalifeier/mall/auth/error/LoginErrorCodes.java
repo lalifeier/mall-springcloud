@@ -1,7 +1,8 @@
 package com.github.lalifeier.mall.auth.error;
 
-import com.github.lalifeier.mall.common.api.ErrorCode;
-import com.github.lalifeier.mall.common.manager.ErrorManager;
+
+import com.github.lalifeier.api.ErrorCode;
+import com.github.lalifeier.manager.ErrorManager;
 import lombok.Getter;
 
 @Getter

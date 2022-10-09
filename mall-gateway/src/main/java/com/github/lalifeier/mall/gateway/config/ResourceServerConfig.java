@@ -2,8 +2,8 @@ package com.github.lalifeier.mall.gateway.config;
 
 import cn.hutool.core.util.ArrayUtil;
 import com.github.lalifeier.mall.gateway.authorization.AuthorizationManager;
-import com.github.lalifeier.mall.gateway.component.RestAuthenticationEntryPoint;
 import com.github.lalifeier.mall.gateway.component.RestAccessDeniedHandler;
+import com.github.lalifeier.mall.gateway.component.RestAuthenticationEntryPoint;
 import com.github.lalifeier.mall.gateway.constant.AuthConstant;
 import com.github.lalifeier.mall.gateway.filter.IgnoreUrlsRemoveJwtFilter;
 import lombok.AllArgsConstructor;
@@ -11,8 +11,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
-
-
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;

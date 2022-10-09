@@ -52,6 +52,8 @@
         <gson.version>2.9.1</gson.version>
         <guava.version>31.1-jre</guava.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
+        <commons-io.version>2.11.0</commons-io.version>
+        <commons-codec.version>1.15</commons-codec.version>
     </properties>
 
     <dependencies>
@@ -79,8 +81,8 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
     </dependencies>
@@ -114,6 +116,16 @@
             <!--mall start-->
             <dependency>
                 <groupId>com.github.lalifeier</groupId>
+                <artifactId>mall-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.lalifeier</groupId>
+                <artifactId>mall-error</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.lalifeier</groupId>
                 <artifactId>mall-common-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -129,7 +141,7 @@
             </dependency>
             <dependency>
                 <groupId>com.github.lalifeier</groupId>
-                <artifactId>mall-redis-spring-boot-start</artifactId>
+                <artifactId>mall-redis-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!--spring-boot-admin server-->
@@ -226,6 +238,18 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3.version}</version>
+            </dependency>
+            <!--commons-io-->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+            <!--commons-codec-->
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons-codec.version}</version>
             </dependency>
 
 

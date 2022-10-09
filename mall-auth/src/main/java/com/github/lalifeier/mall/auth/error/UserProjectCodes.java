@@ -1,6 +1,7 @@
 package com.github.lalifeier.mall.auth.error;
 
-import com.github.lalifeier.mall.common.api.ProjectModule;
+
+import com.github.lalifeier.api.ProjectModule;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

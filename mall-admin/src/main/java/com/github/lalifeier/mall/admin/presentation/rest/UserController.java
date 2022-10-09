@@ -3,7 +3,6 @@ package com.github.lalifeier.mall.admin.presentation.rest;
 
 import com.github.lalifeier.mall.admin.applicaiton.query.UserQueryApplicationService;
 import com.github.lalifeier.mall.admin.domain.aggregate.user.entity.User;
-import com.github.lalifeier.mall.common.annotation.IgnoreResponseAdvice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
