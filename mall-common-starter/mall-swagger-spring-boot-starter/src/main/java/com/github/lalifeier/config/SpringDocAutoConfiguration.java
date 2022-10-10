@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConditionalOnProperty(name = "springdoc.api-docs.enabled", havingValue = "true")
-public class SpringDocAutoConfig {
+public class SpringDocAutoConfiguration {
     @Bean
     @ConfigurationProperties(prefix = "springdoc.api-docs.info")
     public Info springDocInfo() {

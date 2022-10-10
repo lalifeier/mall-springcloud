@@ -1,21 +1,25 @@
 package com.github.lalifeier.config;
 
+import com.github.lalifeier.advice.GlobalExceptionAdvice;
+import com.github.lalifeier.advice.GlobalResponseAdvice;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class CommonAutoConfig {
+public class CommonAutoConfiguration {
 
-//    @Bean
-//    @ConditionalOnMissingBean({GlobalExceptionAdvice.class})
-//    public GlobalExceptionAdvice globalExceptionAdvice() {
-//        return new GlobalExceptionAdvice();
-//    }
-//
-//    @Bean
-//    @ConditionalOnMissingBean({GlobalResponseAdvice.class})
-//    public GlobalResponseAdvice globalResponseAdvice() {
-//        return new GlobalResponseAdvice();
-//    }
+    @Bean
+    @ConditionalOnMissingBean({GlobalExceptionAdvice.class})
+    public GlobalExceptionAdvice globalExceptionAdvice() {
+        return new GlobalExceptionAdvice();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean({GlobalResponseAdvice.class})
+    public GlobalResponseAdvice globalResponseAdvice() {
+        return new GlobalResponseAdvice();
+    }
 
 //    @Override
 //    public void addInterceptors(InterceptorRegistry registry) {

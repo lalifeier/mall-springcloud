@@ -21,6 +21,7 @@
         <module>mall-admin</module>
         <module>mall-monitor</module>
         <module>mall-common-starter</module>
+        <module>mall-account</module>
     </modules>
 
     <name>mall</name>

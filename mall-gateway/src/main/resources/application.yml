@@ -1,14 +1,9 @@
 server:
   port: 8080
 
-
-
 spring:
   application:
     name: mall-gateway
-
-  #  main:
-  #    allow-bean-definition-overriding: true
 
   #  mvc:
   #    pathmatch:
@@ -47,6 +42,12 @@ spring:
             - Path=/oauth2/authorize
           filters:
             - PreserveHostHeader
+        - id: mall-account
+          uri: lb://mall-account
+          predicates:
+            - Path=/account/**
+          filters:
+            - StripPrefix=1
         - id: mall-admin
           uri: lb://mall-admin
           predicates:
@@ -62,7 +63,6 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          #          issuer-uri: http://127.0.0.1:8101
           jwk-set-uri: http://127.0.0.1:8101/oauth2/jwks
 #      client:
 #        registration:
@@ -98,3 +98,11 @@ secure:
       - "/*/*.ico"
       - "/webjars/**"
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always

@@ -1,18 +1,18 @@
 server:
-  port: 8081
+  port: 8082
 
 spring:
   profiles:
     active: dev
   application:
-    name: mall-auth
+    name: mall-account
 
-  h2:
-    console:
-      enabled: true
-      settings:
-        web-allow-others: true
-        trace: true
+#  h2:
+#    console:
+#      enabled: true
+#      settings:
+#        web-allow-others: true
+#        trace: true
 
 #  datasource:
 #    type: com.alibaba.druid.pool.DruidDataSource
@@ -39,9 +39,3 @@ management:
   endpoint:
     health:
       show-details: always
-
-logging:
-  level:
-    org.springframework.web: trace
-    org.springframework.security: debug
-    org.springframework.security.oauth2: debug
