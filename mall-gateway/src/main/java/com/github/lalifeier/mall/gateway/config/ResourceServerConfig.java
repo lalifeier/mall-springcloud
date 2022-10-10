@@ -35,14 +35,20 @@ public class ResourceServerConfig {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http.oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter());
+        //自定义处理JWT请求头过期或签名错误的结果
         http.oauth2ResourceServer().authenticationEntryPoint(authenticationEntryPoint);
+        //对白名单路径，直接移除JWT请求头
         http.addFilterBefore(ignoreUrlsRemoveJwtFilter, SecurityWebFiltersOrder.AUTHENTICATION);
         http.authorizeExchange()
+                //白名单配置
                 .pathMatchers(ArrayUtil.toArray(ignoreUrlsConfig.getUrls(), String.class)).permitAll()
+                //鉴权管理器配置
                 .anyExchange().access(authorizationManager)
                 .and()
                 .exceptionHandling()
+                //处理未授权
                 .accessDeniedHandler(accessDeniedHandler)
+                //处理未认证
                 .authenticationEntryPoint(authenticationEntryPoint)
                 .and().csrf().disable();
         return http.build();

@@ -37,6 +37,8 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
 
         URI uri = authorizationContext.getExchange().getRequest().getURI();
 
+        log.info("uri：[{}]", uri);
+
         Object obj = redisTemplate.opsForHash().get(RedisConstant.RESOURCE_ROLES_MAP, uri.getPath());
         List<String> authorities = Convert.toList(String.class, obj);
         authorities = authorities.stream().map(i -> i = AuthConstant.AUTHORITY_PREFIX + i).collect(Collectors.toList());

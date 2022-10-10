@@ -4,6 +4,8 @@ package com.github.lalifeier.mall.auth.config;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
+import com.nimbusds.jose.jwk.source.JWKSource;
+import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -40,13 +42,13 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.time.Duration;
 import java.util.UUID;
-import com.nimbusds.jose.jwk.source.JWKSource;
-import com.nimbusds.jose.proc.SecurityContext;
+
 @Configuration(proxyBeanMethods = false)
 public class AuthorizationServerConfig {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -59,6 +61,7 @@ public class AuthorizationServerConfig {
 
         return http.build();
     }
+
     @Bean
     public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
@@ -68,8 +71,8 @@ public class AuthorizationServerConfig {
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .authorizationGrantType(AuthorizationGrantType.PASSWORD)
-                .authorizationGrantType(AuthorizationGrantType.IMPLICIT)
+//                .authorizationGrantType(AuthorizationGrantType.PASSWORD)
+//                .authorizationGrantType(AuthorizationGrantType.IMPLICIT)
 //                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/felord-client-oidc")
 //                .redirectUri("http://127.0.0.1:8080/authorized")
 //                .redirectUri("http://127.0.0.1:8080/foo/bar")
@@ -77,6 +80,7 @@ public class AuthorizationServerConfig {
                 .scope(OidcScopes.OPENID)
                 .scope(OidcScopes.PROFILE)
                 .scope("user.userInfo")
+                .scope("all")
                 .tokenSettings(
                         TokenSettings.builder()
                                 .accessTokenTimeToLive(Duration.ofHours(12))
@@ -135,8 +139,7 @@ public class AuthorizationServerConfig {
             KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
             keyPairGenerator.initialize(2048);
             keyPair = keyPairGenerator.generateKeyPair();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new IllegalStateException(ex);
         }
         return keyPair;

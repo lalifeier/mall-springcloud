@@ -14,6 +14,12 @@ spring:
   #    pathmatch:
   #      matching-strategy: ant_path_matcher
 
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    password:
+
   cloud:
     gateway:
       routes:
@@ -32,13 +38,13 @@ spring:
         - id: mall-auth-token
           uri: lb://mall-auth
           predicates:
-            - Path=/oauth/token
+            - Path=/oauth2/token
           filters:
             - PreserveHostHeader
         - id: mall-auth-authorize
           uri: lb://mall-auth
           predicates:
-            - Path=/oauth/authorize
+            - Path=/oauth2/authorize
           filters:
             - PreserveHostHeader
         - id: mall-admin
@@ -79,9 +85,9 @@ secure:
   ignore:
     urls:
       - "/actuator/**"
-      - "/oauth/token"
-      - "/oauth/authorize"
       - "/login"
+      - "/oauth2/token"
+      - "/oauth2/authorize"
       - "/doc.html"
       - "/swagger-resources/**"
       - "/swagger/**"
