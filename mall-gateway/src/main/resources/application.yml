@@ -2,18 +2,14 @@ server:
   port: 8080
 
 spring:
+  profiles:
+    active: dev
   application:
     name: mall-gateway
 
   #  mvc:
   #    pathmatch:
   #      matching-strategy: ant_path_matcher
-
-  redis:
-    host: localhost
-    port: 6379
-    database: 0
-    password:
 
   cloud:
     gateway:
@@ -64,22 +60,28 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: http://127.0.0.1:8101/oauth2/jwks
-#      client:
-#        registration:
-#          messaging-gateway-oidc:
-#            provider: gateway-client-provider
-#            client-id: test_client
-#            client-secret: secret
-#            redirect-uri:  "{baseUrl}/login/oauth2/code/{registrationId}"
-#            authorization-grant-type: authorization_code
-#            client-authentication-method: client_secret_basic
-#            scope:
-#              - openid
-#              - profile
-##            client-name: messaging-gateway-oidcs
-#        provider:
-#          gateway-client-provider:
-#            issuer-uri: http://localhost:8101
+  #      client:
+  #        registration:
+  #          messaging-gateway-oidc:
+  #            provider: gateway-client-provider
+  #            client-id: test_client
+  #            client-secret: secret
+  #            redirect-uri:  "{baseUrl}/login/oauth2/code/{registrationId}"
+  #            authorization-grant-type: authorization_code
+  #            client-authentication-method: client_secret_basic
+  #            scope:
+  #              - openid
+  #              - profile
+  ##            client-name: messaging-gateway-oidcs
+  #        provider:
+  #          gateway-client-provider:
+  #            issuer-uri: http://localhost:8101
+
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    password:
 
 secure:
   ignore:

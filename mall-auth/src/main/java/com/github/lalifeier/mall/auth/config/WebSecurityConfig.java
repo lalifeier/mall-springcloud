@@ -5,9 +5,9 @@ import com.github.lalifeier.mall.auth.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,9 +20,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @AllArgsConstructor
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserService userService;
+
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -60,21 +61,22 @@ public class WebSecurityConfig {
 
 //    @Bean
 //    public UserDetailsService userDetailsService() {
-//        return new JdbcUserDetailsManager(dataSource);
-//    }
-
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
+//        return new JdbcUserDetailsManager();
 //    }
 
     @Bean
     WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web.ignoring().antMatchers("/actuator/health","/h2-console/**");
+        return web -> web.ignoring().antMatchers("/actuator/health", "/h2-console/**");
     }
 
-    //@Bean
-    //public AuthenticationManager authenticationManagerBean() throws Exception {
-    //    return super.authenticationManagerBean();
-    //}
+//    @Bean
+//    public AuthenticationManager authenticationManagerBean() throws Exception {
+//        return super.authenticationManagerBean();
+//    }
+
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(userDetailsServiceBean())
+//                .passwordEncoder(passwordEncoder());
+//    }
 }

@@ -1,10 +1,10 @@
 package com.github.lalifeier.mall.auth.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.github.lalifeier.mall.auth.constant.MessageConstant;
 import com.github.lalifeier.mall.auth.entity.User;
 import com.github.lalifeier.mall.auth.entity.UserPrincipal;
 import com.github.lalifeier.mall.auth.service.UserService;
-
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.CredentialsExpiredException;
@@ -20,8 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import cn.hutool.core.collection.CollUtil;
-
 @AllArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
@@ -35,7 +33,6 @@ public class UserServiceImpl implements UserService {
         userList.add(new User(1L, "admin", password, 1, CollUtil.toList("ADMIN")));
         userList.add(new User(2L, "user", password, 1, CollUtil.toList("USER")));
     }
-
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

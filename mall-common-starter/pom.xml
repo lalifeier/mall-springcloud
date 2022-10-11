@@ -15,6 +15,7 @@
         <module>mall-redis-spring-boot-starter</module>
         <module>mall-feign-spring-boot-starter</module>
         <module>mall-logging-spring-boot-starter</module>
+        <module>mall-security-spring-boot-starter</module>
         <module>mall-error</module>
         <module>mall-common</module>
     </modules>

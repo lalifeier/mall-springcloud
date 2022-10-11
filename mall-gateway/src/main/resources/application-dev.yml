@@ -1,0 +1,23 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://localhost:8848
+      #        username: nacos
+      #        password: nacos
+      #        namespace: ${spring.profiles.active}
+      #        group: GROUP_DEV
+      config:
+        server-addr: http://localhost:8848
+        #        prefix: ${spring.application.name}
+        file-extension: yaml
+#        namespace: ${spring.profiles.active}
+#        group: GROUP_DEV
+#        extension-configs[0]:
+#          data-id: gateway-dev.yaml
+#          group: GROUP_DEV
+#          refresh: false
+
+logging:
+  level:
+    root: info
