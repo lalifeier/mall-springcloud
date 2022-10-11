@@ -5,6 +5,7 @@ import com.github.lalifeier.mall.auth.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -20,9 +21,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @AllArgsConstructor
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig  {
 
-    private final UserService userService;
+    //private final UserService userService;
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -69,10 +70,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return web -> web.ignoring().antMatchers("/actuator/health", "/h2-console/**");
     }
 
-//    @Bean
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        return super.authenticationManagerBean();
-//    }
+    //@Bean
+    //public AuthenticationManager authenticationManagerBean() throws Exception {
+    //    return super.authenticationManagerBean();
+    //}
 
 //    @Override
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
