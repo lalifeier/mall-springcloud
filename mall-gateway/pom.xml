@@ -17,7 +17,11 @@
     <dependencies>
         <dependency>
             <groupId>com.github.lalifeier</groupId>
-            <artifactId>mall-error</artifactId>
+            <artifactId>mall-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
         <!--        <dependency>-->
         <!--            <groupId>com.github.lalifeier</groupId>-->
@@ -63,6 +67,12 @@
         <!--            <groupId>org.springframework.cloud</groupId>-->
         <!--            <artifactId>spring-cloud-starter-oauth2</artifactId>-->
         <!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
