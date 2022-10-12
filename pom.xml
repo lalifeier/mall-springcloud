@@ -166,7 +166,7 @@
                 <artifactId>mall-redis-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!--spring-boot-admin server-->
+            <!--spring-boot-admin-->
             <dependency>
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-starter-server</artifactId>
