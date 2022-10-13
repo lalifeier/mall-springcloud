@@ -16,8 +16,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import java.util.Objects;
 
+
 @Slf4j
-@RestControllerAdvice(basePackages = "com.github.lalifeier.mall")
+@RestControllerAdvice(basePackages = "com.github.lalifeier")
 public class RestResponseHandler implements ResponseBodyAdvice<Object> {
     @Autowired
     private ObjectMapper objectMapper;

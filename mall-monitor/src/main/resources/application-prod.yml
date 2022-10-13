@@ -2,7 +2,6 @@ spring:
   cloud:
     nacos:
       discovery:
-        #        namespace: ${spring.profiles.active}
         server-addr: http://localhost:8848
         username: nacos
         password: nacos

@@ -51,8 +51,8 @@ public class RestExceptionHandler {
             return new ResponseEntity<>(apiResult, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         log.error("error, request: {}", parseParam(request), e);
-        Response<String> errorResult = Response.failure(SystemError.SYSTEM_ERROR.getCode(), pair.getLeft().getClass().getSimpleName() + ": " + pair.getRight());
-        return new ResponseEntity<>(errorResult, HttpStatus.INTERNAL_SERVER_ERROR);
+        Response apiResult = Response.failure(SystemError.SYSTEM_ERROR.getCode(), pair.getLeft().getClass().getSimpleName() + ": " + pair.getRight());
+        return new ResponseEntity<>(apiResult, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(value = {BindException.class, ConstraintViolationException.class, MethodArgumentNotValidException.class})

@@ -12,10 +12,10 @@
     <artifactId>mall-monitor</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>com.github.lalifeier</groupId>
-            <artifactId>mall-common</artifactId>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.github.lalifeier</groupId>-->
+        <!--            <artifactId>mall-common</artifactId>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>

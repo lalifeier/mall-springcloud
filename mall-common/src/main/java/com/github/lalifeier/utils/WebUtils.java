@@ -1,20 +1,17 @@
 package com.github.lalifeier.utils;
 
-import org.springframework.http.HttpHeaders;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
-
-import java.io.PrintWriter;
-import java.util.Objects;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Objects;
+
 @Slf4j
 public class WebUtils {
     private static final String UNKNOW = "unknown";
