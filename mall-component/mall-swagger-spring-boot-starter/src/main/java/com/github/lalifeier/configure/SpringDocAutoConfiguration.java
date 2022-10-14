@@ -1,4 +1,4 @@
-package com.github.lalifeier.config;
+package com.github.lalifeier.configure;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;

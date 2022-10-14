@@ -40,8 +40,12 @@ management:
     health:
       show-details: always
 
+
 logging:
   level:
-    org.springframework.web: trace
-    org.springframework.security: debug
-    org.springframework.security.oauth2: debug
+    root: debug
+#    org.springframework.web: trace
+#    org.springframework.security: debug
+#    org.springframework.security.oauth2: debug
+
+

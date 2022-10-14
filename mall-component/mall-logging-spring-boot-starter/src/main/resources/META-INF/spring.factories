@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-om.github.lalifeier.mall.logging.config.SysLogAutoConfigure
+com.github.lalifeier.configure.SysLogAutoConfigure
