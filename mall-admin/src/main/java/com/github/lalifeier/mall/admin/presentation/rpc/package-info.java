@@ -1,1 +1,0 @@
-package com.github.lalifeier.mall.admin.presentation.rpc;

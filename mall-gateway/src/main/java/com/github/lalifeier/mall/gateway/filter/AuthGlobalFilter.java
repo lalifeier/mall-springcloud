@@ -1,6 +1,7 @@
 package com.github.lalifeier.mall.gateway.filter;
 
 import cn.hutool.core.util.StrUtil;
+import com.github.lalifeier.constant.CommonConstant;
 import com.nimbusds.jose.JWSObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -10,6 +11,7 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
+
 import java.text.ParseException;
 
 @Slf4j
@@ -25,7 +27,7 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
 
         try {
             //从token中解析用户信息并设置到Header中去
-            String realToken = token.replace("Bearer ", "");
+            String realToken = token.replace(CommonConstant.BEARER_TYPE, "").trim();
             log.info("Authorization：{}", realToken);
             JWSObject jwsObject = JWSObject.parse(realToken);
             String userStr = jwsObject.getPayload().toString();

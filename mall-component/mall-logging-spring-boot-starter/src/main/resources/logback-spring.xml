@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration>
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+    <!--<include resource="org/springframework/boot/logging/logback/defaults.xml"/>-->
+    <!--<include resource="org/springframework/boot/logging/logback/console-appender.xml"/>-->
+    <!--<include resource="org/springframework/boot/logging/logback/file-appender.xml" />-->
+
     <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
     <conversionRule conversionWord="wex"
                     converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
@@ -10,34 +15,58 @@
     <property name="LOG_FILE_PATH" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/logs}"/>
     <property name="CONSOLE_LOG_PATTERN"
               value="${CONSOLE_LOG_PATTERN:-%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+    <property name="STDOUT_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%tid] [%thread] %-5level %logger{36} -%msg%n"/>
     <property name="FILE_LOG_PATTERN"
               value="${FILE_LOG_PATTERN:-%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
 
     <springProperty name="APP_NAME" scope="context" source="spring.application.name" defaultValue="springBoot"/>
     <springProperty name="LOG_STASH_HOST" scope="context" source="logstash.host" defaultValue="localhost"/>
-    <springProperty name="ROOT_LEVEL" scope="context" source="logging.level.root"/>
+    <springProperty name="LEVEL" scope="context" source="logging.level.root"/>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${LEVEL}</level>
+        </filter>
         <encoder>
             <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
         </encoder>
+        <!--        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">-->
+        <!--            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">-->
+        <!--                <pattern>${STDOUT_PATTERN}</pattern>-->
+        <!--            </layout>-->
+        <!--        </encoder>-->
     </appender>
 
-    <appender name="FILE_ALL"
+    <!--    <appender name="SKY_LOG" class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.log.GRPCLogClientAppender">-->
+    <!--        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">-->
+    <!--            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">-->
+    <!--                <pattern>${STDOUT_PATTERN}</pattern>-->
+    <!--            </layout>-->
+    <!--        </encoder>-->
+    <!--    </appender>-->
+
+    <appender name="FILE"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>${ROOT_LEVEL}</level>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${LEVEL}</level>
         </filter>
-        <file>${LOG_FILE_PATH}/all/${APP_NAME}.log</file>
+        <file>${LOG_FILE_PATH}/${APP_NAME}.log</file>
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
             <charset>UTF-8</charset>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_FILE_PATH}/all/${APP_NAME}-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_FILE_PATH}/${APP_NAME}-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
             <maxFileSize>${LOG_FILE_MAX_SIZE:-10MB}</maxFileSize>
             <maxHistory>${LOG_FILE_MAX_HISTORY:-30}</maxHistory>
         </rollingPolicy>
+        <!--        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">-->
+        <!--            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">-->
+        <!--                <pattern>${STDOUT_PATTERN}</pattern>-->
+        <!--            </layout>-->
+        <!--        </encoder>-->
     </appender>
 
     <appender name="FILE_ERROR"
@@ -47,21 +76,27 @@
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
-        <file>${LOG_FILE_PATH}/error/${APP_NAME}.log</file>
+        <file>${LOG_FILE_PATH}/${APP_NAME}_error.log</file>
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
             <charset>UTF-8</charset>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_FILE_PATH}/error/${APP_NAME}-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_FILE_PATH}/${APP_NAME}-error-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
             <maxFileSize>${LOG_FILE_MAX_SIZE:-10MB}</maxFileSize>
             <maxHistory>${LOG_FILE_MAX_HISTORY:-30}</maxHistory>
         </rollingPolicy>
+        <!--        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">-->
+        <!--            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">-->
+        <!--                <pattern>${STDOUT_PATTERN}</pattern>-->
+        <!--            </layout>-->
+        <!--        </encoder>-->
     </appender>
 
-    <!--    <appender name="LOG_STASH_DEBUG" class="net.logstash.logback.appender.LogstashTcpSocketAppender">-->
+
+    <!--    <appender name="LOG_STASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">-->
     <!--        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
-    <!--            <level>DEBUG</level>-->
+    <!--            <level>${LEVEL}</level>-->
     <!--        </filter>-->
     <!--        <destination>${LOG_STASH_HOST}:4560</destination>-->
     <!--        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">-->
@@ -72,9 +107,8 @@
     <!--                <pattern>-->
     <!--                    <pattern>-->
     <!--                        {-->
-    <!--                        "project": "mall-springcloud",-->
-    <!--                        "level": "%level",-->
     <!--                        "service": "${APP_NAME:-}",-->
+    <!--                        "level": "%level",-->
     <!--                        "pid": "${PID:-}",-->
     <!--                        "thread": "%thread",-->
     <!--                        "class": "%logger",-->
@@ -92,97 +126,38 @@
     <!--        </connectionStrategy>-->
     <!--    </appender>-->
 
-    <!--    <appender name="LOG_STASH_ERROR" class="net.logstash.logback.appender.LogstashTcpSocketAppender">-->
-    <!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
-    <!--            <level>ERROR</level>-->
-    <!--            <onMatch>ACCEPT</onMatch>-->
-    <!--            <onMismatch>DENY</onMismatch>-->
-    <!--        </filter>-->
-    <!--        <destination>${LOG_STASH_HOST}:4561</destination>-->
-    <!--        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">-->
-    <!--            <providers>-->
-    <!--                <timestamp>-->
-    <!--                    <timeZone>Asia/Shanghai</timeZone>-->
-    <!--                </timestamp>-->
-    <!--                <pattern>-->
-    <!--                    <pattern>-->
-    <!--                        {-->
-    <!--                        "project": "mall-springcloud",-->
-    <!--                        "level": "%level",-->
-    <!--                        "service": "${APP_NAME:-}",-->
-    <!--                        "pid": "${PID:-}",-->
-    <!--                        "thread": "%thread",-->
-    <!--                        "class": "%logger",-->
-    <!--                        "message": "%message",-->
-    <!--                        "stack_trace": "%exception{20}"-->
-    <!--                        }-->
-    <!--                    </pattern>-->
-    <!--                </pattern>-->
-    <!--            </providers>-->
-    <!--        </encoder>-->
-    <!--        <connectionStrategy>-->
-    <!--            <roundRobin>-->
-    <!--                <connectionTTL>5 minutes</connectionTTL>-->
-    <!--            </roundRobin>-->
-    <!--        </connectionStrategy>-->
-    <!--    </appender>-->
-
-    <!--    <appender name="LOG_STASH_BUSINESS" class="net.logstash.logback.appender.LogstashTcpSocketAppender">-->
-    <!--        <destination>${LOG_STASH_HOST}:4562</destination>-->
-    <!--        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">-->
-    <!--            <providers>-->
-    <!--                <timestamp>-->
-    <!--                    <timeZone>Asia/Shanghai</timeZone>-->
-    <!--                </timestamp>-->
-    <!--                <pattern>-->
-    <!--                    <pattern>-->
-    <!--                        {-->
-    <!--                        "project": "mall-springcloud",-->
-    <!--                        "level": "%level",-->
-    <!--                        "service": "${APP_NAME:-}",-->
-    <!--                        "pid": "${PID:-}",-->
-    <!--                        "thread": "%thread",-->
-    <!--                        "class": "%logger",-->
-    <!--                        "message": "%message",-->
-    <!--                        "stack_trace": "%exception{20}"-->
-    <!--                        }-->
-    <!--                    </pattern>-->
-    <!--                </pattern>-->
-    <!--            </providers>-->
-    <!--        </encoder>-->
-    <!--        <connectionStrategy>-->
-    <!--            <roundRobin>-->
-    <!--                <connectionTTL>5 minutes</connectionTTL>-->
-    <!--            </roundRobin>-->
-    <!--        </connectionStrategy>-->
-    <!--    </appender>-->
-
-    <!--    <appender name="LOG_STASH_RECORD" class="net.logstash.logback.appender.LogstashTcpSocketAppender">-->
-    <!--        <destination>${LOG_STASH_HOST}:4563</destination>-->
-    <!--        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">-->
-    <!--            <providers>-->
-    <!--                <timestamp>-->
-    <!--                    <timeZone>Asia/Shanghai</timeZone>-->
-    <!--                </timestamp>-->
-    <!--                <pattern>-->
-    <!--                    <pattern>-->
-    <!--                        {-->
-    <!--                        "project": "mall-springcloud",-->
-    <!--                        "level": "%level",-->
-    <!--                        "service": "${APP_NAME:-}",-->
-    <!--                        "class": "%logger",-->
-    <!--                        "message": "%message"-->
-    <!--                        }-->
-    <!--                    </pattern>-->
-    <!--                </pattern>-->
-    <!--            </providers>-->
-    <!--        </encoder>-->
-    <!--        <connectionStrategy>-->
-    <!--            <roundRobin>-->
-    <!--                <connectionTTL>5 minutes</connectionTTL>-->
-    <!--            </roundRobin>-->
-    <!--        </connectionStrategy>-->
-    <!--    </appender>-->
+    <appender name="LOG_STASH" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${LEVEL}</level>
+        </filter>
+        <file>${LOG_FILE_PATH}/${APP_NAME}.json</file>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <timeZone>Asia/Shanghai</timeZone>
+                </timestamp>
+                <pattern>
+                    <pattern>
+                        {
+                        "project": "mall",
+                        "level": "%level",
+                        "service": "${APP_NAME:-}",
+                        "pid": "${PID:-}",
+                        "thread": "%thread",
+                        "class": "%logger",
+                        "message": "%message",
+                        "stack_trace": "%exception{20}"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FILE_PATH}/${APP_NAME}-%d{yyyy-MM-dd}-%i.json</fileNamePattern>
+            <maxFileSize>${LOG_FILE_MAX_SIZE:-10MB}</maxFileSize>
+            <maxHistory>${LOG_FILE_MAX_HISTORY:-30}</maxHistory>
+        </rollingPolicy>
+    </appender>
 
     <logger name="org.slf4j" level="INFO"/>
     <logger name="springfox" level="INFO"/>
@@ -193,17 +168,10 @@
 
     <root level="DEBUG">
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="FILE_ALL"/>
+        <appender-ref ref="FILE"/>
         <appender-ref ref="FILE_ERROR"/>
-        <!-- <appender-ref ref="LOG_STASH_DEBUG"/> -->
-        <!-- <appender-ref ref="LOG_STASH_ERROR"/> -->
+        <appender-ref ref="LOG_STASH"/>
+        <!--        <appender-ref ref="SKY_LOG"/>-->
+
     </root>
-
-    <!--    <logger name="com.github.lalifeier.aspect.WebLogAspect" level="DEBUG">-->
-    <!--        <appender-ref ref="LOG_STASH_RECORD"/>-->
-    <!--    </logger>-->
-
-    <!--    <logger name="com.macro.mall" level="DEBUG">-->
-    <!--        <appender-ref ref="LOG_STASH_BUSINESS"/>-->
-    <!--    </logger>-->
 </configuration>

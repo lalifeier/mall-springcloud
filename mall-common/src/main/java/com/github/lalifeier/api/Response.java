@@ -6,21 +6,24 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class Response<T>  implements Serializable {
+public class Response<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private boolean success;
+
+    private String traceId;
 
     private int errCode;
 
     private String errMessage;
 
     private T data;
+
     public static Response success() {
         Response response = new Response();
         response.setSuccess(true);
-        return  response;
+        return response;
     }
 
     public static <T> Response<T> success(T data) {

@@ -1,10 +1,10 @@
 package com.github.lalifeier.mall.gateway.config;
 
 import cn.hutool.core.util.ArrayUtil;
+import com.github.lalifeier.constant.CommonConstant;
 import com.github.lalifeier.mall.gateway.authorization.AuthorizationManager;
 import com.github.lalifeier.mall.gateway.component.RestAccessDeniedHandler;
 import com.github.lalifeier.mall.gateway.component.RestAuthenticationEntryPoint;
-import com.github.lalifeier.mall.gateway.constant.AuthConstant;
 import com.github.lalifeier.mall.gateway.filter.IgnoreUrlsRemoveJwtFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -57,8 +57,8 @@ public class ResourceServerConfig {
     @Bean
     public Converter<Jwt, ? extends Mono<? extends AbstractAuthenticationToken>> jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-        jwtGrantedAuthoritiesConverter.setAuthorityPrefix(AuthConstant.AUTHORITY_PREFIX);
-        jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName(AuthConstant.AUTHORITY_CLAIM_NAME);
+        jwtGrantedAuthoritiesConverter.setAuthorityPrefix(CommonConstant.AUTHORITY_PREFIX);
+        jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName(CommonConstant.AUTHORITY_CLAIM_NAME);
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
         return new ReactiveJwtAuthenticationConverterAdapter(jwtAuthenticationConverter);
