@@ -1,6 +1,5 @@
 package com.github.lalifeier.mall.auth.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
 import com.github.lalifeier.mall.auth.constant.MessageConstant;
 import com.github.lalifeier.mall.auth.entity.User;
 import com.github.lalifeier.mall.auth.entity.UserPrincipal;
@@ -14,9 +13,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,14 +31,14 @@ public class UserServiceImpl implements UserService {
     public void initData() {
         String password = passwordEncoder.encode("123456");
         userList = new ArrayList<>();
-        userList.add(new User(1L, "admin", password, 1, CollUtil.toList("ADMIN")));
-        userList.add(new User(2L, "user", password, 1, CollUtil.toList("USER")));
+        userList.add(new User(1L, "admin", password, 1, Arrays.asList("ADMIN")));
+        userList.add(new User(2L, "user", password, 1, Arrays.asList("USER")));
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         List<User> findUserList = userList.stream().filter(item -> item.getUsername().equals(username)).collect(Collectors.toList());
-        if (CollUtil.isEmpty(findUserList)) {
+        if (CollectionUtils.isEmpty(findUserList)) {
             throw new UsernameNotFoundException(MessageConstant.USERNAME_PASSWORD_ERROR);
         }
 
