@@ -138,14 +138,13 @@ public class AccessLogFilter implements GlobalFilter, Ordered {
     }
 
     private void writeAccessLog(GatewayLog gatewayLog) {
-        //log.info(gatewayLog.toString());
+        log.info(gatewayLog.toString());
         accessLogService.saveAccessLog(gatewayLog).subscribe();
     }
 
     private Route getGatewayRoute(ServerWebExchange exchange) {
         return exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
     }
-
 
     private ServerHttpRequestDecorator requestDecorate(ServerWebExchange exchange, HttpHeaders headers,
                                                        CachedBodyOutputMessage outputMessage) {
@@ -189,7 +188,6 @@ public class AccessLogFilter implements GlobalFilter, Ordered {
 
                     // 获取响应类型，如果是 json 就打印
                     String originalResponseContentType = exchange.getAttribute(ServerWebExchangeUtils.ORIGINAL_RESPONSE_CONTENT_TYPE_ATTR);
-
 
                     if (ObjectUtil.equal(this.getStatusCode(), HttpStatus.OK)
                             && StringUtils.isNotBlank(originalResponseContentType)
