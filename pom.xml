@@ -56,6 +56,7 @@
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <commons-io.version>2.11.0</commons-io.version>
         <commons-codec.version>1.15</commons-codec.version>
+        <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <logstash.version>7.2</logstash.version>
         <skywalking.version>8.12.0</skywalking.version>
     </properties>
@@ -275,6 +276,12 @@
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
                 <version>${commons-codec.version}</version>
+            </dependency>
+            <!--commons-beanutils-->
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>${commons-beanutils.version}</version>
             </dependency>
             <!--logstash-logback-->
             <dependency>

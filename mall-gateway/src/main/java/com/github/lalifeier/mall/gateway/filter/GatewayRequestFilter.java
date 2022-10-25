@@ -1,8 +1,8 @@
 package com.github.lalifeier.mall.gateway.filter;
 
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
 import com.github.lalifeier.constant.CommonConstant;
+import com.github.lalifeier.utils.JsonUtils;
+import com.google.gson.JsonObject;
 import com.nimbusds.jose.JWSObject;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -47,9 +47,11 @@ public class GatewayRequestFilter implements GlobalFilter {
 
         JWSObject jwsObject = JWSObject.parse(token);
         String payload = jwsObject.getPayload().toString();
-        JSONObject jsonObject = JSONUtil.parseObj(payload);
 
-        String jti = jsonObject.getStr("jti");
+
+        JsonObject jsonObject = JsonUtils.json2Bean(payload, JsonObject.class);
+
+        String jti = jsonObject.get("jti").getAsString();
         return redisTemplate.hasKey(CommonConstant.TOKEN_BLACKLIST_PREFIX + jti);
     }
 

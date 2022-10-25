@@ -1,7 +1,7 @@
 package com.github.lalifeier.mall.gateway.component;
 
-import cn.hutool.json.JSONUtil;
 import com.github.lalifeier.api.Response;
+import com.github.lalifeier.utils.JsonUtils;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,7 +22,7 @@ public class RestAccessDeniedHandler implements ServerAccessDeniedHandler {
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(HttpStatus.FORBIDDEN);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        String body = JSONUtil.toJsonStr(Response.failure(403, denied.getMessage()));
+        String body = JsonUtils.bean2Json(Response.failure(403, denied.getMessage()));
         DataBuffer buffer = response.bufferFactory().wrap(body.getBytes(StandardCharsets.UTF_8));
         return response.writeWith(Mono.just(buffer));
     }

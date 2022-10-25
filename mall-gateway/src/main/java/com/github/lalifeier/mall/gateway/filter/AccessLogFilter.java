@@ -1,6 +1,5 @@
 package com.github.lalifeier.mall.gateway.filter;
 
-import cn.hutool.core.util.ObjectUtil;
 import com.github.lalifeier.mall.gateway.entity.GatewayLog;
 import com.github.lalifeier.mall.gateway.service.AccessLogService;
 import com.github.lalifeier.mall.gateway.utils.IpUtils;
@@ -41,6 +40,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 @Slf4j
@@ -189,7 +189,7 @@ public class AccessLogFilter implements GlobalFilter, Ordered {
                     // 获取响应类型，如果是 json 就打印
                     String originalResponseContentType = exchange.getAttribute(ServerWebExchangeUtils.ORIGINAL_RESPONSE_CONTENT_TYPE_ATTR);
 
-                    if (ObjectUtil.equal(this.getStatusCode(), HttpStatus.OK)
+                    if (Objects.equals(this.getStatusCode(), HttpStatus.OK)
                             && StringUtils.isNotBlank(originalResponseContentType)
                             && originalResponseContentType.contains("application/json")) {
 

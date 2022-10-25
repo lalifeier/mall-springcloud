@@ -1,5 +1,6 @@
 package com.github.lalifeier.mall.gateway.authorization;
 
+
 import cn.hutool.core.convert.Convert;
 import com.github.lalifeier.constant.CommonConstant;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +38,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         //从Redis中获取当前路径可访问角色列表
         URI uri = authorizationContext.getExchange().getRequest().getURI();
         Object obj = redisTemplate.opsForHash().get(CommonConstant.RESOURCE_ROLES_MAP, uri.getPath());
+        //List<String> authorities = (List<String>) ConvertUtils.convert(obj, String.class)l
         List<String> authorities = Convert.toList(String.class, obj);
         authorities = authorities.stream().map(i -> i = CommonConstant.AUTHORITY_PREFIX + i).collect(Collectors.toList());
 
