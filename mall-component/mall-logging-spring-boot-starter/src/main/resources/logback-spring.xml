@@ -14,11 +14,9 @@
 
     <property name="LOG_FILE_PATH" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/logs}"/>
     <property name="CONSOLE_LOG_PATTERN"
-              value="${CONSOLE_LOG_PATTERN:-%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
-    <property name="STDOUT_PATTERN"
-              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%tid] [%thread] %-5level %logger{36} -%msg%n"/>
+              value="${CONSOLE_LOG_PATTERN:-%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr([%tid]) %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
     <property name="FILE_LOG_PATTERN"
-              value="${FILE_LOG_PATTERN:-%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+              value="${FILE_LOG_PATTERN:-%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} [%tid] ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
 
     <springProperty name="APP_NAME" scope="context" source="spring.application.name" defaultValue="springBoot"/>
     <springProperty name="LOG_STASH_HOST" scope="context" source="logstash.host" defaultValue="localhost"/>
@@ -28,24 +26,13 @@
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>${LEVEL}</level>
         </filter>
-        <encoder>
-            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
+                <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            </layout>
             <charset>UTF-8</charset>
         </encoder>
-        <!--        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">-->
-        <!--            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">-->
-        <!--                <pattern>${STDOUT_PATTERN}</pattern>-->
-        <!--            </layout>-->
-        <!--        </encoder>-->
     </appender>
-
-    <!--    <appender name="SKY_LOG" class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.log.GRPCLogClientAppender">-->
-    <!--        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">-->
-    <!--            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">-->
-    <!--                <pattern>${STDOUT_PATTERN}</pattern>-->
-    <!--            </layout>-->
-    <!--        </encoder>-->
-    <!--    </appender>-->
 
     <appender name="FILE"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -53,8 +40,10 @@
             <level>${LEVEL}</level>
         </filter>
         <file>${LOG_FILE_PATH}/${APP_NAME}.log</file>
-        <encoder>
-            <pattern>${FILE_LOG_PATTERN}</pattern>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
+                <pattern>${FILE_LOG_PATTERN}</pattern>
+            </layout>
             <charset>UTF-8</charset>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
@@ -62,11 +51,6 @@
             <maxFileSize>${LOG_FILE_MAX_SIZE:-10MB}</maxFileSize>
             <maxHistory>${LOG_FILE_MAX_HISTORY:-30}</maxHistory>
         </rollingPolicy>
-        <!--        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">-->
-        <!--            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">-->
-        <!--                <pattern>${STDOUT_PATTERN}</pattern>-->
-        <!--            </layout>-->
-        <!--        </encoder>-->
     </appender>
 
     <appender name="FILE_ERROR"
@@ -77,20 +61,22 @@
             <onMismatch>DENY</onMismatch>
         </filter>
         <file>${LOG_FILE_PATH}/${APP_NAME}_error.log</file>
-        <encoder>
-            <pattern>${FILE_LOG_PATTERN}</pattern>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
+                <pattern>${FILE_LOG_PATTERN}</pattern>
+            </layout>
             <charset>UTF-8</charset>
         </encoder>
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_FILE_PATH}/${APP_NAME}-error-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
-            <maxFileSize>${LOG_FILE_MAX_SIZE:-10MB}</maxFileSize>
-            <maxHistory>${LOG_FILE_MAX_HISTORY:-30}</maxHistory>
-        </rollingPolicy>
         <!--        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">-->
         <!--            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">-->
         <!--                <pattern>${STDOUT_PATTERN}</pattern>-->
         <!--            </layout>-->
         <!--        </encoder>-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FILE_PATH}/${APP_NAME}-error-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <maxFileSize>${LOG_FILE_MAX_SIZE:-10MB}</maxFileSize>
+            <maxHistory>${LOG_FILE_MAX_HISTORY:-30}</maxHistory>
+        </rollingPolicy>
     </appender>
 
 
@@ -142,6 +128,8 @@
                         "project": "mall",
                         "level": "%level",
                         "service": "${APP_NAME:-}",
+                        "tid": "%tid",
+                        "skyWalkingContext": "%sw_ctx",
                         "pid": "${PID:-}",
                         "thread": "%thread",
                         "class": "%logger",
@@ -164,14 +152,12 @@
     <logger name="io.swagger" level="INFO"/>
     <logger name="org.springframework" level="INFO"/>
     <logger name="org.hibernate.validator" level="INFO"/>
-    <logger name="com.alibaba.nacos.client.naming" level="INFO"/>
+    <logger name="com.alibaba.nacos" level="INFO"/>
 
     <root level="DEBUG">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="FILE_ERROR"/>
         <appender-ref ref="LOG_STASH"/>
-        <!--        <appender-ref ref="SKY_LOG"/>-->
-
     </root>
 </configuration>

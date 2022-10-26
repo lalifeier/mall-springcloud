@@ -140,36 +140,35 @@ services:
     depends_on:
       - elasticsearch
 
-  zipkin:
-    image: openzipkin/zipkin
-    container_name: zipkin
-    ports:
-      - 9411:9411
-    networks:
-      - app_net
-    restart: always
-    environment:
-      - TZ=Asia/Shanghai
-      - STORAGE_TYPE=elasticsearch
-      - ES_HOSTS=elasticsearch:9200
-    depends_on:
-      - elasticsearch
-
-  zipkin-dependencies:
-    image: openzipkin/zipkin-dependencies
-    container_name: zipkin-dependencies
-    networks:
-      - app_net
-    restart: always
-    environment:
-      - TZ=Asia/Shanghai
-      - STORAGE_TYPE=elasticsearch
-      - ES_HOSTS=elasticsearch:9200
-      - ES_INDEX=zipkin
-    entrypoint: crond -f
-    depends_on:
-      - elasticsearch
-
+  #  zipkin:
+  #    image: openzipkin/zipkin
+  #    container_name: zipkin
+  #    ports:
+  #      - 9411:9411
+  #    networks:
+  #      - app_net
+  #    restart: always
+  #    environment:
+  #      - TZ=Asia/Shanghai
+  #      - STORAGE_TYPE=elasticsearch
+  #      - ES_HOSTS=elasticsearch:9200
+  #    depends_on:
+  #      - elasticsearch
+  #
+  #  zipkin-dependencies:
+  #    image: openzipkin/zipkin-dependencies
+  #    container_name: zipkin-dependencies
+  #    networks:
+  #      - app_net
+  #    restart: always
+  #    environment:
+  #      - TZ=Asia/Shanghai
+  #      - STORAGE_TYPE=elasticsearch
+  #      - ES_HOSTS=elasticsearch:9200
+  #      - ES_INDEX=zipkin
+  #    entrypoint: crond -f
+  #    depends_on:
+  #      - elasticsearch
 
   rmqnamesrv:
     image: apache/rocketmq:4.5.0
