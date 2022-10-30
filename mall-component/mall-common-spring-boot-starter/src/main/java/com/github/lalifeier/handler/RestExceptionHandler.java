@@ -1,8 +1,8 @@
 package com.github.lalifeier.handler;
 
 
-import com.github.lalifeier.api.Response;
 import com.github.lalifeier.manager.ErrorInfo;
+import com.github.lalifeier.result.Result;
 import com.github.lalifeier.system.HttpCodes;
 import com.github.lalifeier.system.SystemError;
 import com.google.common.base.Joiner;
@@ -32,7 +32,7 @@ public class RestExceptionHandler {
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = Throwable.class)
-    public Response<?> processException(HttpServletRequest request, Exception e) {
+    public Result<?> processException(HttpServletRequest request, Exception e) {
         Pair<Throwable, String> pair = getExceptionMessage(e);
         if (e instanceof com.github.lalifeier.exception.IErrorCodeException) {
             if (e.getCause() != null) {
@@ -42,12 +42,12 @@ public class RestExceptionHandler {
             }
             ErrorInfo errorInfo = ((com.github.lalifeier.exception.IErrorCodeException) e).getErrorInfo();
             if (errorInfo == null) {
-                return Response.failure(SystemError.SYSTEM_ERROR.getCode(), pair.getRight());
+                return Result.failure(SystemError.SYSTEM_ERROR.getCode(), pair.getRight());
             }
-            return Response.failure(errorInfo.getCode(), errorInfo.getMsg());
+            return Result.failure(errorInfo.getCode(), errorInfo.getMsg());
         }
         log.error("error, request: {}", parseParam(request), e);
-        return Response.failure(SystemError.SYSTEM_ERROR.getCode(), pair.getLeft().getClass().getSimpleName() + ": " + pair.getRight());
+        return Result.failure(SystemError.SYSTEM_ERROR.getCode(), pair.getLeft().getClass().getSimpleName() + ": " + pair.getRight());
     }
 
     //@ExceptionHandler(value = {BindException.class, ValidationException.class, MethodArgumentNotValidException.class})
@@ -78,33 +78,33 @@ public class RestExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    public Response<?> handleValidatedException(HttpServletRequest request, MethodArgumentNotValidException e) {
+    public Result<?> handleValidatedException(HttpServletRequest request, MethodArgumentNotValidException e) {
         log.error("BadRequestException, request: {}", parseParam(request), e);
         String message =
                 e.getBindingResult().getAllErrors().stream()
                         .map(ObjectError::getDefaultMessage)
                         .collect(Collectors.joining(", "));
-        return Response.failure(HttpCodes.BAD_REQUEST.getStatus(), message);
+        return Result.failure(HttpCodes.BAD_REQUEST.getStatus(), message);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = ConstraintViolationException.class)
-    public Response<?> handleValidatedException(HttpServletRequest request, ConstraintViolationException e) {
+    public Result<?> handleValidatedException(HttpServletRequest request, ConstraintViolationException e) {
         log.error("BadRequestException, request: {}", parseParam(request), e);
         String message = e.getConstraintViolations().stream()
                 .map(ConstraintViolation::getMessage)
                 .collect(Collectors.joining(", "));
-        return Response.failure(HttpCodes.BAD_REQUEST.getStatus(), message);
+        return Result.failure(HttpCodes.BAD_REQUEST.getStatus(), message);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = BindException.class)
-    public Response<?> handleValidatedException(HttpServletRequest request, BindException e) {
+    public Result<?> handleValidatedException(HttpServletRequest request, BindException e) {
         log.error("BadRequestException, request: {}", parseParam(request), e);
         String message = e.getAllErrors().stream()
                 .map(ObjectError::getDefaultMessage)
                 .collect(Collectors.joining(", "));
-        return Response.failure(HttpCodes.BAD_REQUEST.getStatus(), message);
+        return Result.failure(HttpCodes.BAD_REQUEST.getStatus(), message);
     }
 
     public String parseParam(HttpServletRequest request) {

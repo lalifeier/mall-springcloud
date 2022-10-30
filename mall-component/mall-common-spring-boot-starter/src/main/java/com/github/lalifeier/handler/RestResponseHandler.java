@@ -3,7 +3,7 @@ package com.github.lalifeier.handler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.lalifeier.annotation.IgnoreResponseAdvice;
-import com.github.lalifeier.api.Response;
+import com.github.lalifeier.result.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.skywalking.apm.toolkit.trace.Trace;
 import org.apache.skywalking.apm.toolkit.trace.TraceContext;
@@ -42,23 +42,23 @@ public class RestResponseHandler implements ResponseBodyAdvice<Object> {
         String traceId = TraceContext.traceId();
 
         if (body == null) {
-            return Response.success();
+            return Result.success();
         }
 
         if (body instanceof String) {
             try {
                 response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
-                return objectMapper.writeValueAsString(Response.success(body));
+                return objectMapper.writeValueAsString(Result.success(body));
             } catch (JsonProcessingException e) {
                 log.error(e.getMessage(), e);
                 throw new RuntimeException(e.getMessage(), e);
             }
         }
 
-        if (body instanceof Response) {
-            return (Response) body;
+        if (body instanceof Result) {
+            return (Result) body;
         }
 
-        return Response.success(body);
+        return Result.success(body);
     }
 }

@@ -2,6 +2,11 @@ server:
   port: 8101
 
 spring:
+  profiles:
+    active: dev
+  application:
+    name: mall-demo
+
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -12,3 +17,18 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+dubbo:
+  application:
+    id: ${spring.application.name}
+  protocol:
+    name: dubbo
+    port: 20881
+  #  scan:
+  #    base-packages: com.github.lalifeier.mall.demo.presentation.rpc
+#  registry:
+#    address: spring-cloud://localhost
+#  consumer:
+#    check: false
+#  cloud:
+#    subscribed-services:

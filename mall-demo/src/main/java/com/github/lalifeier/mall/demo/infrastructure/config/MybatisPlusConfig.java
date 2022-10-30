@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 @EnableTransactionManagement
 @Configuration
-@MapperScan("com.github.lalifeier.mall.auth.infrastructure.persistent.mapper")
+@MapperScan("com.github.lalifeier.mall.demo.infrastructure")
 public class MybatisPlusConfig {
 
     public PaginationInnerInterceptor innerInterceptor() {

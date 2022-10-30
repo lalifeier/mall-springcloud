@@ -21,8 +21,8 @@ public class ResourceServiceImpl implements ResourceService {
     @PostConstruct
     public void initData() {
         Map<String, List<String>> resourceRolesMap = new TreeMap<>();
-        resourceRolesMap.put("/account/hello", Arrays.asList("ADMIN"));
-        resourceRolesMap.put("/account/user/currentUser", Arrays.asList("ADMIN", "USER"));
+        resourceRolesMap.put("/hello", Arrays.asList("ADMIN"));
+        resourceRolesMap.put("/user/currentUser", Arrays.asList("ADMIN", "USER"));
         redisTemplate.opsForHash().putAll(RedisConstant.RESOURCE_ROLES_MAP, resourceRolesMap);
     }
 }

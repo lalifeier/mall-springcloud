@@ -16,6 +16,7 @@
         <module>mall-component</module>
         <module>auth-service</module>
         <module>account-biz</module>
+        <module>mall-demo</module>
     </modules>
 
     <name>mall</name>
@@ -27,7 +28,11 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <docker.host>http://localhost:2375</docker.host>
+        <!--        <docker.host>unix:///var/run/docker.sock</docker.host>-->
+        <docker.host>tcp://127.0.0.1:2375</docker.host>
+        <harbor.registry>127.0.0.1</harbor.registry>
+        <harbor.username>admin</harbor.username>
+        <harbor.password>Harbor12345</harbor.password>
         <docker.registry>registry.cn-hangzhou.aliyuncs.com</docker.registry>
         <docker.namespace>mall</docker.namespace>
         <docker-maven-plugin.version>0.40.2</docker-maven-plugin.version>
@@ -36,6 +41,7 @@
         <spring-boot.version>2.6.11</spring-boot.version>
         <spring-cloud.version>2021.0.4</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.4.0</spring-cloud-alibaba.version>
+        <dubbo.version>3.1.1</dubbo.version>
         <spring-boot-admin.version>2.6.9</spring-boot-admin.version>
         <spring-security-oauth2.version>2.5.2.RELEASE</spring-security-oauth2.version>
         <spring-cloud-starter-oauth2.version>2.2.5.RELEASE</spring-cloud-starter-oauth2.version>
@@ -45,6 +51,7 @@
         <pagehelper.version>5.3.2</pagehelper.version>
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <mybatis-plus-generator.version>3.5.2</mybatis-plus-generator.version>
+        <freemarker.version>2.3.31</freemarker.version>
         <druid.version>1.2.12</druid.version>
         <mysql-connector.version>8.0.30</mysql-connector.version>
         <hutool.version>5.8.6</hutool.version>
@@ -121,6 +128,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-spring-boot-starter</artifactId>
+                <version>3.1.1</version>
+            </dependency>
             <!--mall start-->
             <dependency>
                 <groupId>com.github.lalifeier</groupId>
@@ -187,6 +199,11 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId>
                 <version>${mybatis-plus-generator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
             </dependency>
             <!--Mysql数据库驱动-->
             <dependency>
@@ -328,37 +345,53 @@
                 <!--                </executions>-->
                 <configuration>
                     <dockerHost>${docker.host}</dockerHost>
+                    <!--                    <registry>${harbor.registry}</registry>-->
+                    <!--                    <authConfig>-->
+                    <!--                        <username>${harbor.username}</username>-->
+                    <!--                        <password>${harbor.password}</password>-->
+                    <!--                    </authConfig>-->
                     <images>
+                        <!--                        <image>-->
+                        <!--                            <name>${docker.registry}/${docker.namespace}/${project.artifactId}:${project.version}</name>-->
+                        <!--                            <build>-->
+                        <!--                                <contextDir>${project.basedir}</contextDir>-->
+                        <!--                                <tags>-->
+                        <!--                                    <tag>latest</tag>-->
+                        <!--                                    <tag>${project.version}</tag>-->
+                        <!--                                </tags>-->
+                        <!--                            </build>-->
+                        <!--                        </image>-->
                         <image>
-                            <name>${docker.registry}/${docker.namespace}/${project.artifactId}:${project.version}
-                            </name>
+                            <name>${docker.registry}/${docker.namespace}/${project.artifactId}:${project.version}</name>
                             <build>
-                                <from>java:8</from>
-                                <!--                                <contextDir>${project.basedir}</contextDir>-->
-                                <!--                                <contextDir>docker/Dockerfile</contextDir>-->
+                                <from>openjdk:8-jdk-alpine</from>
                                 <maintainer>lalifeier</maintainer>
                                 <assembly>
+                                    <targetDir>/</targetDir>
                                     <descriptorRef>artifact</descriptorRef>
                                 </assembly>
                                 <tags>
                                     <tag>latest</tag>
                                     <tag>${project.version}</tag>
                                 </tags>
-                                <!--                                <auth>-->
-                                <!--                                    <username></username>-->
-                                <!--                                    <password></password>-->
-                                <!--                                </auth>-->
-                                <entryPoint>["java",
-                                    "-jar","-Dspring.profiles.active=prod","/${project.build.finalName}.jar",
-                                    <!--                                    "-javaagent", "skywalking-agent/skywalking-agent.jar",-->
-                                    <!--                                    "-Dskywalking.agent.service_name","${project.artifactId}",-->
-                                    <!--                                    "-Dskywalking.collector.backend_service": "10.2.7.70:11800"-->
-                                    ]
+                                <entryPoint>
+                                    <exec>
+                                        <args>java</args>
+                                        <args>-javaagent</args>
+                                        <args>/opt/skywalking-agent/skywalking-agent.jar</args>
+                                        <args>-Dskywalking.agent.service_name</args>
+                                        <args>${project.artifactId}</args>
+                                        <args>-Dskywalking.collector.backend_service</args>
+                                        <args>127.0.0.1:11800</args>
+                                        <args>-Dspring.profiles.active=prod</args>
+                                        <args>-jar</args>
+                                        <args>/${project.build.finalName}.jar</args>
+                                    </exec>
                                 </entryPoint>
-
                             </build>
                         </image>
                     </images>
+
                 </configuration>
             </plugin>
         </plugins>

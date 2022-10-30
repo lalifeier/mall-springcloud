@@ -1,6 +1,6 @@
 package com.github.lalifeier.mall.gateway.component;
 
-import com.github.lalifeier.api.Response;
+import com.github.lalifeier.result.Result;
 import com.github.lalifeier.utils.JsonUtils;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
@@ -22,7 +22,7 @@ public class RestAuthenticationEntryPoint implements ServerAuthenticationEntryPo
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(HttpStatus.UNAUTHORIZED);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        String body = JsonUtils.bean2Json(Response.failure(403, e.getMessage()));
+        String body = JsonUtils.bean2Json(Result.failure(403, e.getMessage()));
         DataBuffer buffer = response.bufferFactory().wrap(body.getBytes(StandardCharsets.UTF_8));
         return response.writeWith(Mono.just(buffer));
     }

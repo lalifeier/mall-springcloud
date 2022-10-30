@@ -2,7 +2,7 @@ package com.github.lalifeier.mall.gateway.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.lalifeier.api.Response;
+import com.github.lalifeier.result.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class GlobalErrorWebExceptionHandler implements ErrorWebExceptionHandler 
         return response.writeWith(Mono.fromSupplier(() -> {
             DataBufferFactory bufferFactory = response.bufferFactory();
             try {
-                return bufferFactory.wrap(objectMapper.writeValueAsBytes(Response.failure(500, ex.getMessage())));
+                return bufferFactory.wrap(objectMapper.writeValueAsBytes(Result.failure(500, ex.getMessage())));
             } catch (JsonProcessingException e) {
                 log.error("Error writing response", ex);
                 return bufferFactory.wrap(new byte[0]);
