@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.auth.error;
+package com.github.lalifeier.mall.auth.infrastructure.error;
 
 
 import com.github.lalifeier.api.IError;

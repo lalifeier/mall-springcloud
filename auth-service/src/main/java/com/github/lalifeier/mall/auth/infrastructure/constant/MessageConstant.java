@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.auth.constant;
+package com.github.lalifeier.mall.auth.infrastructure.constant;
 
 public class MessageConstant {
 

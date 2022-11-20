@@ -1,6 +1,6 @@
 package com.github.lalifeier.mall.auth.service.impl;
 
-import com.github.lalifeier.mall.auth.constant.RedisConstant;
+import com.github.lalifeier.mall.auth.infrastructure.constant.RedisConstant;
 import com.github.lalifeier.mall.auth.service.ResourceService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;

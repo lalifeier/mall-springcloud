@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.auth.config;
+package com.github.lalifeier.mall.auth.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

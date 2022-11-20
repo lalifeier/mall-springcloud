@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.auth.config;
+package com.github.lalifeier.mall.auth.infrastructure.config;
 
 
 import com.nimbusds.jose.jwk.JWKSet;

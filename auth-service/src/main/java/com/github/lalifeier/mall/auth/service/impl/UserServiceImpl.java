@@ -1,8 +1,8 @@
 package com.github.lalifeier.mall.auth.service.impl;
 
-import com.github.lalifeier.mall.auth.constant.MessageConstant;
 import com.github.lalifeier.mall.auth.entity.User;
 import com.github.lalifeier.mall.auth.entity.UserPrincipal;
+import com.github.lalifeier.mall.auth.infrastructure.constant.MessageConstant;
 import com.github.lalifeier.mall.auth.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AccountExpiredException;
