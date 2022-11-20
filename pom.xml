@@ -9,18 +9,16 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>mall-bom</module>
+        <module>mall-common</module>
+        <module>mall-component</module>
         <module>mall-gateway</module>
         <module>mall-admin</module>
         <module>mall-monitor</module>
-        <module>mall-common</module>
-        <module>mall-component</module>
         <module>auth-service</module>
         <module>account-biz</module>
         <module>mall-demo</module>
     </modules>
-
-    <name>mall</name>
-    <description>Mall with Spring Cloud</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -28,7 +26,10 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <!--        <docker.host>unix:///var/run/docker.sock</docker.host>-->
+        <spring-boot.version>2.6.11</spring-boot.version>
+        <spring-cloud.version>2021.0.4</spring-cloud.version>
+        <spring-cloud-alibaba.version>2021.0.4.0</spring-cloud-alibaba.version>
+
         <docker.host>tcp://127.0.0.1:2375</docker.host>
         <harbor.registry>127.0.0.1</harbor.registry>
         <harbor.username>admin</harbor.username>
@@ -36,74 +37,17 @@
         <docker.registry>registry.cn-hangzhou.aliyuncs.com</docker.registry>
         <docker.namespace>mall</docker.namespace>
         <docker-maven-plugin.version>0.40.2</docker-maven-plugin.version>
-        <mapstruct.version>1.5.3.Final</mapstruct.version>
-        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
-        <spring-boot.version>2.6.11</spring-boot.version>
-        <spring-cloud.version>2021.0.4</spring-cloud.version>
-        <spring-cloud-alibaba.version>2021.0.4.0</spring-cloud-alibaba.version>
-        <dubbo.version>3.1.1</dubbo.version>
-        <spring-boot-admin.version>2.6.9</spring-boot-admin.version>
-        <spring-security-oauth2.version>2.5.2.RELEASE</spring-security-oauth2.version>
-        <spring-cloud-starter-oauth2.version>2.2.5.RELEASE</spring-cloud-starter-oauth2.version>
-        <spring-authorization-server.version>0.3.1</spring-authorization-server.version>
-        <nimbus-jose-jwt.version>9.25.2</nimbus-jose-jwt.version>
-        <pagehelper-starter.version>1.4.5</pagehelper-starter.version>
-        <pagehelper.version>5.3.2</pagehelper.version>
-        <mybatis-plus.version>3.5.2</mybatis-plus.version>
-        <mybatis-plus-generator.version>3.5.2</mybatis-plus-generator.version>
-        <freemarker.version>2.3.31</freemarker.version>
-        <druid.version>1.2.12</druid.version>
-        <mysql-connector.version>8.0.30</mysql-connector.version>
-        <hutool.version>5.8.6</hutool.version>
-        <springdoc.version>1.6.11</springdoc.version>
-        <knife4j.version>3.0.3</knife4j.version>
-        <gson.version>2.9.1</gson.version>
-        <fastjson.version>2.0.15</fastjson.version>
-        <guava.version>31.1-jre</guava.version>
-        <commons-lang3.version>3.12.0</commons-lang3.version>
-        <commons-io.version>2.11.0</commons-io.version>
-        <commons-codec.version>1.15</commons-codec.version>
-        <commons-beanutils.version>1.9.4</commons-beanutils.version>
-        <logstash.version>7.2</logstash.version>
-        <skywalking.version>8.12.0</skywalking.version>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.boot</groupId>-->
-        <!--            <artifactId>spring-boot-devtools</artifactId>-->
-        <!--            <optional>true</optional>-->
-        <!--        </dependency>-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${mapstruct.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-            <version>${mapstruct.version}</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
-
+    
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.github.lalifeier</groupId>
+                <artifactId>mall-bom</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <!--Spring Boot 相关依赖-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -128,195 +72,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>org.apache.dubbo</groupId>
-                <artifactId>dubbo-spring-boot-starter</artifactId>
-                <version>3.1.1</version>
-            </dependency>
-            <!--mall start-->
-            <dependency>
-                <groupId>com.github.lalifeier</groupId>
-                <artifactId>mall-common</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.lalifeier</groupId>
-                <artifactId>mall-error</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.lalifeier</groupId>
-                <artifactId>mall-common-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.lalifeier</groupId>
-                <artifactId>mall-logging-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.lalifeier</groupId>
-                <artifactId>mall-swagger-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.lalifeier</groupId>
-                <artifactId>mall-redis-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!--spring-boot-admin-->
-            <dependency>
-                <groupId>de.codecentric</groupId>
-                <artifactId>spring-boot-admin-starter-server</artifactId>
-                <version>${spring-boot-admin.version}</version>
-            </dependency>
-            <!-- spring-security-oauth2 -->
-            <dependency>
-                <groupId>org.springframework.security.oauth</groupId>
-                <artifactId>spring-security-oauth2</artifactId>
-                <version>${spring-security-oauth2.version}</version>
-            </dependency>
-            <!--MyBatis分页插件starter-->
-            <dependency>
-                <groupId>com.github.pagehelper</groupId>
-                <artifactId>pagehelper-spring-boot-starter</artifactId>
-                <version>${pagehelper-starter.version}</version>
-            </dependency>
-            <!--MyBatis分页插件-->
-            <dependency>
-                <groupId>com.github.pagehelper</groupId>
-                <artifactId>pagehelper</artifactId>
-                <version>${pagehelper.version}</version>
-            </dependency>
-            <!--MyBatis-Plus-->
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus.version}</version>
-            </dependency>
-            <!--Mybatis-Plus 代码生成器-->
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-generator</artifactId>
-                <version>${mybatis-plus-generator.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.freemarker</groupId>
-                <artifactId>freemarker</artifactId>
-                <version>${freemarker.version}</version>
-            </dependency>
-            <!--Mysql数据库驱动-->
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql-connector.version}</version>
-            </dependency>
-            <!--druid连接池-->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druid.version}</version>
-            </dependency>
-            <!--Hutool java工具类库-->
-            <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
-                <version>${hutool.version}</version>
-            </dependency>
-            <!--springDoc-->
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-ui</artifactId>
-                <version>${springdoc.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-webflux-ui</artifactId>
-                <version>${springdoc.version}</version>
-            </dependency>
-            <!--Knife4j-->
-            <dependency>
-                <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-springdoc-ui</artifactId>
-                <version>${knife4j.version}</version>
-            </dependency>
-            <!--gson-->
-            <dependency>
-                <groupId>com.google.code.gson</groupId>
-                <artifactId>gson</artifactId>
-                <version>${gson.version}</version>
-            </dependency>
-            <!--fastjson-->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>${fastjson.version}</version>
-            </dependency>
-            <!--oauth2-->
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-oauth2</artifactId>
-                <version>${spring-cloud-starter-oauth2.version}</version>
-            </dependency>
-            <!--jwt-->
-            <dependency>
-                <groupId>com.nimbusds</groupId>
-                <artifactId>nimbus-jose-jwt</artifactId>
-                <version>${nimbus-jose-jwt.version}</version>
-            </dependency>
-            <!--spring-authorization-server-->
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-oauth2-authorization-server</artifactId>
-                <version>${spring-authorization-server.version}</version>
-            </dependency>
-            <!--guava-->
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${guava.version}</version>
-            </dependency>
-            <!--commons-lang3-->
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>${commons-lang3.version}</version>
-            </dependency>
-            <!--commons-io-->
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>${commons-io.version}</version>
-            </dependency>
-            <!--commons-codec-->
-            <dependency>
-                <groupId>commons-codec</groupId>
-                <artifactId>commons-codec</artifactId>
-                <version>${commons-codec.version}</version>
-            </dependency>
-            <!--commons-beanutils-->
-            <dependency>
-                <groupId>commons-beanutils</groupId>
-                <artifactId>commons-beanutils</artifactId>
-                <version>${commons-beanutils.version}</version>
-            </dependency>
-            <!--logstash-logback-->
-            <dependency>
-                <groupId>net.logstash.logback</groupId>
-                <artifactId>logstash-logback-encoder</artifactId>
-                <version>${logstash.version}</version>
-            </dependency>
-            <!--skywalking-logback-->
-            <dependency>
-                <groupId>org.apache.skywalking</groupId>
-                <artifactId>apm-toolkit-logback-1.x</artifactId>
-                <version>${skywalking.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.skywalking</groupId>
-                <artifactId>apm-toolkit-trace</artifactId>
-                <version>${skywalking.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -327,7 +82,12 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <fork>true</fork>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
@@ -345,11 +105,11 @@
                 <!--                </executions>-->
                 <configuration>
                     <dockerHost>${docker.host}</dockerHost>
-                    <!--                    <registry>${harbor.registry}</registry>-->
-                    <!--                    <authConfig>-->
-                    <!--                        <username>${harbor.username}</username>-->
-                    <!--                        <password>${harbor.password}</password>-->
-                    <!--                    </authConfig>-->
+                    <registry>${harbor.registry}</registry>
+                    <authConfig>
+                        <username>${harbor.username}</username>
+                        <password>${harbor.password}</password>
+                    </authConfig>
                     <images>
                         <!--                        <image>-->
                         <!--                            <name>${docker.registry}/${docker.namespace}/${project.artifactId}:${project.version}</name>-->
@@ -377,12 +137,12 @@
                                 <entryPoint>
                                     <exec>
                                         <args>java</args>
-                                        <args>-javaagent</args>
-                                        <args>/opt/skywalking-agent/skywalking-agent.jar</args>
-                                        <args>-Dskywalking.agent.service_name</args>
-                                        <args>${project.artifactId}</args>
-                                        <args>-Dskywalking.collector.backend_service</args>
-                                        <args>127.0.0.1:11800</args>
+                                        <!--                                        <args>-javaagent</args>-->
+                                        <!--                                        <args>/opt/skywalking-agent/skywalking-agent.jar</args>-->
+                                        <!--                                        <args>-Dskywalking.agent.service_name</args>-->
+                                        <!--                                        <args>${project.artifactId}</args>-->
+                                        <!--                                        <args>-Dskywalking.collector.backend_service</args>-->
+                                        <!--                                        <args>127.0.0.1:11800</args>-->
                                         <args>-Dspring.profiles.active=prod</args>
                                         <args>-jar</args>
                                         <args>/${project.build.finalName}.jar</args>
@@ -391,12 +151,10 @@
                             </build>
                         </image>
                     </images>
-
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 
     <repositories>
         <repository>
@@ -410,6 +168,7 @@
             </snapshots>
         </repository>
     </repositories>
+
     <pluginRepositories>
         <pluginRepository>
             <id>aliyun-plugin</id>

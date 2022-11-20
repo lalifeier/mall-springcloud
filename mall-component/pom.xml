@@ -21,11 +21,4 @@
         <module>mall-logging-spring-boot-starter</module>
         <module>mall-security-spring-boot-starter</module>
     </modules>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.github.lalifeier</groupId>
-            <artifactId>mall-common</artifactId>
-        </dependency>
-    </dependencies>
 </project>

@@ -1,9 +1,9 @@
 package com.github.lalifeier.mall.account.mapstruct;
 
+
 import com.github.lalifeier.mall.account.domain.dto.CarDto;
 import com.github.lalifeier.mall.account.mapstruct.convert.CarMapper;
 import com.github.lalifeier.mall.account.mapstruct.entity.Car;
-
 import com.github.lalifeier.mall.account.mapstruct.entity.CarType;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -15,9 +15,9 @@ public class MapStructTests {
 
     @Test
     public void shouldMapCarToDto() {
-        Car car = new Car( "Morris", 5, CarType.SEDAN);
+        Car car = new Car("Morris", 5, CarType.SEDAN);
 
-        CarDto carDto = CarMapper.INSTANCE.carToCarDto( car );
+        CarDto carDto = CarMapper.INSTANCE.carToCarDto(car);
 
         log.info("{}", carDto);
     }

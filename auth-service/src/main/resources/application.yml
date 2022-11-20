@@ -6,8 +6,8 @@ spring:
     active: dev
   application:
     name: mall-auth
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
+  #  autoconfigure:
+  #    exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
 
   #  h2:
   #    console:
@@ -28,7 +28,7 @@ spring:
     show-sql: true
     database: mysql
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
