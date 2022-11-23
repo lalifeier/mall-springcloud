@@ -16,6 +16,31 @@ management:
     health:
       show-details: always
 
+#  h2:
+#    console:
+#      enabled: true
+#      settings:
+#        web-allow-others: true
+#        trace: true
+
+#  datasource:
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/mall?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
+#    username: root
+#    password: 123456
+#
+#  jpa:
+#    show-sql: true
+#    database: mysql
+#    hibernate:
+#      ddl-auto: none
+#    properties:
+#      hibernate:
+#        show_sql: true
+#        format_sql: true
+
+
 ---
 
 spring:
@@ -55,28 +80,5 @@ spring:
         server-addr: http://localhost:8848
         username: nacos
         password: nacos
-#  h2:
-#    console:
-#      enabled: true
-#      settings:
-#        web-allow-others: true
-#        trace: true
-
-#  datasource:
-#    type: com.alibaba.druid.pool.DruidDataSource
-#    driver-class-name: com.mysql.jdbc.Driver
-#    url: jdbc:mysql://localhost:3306/mall?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
-#    username: root
-#    password: 123456
-#
-#  jpa:
-#    show-sql: true
-#    database: mysql
-#    hibernate:
-#      ddl-auto: none
-#    properties:
-#      hibernate:
-#        show_sql: true
-#        format_sql: true
 
 

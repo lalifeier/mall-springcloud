@@ -1,7 +1,6 @@
 package com.github.lalifeier.mall.auth.infrastructure.repository;
 
 import com.github.lalifeier.mall.auth.domain.user.repository.UserRepository;
-import com.github.lalifeier.mall.auth.infrastructure.persistence.mysql.converter.UserConverter;
 import com.github.lalifeier.mall.auth.infrastructure.persistence.mysql.jpa.RoleJpaRepository;
 import com.github.lalifeier.mall.auth.infrastructure.persistence.mysql.jpa.UserJpaRepository;
 import com.github.lalifeier.mall.auth.infrastructure.persistence.mysql.jpa.UserRoleJpaRepository;
@@ -16,13 +15,13 @@ public class UserRepositoryImpl implements UserRepository {
 
     private final UserRoleJpaRepository userRoleJpaRepository;
 
-    private final UserConverter userConverter;
+    //private final UserConverter userConverter;
 
-    public UserRepositoryImpl(UserJpaRepository userJpaRepository, RoleJpaRepository roleJpaRepository, UserRoleJpaRepository userRoleJpaRepository, UserConverter userConverter) {
+    public UserRepositoryImpl(UserJpaRepository userJpaRepository, RoleJpaRepository roleJpaRepository, UserRoleJpaRepository userRoleJpaRepository) {
         this.userJpaRepository = userJpaRepository;
         this.roleJpaRepository = roleJpaRepository;
         this.userRoleJpaRepository = userRoleJpaRepository;
-        this.userConverter = userConverter;
+
     }
 
 

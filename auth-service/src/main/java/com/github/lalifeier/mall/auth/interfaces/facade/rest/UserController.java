@@ -2,7 +2,6 @@ package com.github.lalifeier.mall.auth.interfaces.facade.rest;
 
 import com.github.lalifeier.mall.auth.applicaiton.service.command.UserCommandApplicationService;
 import com.github.lalifeier.mall.auth.applicaiton.service.query.UserQueryApplicationService;
-import com.github.lalifeier.mall.auth.interfaces.converter.UserConverter;
 import com.github.lalifeier.mall.auth.interfaces.model.req.*;
 import com.github.lalifeier.result.Result;
 import org.springframework.web.bind.annotation.*;
@@ -11,13 +10,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/user")
 public class UserController {
 
-
-    private final UserConverter userConverter;
+    //private UserConverter userConverter;
     private final UserCommandApplicationService userCommandApplicationService;
     private final UserQueryApplicationService userQueryApplicationService;
 
-    public UserController(UserConverter userConverter, UserCommandApplicationService userCommandApplicationService, UserQueryApplicationService userQueryApplicationService) {
-        this.userConverter = userConverter;
+    public UserController(UserCommandApplicationService userCommandApplicationService, UserQueryApplicationService userQueryApplicationService) {
         this.userCommandApplicationService = userCommandApplicationService;
         this.userQueryApplicationService = userQueryApplicationService;
     }

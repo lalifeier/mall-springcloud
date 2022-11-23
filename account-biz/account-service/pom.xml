@@ -28,7 +28,6 @@
             <artifactId>mapstruct-processor</artifactId>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>com.github.lalifeier</groupId>
             <artifactId>mall-common-spring-boot-starter</artifactId>
