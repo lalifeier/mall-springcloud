@@ -2,15 +2,15 @@ spring:
   cloud:
     nacos:
       discovery:
-        namespace: ${spring.profiles.active}
+        enabled: true
+        #        namespace: ${spring.profiles.active}
         server-addr: http://localhost:8848
         username: nacos
         password: nacos
       config:
-        namespace: ${spring.profiles.active}
+        #        namespace: ${spring.profiles.active}
         server-addr: http://localhost:8848
         file-extension: yaml
-
 logging:
   level:
     root: debug

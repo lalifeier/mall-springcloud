@@ -1,5 +1,5 @@
 server:
-  port: 8101
+  port: 8010
 
 spring:
   profiles:
@@ -44,9 +44,19 @@ dubbo:
     port: 20881
   #  scan:
   #    base-packages: com.github.lalifeier.mall.demo.presentation.rpc
-#  registry:
-#    address: spring-cloud://localhost
-#  consumer:
-#    check: false
-#  cloud:
-#    subscribed-services:
+  #  registry:
+  #    address: spring-cloud://localhost
+  #  consumer:
+  #    check: false
+  #  cloud:
+  #    subscribed-services:
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
