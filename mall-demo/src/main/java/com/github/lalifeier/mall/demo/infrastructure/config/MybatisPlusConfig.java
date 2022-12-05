@@ -1,14 +1,13 @@
 package com.github.lalifeier.mall.demo.infrastructure.config;
 
-import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.pagination.dialects.MySqlDialect;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import java.util.Arrays;
 
 
 @EnableTransactionManagement
@@ -16,17 +15,15 @@ import java.util.Arrays;
 @MapperScan("com.github.lalifeier.mall.demo.infrastructure")
 public class MybatisPlusConfig {
 
-    public PaginationInnerInterceptor innerInterceptor() {
-        PaginationInnerInterceptor interceptor = new PaginationInnerInterceptor();
-        interceptor.setDbType(DbType.MYSQL);
-        return interceptor;
-    }
 
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
-        MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
-        mybatisPlusInterceptor.setInterceptors(Arrays.asList(innerInterceptor()));
-        return mybatisPlusInterceptor;
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        // 添加乐观锁插件
+        interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
+        // 添加分页插件
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(new MySqlDialect()));
+        return interceptor;
     }
 
 }

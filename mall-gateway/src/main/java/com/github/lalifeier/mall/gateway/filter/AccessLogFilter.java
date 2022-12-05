@@ -82,6 +82,14 @@ public class AccessLogFilter implements GlobalFilter, Ordered {
         }
     }
 
+    /**
+     * 记录基本日志-不需要重新body
+     *
+     * @param exchange
+     * @param chain
+     * @param accessLog
+     * @return
+     */
     private Mono<Void> writeBasicLog(ServerWebExchange exchange, GatewayFilterChain chain, GatewayLog accessLog) {
         StringBuilder builder = new StringBuilder();
         MultiValueMap<String, String> queryParams = exchange.getRequest().getQueryParams();
@@ -99,6 +107,17 @@ public class AccessLogFilter implements GlobalFilter, Ordered {
                     writeAccessLog(accessLog);
                 }));
     }
+
+
+    /**
+     * 记录带body时的日志，解决 request body 只能读取一次问题
+     * org.springframework.cloud.gateway.filter.factory.rewrite.ModifyRequestBodyGatewayFilterFactory
+     *
+     * @param exchange
+     * @param chain
+     * @param gatewayLog
+     * @return
+     */
 
     @SuppressWarnings("unchecked")
     private Mono writeBodyLog(ServerWebExchange exchange, GatewayFilterChain chain, GatewayLog gatewayLog) {
@@ -146,6 +165,14 @@ public class AccessLogFilter implements GlobalFilter, Ordered {
         return exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
     }
 
+    /**
+     * 请求装饰器，重新计算 headers
+     *
+     * @param exchange
+     * @param headers
+     * @param outputMessage
+     * @return
+     */
     private ServerHttpRequestDecorator requestDecorate(ServerWebExchange exchange, HttpHeaders headers,
                                                        CachedBodyOutputMessage outputMessage) {
         return new ServerHttpRequestDecorator(exchange.getRequest()) {
@@ -171,6 +198,13 @@ public class AccessLogFilter implements GlobalFilter, Ordered {
         };
     }
 
+    /**
+     * 记录响应日志 通过 DataBufferFactory 解决响应体分段传输问题。
+     *
+     * @param exchange
+     * @param gatewayLog
+     * @return
+     */
     private ServerHttpResponseDecorator recordResponseLog(ServerWebExchange exchange, GatewayLog gatewayLog) {
         ServerHttpResponse response = exchange.getResponse();
         DataBufferFactory bufferFactory = response.bufferFactory();
