@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.auth.infrastructure.persistence.mysql.converter;
+package com.github.lalifeier.mall.auth.infrastructure.repository.persistence.mysql.converter;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

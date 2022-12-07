@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.auth.infrastructure.persistence.mysql.po;
+package com.github.lalifeier.mall.auth.infrastructure.repository.persistence.mysql.po;
 
 import com.github.lalifeier.model.po.BasePO;
 import lombok.*;

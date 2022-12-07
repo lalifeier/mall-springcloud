@@ -1,7 +1,7 @@
-package com.github.lalifeier.mall.auth.infrastructure.persistence.mysql.mapper;
+package com.github.lalifeier.mall.auth.infrastructure.repository.persistence.mysql.mapper;
 
 
-import com.github.lalifeier.mall.auth.infrastructure.persistence.mysql.po.RolePO;
+import com.github.lalifeier.mall.auth.infrastructure.repository.persistence.mysql.po.RolePO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

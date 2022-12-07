@@ -1,9 +1,9 @@
-package com.github.lalifeier.mall.auth.infrastructure.repository;
+package com.github.lalifeier.mall.auth.infrastructure.repository.facade;
 
 import com.github.lalifeier.mall.auth.domain.user.repository.UserRepository;
-import com.github.lalifeier.mall.auth.infrastructure.persistence.mysql.mapper.RoleDao;
-import com.github.lalifeier.mall.auth.infrastructure.persistence.mysql.mapper.UserDao;
-import com.github.lalifeier.mall.auth.infrastructure.persistence.mysql.mapper.UserRoleDao;
+import com.github.lalifeier.mall.auth.infrastructure.repository.persistence.mysql.mapper.RoleDao;
+import com.github.lalifeier.mall.auth.infrastructure.repository.persistence.mysql.mapper.UserDao;
+import com.github.lalifeier.mall.auth.infrastructure.repository.persistence.mysql.mapper.UserRoleDao;
 import org.springframework.stereotype.Repository;
 
 @Repository

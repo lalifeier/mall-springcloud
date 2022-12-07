@@ -1,5 +1,5 @@
-//package com.github.lalifeier.mall.demo.infrastructure.config;
-//
+package com.github.lalifeier.mall.demo.infrastructure.config;
+
 //import com.github.benmanes.caffeine.cache.Caffeine;
 //import org.springframework.cache.CacheManager;
 //import org.springframework.cache.annotation.EnableCaching;
