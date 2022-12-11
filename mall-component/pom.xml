@@ -21,5 +21,6 @@
         <module>mall-logging-spring-boot-starter</module>
         <module>mall-security-spring-boot-starter</module>
         <module>mall-double-cache-spring-boot-starter</module>
+        <module>mall-http-spring-boot-starter</module>
     </modules>
 </project>

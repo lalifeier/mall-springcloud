@@ -91,6 +91,33 @@ xxl:
       # 执行器日志文件保存天数 [选填] ： 过期日志自动清理, 限制值大于等于3时生效; 否则, 如-1, 关闭自动清理功能；
       logretentiondays: 30
 
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 2000
+        readTimeout: 5000
+  #    sentinel:
+  #      enabled: true
+
+  compression:
+    request:
+      enabled: true
+      mime-types: text/xml,application/xml, application/json
+      min-request-size: 1024
+    response:
+      enabled: true
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+#    readTimeout: 5000
+#    writeTimeout: 10000
+#    connectTimeout: 10000
+#  ribbon:
+#    ReadTimeout: 5000
+#    ConnectTimeout: 5000
+
 management:
   endpoints:
     web:
