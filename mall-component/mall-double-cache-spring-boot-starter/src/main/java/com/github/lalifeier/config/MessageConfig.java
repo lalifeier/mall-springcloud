@@ -1,6 +1,6 @@
 package com.github.lalifeier.config;
 
-import com.github.lalifeier.component.RedisMessageReceiver;
+import com.github.lalifeier.filter.RedisMessageReceiver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;

@@ -1,4 +1,4 @@
-package com.github.lalifeier.component;
+package com.github.lalifeier.filter;
 
 import com.github.lalifeier.cache.DoubleCache;
 import com.github.lalifeier.cache.DoubleCacheManager;

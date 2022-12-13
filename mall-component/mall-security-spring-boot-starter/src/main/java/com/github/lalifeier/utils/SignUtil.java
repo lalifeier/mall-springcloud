@@ -2,14 +2,11 @@ package com.github.lalifeier.utils;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.text.StrBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -17,6 +14,7 @@ public class SignUtil {
 
     private static final String KEY = "自定义";
     private static final Logger log = LoggerFactory.getLogger(SignUtil.class);
+
     public static String signature(String timestamp, String nonce, String requestPayload, HttpServletRequest request) {
         Assert.isTrue(StringUtils.isNotBlank(timestamp), "timestamp can not be empty");
         Assert.isTrue(StringUtils.isNotBlank(nonce), "nonce can not be empty");
@@ -29,12 +27,14 @@ public class SignUtil {
             String value = request.getParameter(name);
             params.put(name, value);
         }
-        String paramString = sortQueryParamString(params);
 
+        String paramString = sortQueryParamString(params);
         String qs = String.format("%s&timestamp=%s&nonce=%s&key=%s", paramString, timestamp, nonce, KEY);
+
         log.info("requestPayload:{} qs:{}", requestPayload, qs);
         String sign = DigestUtils.md5Hex(requestPayload + qs).toUpperCase();
         log.info("sign:{}", sign);
+
         return sign;
     }
 
@@ -44,7 +44,7 @@ public class SignUtil {
      * @param params 请求参数 注意请求参数中不能包含key
      * @return 排序后结果
      */
-    private static String  sortQueryParamString(Map<String,Object> params)  {
+    private static String sortQueryParamString(Map<String, Object> params) {
         if (params == null) {
             return null;
         }
