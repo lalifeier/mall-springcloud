@@ -41,14 +41,19 @@ public class RestResponseHandler implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         String traceId = TraceContext.traceId();
 
+        Result<Object> result = Result.success();
+        result.setTraceId(traceId);
+
         if (body == null) {
-            return Result.success();
+            return result;
         }
 
         if (body instanceof String) {
             try {
+                result.setData(body);
+
                 response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
-                return objectMapper.writeValueAsString(Result.success(body));
+                return objectMapper.writeValueAsString(result);
             } catch (JsonProcessingException e) {
                 log.error(e.getMessage(), e);
                 throw new RuntimeException(e.getMessage(), e);
@@ -56,9 +61,12 @@ public class RestResponseHandler implements ResponseBodyAdvice<Object> {
         }
 
         if (body instanceof Result) {
-            return (Result) body;
+            ((Result<?>) body).setTraceId(traceId);
+            return (Result<?>)  body;
         }
 
-        return Result.success(body);
+        result.setData(body);
+
+        return result;
     }
 }
