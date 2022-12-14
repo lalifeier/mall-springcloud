@@ -14,6 +14,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>mall-common-error</module>
         <module>mall-common-spring-boot-starter</module>
         <module>mall-swagger-spring-boot-starter</module>
         <module>mall-redis-spring-boot-starter</module>

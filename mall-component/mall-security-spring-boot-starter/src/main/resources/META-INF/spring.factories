@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.github.lalifeier.config.SecurityAutoConfigure
+com.github.lalifeier.mall.security.config.SecurityAutoConfigure

@@ -1,6 +1,6 @@
 package com.github.lalifeier.mall.gateway.filter;
 
-import com.github.lalifeier.constant.CommonConstant;
+import com.github.lalifeier.common.constant.CommonConstant;
 import com.nimbusds.jose.JWSObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;

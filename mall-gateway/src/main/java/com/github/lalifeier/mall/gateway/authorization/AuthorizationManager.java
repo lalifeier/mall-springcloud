@@ -2,7 +2,7 @@ package com.github.lalifeier.mall.gateway.authorization;
 
 
 import cn.hutool.core.convert.Convert;
-import com.github.lalifeier.constant.CommonConstant;
+import com.github.lalifeier.common.constant.CommonConstant;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;

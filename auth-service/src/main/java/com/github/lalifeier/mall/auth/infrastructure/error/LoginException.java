@@ -1,10 +1,10 @@
 package com.github.lalifeier.mall.auth.infrastructure.error;
 
 
-import com.github.lalifeier.api.IError;
-import com.github.lalifeier.api.ProjectModule;
-import com.github.lalifeier.exception.BaseException;
-import com.github.lalifeier.manager.ErrorInfo;
+import com.github.lalifeier.mall.common.error.api.ErrorCode;
+import com.github.lalifeier.mall.common.error.api.ProjectModule;
+import com.github.lalifeier.mall.common.error.exception.BaseException;
+import com.github.lalifeier.mall.common.error.manager.ErrorInfo;
 
 public class LoginException extends BaseException {
 
@@ -24,12 +24,12 @@ public class LoginException extends BaseException {
         super(errorInfo);
     }
 
-    protected LoginException(IError IError) {
-        super(IError);
+    protected LoginException(ErrorCode errorCode) {
+        super(errorCode);
     }
 
-    protected LoginException(IError IError, Object... args) {
-        super(IError, args);
+    protected LoginException(ErrorCode errorCode, Object... args) {
+        super(errorCode, args);
     }
 
     @Override

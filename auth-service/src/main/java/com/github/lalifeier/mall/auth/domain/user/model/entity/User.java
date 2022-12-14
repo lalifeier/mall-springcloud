@@ -1,7 +1,7 @@
 package com.github.lalifeier.mall.auth.domain.user.model.entity;
 
 import com.github.lalifeier.mall.auth.domain.user.model.valueobject.UserId;
-import com.github.lalifeier.model.AggregateRoot;
+import com.github.lalifeier.common.model.AggregateRoot;
 import lombok.Data;
 
 @Data

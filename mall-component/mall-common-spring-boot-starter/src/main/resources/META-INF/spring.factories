@@ -1,3 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.github.lalifeier.handler.RestResponseHandler,\
-com.github.lalifeier.handler.RestExceptionHandler
+com.github.lalifeier.mall.common.handler.RestResponseHandler,\
+com.github.lalifeier.mall.common.handler.RestExceptionHandler

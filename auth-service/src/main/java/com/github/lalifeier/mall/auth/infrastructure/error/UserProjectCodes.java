@@ -1,9 +1,10 @@
 package com.github.lalifeier.mall.auth.infrastructure.error;
 
 
-import com.github.lalifeier.api.ProjectModule;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import com.github.lalifeier.mall.common.error.api.ProjectModule;
 
 @Getter
 @AllArgsConstructor
@@ -18,9 +19,9 @@ public enum UserProjectCodes implements ProjectModule {
      */
     USER(1, 2, "用户中心", "用户模块");
 
-    private int projectCode;
-    private int moduleCode;
-    private String projectName;
-    private String moduleName;
+    private final int projectCode;
+    private final int moduleCode;
+    private final String projectName;
+    private final String moduleName;
 
 }

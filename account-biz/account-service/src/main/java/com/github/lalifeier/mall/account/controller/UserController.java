@@ -1,7 +1,7 @@
 package com.github.lalifeier.mall.account.controller;
 
 import com.github.lalifeier.mall.account.domain.User;
-import com.github.lalifeier.utils.JsonUtils;
+import com.github.lalifeier.common.utils.JsonUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

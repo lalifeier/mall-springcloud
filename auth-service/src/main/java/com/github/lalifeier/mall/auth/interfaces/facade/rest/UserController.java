@@ -3,7 +3,7 @@ package com.github.lalifeier.mall.auth.interfaces.facade.rest;
 import com.github.lalifeier.mall.auth.applicaiton.service.command.UserCommandApplicationService;
 import com.github.lalifeier.mall.auth.applicaiton.service.query.UserQueryApplicationService;
 import com.github.lalifeier.mall.auth.interfaces.model.req.*;
-import com.github.lalifeier.result.Result;
+import com.github.lalifeier.common.result.Result;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

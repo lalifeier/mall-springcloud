@@ -1,7 +1,7 @@
 package com.github.lalifeier.mall.gateway.component;
 
-import com.github.lalifeier.result.Result;
-import com.github.lalifeier.utils.JsonUtils;
+import com.github.lalifeier.common.result.Result;
+import com.github.lalifeier.common.utils.JsonUtils;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

@@ -1,7 +1,7 @@
 package com.github.lalifeier.mall.gateway.config;
 
 import cn.hutool.core.util.ArrayUtil;
-import com.github.lalifeier.constant.CommonConstant;
+import com.github.lalifeier.common.constant.CommonConstant;
 import com.github.lalifeier.mall.gateway.authorization.AuthorizationManager;
 import com.github.lalifeier.mall.gateway.component.RestAccessDeniedHandler;
 import com.github.lalifeier.mall.gateway.component.RestAuthenticationEntryPoint;

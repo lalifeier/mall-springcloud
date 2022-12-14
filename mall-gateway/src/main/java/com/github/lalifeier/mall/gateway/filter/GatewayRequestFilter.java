@@ -1,7 +1,7 @@
 package com.github.lalifeier.mall.gateway.filter;
 
-import com.github.lalifeier.constant.CommonConstant;
-import com.github.lalifeier.utils.JsonUtils;
+import com.github.lalifeier.common.constant.CommonConstant;
+import com.github.lalifeier.common.utils.JsonUtils;
 import com.google.gson.JsonObject;
 import com.nimbusds.jose.JWSObject;
 import lombok.AllArgsConstructor;
