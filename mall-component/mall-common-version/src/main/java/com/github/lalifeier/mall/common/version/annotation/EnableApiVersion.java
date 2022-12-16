@@ -1,5 +1,6 @@
-package com.github.lalifeier.mall.common.version;
+package com.github.lalifeier.mall.common.version.annotation;
 
+import com.github.lalifeier.mall.common.version.config.ApiAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;

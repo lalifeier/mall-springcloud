@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.common.version;
+package com.github.lalifeier.mall.common.version.condition;
 
 
 import lombok.Getter;

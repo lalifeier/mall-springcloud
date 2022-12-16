@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.common.version;
+package com.github.lalifeier.mall.common.version.annotation;
 
 import org.springframework.web.bind.annotation.Mapping;
 

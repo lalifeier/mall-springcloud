@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.common.version;
+package com.github.lalifeier.mall.common.version.config;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

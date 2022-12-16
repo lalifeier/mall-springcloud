@@ -56,17 +56,17 @@
             </dependency>
             <dependency>
                 <groupId>com.github.lalifeier</groupId>
-                <artifactId>mall-error</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.lalifeier</groupId>
-                <artifactId>mall-common-spring-boot-starter</artifactId>
+                <artifactId>mall-common-version</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.lalifeier</groupId>
                 <artifactId>mall-common-error</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.lalifeier</groupId>
+                <artifactId>mall-common-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
