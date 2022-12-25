@@ -1,8 +1,8 @@
 package com.github.lalifeier.mall.gateway.filter;
 
-import com.github.lalifeier.mall.gateway.entity.GatewayLog;
+import com.github.lalifeier.mall.gateway.po.GatewayLog;
 import com.github.lalifeier.mall.gateway.service.AccessLogService;
-import com.github.lalifeier.mall.gateway.utils.IpUtils;
+import com.github.lalifeier.mall.gateway.utils.IpUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -63,7 +63,7 @@ public class AccessLogFilter implements GlobalFilter, Ordered {
         String requestPath = request.getPath().pathWithinApplication().value();
         Route route = getGatewayRoute(exchange);
 
-        String ipAddress = IpUtils.getIpAddress(request);
+        String ipAddress = IpUtil.getIpAddress(request);
 
         GatewayLog gatewayLog = new GatewayLog();
         gatewayLog.setSchema(request.getURI().getScheme());
@@ -158,7 +158,7 @@ public class AccessLogFilter implements GlobalFilter, Ordered {
 
     private void writeAccessLog(GatewayLog gatewayLog) {
         log.info(gatewayLog.toString());
-        accessLogService.saveAccessLog(gatewayLog).subscribe();
+        //accessLogService.saveAccessLog(gatewayLog).subscribe();
     }
 
     private Route getGatewayRoute(ServerWebExchange exchange) {

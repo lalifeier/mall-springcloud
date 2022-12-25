@@ -2,10 +2,9 @@ package com.github.lalifeier.mall.gateway.authorization;
 
 
 import cn.hutool.core.convert.Convert;
-import com.github.lalifeier.common.constant.CommonConstant;
+import com.github.lalifeier.mall.common.constant.Common;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -21,10 +20,9 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
-@RequiredArgsConstructor
 @Slf4j
-@ConfigurationProperties(prefix = "security")
+@RequiredArgsConstructor
+@Component
 public class AuthorizationManager implements ReactiveAuthorizationManager<AuthorizationContext> {
     private final RedisTemplate<String, Object> redisTemplate;
 
@@ -37,10 +35,10 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
 
         //从Redis中获取当前路径可访问角色列表
         URI uri = authorizationContext.getExchange().getRequest().getURI();
-        Object obj = redisTemplate.opsForHash().get(CommonConstant.RESOURCE_ROLES_MAP, uri.getPath());
+        Object obj = redisTemplate.opsForHash().get(Common.RESOURCE_ROLES_MAP, uri.getPath());
         //List<String> authorities = (List<String>) ConvertUtils.convert(obj, String.class)l
         List<String> authorities = Convert.toList(String.class, obj);
-        authorities = authorities.stream().map(i -> i = CommonConstant.AUTHORITY_PREFIX + i).collect(Collectors.toList());
+        authorities = authorities.stream().map(i -> i = Common.AUTHORITY_PREFIX + i).collect(Collectors.toList());
 
         //认证通过且角色匹配的用户可访问当前路径
         return authenticationMono

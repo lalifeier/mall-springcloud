@@ -1,5 +1,6 @@
 package com.github.lalifeier.mall.common.version.config;
 
+import com.github.lalifeier.mall.common.version.apiversion.ApiVersionRequestMappingHandlerMapping;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcRegistrations;

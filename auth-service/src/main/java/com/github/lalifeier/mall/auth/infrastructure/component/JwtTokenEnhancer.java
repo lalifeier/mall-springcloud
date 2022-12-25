@@ -1,5 +1,6 @@
-//package com.github.lalifeier.mall.auth.component;
-//
+package com.github.lalifeier.mall.auth.infrastructure.component;
+
+//import com.github.lalifeier.mall.auth.domain.user.model.entity.UserPrincipal;
 //import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 //import org.springframework.security.oauth2.common.OAuth2AccessToken;
 //import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -8,6 +9,7 @@
 //
 //import java.util.HashMap;
 //import java.util.Map;
+//
 //@Component
 //public class JwtTokenEnhancer implements TokenEnhancer {
 //    @Override

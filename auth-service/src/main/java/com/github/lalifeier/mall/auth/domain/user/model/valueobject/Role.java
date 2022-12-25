@@ -1,7 +1,7 @@
 package com.github.lalifeier.mall.auth.domain.user.model.valueobject;
 
-//@Getter
-//@NoArgsConstructor
-//@AllArgsConstructor
-//public class Role {
-//}
+import lombok.Getter;
+
+@Getter
+public class Role {
+}

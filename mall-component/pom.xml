@@ -20,7 +20,7 @@
         <module>mall-redis-spring-boot-starter</module>
         <module>mall-feign-spring-boot-starter</module>
         <module>mall-logging-spring-boot-starter</module>
-        <module>mall-security-spring-boot-starter</module>
+        <module>mall-sign-spring-boot-starter</module>
         <module>mall-double-cache-spring-boot-starter</module>
         <module>mall-http-spring-boot-starter</module>
         <module>mall-common-version</module>

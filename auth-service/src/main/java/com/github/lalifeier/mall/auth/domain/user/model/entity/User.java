@@ -1,11 +1,13 @@
 package com.github.lalifeier.mall.auth.domain.user.model.entity;
 
+import com.github.lalifeier.mall.auth.domain.user.model.valueobject.Role;
 import com.github.lalifeier.mall.auth.domain.user.model.valueobject.UserId;
-import com.github.lalifeier.common.model.AggregateRoot;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
-public class User implements AggregateRoot {
+public class User {
 
     private UserId id;
 
@@ -15,7 +17,7 @@ public class User implements AggregateRoot {
 
     private String email;
 
-    private boolean enabled;
+    private Boolean enabled;
 
-    //private List<Role> roles;
+    private List<Role> roles;
 }

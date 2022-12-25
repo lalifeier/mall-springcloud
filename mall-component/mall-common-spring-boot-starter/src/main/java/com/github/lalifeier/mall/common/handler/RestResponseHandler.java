@@ -3,7 +3,7 @@ package com.github.lalifeier.mall.common.handler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.lalifeier.mall.common.annotation.IgnoreResponseAdvice;
-import com.github.lalifeier.common.result.Result;
+import com.github.lalifeier.mall.common.result.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.skywalking.apm.toolkit.trace.Trace;
 import org.apache.skywalking.apm.toolkit.trace.TraceContext;
@@ -62,7 +62,7 @@ public class RestResponseHandler implements ResponseBodyAdvice<Object> {
 
         if (body instanceof Result) {
             ((Result<?>) body).setTraceId(traceId);
-            return (Result<?>)  body;
+            return (Result<?>) body;
         }
 
         result.setData(body);

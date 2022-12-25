@@ -1,0 +1,21 @@
+package com.github.lalifeier.mall.sign.properties;
+
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import java.util.List;
+
+@Data
+@ConfigurationProperties(prefix = "spring.sign")
+public class SignAuthProperties {
+
+    /**
+     * 签名超时时间
+     */
+    private Integer timeout;
+
+    /**
+     * 允许未签名访问的 url 地址
+     */
+    private List<String> ignoreUri;
+}

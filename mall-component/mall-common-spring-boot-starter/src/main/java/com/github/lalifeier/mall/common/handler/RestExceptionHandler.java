@@ -1,15 +1,13 @@
 package com.github.lalifeier.mall.common.handler;
 
 
-
-import com.github.lalifeier.common.result.Result;
-
-import com.google.common.base.Joiner;
-import lombok.extern.slf4j.Slf4j;
 import com.github.lalifeier.mall.common.error.exception.IErrorCodeException;
 import com.github.lalifeier.mall.common.error.manager.ErrorInfo;
 import com.github.lalifeier.mall.common.error.system.HttpCodes;
 import com.github.lalifeier.mall.common.error.system.SystemErrorCodes;
+import com.github.lalifeier.mall.common.result.Result;
+import com.google.common.base.Joiner;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;

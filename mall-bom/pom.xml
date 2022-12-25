@@ -86,6 +86,11 @@
             </dependency>
             <dependency>
                 <groupId>com.github.lalifeier</groupId>
+                <artifactId>mall-sign-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.lalifeier</groupId>
                 <artifactId>account-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -107,11 +112,11 @@
                 <version>${spring-boot-admin.version}</version>
             </dependency>
             <!-- spring-security-oauth2 -->
-            <dependency>
-                <groupId>org.springframework.security.oauth</groupId>
-                <artifactId>spring-security-oauth2</artifactId>
-                <version>${spring-security-oauth2.version}</version>
-            </dependency>
+            <!--            <dependency>-->
+            <!--                <groupId>org.springframework.security.oauth</groupId>-->
+            <!--                <artifactId>spring-security-oauth2</artifactId>-->
+            <!--                <version>${spring-security-oauth2.version}</version>-->
+            <!--            </dependency>-->
             <!--MyBatis分页插件starter-->
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
@@ -201,11 +206,11 @@
                 <version>${fastjson.version}</version>
             </dependency>
             <!--oauth2-->
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-oauth2</artifactId>
-                <version>${spring-cloud-starter-oauth2.version}</version>
-            </dependency>
+            <!--            <dependency>-->
+            <!--                <groupId>org.springframework.cloud</groupId>-->
+            <!--                <artifactId>spring-cloud-starter-oauth2</artifactId>-->
+            <!--                <version>${spring-cloud-starter-oauth2.version}</version>-->
+            <!--            </dependency>-->
             <!--jwt-->
             <dependency>
                 <groupId>com.nimbusds</groupId>
@@ -313,11 +318,11 @@
                 <version>${feign-okhttp.version}</version>
             </dependency>
             <!--slf4j-api-->
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${sl4j-api.version}</version>
-            </dependency>
+            <!--            <dependency>-->
+            <!--                <groupId>org.slf4j</groupId>-->
+            <!--                <artifactId>slf4j-api</artifactId>-->
+            <!--                <version>${sl4j-api.version}</version>-->
+            <!--            </dependency>-->
 
         </dependencies>
     </dependencyManagement>

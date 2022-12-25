@@ -89,12 +89,30 @@ spring:
       port: 27017
       database: access_log
       username: root
-      password: '123456'
+      password: 123456
       authentication-database: admin
 
-secure:
-  ignore:
-    urls:
+
+
+gateway:
+  white-urls:
+    - "/actuator/**"
+    - "/login"
+    - "/oauth2/token"
+    - "/oauth2/authorize"
+    - "/doc.html"
+    - "/swagger-resources/**"
+    - "/swagger/**"
+    - "/*/v3/api-docs"
+    - "/*/*.js"
+    - "/*/*.css"
+    - "/*/*.png"
+    - "/*/*.ico"
+    - "/webjars/**"
+  sign:
+    enabled: true
+    timeout: 6000
+    white-urls:
       - "/actuator/**"
       - "/login"
       - "/oauth2/token"

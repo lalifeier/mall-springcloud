@@ -16,6 +16,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @AllArgsConstructor
 @Configuration
 @EnableWebSecurity
@@ -32,7 +34,7 @@ public class WebSecurityConfig {
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests.anyRequest().authenticated()
                 )
-                .formLogin();
+                .formLogin(withDefaults());
         return http.build();
     }
 
@@ -42,7 +44,7 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService() {
+    public UserDetailsService users() {
         return new JdbcUserDetailsManager(dataSource);
     }
 

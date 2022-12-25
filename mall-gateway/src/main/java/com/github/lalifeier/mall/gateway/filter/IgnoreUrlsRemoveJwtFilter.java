@@ -1,6 +1,7 @@
 package com.github.lalifeier.mall.gateway.filter;
 
-import com.github.lalifeier.mall.gateway.config.IgnoreUrlsConfig;
+import com.github.lalifeier.mall.gateway.properties.GatewayAuthProperties;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
@@ -13,22 +14,19 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Slf4j
 @Component
 public class IgnoreUrlsRemoveJwtFilter implements WebFilter {
 
-    private final IgnoreUrlsConfig ignoreUrlsConfig;
-
-    public IgnoreUrlsRemoveJwtFilter(IgnoreUrlsConfig ignoreUrlsConfig) {
-        this.ignoreUrlsConfig = ignoreUrlsConfig;
-    }
+    private final GatewayAuthProperties gatewayAuthProperties;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         String path = request.getURI().getPath();
         PathMatcher pathMatcher = new AntPathMatcher();
-        List<String> ignoreUrls = ignoreUrlsConfig.getUrls();
+        List<String> ignoreUrls = gatewayAuthProperties.getWhiteUrls();
         //白名单路径移除JWT请求头
         for (String ignoreUrl : ignoreUrls) {
             if (pathMatcher.match(ignoreUrl, path)) {
