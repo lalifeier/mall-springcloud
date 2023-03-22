@@ -33,9 +33,6 @@ import java.util.UUID;
 @Configuration(proxyBeanMethods = false)
 public class AuthorizationServerConfig {
 
-    //@Autowired
-    //JdbcTemplate jdbcTemplate;
-
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {

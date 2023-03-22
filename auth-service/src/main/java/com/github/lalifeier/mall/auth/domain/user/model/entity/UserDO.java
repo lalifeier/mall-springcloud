@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class User {
+public class UserDO {
 
     private UserId id;
 

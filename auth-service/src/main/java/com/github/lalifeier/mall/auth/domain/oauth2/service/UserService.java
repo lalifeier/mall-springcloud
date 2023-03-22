@@ -1,5 +1,7 @@
 package com.github.lalifeier.mall.auth.domain.oauth2.service;
 
-//public interface UserService extends UserDetailsService {
-//
-//}
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+public interface UserService extends UserDetailsService {
+
+}

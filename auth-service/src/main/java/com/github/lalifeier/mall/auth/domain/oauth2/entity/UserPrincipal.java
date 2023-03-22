@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.auth.domain.user.model.entity;
+package com.github.lalifeier.mall.auth.domain.oauth2.entity;
 
 //@Data
 //public class UserPrincipal implements UserDetails {

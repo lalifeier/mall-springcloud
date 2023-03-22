@@ -1,8 +1,8 @@
 package com.github.lalifeier.mall.auth.domain.user.repository;
 
-import com.github.lalifeier.mall.auth.domain.user.model.entity.User;
+import com.github.lalifeier.mall.auth.domain.user.model.entity.UserDO;
 
 public interface UserRepository {
 
-    User findUserByUsername(String username);
+    UserDO findUserByUsername(String username);
 }
