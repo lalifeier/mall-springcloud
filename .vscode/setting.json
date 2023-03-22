@@ -1,0 +1,12 @@
+{
+    "java.jdt.ls.java.home":"C:\\Program Files\\Java\\jdk-11.0.2",
+    "java.configuration.maven.userSettings":"C:\\apache-maven-3.8.5\\conf\\settings.xml",
+    "maven.executable.path":"C:\\apache-maven-3.8.5\\bin\\mvn.cmd",
+    "maven.terminal.useJavaHome":true,
+    "maven.terminal.customEnv":[
+        {
+            "environmentVariable":"JAVA_HOME",
+            "value":"C:\\Program Files\\Java\\jdk-11.0.2"
+        }
+    ]
+}
