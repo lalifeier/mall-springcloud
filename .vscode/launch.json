@@ -1,0 +1,21 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "MallAuthApplication",
+      "request": "launch",
+      "mainClass": "com.github.lalifeier.mall.auth.MallAuthApplication",
+      "projectName": "auth-service"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-MallGatewayApplication<mall-gateway>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.github.lalifeier.mall.gateway.MallGatewayApplication",
+      "projectName": "mall-gateway",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "java.jdt.ls.java.home": "~/.sdkman/candidates/java/11.0.12-open",
+  "java.compile.nullAnalysis.mode": "automatic",
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-1.8",
+      "path": "~/.sdkman/candidates/java/8.0.265-open",
+      "default": true
+    },
+    {
+      "name": "JavaSE-11",
+      "path": "~/.sdkman/candidates/java/11.0.12-open"
+    }
+  ],
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "maven.executable.path": "~/.sdkman/candidates/maven/3.8.6/bin/mvn",
+  "java.configuration.maven.userSettings": "~/.sdkman/candidates/maven/3.8.6/conf/settings.xml",
+  "maven.settingsFile": "~/.m2/settings.xml",
+  "maven.terminal.useJavaHome": true,
+  "maven.terminal.customEnv": [
+    {
+      "environmentVariable": "JAVA_HOME",
+      "value": "~/.sdkman/candidates/java/8.0.265-open"
+    },
+    {
+      "environmentVariable": "MAVEN_OPTS",
+      "value": "-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n"
+    }
+  ],
+  "java.debug.settings.onBuildFailureProceed": true,
+  "java.import.gradle.java.home": "~/.sdkman/candidates/java/8.0.265-open",
+  "java.import.gradle.home": "~/.sdkman/candidates/gradle/current",
+  "java.import.gradle.wrapper.enabled": true,
+  "java.import.gradle.version": "",
+  "java.saveActions.organizeImports": true
+}
