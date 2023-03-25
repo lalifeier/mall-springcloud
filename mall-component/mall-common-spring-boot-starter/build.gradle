@@ -1,20 +1,16 @@
 dependencies {
-    implementation project(':mall-common')
-    implementation project(':mall-component:mall-common-error')
+    api project(':mall-common')
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    implementation('org.springframework.boot:spring-boot-starter-web') {
+    api('org.springframework.boot:spring-boot-starter-web') {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
     }
-    implementation('org.springframework.boot:spring-boot-starter-undertow')
+    api('org.springframework.boot:spring-boot-starter-undertow')
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    api 'org.springframework.boot:spring-boot-starter-validation'
+    api 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'com.github.ben-manes.caffeine:caffeine'
     implementation 'org.apache.skywalking:apm-toolkit-logback-1.x'
     implementation 'org.apache.skywalking:apm-toolkit-trace'
-    implementation 'com.google.guava:guava'
-    implementation 'com.google.code.gson:gson'
-    implementation 'org.apache.commons:commons-lang3'
 }

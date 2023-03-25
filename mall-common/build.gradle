@@ -1,8 +1,8 @@
 dependencies {
-    implementation project(':mall-component:mall-common-error')
-    implementation 'com.google.guava:guava'
-    implementation 'org.apache.commons:commons-lang3'
-    implementation 'com.google.code.gson:gson'
+    api project(':mall-component:mall-common-error')
+    api 'com.google.guava:guava'
+    api 'org.apache.commons:commons-lang3'
+    api 'com.google.code.gson:gson'
     implementation 'org.springframework.data:spring-data-commons'
     // implementation 'com.github.pagehelper:pagehelper'
     // implementation 'com.baomidou:mybatis-plus-boot-starter'

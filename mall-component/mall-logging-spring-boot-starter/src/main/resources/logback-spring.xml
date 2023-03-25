@@ -157,8 +157,8 @@
         <neverBlock>true</neverBlock>
         <appender-ref ref="FILE"/>
         <appender-ref ref="FILE_ERROR"/>
-        <appender-ref ref="GRPC"/>
-        <appender-ref ref="LOG_STASH"/>
+<!--        <appender-ref ref="GRPC"/>-->
+<!--        <appender-ref ref="LOG_STASH"/>-->
     </appender>
 
     <logger name="org.slf4j" level="INFO"/>

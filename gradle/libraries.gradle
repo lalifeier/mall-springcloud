@@ -2,7 +2,7 @@ ext {
     springBootVersion = '2.6.11'
     springCloudVersion = '2021.0.4'
     springCloudAlibabaVersion = '2021.0.4.0'
-    lombokVersion = "1.16.18"
+    lombokVersion = "1.18.24"
     dubboVersion = '3.1.1'
     springBootAdminVersion = '2.6.9'
     springSecurityOauth2Version = '2.5.2.RELEASE'
@@ -45,7 +45,7 @@ ext {
             springBoot: "org.springframework.boot:spring-boot-dependencies:${springBootVersion}",
             springCloud: "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}",
             springCloudAlibaba: "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}",
-            lombok                     : "org.projectlombok:lombok:${lombokVersion}",
+            lombok: "org.projectlombok:lombok:${lombokVersion}",
             slf4j: "org.slf4j:slf4j-api:${sl4jApiVersion}",
             dubbo     : "org.apache.dubbo:dubbo-spring-boot-starter:${dubboVersion}",
             springBootAdmin : "de.codecentric:spring-boot-admin-starter-server:${springBootAdminVersion}",

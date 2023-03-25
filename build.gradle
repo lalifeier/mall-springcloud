@@ -24,12 +24,6 @@ allprojects {
     [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 
     compileJava.options.compilerArgs.addAll(['-parameters'])
-
-    repositories {
-        maven { url 'https://maven.aliyun.com/repository/public/' }
-        mavenLocal()
-        mavenCentral()
-    }
 }
 
 subprojects {
@@ -42,16 +36,16 @@ subprojects {
 
     repositories {
         maven { url 'https://maven.aliyun.com/repository/public/' }
-        maven {url 'https://developer.huawei.com/repo/'}
+        maven { url 'https://developer.huawei.com/repo/'}
         mavenLocal()
         mavenCentral()
     }
 
-    configurations {
-        compileOnly {
-            extendsFrom annotationProcessor
-        }
-    }
+//    configurations {
+//        compileOnly {
+//            extendsFrom annotationProcessor
+//        }
+//    }
 
 //    jar {
 //        enabled = true
@@ -127,7 +121,7 @@ subprojects {
         testCompileOnly libraries.lombok
         testAnnotationProcessor libraries.lombok
 
-        api libraries.slf4j
+//        api libraries.slf4j
 
         annotationProcessor libraries.mapstructProcessor
         testAnnotationProcessor libraries.mapstructProcessor
