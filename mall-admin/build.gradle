@@ -9,5 +9,4 @@ dependencies {
     implementation 'com.alibaba.cloud:spring-cloud-starter-stream-rocketmq'
     implementation 'cn.hutool:hutool-all'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    compileOnly 'org.projectlombok:lombok'
 }

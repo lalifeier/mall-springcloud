@@ -14,5 +14,4 @@ dependencies {
     implementation 'commons-beanutils:commons-beanutils'
     implementation 'cn.hutool:hutool-all'
     implementation 'org.springframework.boot:spring-boot-configuration-processor'
-    compileOnly 'org.projectlombok:lombok'
 }

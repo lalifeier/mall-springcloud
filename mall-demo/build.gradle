@@ -16,6 +16,4 @@ dependencies {
     implementation 'io.github.openfeign:feign-okhttp'
     implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    compileOnly 'org.projectlombok:lombok'
 }
-

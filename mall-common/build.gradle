@@ -6,5 +6,4 @@ dependencies {
     implementation 'org.springframework.data:spring-data-commons'
     // implementation 'com.github.pagehelper:pagehelper'
     // implementation 'com.baomidou:mybatis-plus-boot-starter'
-    compileOnly 'org.projectlombok:lombok'
 }
