@@ -1,0 +1,18 @@
+dependencies {
+    implementation project(':mall-component:mall-common-spring-boot-starter')
+    implementation project(':mall-component:mall-logging-spring-boot-starter')
+    implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
+    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
+    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'
+    implementation 'mysql:mysql-connector-java'
+    implementation 'com.alibaba:druid-spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.security:spring-security-oauth2-authorization-server'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    compileOnly 'org.projectlombok:lombok'
+    compileOnly 'org.mapstruct:mapstruct'
+    compileOnly 'org.mapstruct:mapstruct-processor'
+}
+

@@ -1,0 +1,3 @@
+includeFlat 'account-biz:account-api'
+includeFlat 'account-biz:account-rpc'
+includeFlat 'account-biz:account-service'
