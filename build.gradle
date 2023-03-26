@@ -54,6 +54,10 @@ configure(javaProjects) { project ->
         }
     }
 
+    bootJar {
+        enabled = false
+    }
+
     idea {
         module {
             downloadJavadoc = false

@@ -41,9 +41,9 @@ public class UUIDUtils {
         } while (charPos > offset);
     }
 
-    public static void main(String[] args) {
-        for (int i = 0; i < 1000; i++) {
-            System.out.println(UUIDUtils.getUUID());
-        }
-    }
+    //public static void main(String[] args) {
+    //    for (int i = 0; i < 1000; i++) {
+    //        System.out.println(UUIDUtils.getUUID());
+    //    }
+    //}
 }
