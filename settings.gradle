@@ -36,3 +36,5 @@ include 'account-biz:account-service'
 //auth
 include 'auth-service'
 
+
+include 'mall-kotlin-demo'

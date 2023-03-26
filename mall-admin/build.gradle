@@ -1,7 +1,3 @@
-bootJar {
-    enabled = true
-}
-
 dependencies {
     implementation project(':mall-component:mall-common-spring-boot-starter')
     implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'

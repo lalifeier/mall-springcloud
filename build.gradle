@@ -6,14 +6,16 @@ buildscript {
         maven { url 'https://developer.huawei.com/repo/'}
         mavenLocal()
         mavenCentral()
+        gradlePluginPortal()
     }
 
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
         classpath "com.bmuschko:gradle-docker-plugin:${gradleDockerPluginVersion}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
+        classpath "org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}"
     }
 }
-
 
 allprojects {
     group 'com.github.lalifeier'
@@ -40,6 +42,8 @@ configure(javaProjects) { project ->
     apply plugin: 'maven-publish'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.jetbrains.kotlin.jvm'
+    apply plugin: 'org.jetbrains.kotlin.plugin.spring'
 
     repositories {
         maven { url 'https://maven.aliyun.com/repository/public/' }
@@ -96,11 +100,20 @@ configure(javaProjects) { project ->
 
 //        annotationProcessor rootProject.ext.mapstructProcessor
 //        testAnnotationProcessor rootProject.ext.mapstructProcessor
+
+
     }
 
     test {
         useJUnitPlatform()
     }
+
+//    tasks.withType(KotlinCompile) {
+//        kotlinOptions {
+//            freeCompilerArgs = ['-Xjsr305=strict']
+//            jvmTarget = '17'
+//        }
+//    }
 }
 
 //maven

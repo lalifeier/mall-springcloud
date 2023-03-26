@@ -1,7 +1,3 @@
-bootJar {
-    enabled = true
-}
-
 dependencies {
     implementation project(':mall-common')
     implementation project(':mall-component:mall-logging-spring-boot-starter')

@@ -4,6 +4,7 @@ ext {
     springBootVersion = '2.6.11'
     springCloudVersion = '2021.0.4'
     springCloudAlibabaVersion = '2021.0.4.0'
+    kotlinVersion = '1.6.10'
     gradleDockerPluginVersion = '6.7.0'
     lombokVersion = "1.18.24"
     sl4jApiVersion = '2.0.6'
