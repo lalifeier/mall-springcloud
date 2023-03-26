@@ -21,12 +21,16 @@ allprojects {
     group 'com.github.lalifeier'
     version rootProject.ext.projectVersion
 
-    apply plugin: 'java'
+    apply plugin: 'idea'
 
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-
-    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+    idea {
+        module {
+            downloadJavadoc = false
+            downloadSources = false
+            inheritOutputDirs = false
+            outputDir = file("$buildDir/classes/main/")
+        }
+    }
 }
 
 ext {
@@ -35,9 +39,6 @@ ext {
 }
 
 configure(javaProjects) { project ->
-    apply plugin: 'java'
-    apply plugin: 'idea'
-    apply plugin: 'eclipse'
     apply plugin: 'java-library'
     apply plugin: 'maven-publish'
     apply plugin: 'org.springframework.boot'
@@ -62,13 +63,16 @@ configure(javaProjects) { project ->
         enabled = false
     }
 
-    idea {
-        module {
-            downloadJavadoc = false
-            downloadSources = false
-            inheritOutputDirs = false
-            outputDir = file("$buildDir/classes/main/")
-        }
+    compileJava {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+        options.encoding = 'UTF-8'
+    }
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+    compileKotlin {
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
+        kotlinOptions.freeCompilerArgs = ['-Xjsr305=strict']
     }
 
     dependencyManagement {
@@ -100,20 +104,13 @@ configure(javaProjects) { project ->
 
 //        annotationProcessor rootProject.ext.mapstructProcessor
 //        testAnnotationProcessor rootProject.ext.mapstructProcessor
-
-
     }
 
     test {
         useJUnitPlatform()
     }
 
-//    tasks.withType(KotlinCompile) {
-//        kotlinOptions {
-//            freeCompilerArgs = ['-Xjsr305=strict']
-//            jvmTarget = '17'
-//        }
-//    }
+
 }
 
 //maven
