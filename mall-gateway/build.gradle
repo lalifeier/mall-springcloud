@@ -1,3 +1,7 @@
+bootJar {
+    enabled = true
+}
+
 dependencies {
     implementation project(':mall-common')
     implementation project(':mall-component:mall-logging-spring-boot-starter')
@@ -14,4 +18,6 @@ dependencies {
     implementation 'commons-beanutils:commons-beanutils'
     implementation 'cn.hutool:hutool-all'
     implementation 'org.springframework.boot:spring-boot-configuration-processor'
+    implementation 'org.apache.commons:commons-lang3'
+    implementation 'com.google.code.gson:gson'
 }

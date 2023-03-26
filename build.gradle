@@ -1,38 +1,5 @@
 buildscript {
-    apply from: rootProject.file( 'gradle/libraries.gradle' )
-
-    repositories {
-        maven { url 'https://maven.aliyun.com/repository/public/' }
-        maven {url 'https://developer.huawei.com/repo/'}
-        mavenLocal()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
-    }
-}
-
-allprojects {
-    apply plugin: 'java'
-
-    version = '1.0.0-SNAPSHOT'
-
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-
-    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
-
-    compileJava.options.compilerArgs.addAll(['-parameters'])
-}
-
-subprojects {
-    apply plugin: 'idea'
-    apply plugin: 'java'
-    apply plugin: 'java-library'
-    apply plugin: 'org.springframework.boot'
-    apply plugin: 'io.spring.dependency-management'
-    apply from: rootProject.file( 'gradle/libraries.gradle' )
+    apply from: rootProject.file( 'version.gradle' )
 
     repositories {
         maven { url 'https://maven.aliyun.com/repository/public/' }
@@ -41,19 +8,51 @@ subprojects {
         mavenCentral()
     }
 
-//    configurations {
-//        compileOnly {
-//            extendsFrom annotationProcessor
-//        }
-//    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "com.bmuschko:gradle-docker-plugin:${gradleDockerPluginVersion}"
+    }
+}
 
-//    jar {
-//        enabled = true
-//    }
-//
-//    bootJar {
-//        enabled = false
-//    }
+
+allprojects {
+    group 'com.github.lalifeier'
+    version rootProject.ext.projectVersion
+
+    apply plugin: 'java'
+
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+}
+
+ext {
+    javaProjects = subprojects.findAll { it.file("build.gradle").exists() }
+    bootProjects = subprojects.findAll { it.name.endsWith('-service') || it.name in ['mall-gateway', 'mall-monitor', 'mall-admin', 'mall-demo'] }
+}
+
+configure(javaProjects) { project ->
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'eclipse'
+    apply plugin: 'java-library'
+    apply plugin: 'maven-publish'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/public/' }
+        maven { url 'https://developer.huawei.com/repo/'}
+        mavenLocal()
+        mavenCentral()
+    }
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
 
     idea {
         module {
@@ -66,68 +65,86 @@ subprojects {
 
     dependencyManagement {
         imports {
-            mavenBom libraries.springBoot
-            mavenBom libraries.springCloud
-            mavenBom libraries.springCloudAlibaba
+            mavenBom "org.springframework.boot:spring-boot-dependencies:${rootProject.ext.springBootVersion}"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${rootProject.ext.springCloudVersion}"
+            mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${rootProject.ext.springCloudAlibabaVersion}"
         }
 
         dependencies {
-            dependency libraries.dubbo
-            dependency libraries.springBootAdmin
-            dependency libraries.springSecurityOauth2
-            dependency libraries.springCloudOauth2
-            dependency libraries.springAuthorizationServer
-            dependency libraries.mapstruct
-            dependency libraries.mapstructProcessor
-            dependency libraries.nimbusJoseJwt
-            dependency libraries.pagehelperStarter
-            dependency libraries.pagehelper
-            dependency libraries.mybatisPlus
-            dependency libraries.mybatisPlusJoin
-            dependency libraries.mybatisPlusGenerator
-            dependency libraries.freemarker
-            dependency libraries.druid
-            dependency libraries.mysqlConnector
-            dependency libraries.shardingsphere
-            dependency libraries.hutool
-            dependency libraries.springdoc
-            dependency libraries.springdocWebflux
-            dependency libraries.knife4j
-            dependency libraries.gson
-            dependency libraries.fastjson
-            dependency libraries.guava
-            dependency libraries.commonsLang3
-            dependency libraries.commonsIo
-            dependency libraries.commonsCodec
-            dependency libraries.commonsBeanutils
-            dependency libraries.commonsCollections4
-            dependency libraries.logstash
-            dependency libraries.skywalking
-            dependency libraries.skywalkingTrace
-            dependency libraries.caffeine
-            dependency libraries.xxlJob
-            dependency libraries.okhttp
-            dependency libraries.retrofit
-            dependency libraries.feignOkhttp
-            dependency libraries.slf4j
-            dependency libraries.aliyunSdkOss
-            dependency libraries.micrometerRegistryPrometheus
+             for (depJar in rootProject.ext.dependencies) {
+               dependency depJar.value
+             }
         }
     }
 
+//    javaPlatform {
+//        allowDependencies()
+//    }
+
     dependencies {
-        compileOnly libraries.lombok
-        annotationProcessor libraries.lombok
-        testCompileOnly libraries.lombok
-        testAnnotationProcessor libraries.lombok
+        //  gradle 5.0+
+//        implementation platform("org.springframework.boot:spring-boot-dependencies:${rootProject.ext.springBootVersion}")
+//        implementation platform("org.springframework.cloud:spring-cloud-dependencies:${rootProject.ext.springCloudVersion}")
+//        implementation platform("com.alibaba.cloud:spring-cloud-alibaba-dependencies:${rootProject.ext.springCloudAlibabaVersion}")
 
-//        api libraries.slf4j
+       compileOnly rootProject.ext.dependencies.lombok
+       annotationProcessor rootProject.ext.dependencies.lombok
+       testCompileOnly rootProject.ext.dependencies.lombok
+       testAnnotationProcessor rootProject.ext.dependencies.lombok
+//
+//        api rootProject.ext.slf4j
 
-        annotationProcessor libraries.mapstructProcessor
-        testAnnotationProcessor libraries.mapstructProcessor
+//        annotationProcessor rootProject.ext.mapstructProcessor
+//        testAnnotationProcessor rootProject.ext.mapstructProcessor
     }
 
     test {
         useJUnitPlatform()
+    }
+}
+
+//maven
+configure(javaProjects) { project ->
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+            }
+        }
+
+        repositories {
+            maven {
+                url MAVEN_REPOSITORY_URL
+                credentials {
+                    username = MAVEN_REPOSITORY_USERNAME
+                    password = MAVEN_REPOSITORY_PASSWORD
+                }
+            }
+        }
+    }
+}
+
+//docker
+configure(bootProjects) {
+    apply plugin: 'application'
+    apply plugin: 'com.bmuschko.docker-spring-boot-application'
+
+    bootJar {
+        enabled = true
+    }
+
+    docker {
+        registryCredentials {
+            url = DOCKER_REGISTRY_URL
+            username = DOCKER_USERNAME
+            password = DOCKER_PASSWORD
+        }
+
+        springBootApplication {
+            baseImage = 'openjdk:8-alpine'
+            ports = [8080]
+            images = ["${project.group}/${project.name}:${project.version}"]
+            jvmArgs = ['-Dspring.profiles.active=prod']
+        }
     }
 }

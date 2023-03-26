@@ -2,6 +2,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "MallMonitorApplication",
+      "request": "launch",
+      "mainClass": "com.github.lalifeier.mall.monitor.MallMonitorApplication",
+      "projectName": "mall-monitor"
+    },
+    {
+      "type": "java",
       "name": "MallAuthApplication",
       "request": "launch",
       "mainClass": "com.github.lalifeier.mall.auth.MallAuthApplication",
