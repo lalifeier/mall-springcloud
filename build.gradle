@@ -77,10 +77,6 @@ configure(javaProjects) { project ->
         }
     }
 
-//    javaPlatform {
-//        allowDependencies()
-//    }
-
     dependencies {
         //  gradle 5.0+
 //        implementation platform("org.springframework.boot:spring-boot-dependencies:${rootProject.ext.springBootVersion}")
@@ -127,10 +123,19 @@ configure(javaProjects) { project ->
 //docker
 configure(bootProjects) {
     apply plugin: 'application'
+    apply plugin: 'com.bmuschko.docker-remote-api'
     apply plugin: 'com.bmuschko.docker-spring-boot-application'
 
     bootJar {
         enabled = true
+        archiveFileName = "${project.name}.jar"
+    }
+
+    jar {
+        from sourceSets.main.output
+    }
+    dependencies {
+        developmentOnly 'org.springframework.boot:spring-boot-devtools'
     }
 
     docker {
@@ -143,7 +148,7 @@ configure(bootProjects) {
         springBootApplication {
             baseImage = 'openjdk:8-alpine'
             ports = [8080]
-            images = ["${project.group}/${project.name}:${project.version}"]
+            images = ["${project.group}/${project.name}:${project.version}", "${project.group}/${project.name}:latest"]
             jvmArgs = ['-Dspring.profiles.active=prod']
         }
     }
