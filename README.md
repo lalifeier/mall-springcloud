@@ -1,6 +1,6 @@
 # 项目介绍
 
-基于 Spring Cloud Alibaba 的微服务架构，使用 Java 和 Kotlin 语言编写，集成了多个优秀的开源库和框架来提供丰富的功能。其中包括
+基于 Spring Cloud Alibaba 的微服务架构，使用 Java 和 Kotlin 语言编写，集成了多个优秀的开源库和框架来提供丰富的功能。
 
 # 技术栈
 
