@@ -2,22 +2,22 @@
 
 基于 Spring Cloud Alibaba 的微服务架构，使用 Java 和 Kotlin 语言编写，集成了多个优秀的开源库和框架来提供丰富的功能。
 
-# 技术栈
+## 技术栈
 
-## 语言
+### 语言
 
 - [Java](https://www.java.com)：一种广泛使用的计算机编程语言，具有面向对象、平台无关性和安全性等特点。
 
 - [Kotlin](https://github.com/JetBrains/kotlin)：一种现代化的静态语言，可以与 Java 无缝交互。
 
-## 框架
+### 框架
 
 - [Spring Boot](https://github.com/spring-projects/spring-boot)：快速构建 Java 应用程序的框架。
 - [Spring Cloud](https://github.com/spring-cloud/spring-cloud)：用于构建分布式系统的工具集合。
 - [Spring Cloud Alibaba](https://github.com/alibaba/spring-cloud-alibaba)：在 Spring Cloud 基础上提供更多阿里云生态支持的工具集。
 - [Dubbo](https://github.com/apache/dubbo)：高性能的分布式服务框架，由阿里巴巴开发。
 
-## 库
+### 库
 
 - [Lombok](https://github.com/rzwitserloot/lombok)：简化 Java 代码的实用工具库。
 - [MapStruct](https://github.com/mapstruct/mapstruct)：Java 注解处理器，用于生成类型安全的映射代码。
@@ -56,11 +56,11 @@
 - [Aliyun SDK OSS](https://github.com/aliyun/aliyun-oss-java-sdk)：阿里云对象存储 OSS 的 Java SDK，用于方便地上传和下载文件。
 - [Prometheus](https://micrometer.io/docs/registry/prometheus)：Prometheus 的 Micrometer 实现，用于监控应用程序指标。
 
-## 插件
+### 插件
 
 - [Gradle Docker 插件](https://github.com/Transmode/gradle-docker-plugin)：用于将 Java 应用程序打包为 Docker 镜像的 Gradle 插件。
 
-# 如何运行
+## 如何运行
 
 您可以按照以下步骤在本地运行该项目：
 
@@ -103,4 +103,8 @@ java -jar mall-admin/build/libs/mall-admin-x.x.x.jar
 docker-compose up -f deploy/docker-compose-app.yaml -d
 ```
 
-希望这些信息对您有所帮助。
+## Thanks & 感谢
+
+Thanks for [JetBrains](https://www.jetbrains.com/?from=lalifeier) for the wonderful IDE.
+
+<a href="https://www.jetbrains.com/?from=lalifeier"><img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg" /></a>
