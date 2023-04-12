@@ -5,8 +5,8 @@ root = true
 [*]
 # 输入的 tab 都用空格代替
 indent_style = space
-# 一个 tab 用 4 个空格代替
-indent_size = 4
+# 一个 tab 用 2 个空格代替
+indent_size = 2
 # 换行符使用 unix 的换行符 \n
 end_of_line = lf
 # 字符编码 utf-8
