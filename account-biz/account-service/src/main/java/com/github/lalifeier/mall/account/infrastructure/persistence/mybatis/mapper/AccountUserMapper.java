@@ -7,9 +7,5 @@ import com.github.lalifeier.mall.account.infrastructure.persistence.mybatis.po.A
 
 @Mapper
 public interface AccountUserMapper extends BaseMapper<AccountUserPO> {
-  AccountUserPO findByEmail(String email);
-
-  AccountUserPO findByPhone(String phone);
-
   AccountUserPO findByUsername(String username);
 }

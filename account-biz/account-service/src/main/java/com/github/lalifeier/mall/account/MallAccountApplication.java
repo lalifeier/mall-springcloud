@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.account.interfaces;
+package com.github.lalifeier.mall.account;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

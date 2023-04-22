@@ -9,4 +9,5 @@ dependencies {
     implementation 'com.baomidou:mybatis-plus-boot-starter'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.mapstruct:mapstruct'
+    annotationProcessor 'org.mapstruct:mapstruct-processor'
 }

@@ -5,34 +5,34 @@ import com.github.lalifeier.mall.common.error.api.ProjectModule;
 import com.github.lalifeier.mall.common.error.exception.BaseException;
 import com.github.lalifeier.mall.common.error.manager.ErrorInfo;
 
-public class LoginException extends BaseException {
+public class RegisterException extends BaseException {
 
-  public LoginException(String message) {
+  public RegisterException(String message) {
     super(message);
   }
 
-  public LoginException(String message, Throwable cause) {
+  public RegisterException(String message, Throwable cause) {
     super(message, cause);
   }
 
-  public LoginException(Throwable cause) {
+  public RegisterException(Throwable cause) {
     super(cause);
   }
 
-  public LoginException(ErrorInfo errorInfo) {
+  public RegisterException(ErrorInfo errorInfo) {
     super(errorInfo);
   }
 
-  public LoginException(ErrorCode errorCode) {
+  public RegisterException(ErrorCode errorCode) {
     super(errorCode);
   }
 
-  public LoginException(ErrorCode errorCode, Object... args) {
+  public RegisterException(ErrorCode errorCode, Object... args) {
     super(errorCode, args);
   }
 
   @Override
   public ProjectModule projectModule() {
-    return AccountProjectCodes.LOGIN;
+    return AccountProjectCodes.REGISTER;
   }
 }

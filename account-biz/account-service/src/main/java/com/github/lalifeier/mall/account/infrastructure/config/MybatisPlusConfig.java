@@ -10,9 +10,9 @@ import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInt
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.dialects.MySqlDialect;
 
-@EnableTransactionManagement
 @Configuration
-//@MapperScan("com.github.lalifeier.mall.account.infrastructure.persistence.mybatis.mapper")
+@EnableTransactionManagement
+@MapperScan("com.github.lalifeier.mall.account.infrastructure.persistence.mybatis.mapper")
 public class MybatisPlusConfig {
 
   @Bean

@@ -1,5 +1,5 @@
 server:
-  port: 19090
+  port: 9000
 
 spring:
   profiles:
@@ -20,8 +20,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*'
+        include: "*"
   endpoint:
     health:
       show-details: always
-

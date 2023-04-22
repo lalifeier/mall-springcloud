@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8000
 
 spring:
   profiles:
@@ -14,6 +14,12 @@ spring:
   cloud:
     gateway:
       routes:
+        - id: mall-account
+          uri: lb://mall-account
+          predicates:
+            - Path=/account/**
+          filters:
+            - StripPrefix=1
         - id: mall-auth
           uri: lb://mall-auth
           predicates:
@@ -129,7 +135,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*'
+        include: "*"
   endpoint:
     health:
       show-details: always

@@ -16,7 +16,7 @@ public enum AccountProjectCodes implements ProjectModule {
   /**
    * 注册模块
    */
-  REFISTER(1, 2, "帐号服务", "注册模块"),
+  REGISTER(1, 2, "帐号服务", "注册模块"),
 
   /**
    * 帐号模块

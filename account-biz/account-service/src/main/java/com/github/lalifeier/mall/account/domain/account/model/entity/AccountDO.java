@@ -2,6 +2,9 @@ package com.github.lalifeier.mall.account.domain.account.model.entity;
 
 import java.time.LocalDateTime;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import com.github.lalifeier.mall.account.domain.account.model.valueobject.AccountStatus;
 
 import lombok.Data;
@@ -22,17 +25,27 @@ public class AccountDO {
 
   public AccountDO(String username, String password) {
     this.username = username;
-    this.password = password;
+    setPassword(password);
   }
 
-  public void changePassword(String oldPassword, String newPassword) {
-    if (!password.equals(oldPassword)) {
-      throw new IllegalArgumentException("原密码错误");
-    }
-    this.password = newPassword;
+  public void setPassword(String password) {
+    String salt = BCrypt.gensalt();
+    this.password = new BCryptPasswordEncoder().encode(password + salt);
   }
 
   public boolean verifyPassword(String password) {
-    return this.password.equals(password);
+    return new BCryptPasswordEncoder().matches(password + getSalt(), getPassword());
+  }
+
+  private String getSalt() {
+    return getPassword().substring(getPassword().length() - 31);
+  }
+
+  public void changePassword(String oldPassword, String newPassword) {
+    if (this.verifyPassword(oldPassword)) {
+      throw new IllegalArgumentException("原密码错误");
+    }
+
+    setPassword(newPassword);
   }
 }

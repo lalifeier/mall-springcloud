@@ -4,9 +4,8 @@
       "type": "java",
       "name": "MallAccountApplication",
       "request": "launch",
-      "mainClass": "com.github.lalifeier.mall.account.interfaces.MallAccountApplication",
-      "projectName": "account-service",
-      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=42943 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=account-service"
+      "mainClass": "com.github.lalifeier.mall.account.MallAccountApplication",
+      "projectName": "account-service"
     },
     {
       "type": "java",

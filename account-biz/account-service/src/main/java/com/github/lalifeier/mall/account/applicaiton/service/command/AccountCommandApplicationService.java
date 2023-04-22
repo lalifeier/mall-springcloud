@@ -1,7 +1,10 @@
 package com.github.lalifeier.mall.account.applicaiton.service.command;
 
-public interface AccountCommandApplicationService {
-  // Long register(RegisterRequest req);
+import com.github.lalifeier.mall.account.interfaces.web.model.request.LoginRequest;
+import com.github.lalifeier.mall.account.interfaces.web.model.request.RegisterRequest;
 
-  // void login(LoginRequest req);
+public interface AccountCommandApplicationService {
+  long register(RegisterRequest req);
+
+  void login(LoginRequest req);
 }
