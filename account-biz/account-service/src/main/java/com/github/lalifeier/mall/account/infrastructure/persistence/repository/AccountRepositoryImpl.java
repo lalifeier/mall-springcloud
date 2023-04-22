@@ -4,11 +4,27 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
 
+import com.github.lalifeier.mall.account.domain.account.model.entity.AccountDO;
 import com.github.lalifeier.mall.account.domain.account.repository.AccountRepository;
-import com.github.lalifeier.mall.account.infrastructure.persistence.jpa.repository.AccountJpaRepository;
+import com.github.lalifeier.mall.account.infrastructure.mapper.AccountMapper;
+import com.github.lalifeier.mall.account.infrastructure.persistence.mybatis.mapper.AccountUserMapper;
+import com.github.lalifeier.mall.account.infrastructure.persistence.mybatis.po.AccountUserPO;
 
 @Repository
 public class AccountRepositoryImpl implements AccountRepository {
   @Resource
-  private AccountJpaRepository accountJpaRepository;
+  private AccountUserMapper accountUserMapper;
+
+  @Override
+  public Long save(AccountDO accountDO) {
+    AccountUserPO accountUserPO = AccountMapper.INSTANCE.toAccountUserPO(accountDO);
+    accountUserMapper.insert(accountUserPO);
+    return accountUserPO.getId();
+  }
+
+  @Override
+  public AccountDO findByUsername(String username) {
+    AccountUserPO accountUserPO = accountUserMapper.findByUsername(username);
+    return AccountMapper.INSTANCE.toAccountDO(accountUserPO);
+  }
 }
