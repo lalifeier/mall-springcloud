@@ -1,9 +1,9 @@
 package com.github.lalifeier.mall.account.domain.account.repository;
 
-import com.github.lalifeier.mall.account.domain.account.model.entity.AccountDO;
+import com.github.lalifeier.mall.account.domain.account.model.entity.Account;
 
 public interface AccountRepository {
-  Long save(AccountDO account);
+  Long save(Account account);
 
-  AccountDO findByUsername(String username);
+  Account findByUsername(String username);
 }

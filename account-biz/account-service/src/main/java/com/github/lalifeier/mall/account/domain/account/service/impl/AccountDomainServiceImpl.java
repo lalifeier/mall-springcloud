@@ -4,7 +4,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.github.lalifeier.mall.account.domain.account.model.entity.AccountDO;
+import com.github.lalifeier.mall.account.domain.account.model.entity.Account;
+import com.github.lalifeier.mall.account.domain.account.model.valueobject.Password;
 import com.github.lalifeier.mall.account.domain.account.repository.AccountRepository;
 import com.github.lalifeier.mall.account.domain.account.service.AccountDomainService;
 import com.github.lalifeier.mall.account.infrastructure.error.LoginErrorCodes;
@@ -23,29 +24,36 @@ public class AccountDomainServiceImpl implements AccountDomainService {
       throw new RegisterException(RegisterErrorCodes.USER_EXIST);
     }
 
-    AccountDO account = new AccountDO(username, password);
+    Account account = new Account();
+    account.setUsername(username);
+    account.setPassword(new Password(password));
 
     return accountRepository.save(account);
   }
 
   @Override
   public boolean login(String username, String password) {
-    AccountDO account = accountRepository.findByUsername(username);
+    Account account = accountRepository.findByUsername(username);
     if (account == null) {
       return false;
     }
 
-    return account.verifyPassword(password);
+    return account.getPassword().verifyPassword(password);
   }
 
   @Override
   public boolean changePassword(String username, String oldPassword, String newPassword) {
-    AccountDO account = accountRepository.findByUsername(username);
+    Account account = accountRepository.findByUsername(username);
     if (account == null) {
       throw new LoginException(LoginErrorCodes.USER_NOT_EXIST);
     }
 
-    account.changePassword(oldPassword, newPassword);
+    if (!account.getPassword().verifyPassword(oldPassword)) {
+      throw new LoginException(LoginErrorCodes.PASSWORD_ERROR);
+    }
+
+    account.setPassword(new Password(newPassword));
+
     accountRepository.save(account);
 
     return true;

@@ -1,5 +1,7 @@
 package com.github.lalifeier.mall.common.model;
 
-public interface Identifiable<ID extends Identifier> {
-    ID getId();
+import java.io.Serializable;
+
+public interface Identifiable<ID extends Identifier> extends Serializable {
+  ID getId();
 }

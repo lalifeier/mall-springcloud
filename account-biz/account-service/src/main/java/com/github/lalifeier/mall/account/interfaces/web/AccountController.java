@@ -23,14 +23,14 @@ public class AccountController {
 
   // 注册
   @PostMapping("/register")
-  public Result<RegisterResponse> register(@Validated @RequestBody RegisterRequest request) {
-    return Result.success(accountApplicationService.register(request));
+  public RegisterResponse register(@Validated @RequestBody RegisterRequest request) {
+    return accountApplicationService.register(request);
   }
 
   // 登录
   @PostMapping("/login")
-  public Result<LoginResponse> login(@Validated @RequestBody LoginRequest request) {
-    return Result.success(accountApplicationService.login(request));
+  public LoginResponse login(@Validated @RequestBody LoginRequest request) {
+    return accountApplicationService.login(request);
   }
 
   // 修改个人信息
