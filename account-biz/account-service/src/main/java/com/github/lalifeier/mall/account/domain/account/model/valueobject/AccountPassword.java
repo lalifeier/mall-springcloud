@@ -1,17 +1,16 @@
 package com.github.lalifeier.mall.account.domain.account.model.valueobject;
 
-import javax.validation.ValidationException;
-
+import com.github.lalifeier.mall.common.model.ValueObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.github.lalifeier.mall.common.model.ValueObject;
+import javax.validation.ValidationException;
 
-public class Password implements ValueObject<Password> {
+public class AccountPassword implements ValueObject<AccountPassword> {
   private final EncryptPassword encryptPassword;
 
-  public Password(String password) {
+  public AccountPassword(String password) {
     if (StringUtils.isBlank(password)) {
       throw new ValidationException("密码不能为空");
     }
@@ -19,7 +18,7 @@ public class Password implements ValueObject<Password> {
     this.encryptPassword = new EncryptPassword(generateEncryptPassword(password));
   }
 
-  public Password(EncryptPassword encryptPassword) {
+  public AccountPassword(EncryptPassword encryptPassword) {
     this.encryptPassword = encryptPassword;
   }
 
@@ -54,7 +53,7 @@ public class Password implements ValueObject<Password> {
   }
 
   @Override
-  public boolean sameValueAs(Password other) {
+  public boolean sameValueAs(AccountPassword other) {
     return other != null && this.encryptPassword.equals(other.encryptPassword);
   }
 

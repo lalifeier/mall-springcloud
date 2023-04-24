@@ -1,16 +1,17 @@
 package com.github.lalifeier.mall.account.domain.account.model.valueobject;
 
 import com.github.lalifeier.mall.common.model.Identifier;
-
 import lombok.Getter;
+
+import javax.validation.ValidationException;
 
 @Getter
 public class AccountId implements Identifier<Long> {
-  private Long id;
+  private final Long id;
 
   public AccountId(final Long id) {
     if (id == null) {
-      throw new IllegalArgumentException("账号id不能为空");
+      throw new ValidationException("账号id不能为空");
     }
     this.id = id;
   }
@@ -19,9 +20,4 @@ public class AccountId implements Identifier<Long> {
   public Long getValue() {
     return id;
   }
-
-  // @Override
-  // public boolean sameValueAs(AccountId other) {
-  // return other != null && this.id.equals(other.id);
-  // }
 }

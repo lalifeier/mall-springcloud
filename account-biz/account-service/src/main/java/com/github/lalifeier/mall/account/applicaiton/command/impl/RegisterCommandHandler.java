@@ -1,13 +1,14 @@
 package com.github.lalifeier.mall.account.applicaiton.command.impl;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Component;
-
 import com.github.lalifeier.mall.account.applicaiton.command.RegisterCommand;
+import com.github.lalifeier.mall.account.domain.account.model.valueobject.AccountName;
+import com.github.lalifeier.mall.account.domain.account.model.valueobject.AccountPassword;
 import com.github.lalifeier.mall.account.domain.account.service.AccountDomainService;
 import com.github.lalifeier.mall.account.interfaces.web.model.request.RegisterRequest;
 import com.github.lalifeier.mall.account.interfaces.web.model.response.RegisterResponse;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 @Component
 public class RegisterCommandHandler implements RegisterCommand {
@@ -17,11 +18,12 @@ public class RegisterCommandHandler implements RegisterCommand {
 
   @Override
   public RegisterResponse execute(RegisterRequest request) {
-    Long id = accountDomainService.register(request.getUsername(),
-        request.getPassword());
+    String username = request.getUsername();
+    String password = request.getPassword();
+    Long id = accountDomainService.register(new AccountName(username), new AccountPassword(password));
 
     return RegisterResponse.builder()
-        .id(id)
-        .build();
+      .id(id)
+      .build();
   }
 }

@@ -1,9 +1,14 @@
 package com.github.lalifeier.mall.account.domain.account.service;
 
+import com.github.lalifeier.mall.account.domain.account.model.valueobject.AccountName;
+import com.github.lalifeier.mall.account.domain.account.model.valueobject.AccountPassword;
+
+import javax.validation.constraints.NotNull;
+
 public interface AccountDomainService {
-  long register(String username, String password);
+  long register(@NotNull AccountName name, @NotNull AccountPassword password);
 
-  boolean login(String username, String password);
+  boolean login(@NotNull AccountName name, @NotNull AccountPassword password);
 
-  boolean changePassword(String username, String oldPassword, String newPassword);
+  boolean changePassword(@NotNull AccountName name, @NotNull AccountPassword oldPassword, @NotNull AccountPassword newPassword);
 }
