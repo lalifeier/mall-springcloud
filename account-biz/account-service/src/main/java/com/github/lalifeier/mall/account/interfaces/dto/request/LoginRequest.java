@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.account.interfaces.web.model.request;
+package com.github.lalifeier.mall.account.interfaces.dto.request;
 
 import javax.validation.constraints.NotBlank;
 

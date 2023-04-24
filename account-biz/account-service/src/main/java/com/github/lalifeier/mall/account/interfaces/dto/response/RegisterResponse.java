@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.account.interfaces.web.model.response;
+package com.github.lalifeier.mall.account.interfaces.dto.response;
 
 import lombok.Builder;
 import lombok.Data;

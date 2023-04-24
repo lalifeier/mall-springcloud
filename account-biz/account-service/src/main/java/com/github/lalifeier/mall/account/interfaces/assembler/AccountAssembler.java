@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.account.applicaiton.assembler;
+package com.github.lalifeier.mall.account.interfaces.assembler;
 
 import org.mapstruct.factory.Mappers;
 

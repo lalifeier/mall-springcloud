@@ -1,7 +1,10 @@
-package com.github.lalifeier.mall.account.interfaces.web;
+package com.github.lalifeier.mall.account.interfaces.facade.web;
 
 import javax.annotation.Resource;
 
+import com.github.lalifeier.mall.account.interfaces.dto.request.LoginRequest;
+import com.github.lalifeier.mall.account.interfaces.dto.response.LoginResponse;
+import com.github.lalifeier.mall.account.interfaces.dto.response.RegisterResponse;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,10 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.lalifeier.mall.account.applicaiton.service.AccountApplicationService;
-import com.github.lalifeier.mall.account.interfaces.web.model.request.LoginRequest;
-import com.github.lalifeier.mall.account.interfaces.web.model.request.RegisterRequest;
-import com.github.lalifeier.mall.account.interfaces.web.model.response.LoginResponse;
-import com.github.lalifeier.mall.account.interfaces.web.model.response.RegisterResponse;
+import com.github.lalifeier.mall.account.interfaces.dto.request.RegisterRequest;
 import com.github.lalifeier.mall.common.result.Result;
 
 @RestController

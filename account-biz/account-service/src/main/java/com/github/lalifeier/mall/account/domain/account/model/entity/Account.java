@@ -26,4 +26,11 @@ public class Account implements Aggregate<AccountId> {
     return id;
   }
 
+  public static Account createAccount(AccountName username, AccountPassword password ) {
+    Account account = new Account();
+    account.setUsername(username);
+    account.setPassword(password);
+    return account;
+  }
+
 }
