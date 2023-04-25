@@ -1,6 +1,6 @@
 package com.github.lalifeier.mall.demo.infrastructure.repository.mybatis.user;
 
-import com.github.lalifeier.mall.demo.domain.repository.UserRepository;
+import com.github.lalifeier.mall.demo.domain.user.repository.UserRepository;
 import com.github.lalifeier.mall.demo.infrastructure.repository.mybatis.user.mapper.UserMapper;
 import org.springframework.stereotype.Repository;
 

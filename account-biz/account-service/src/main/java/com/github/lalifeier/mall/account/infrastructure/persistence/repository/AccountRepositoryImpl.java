@@ -61,7 +61,7 @@ public class AccountRepositoryImpl implements AccountRepository {
       accountUserMapper.updateById(accountUserPO);
     } else {
       accountUserMapper.insert(accountUserPO);
-      aggregate.setId(converter.fromData(accountUserPO).getId());
+      aggregate.setId(new AccountId(accountUserPO.getId()));
     }
   }
 }

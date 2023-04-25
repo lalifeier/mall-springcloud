@@ -1,5 +1,6 @@
 package com.github.lalifeier.mall.common.result;
 
+import com.github.lalifeier.mall.common.model.PageInfo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

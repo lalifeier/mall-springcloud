@@ -12,5 +12,4 @@ dependencies {
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
   implementation 'org.mapstruct:mapstruct'
   annotationProcessor 'org.mapstruct:mapstruct-processor'
-
 }
