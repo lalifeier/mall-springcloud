@@ -1,8 +1,7 @@
-package com.github.lalifeier.mall.demo.infrastructure.repository.mybatis.po;
+package com.github.lalifeier.mall.demo.infrastructure.repository.mybatis.user.po;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-
 import lombok.Data;
 
 @Data
