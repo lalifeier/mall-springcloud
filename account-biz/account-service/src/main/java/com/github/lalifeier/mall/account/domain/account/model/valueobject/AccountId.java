@@ -1,6 +1,6 @@
 package com.github.lalifeier.mall.account.domain.account.model.valueobject;
 
-import com.github.lalifeier.mall.common.model.Identifier;
+import com.github.lalifeier.mall.common.model.ddd.Identifier;
 import lombok.Getter;
 
 import javax.validation.ValidationException;

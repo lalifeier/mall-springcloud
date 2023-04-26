@@ -1,6 +1,6 @@
 package com.github.lalifeier.mall.demo.infrastructure.repository.mybatis.book.converter;
 
-import com.github.lalifeier.mall.demo.domain.book.model.entity.Book;
+import com.github.lalifeier.mall.demo.domain.book.model.entity.BookDO;
 import com.github.lalifeier.mall.demo.infrastructure.repository.mybatis.book.po.BookPO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -12,9 +12,9 @@ import java.util.List;
 public interface BookConverter {
   BookConverter INSTANCE = Mappers.getMapper(BookConverter.class);
 
-  Book convert(BookPO bookPO);
+  BookDO toBookDO(BookPO bookPO);
 
-  BookPO convert(Book aggregate);
+  BookPO toBookPO(BookDO aggregate);
 
-  void convertList(List<BookPO> sourceList, @MappingTarget List<Book> targetList);
+  void convertList(List<BookPO> sourceList, @MappingTarget List<BookDO> targetList);
 }

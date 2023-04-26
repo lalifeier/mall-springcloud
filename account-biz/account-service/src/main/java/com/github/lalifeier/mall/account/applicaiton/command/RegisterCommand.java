@@ -1,8 +1,7 @@
 package com.github.lalifeier.mall.account.applicaiton.command;
 
-import com.github.lalifeier.mall.account.interfaces.dto.request.RegisterRequest;
-import com.github.lalifeier.mall.account.interfaces.dto.response.RegisterResponse;
+import com.github.lalifeier.mall.account.interfaces.facade.web.model.request.RegisterRequest;
 
 public interface RegisterCommand {
-  RegisterResponse execute(RegisterRequest request);
+  RegisterResponseVO execute(RegisterRequest request);
 }

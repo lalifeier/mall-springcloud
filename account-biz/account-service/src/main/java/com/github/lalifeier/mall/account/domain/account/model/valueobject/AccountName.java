@@ -4,7 +4,7 @@ import javax.validation.ValidationException;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.github.lalifeier.mall.common.model.ValueObject;
+import com.github.lalifeier.mall.common.model.ddd.ValueObject;
 
 import lombok.Getter;
 

@@ -1,15 +1,14 @@
 package com.github.lalifeier.mall.account.applicaiton.command.impl;
 
 import com.github.lalifeier.mall.account.applicaiton.command.RegisterCommand;
-import com.github.lalifeier.mall.account.domain.account.model.entity.Account;
+import com.github.lalifeier.mall.account.domain.account.model.entity.AccountDO;
 import com.github.lalifeier.mall.account.domain.account.model.valueobject.AccountName;
 import com.github.lalifeier.mall.account.domain.account.model.valueobject.AccountPassword;
 import com.github.lalifeier.mall.account.domain.account.repository.AccountRepository;
 import com.github.lalifeier.mall.account.domain.account.service.AccountDomainService;
-import com.github.lalifeier.mall.account.infrastructure.error.RegisterErrorCodes;
-import com.github.lalifeier.mall.account.infrastructure.error.RegisterException;
-import com.github.lalifeier.mall.account.interfaces.dto.request.RegisterRequest;
-import com.github.lalifeier.mall.account.interfaces.dto.response.RegisterResponse;
+import com.github.lalifeier.mall.account.infrastructure.exception.RegisterErrorCodes;
+import com.github.lalifeier.mall.account.infrastructure.exception.RegisterException;
+import com.github.lalifeier.mall.account.interfaces.facade.web.model.request.RegisterRequest;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -24,7 +23,7 @@ public class RegisterCommandHandler implements RegisterCommand {
   private AccountRepository accountRepository;
 
   @Override
-  public RegisterResponse execute(RegisterRequest request) {
+  public RegisterResponseVO execute(RegisterRequest request) {
     AccountName name = new AccountName(request.getUsername());
     AccountPassword password = new AccountPassword(request.getPassword());
 
@@ -32,11 +31,11 @@ public class RegisterCommandHandler implements RegisterCommand {
       throw new RegisterException(RegisterErrorCodes.USER_EXIST);
     }
 
-    Account account =  Account.createAccount(name, password);
+    AccountDO account =  AccountDO.createAccount(name, password);
 
     accountRepository.save(account);
 
-    return RegisterResponse.builder()
+    return RegisterResponseVO.builder()
       .id(account.getId().getValue())
       .build();
   }
