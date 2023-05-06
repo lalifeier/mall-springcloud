@@ -1,8 +1,8 @@
 package com.github.lalifeier.mall.account.domain.account.model.entity;
 
 import com.github.lalifeier.mall.account.domain.account.model.valueobject.*;
-import com.github.lalifeier.mall.common.model.Aggregate;
 import com.github.lalifeier.mall.common.model.StatusEnum;
+import com.github.lalifeier.mall.common.model.ddd.Aggregate;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -26,7 +26,7 @@ public class Account implements Aggregate<AccountId> {
     return id;
   }
 
-  public static Account createAccount(AccountName username, AccountPassword password ) {
+  public static Account createAccount(AccountName username, AccountPassword password) {
     Account account = new Account();
     account.setUsername(username);
     account.setPassword(password);

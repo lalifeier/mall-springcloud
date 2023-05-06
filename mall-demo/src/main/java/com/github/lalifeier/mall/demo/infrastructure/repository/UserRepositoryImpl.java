@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.demo.infrastructure.repository.mybatis.user;
+package com.github.lalifeier.mall.demo.infrastructure.repository;
 
 import com.github.lalifeier.mall.demo.domain.user.repository.UserRepository;
 import com.github.lalifeier.mall.demo.infrastructure.repository.mybatis.user.mapper.UserMapper;
