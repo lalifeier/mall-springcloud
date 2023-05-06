@@ -42,11 +42,11 @@ spring:
 mybatis-plus:
   type-aliases-package: com.github.lalifeier.mall.demo.infrastructure.repository.mybatis.po
   mapper-locations: classpath:mapper/*.xml
-  #  global-config:
-  #    db-config:
-  #      logic-delete-field: deleted
-  #      logic-delete-value: 1
-  #      logic-not-delete-value: 0
+  global-config:
+    db-config:
+      logic-delete-field: is_deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true

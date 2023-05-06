@@ -1,10 +1,12 @@
 package com.github.lalifeier.mall.account.domain.account.model.valueobject;
 
-import com.github.lalifeier.mall.common.model.ddd.ValueObject;
-import lombok.Getter;
+import javax.validation.ValidationException;
+
 import org.apache.commons.lang3.StringUtils;
 
-import javax.validation.ValidationException;
+import com.github.lalifeier.mall.common.model.ddd.ValueObject;
+
+import lombok.Getter;
 
 @Getter
 public class AccountName implements ValueObject<AccountName> {

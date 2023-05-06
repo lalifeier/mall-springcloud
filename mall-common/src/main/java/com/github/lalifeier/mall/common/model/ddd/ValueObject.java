@@ -7,11 +7,11 @@ package com.github.lalifeier.mall.common.model.ddd;
  */
 public interface ValueObject<T> extends MarkerInterface {
 
-  /**
-   * 值对象通过属性比较
-   *
-   * @param other
-   * @return
-   */
-  boolean sameValueAs(T other);
+    /**
+     * 值对象通过属性比较
+     *
+     * @param other
+     * @return
+     */
+    boolean sameValueAs(T other);
 }
