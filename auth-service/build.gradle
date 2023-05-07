@@ -1,6 +1,5 @@
 dependencies {
     implementation project(':mall-component:mall-common-spring-boot-starter')
-    implementation project(':mall-component:mall-logging-spring-boot-starter')
     implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
     implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
     implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'

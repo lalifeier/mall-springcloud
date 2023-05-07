@@ -8,4 +8,5 @@ import lombok.Data;
 @Data
 public class BookDO implements Aggregate<BookId> {
   private BookId id;
+  private String name;
 }

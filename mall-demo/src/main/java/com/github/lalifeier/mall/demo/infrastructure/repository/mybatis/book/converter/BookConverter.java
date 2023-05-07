@@ -17,8 +17,12 @@ public interface BookConverter {
   BookDO convert(BookPO bookPO);
 
   @Mapping(target = "id", ignore = true)
+  @Mapping(target = "createdAt", ignore = true)
+  @Mapping(target = "createdBy", ignore = true)
+  @Mapping(target = "updatedAt", ignore = true)
+  @Mapping(target = "updatedBy", ignore = true)
+  @Mapping(target = "isDeleted", ignore = true)
   BookPO convert(BookDO bookDO);
 
-  // @IterableMapping(qualifiedByName = "convert")
   List<BookDO> convertList(List<BookPO> bookPOList);
 }

@@ -1,0 +1,4 @@
+dependencies {
+  api project(':mall-common')
+  api 'com.baomidou:mybatis-plus-boot-starter'
+}

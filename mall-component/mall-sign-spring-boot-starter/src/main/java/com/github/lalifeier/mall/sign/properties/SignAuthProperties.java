@@ -10,6 +10,11 @@ import java.util.List;
 public class SignAuthProperties {
 
     /**
+     * 是否启用
+     */
+    private Boolean enabled;
+
+    /**
      * 签名超时时间
      */
     private Integer timeout;

@@ -3,6 +3,7 @@ package com.github.lalifeier.mall.demo.infrastructure.repository;
 import java.util.List;
 
 import com.github.lalifeier.mall.mybatispluss.converter.MybatisPlusPageConverter;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -18,6 +19,7 @@ import com.github.lalifeier.mall.demo.infrastructure.repository.mybatis.book.map
 import com.github.lalifeier.mall.demo.infrastructure.repository.mybatis.book.po.BookPO;
 import org.springframework.stereotype.Repository;
 
+@Slf4j
 @Repository
 public class BookRepositoryImpl implements BookRepository {
 
@@ -56,6 +58,8 @@ public class BookRepositoryImpl implements BookRepository {
   @Override
   public void save(@NotNull BookDO aggregate) {
     BookPO bookPO = bookConverter.convert(aggregate);
+
+    log.info(bookPO.toString());
 
     if (aggregate.getId() != null && aggregate.getId().getValue() > 0) {
       bookMapper.updateById(bookPO);

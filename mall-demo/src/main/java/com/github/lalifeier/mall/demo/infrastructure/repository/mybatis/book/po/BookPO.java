@@ -8,9 +8,9 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName(value = "book")
+@TableName(value = "t_book")
 public class BookPO extends BasePO<BookPO> {
   private String name;
-  private String author;
-  private String publisher;
+  //private String author;
+  //private String publisher;
 }

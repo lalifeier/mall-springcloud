@@ -119,8 +119,9 @@ gateway:
     - "/*/*.png"
     - "/*/*.ico"
     - "/webjars/**"
+    - "/demo/**"
   sign:
-    enabled: true
+    enabled: false
     timeout: 6000
     white-urls:
       - "/actuator/**"
@@ -136,7 +137,6 @@ gateway:
       - "/*/*.png"
       - "/*/*.ico"
       - "/webjars/**"
-      - "/demo/*"
 
 management:
   endpoints:
