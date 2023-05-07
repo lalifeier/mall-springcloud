@@ -9,9 +9,9 @@ import com.github.lalifeier.mall.common.model.PageList;
 import com.github.lalifeier.mall.demo.applicaiton.service.BookApplicationService;
 import com.github.lalifeier.mall.demo.domain.book.model.valueobject.BookId;
 import com.github.lalifeier.mall.demo.domain.book.service.BookDomainService;
-import com.github.lalifeier.mall.demo.presentation.rest.book.dto.request.CreateBookRequest;
-import com.github.lalifeier.mall.demo.presentation.rest.book.dto.request.UpdateBookRequest;
-import com.github.lalifeier.mall.demo.presentation.rest.book.dto.response.BookResponse;
+import com.github.lalifeier.mall.demo.interfaces.web.book.model.request.CreateBookRequest;
+import com.github.lalifeier.mall.demo.interfaces.web.book.model.request.UpdateBookRequest;
+import com.github.lalifeier.mall.demo.interfaces.web.book.model.response.BookResponse;
 
 @Service
 @Transactional

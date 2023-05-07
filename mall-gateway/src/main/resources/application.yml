@@ -14,6 +14,12 @@ spring:
   cloud:
     gateway:
       routes:
+        - id: mall-demo
+          uri: lb://mall-demo
+          predicates:
+            - Path=/demo/**
+          filters:
+            - StripPrefix=1
         - id: mall-account
           uri: lb://mall-account
           predicates:
@@ -91,7 +97,7 @@ spring:
 
   data:
     mongodb:
-      host: 127.0.0.1
+      host: localhost
       port: 27017
       database: access_log
       username: root
@@ -130,6 +136,7 @@ gateway:
       - "/*/*.png"
       - "/*/*.ico"
       - "/webjars/**"
+      - "/demo/*"
 
 management:
   endpoints:

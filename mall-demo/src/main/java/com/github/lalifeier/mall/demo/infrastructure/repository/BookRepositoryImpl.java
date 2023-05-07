@@ -2,13 +2,13 @@ package com.github.lalifeier.mall.demo.infrastructure.repository;
 
 import java.util.List;
 
+import com.github.lalifeier.mall.mybatispluss.converter.MybatisPlusPageConverter;
 import org.jetbrains.annotations.NotNull;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.github.lalifeier.mall.common.converter.MybatisPlusPageConverter;
 import com.github.lalifeier.mall.common.model.PageList;
 import com.github.lalifeier.mall.demo.domain.book.model.entity.BookDO;
 import com.github.lalifeier.mall.demo.domain.book.model.valueobject.BookId;
@@ -16,16 +16,18 @@ import com.github.lalifeier.mall.demo.domain.book.repository.BookRepository;
 import com.github.lalifeier.mall.demo.infrastructure.repository.mybatis.book.converter.BookConverter;
 import com.github.lalifeier.mall.demo.infrastructure.repository.mybatis.book.mapper.BookMapper;
 import com.github.lalifeier.mall.demo.infrastructure.repository.mybatis.book.po.BookPO;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class BookRepositoryImpl implements BookRepository {
 
   private final BookMapper bookMapper;
 
   private final BookConverter bookConverter;
 
-  public BookRepositoryImpl(BookMapper bookMapper, BookConverter bookConverter) {
+  public BookRepositoryImpl(BookMapper bookMapper) {
     this.bookMapper = bookMapper;
-    this.bookConverter = bookConverter;
+    this.bookConverter = BookConverter.INSTANCE;
   }
 
   @Override

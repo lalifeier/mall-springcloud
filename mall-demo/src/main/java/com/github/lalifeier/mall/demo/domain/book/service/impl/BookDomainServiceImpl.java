@@ -1,10 +1,13 @@
+
 package com.github.lalifeier.mall.demo.domain.book.service.impl;
 
 import com.github.lalifeier.mall.demo.domain.book.model.entity.BookDO;
 import com.github.lalifeier.mall.demo.domain.book.model.valueobject.BookId;
 import com.github.lalifeier.mall.demo.domain.book.repository.BookRepository;
 import com.github.lalifeier.mall.demo.domain.book.service.BookDomainService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class BookDomainServiceImpl implements BookDomainService {
 
   private final BookRepository bookRepository;

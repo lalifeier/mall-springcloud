@@ -22,13 +22,13 @@ public class PageResult<T> extends BaseResult {
         return pageResult;
     }
 
-    public static <T> PageResult<T> success(org.springframework.data.domain.Page<T> page) {
-        PageResult<T> pageResult = new PageResult<>();
-        pageResult.setSuccess(true);
-        pageResult.setData(page.getContent());
-        pageResult.setPageInfo(new PageInfo(page.getNumber(), page.getSize(), page.getTotalElements()));
-        return pageResult;
-    }
+    //public static <T> PageResult<T> success(org.springframework.data.domain.Page<T> page) {
+    //    PageResult<T> pageResult = new PageResult<>();
+    //    pageResult.setSuccess(true);
+    //    pageResult.setData(page.getContent());
+    //    pageResult.setPageInfo(new PageInfo(page.getNumber(), page.getSize(), page.getTotalElements()));
+    //    return pageResult;
+    //}
 
     //public static <T> PageResult<T> success(com.github.pagehelper.Page<T> page) {
     //    PageResult<T> response = new PageResult<>();

@@ -4,8 +4,7 @@
   "java.configuration.runtimes": [
     {
       "name": "JavaSE-1.8",
-      "path": "~/.sdkman/candidates/java/8.0.362-librca",
-      "default": true
+      "path": "~/.sdkman/candidates/java/8.0.362-librca"
     },
     // {
     //     "name": "JavaSE-11",
@@ -13,10 +12,11 @@
     // },
     {
       "name": "JavaSE-17",
-      "path": "~/.sdkman/candidates/java/17.0.6-librca"
+      "path": "~/.sdkman/candidates/java/17.0.6-librca",
+      "default": true
     }
   ],
-  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.configuration.updateBuildConfiguration": "disabled",
   "maven.executable.path": "~/.sdkman/candidates/maven/3.8.6/bin/mvn",
   "java.configuration.maven.userSettings": "~/.sdkman/candidates/maven/3.8.6/conf/settings.xml",
   "maven.settingsFile": "~/.m2/settings.xml",
@@ -28,13 +28,13 @@
     },
     {
       "environmentVariable": "MAVEN_OPTS",
-      "value": "-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n"
+      "value": "-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n -XX:+UseParallelGC"
     }
   ],
   "java.debug.settings.onBuildFailureProceed": true,
   "java.import.gradle.java.home": "~/.sdkman/candidates/java/17.0.6-librca",
   "java.import.gradle.home": "~/.sdkman/candidates/gradle/current",
   "java.import.gradle.wrapper.enabled": true,
-  "java.import.gradle.version": "",
+  // "java.import.gradle.version": "",
   "java.saveActions.organizeImports": true
 }

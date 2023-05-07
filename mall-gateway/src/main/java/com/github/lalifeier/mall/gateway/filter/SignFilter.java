@@ -34,14 +34,11 @@ public class SignFilter implements GlobalFilter, Ordered {
 
     private final SignProperties signProperties;
     private final RedisTemplate<String, Object> redisTemplate;
-
-
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         if (!signProperties.getEnabled()) {
             return chain.filter(exchange);
         }
-
 
         ServerHttpRequest request = exchange.getRequest();
 

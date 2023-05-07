@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.lalifeier.mall.common.model.PageList;
 import com.github.lalifeier.mall.demo.applicaiton.service.BookApplicationService;
-import com.github.lalifeier.mall.demo.interfaces.web.book.dto.request.BookPageRequest;
+import com.github.lalifeier.mall.demo.interfaces.web.book.model.request.BookPageRequest;
 import com.github.lalifeier.mall.demo.interfaces.web.book.model.request.CreateBookRequest;
 import com.github.lalifeier.mall.demo.interfaces.web.book.model.request.UpdateBookRequest;
 import com.github.lalifeier.mall.demo.interfaces.web.book.model.response.BookResponse;
