@@ -1,0 +1,26 @@
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 2000
+        readTimeout: 5000
+  #    sentinel:
+  #      enabled: true
+
+  compression:
+    request:
+      enabled: true
+      mime-types: text/xml,application/xml, application/json
+      min-request-size: 1024
+    response:
+      enabled: true
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+#    readTimeout: 5000
+#    writeTimeout: 10000
+#    connectTimeout: 10000
+#  ribbon:
+#    ReadTimeout: 5000
+#    ConnectTimeout: 5000

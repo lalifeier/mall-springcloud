@@ -1,0 +1,14 @@
+dubbo:
+  application:
+    id: ${spring.application.name}
+  protocol:
+    name: dubbo
+    port: 20881
+  #  scan:
+  #    base-packages: com.github.lalifeier.mall.demo.presentation.rpc
+  #  registry:
+  #    address: spring-cloud://localhost
+  #  consumer:
+  #    check: false
+  #  cloud:
+  #    subscribed-services:

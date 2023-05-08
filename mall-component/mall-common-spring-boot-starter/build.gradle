@@ -1,5 +1,6 @@
 dependencies {
     api project(':mall-common')
+    api project(':mall-component:mall-logging-spring-boot-starter')
     api('org.springframework.boot:spring-boot-starter-web') {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
     }

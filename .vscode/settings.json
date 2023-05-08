@@ -16,7 +16,7 @@
       "default": true
     }
   ],
-  "java.configuration.updateBuildConfiguration": "disabled",
+  "java.configuration.updateBuildConfiguration": "automatic",
   "maven.executable.path": "~/.sdkman/candidates/maven/3.8.6/bin/mvn",
   "java.configuration.maven.userSettings": "~/.sdkman/candidates/maven/3.8.6/conf/settings.xml",
   "maven.settingsFile": "~/.m2/settings.xml",

@@ -1,0 +1,14 @@
+spring:
+  cloud:
+    stream:
+      rocketmq:
+        binder:
+          name-server: 127.0.0.1:9876
+      bindings:
+        source1-out-0:
+          destination: source1
+        #          content-type: application/json
+        sink1-in-0:
+          destination: sink1
+    function:
+      definition: source1;sink1
