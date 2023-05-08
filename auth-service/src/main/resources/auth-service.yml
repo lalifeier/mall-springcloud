@@ -4,11 +4,8 @@ server:
 spring:
   profiles:
     active: dev
-  application:
-    name: mall-auth
   #  autoconfigure:
   #    exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
-
 
   #  h2:
   #    console:
@@ -16,7 +13,6 @@ spring:
   #      settings:
   #        web-allow-others: true
   #        trace: true
-
 
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
@@ -41,11 +37,10 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*'
+        include: "*"
   endpoint:
     health:
       show-details: always
-
 
 logging:
   level:
@@ -53,5 +48,3 @@ logging:
 #    org.springframework.web: trace
 #    org.springframework.security: debug
 #    org.springframework.security.oauth2: debug
-
-

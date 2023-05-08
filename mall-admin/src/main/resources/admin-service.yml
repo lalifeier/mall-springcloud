@@ -2,6 +2,9 @@ server:
   port: 8083
 
 spring:
+  profiles:
+    active: dev
+
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -37,7 +40,7 @@ spring:
       bindings:
         source1-out-0:
           destination: source1
-#          content-type: application/json
+        #          content-type: application/json
         sink1-in-0:
           destination: sink1
     function:
@@ -47,7 +50,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*'
+        include: "*"
   endpoint:
     health:
       show-details: always

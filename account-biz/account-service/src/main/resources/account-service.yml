@@ -1,12 +1,9 @@
 server:
   port: 8002
 
-
 spring:
   profiles:
     active: dev
-  application:
-    name: account-service
 
   sql:
     init:
@@ -20,7 +17,6 @@ spring:
     url: jdbc:mysql://localhost:3306/mall?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
     username: root
     password: 123456
-
 
 mybatis-plus:
   type-aliases-package: com.github.lalifeier.mall.account.infrastructure.persistence.mybatis.po

@@ -21,11 +21,10 @@ public class BookApplicationServiceImpl implements BookApplicationService {
 
   private final BookDomainService bookDomainService;
 
-  private final BookConverter bookConverter;
+  private final BookConverter bookConverter =  BookConverter.INSTANCE;
 
   public BookApplicationServiceImpl(BookDomainService bookDomainService) {
     this.bookDomainService = bookDomainService;
-    this.bookConverter = BookConverter.INSTANCE;
   }
 
   @Override

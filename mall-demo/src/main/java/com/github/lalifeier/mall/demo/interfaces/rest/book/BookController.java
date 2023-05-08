@@ -31,11 +31,10 @@ public class BookController {
 
   private final BookApplicationService bookApplicationService;
 
-  private final BookConverter bookConverter;
+  private final BookConverter bookConverter = BookConverter.INSTANCE;
 
   public BookController(BookApplicationService bookApplicationService) {
     this.bookApplicationService = bookApplicationService;
-    this.bookConverter = BookConverter.INSTANCE;
   }
 
   @PostMapping("")

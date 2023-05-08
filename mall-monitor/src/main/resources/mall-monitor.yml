@@ -2,10 +2,7 @@ server:
   port: 9000
 
 spring:
-  profiles:
-    active: dev
   application:
-    name: mall-monitor
     admin:
       enabled: true
   #      discovery:

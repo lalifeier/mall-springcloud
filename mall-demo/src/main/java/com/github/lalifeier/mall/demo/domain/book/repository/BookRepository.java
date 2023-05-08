@@ -10,5 +10,5 @@ import com.github.lalifeier.mall.demo.domain.book.model.valueobject.BookId;
 public interface BookRepository extends Repository<BookDO, BookId> {
   List<BookDO> findAll();
 
-  PageList<BookDO> page(Integer pageNum, Integer pageSize);
+  PageList<BookDO> page(int pageNum, int pageSize);
 }

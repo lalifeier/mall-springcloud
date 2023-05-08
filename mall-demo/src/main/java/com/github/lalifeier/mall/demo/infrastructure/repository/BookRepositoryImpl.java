@@ -25,11 +25,10 @@ public class BookRepositoryImpl implements BookRepository {
 
   private final BookMapper bookMapper;
 
-  private final BookConverter bookConverter;
+  private final BookConverter bookConverter =  BookConverter.INSTANCE;
 
   public BookRepositoryImpl(BookMapper bookMapper) {
     this.bookMapper = bookMapper;
-    this.bookConverter = BookConverter.INSTANCE;
   }
 
   @Override
@@ -81,7 +80,7 @@ public class BookRepositoryImpl implements BookRepository {
     return bookConverter.convertList(bookPOList);
   }
 
-  public PageList<BookDO> page(Integer pageNum, Integer pageSize) {
+  public PageList<BookDO> page(int pageNum, int pageSize) {
     Page<BookPO> page = new Page<>(pageNum, pageSize);
     LambdaQueryWrapper<BookPO> queryWrapper = Wrappers.lambdaQuery();
 
