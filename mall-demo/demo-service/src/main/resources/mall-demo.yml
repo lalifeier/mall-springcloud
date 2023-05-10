@@ -1,7 +1,14 @@
 server:
-  port: 18000
+  port: 0
   # servlet:
   #   context-path: /api
+
+grpc:
+  server:
+    port: 0
+#  client:
+#    grpc_server:
+#      negotiation-type: plaintext
 
 spring:
   profiles:

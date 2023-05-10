@@ -21,10 +21,10 @@ public class AccountController {
   private AccountApplicationService accountApplicationService;
 
   // 注册
-  @PostMapping("/register")
-  public AccountVO register(@Validated @RequestBody RegisterRequest request) {
-    return accountApplicationService.register(request);
-  }
+  //@PostMapping("/register")
+  //public AccountVO register(@Validated @RequestBody RegisterRequest request) {
+  //  return accountApplicationService.register(request);
+  //}
 
   // 登录
   @PostMapping("/login")

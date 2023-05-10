@@ -1,6 +1,10 @@
 dependencies {
     implementation project(':mall-component:mall-common-spring-cloud-starter')
     implementation project(':mall-component:mall-mybatis-plus-spring-boot-starter')
+    implementation project(':mall-demo:demo-grpc')
+//    implementation 'net.devh:grpc-spring-boot-starter'
+    implementation 'net.devh:grpc-server-spring-boot-starter'
+//    compile 'net.devh:grpc-client-spring-boot-starter'
     implementation 'com.alibaba:druid-spring-boot-starter'
     implementation 'com.baomidou:mybatis-plus-generator'
     implementation 'org.freemarker:freemarker'

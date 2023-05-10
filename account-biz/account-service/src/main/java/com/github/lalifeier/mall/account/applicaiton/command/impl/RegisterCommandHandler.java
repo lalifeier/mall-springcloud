@@ -22,21 +22,21 @@ public class RegisterCommandHandler implements RegisterCommand {
   @Resource
   private AccountRepository accountRepository;
 
-  @Override
-  public RegisterResponseVO execute(RegisterRequest request) {
-    AccountName name = new AccountName(request.getUsername());
-    AccountPassword password = new AccountPassword(request.getPassword());
-
-    if (accountRepository.find(name) != null) {
-      throw new RegisterException(RegisterErrorCodes.USER_EXIST);
-    }
-
-    AccountDO account =  AccountDO.createAccount(name, password);
-
-    accountRepository.save(account);
-
-    return RegisterResponseVO.builder()
-      .id(account.getId().getValue())
-      .build();
-  }
+  //@Override
+  //public RegisterResponseVO execute(RegisterRequest request) {
+  //  AccountName name = new AccountName(request.getUsername());
+  //  AccountPassword password = new AccountPassword(request.getPassword());
+  //
+  //  if (accountRepository.find(name) != null) {
+  //    throw new RegisterException(RegisterErrorCodes.USER_EXIST);
+  //  }
+  //
+  //  AccountDO account =  AccountDO.createAccount(name, password);
+  //
+  //  accountRepository.save(account);
+  //
+  //  return RegisterResponseVO.builder()
+  //    .id(account.getId().getValue())
+  //    .build();
+  //}
 }

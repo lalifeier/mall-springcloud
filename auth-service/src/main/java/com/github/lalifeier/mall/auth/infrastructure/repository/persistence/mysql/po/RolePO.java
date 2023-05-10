@@ -1,6 +1,7 @@
 package com.github.lalifeier.mall.auth.infrastructure.repository.persistence.mysql.po;
 
-import com.github.lalifeier.mall.common.po.BasePO;
+
+import com.github.lalifeier.mall.jpa.po.BasePO;
 import lombok.*;
 
 import javax.persistence.Column;

@@ -24,10 +24,10 @@ public class AccountApplicationServiceImpl implements AccountApplicationService 
   @Resource
   private AccountRepository accountRepository;
 
-  @Override
-  public RegisterResponseVO register(RegisterRequest request) {
-    return registerCommandHandler.execute(request);
-  }
+  //@Override
+  //public RegisterResponseVO register(RegisterRequest request) {
+  //  return registerCommandHandler.execute(request);
+  //}
 
   @Override
   public AccountVO login(LoginRequest request) {

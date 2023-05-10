@@ -56,7 +56,7 @@ ext {
     grpcProtobuf                : "io.grpc:grpc-protobuf:${grpcVersion}",
     grpcStub                    : "io.grpc:grpc-stub:${grpcVersion}",
     grpc                        : "net.devh:grpc-spring-boot-starter:${grpcSpringBootVersion}",
-    grpcServer                  : "net.devh:grpc-server-spring-boot-starter:${grpcSpringBootVersion}",
+//    grpcServer                  : "net.devh:grpc-server-spring-boot-starter:${grpcSpringBootVersion}",
     springBootAdmin             : "de.codecentric:spring-boot-admin-starter-server:${springBootAdminVersion}",
     springSecurityOauth2        : "org.springframework.security.oauth:spring-security-oauth2:${springSecurityOauth2Version}",
     springCloudOauth2           : "org.springframework.cloud:spring-cloud-starter-oauth2:${springCloudOauth2Version}",

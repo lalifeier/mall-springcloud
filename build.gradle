@@ -33,10 +33,10 @@ allprojects {
       downloadSources = false
       inheritOutputDirs = false
       outputDir = file("$buildDir/classes/main/")
-      // sourceDirs += file('src/generated/main/java')
-      // sourceDirs += file('src/generated/main/grpc')
-      // generatedSourceDirs += file('src/generated/main/java')
-      // generatedSourceDirs += file('src/generated/main/grpc')
+      sourceDirs += file("src/generated/main/java")
+      sourceDirs += file("src/generated/main/grpc")
+      generatedSourceDirs += file("src/generated/main/java")
+      generatedSourceDirs += file("src/generated/main/grpc")
     }
   }
 }
@@ -57,15 +57,15 @@ configure(javaProjects) { project ->
 
   protobuf {
     protoc {
-      artifact = "com.google.protobuf:protoc:${protobufVersion}"
+      artifact = "com.google.protobuf:protoc:${rootProject.ext.protobufVersion}"
     }
-    generatedFilesBaseDir = "$projectDir/src/generated"
-    clean {
-      delete generatedFilesBaseDir
-    }
+//    generatedFilesBaseDir = "$projectDir/src/generated"
+//    clean {
+//      delete generatedFilesBaseDir
+//    }
     plugins {
       grpc {
-        artifact = 'io.grpc:protoc-gen-grpc-java:${grpcVersion}'
+        artifact = "io.grpc:protoc-gen-grpc-java:${rootProject.ext.grpcVersion}"
       }
     }
     generateProtoTasks {

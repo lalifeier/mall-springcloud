@@ -8,6 +8,7 @@ import com.github.lalifeier.mall.demo.interfaces.rest.book.model.request.CreateB
 import com.github.lalifeier.mall.demo.interfaces.rest.book.model.response.BookResponse;
 import com.github.lalifeier.mall.demo.interfaces.rest.book.model.request.UpdateBookRequest;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public interface BookConverter {
 
   CreateBookBO toDTO(CreateBookRequest createBookRequest);
 
+  @Mapping(target = "id", ignore = true)
   UpdateBookBO toDTO(UpdateBookRequest updateBookRequest);
 
   BookResponse toVO(BookBO bookBO);

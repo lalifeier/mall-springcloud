@@ -5,7 +5,7 @@ import com.github.lalifeier.mall.common.model.PageRequest;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
+//@Data
 @NoArgsConstructor
 public class BookPageRequest extends PageRequest {
 }

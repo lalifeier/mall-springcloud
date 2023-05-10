@@ -5,7 +5,7 @@ import com.github.lalifeier.mall.account.interfaces.facade.web.model.request.Reg
 import com.github.lalifeier.mall.account.interfaces.facade.web.model.response.AccountVO;
 
 public interface AccountApplicationService {
-  RegisterResponseVO register(RegisterRequest request);
+  //RegisterResponseVO register(RegisterRequest request);
 
   AccountVO login(LoginRequest request);
 }

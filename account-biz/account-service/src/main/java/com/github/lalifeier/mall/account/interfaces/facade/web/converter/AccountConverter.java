@@ -11,9 +11,9 @@ import org.mapstruct.factory.Mappers;
 public interface AccountConverter {
   AccountConverter INSTANCE = Mappers.getMapper(AccountConverter.class);
 
-  AccountBO toDTO(RegisterRequest registerRequest);
-
-  AccountBO toDTO(LoginRequest loginRequest);
-
-  AccountVO toVO(AccountBO accountBO);
+  //AccountBO toDTO(RegisterRequest registerRequest);
+  //
+  //AccountBO toDTO(LoginRequest loginRequest);
+  //
+  //AccountVO toVO(AccountBO accountBO);
 }
