@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.github.lalifeier.mall.demo.proto";
+option java_outer_classname = "HelloProto";
+import "google/protobuf/wrappers.proto";
+
+service HelloService {
+    rpc sayHello(google.protobuf.StringValue) returns (google.protobuf.StringValue);
+}

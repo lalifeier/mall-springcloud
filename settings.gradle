@@ -19,7 +19,8 @@ include 'mall-component:mall-http-spring-boot-starter'
 include 'mall-component:mall-common-version'
 
 //demo
-include 'mall-demo'
+include 'mall-demo:demo-grpc'
+include 'mall-demo:demo-service'
 
 //gateway
 include 'mall-gateway'

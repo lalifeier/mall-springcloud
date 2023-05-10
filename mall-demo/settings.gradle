@@ -1,0 +1,2 @@
+includeFlat 'mall-demo:demo-grpc'
+includeFlat 'mall-demo:demo-service'

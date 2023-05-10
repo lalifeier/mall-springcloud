@@ -1,169 +1,198 @@
 buildscript {
-    apply from: rootProject.file( 'version.gradle' )
+  apply from: rootProject.file('version.gradle')
 
-    repositories {
-        maven { url 'https://maven.aliyun.com/repository/public/' }
-        maven { url 'https://developer.huawei.com/repo/'}
-        mavenLocal()
-        mavenCentral()
-        gradlePluginPortal()
-    }
+  repositories {
+    maven { url 'https://maven.aliyun.com/repository/public/' }
+    maven { url 'https://developer.huawei.com/repo/' }
+    mavenLocal()
+    mavenCentral()
+    gradlePluginPortal()
+  }
 
-    dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
-        classpath "com.bmuschko:gradle-docker-plugin:${gradleDockerPluginVersion}"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
-        classpath "org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}"
-    }
+  dependencies {
+    classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+    classpath "com.bmuschko:gradle-docker-plugin:${gradleDockerPluginVersion}"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
+    classpath "org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}"
+    // ASSUMES GRADLE 2.12 OR HIGHER. Use plugin version 0.7.5 with earlier
+    // gradle versions
+    classpath "com.google.protobuf:protobuf-gradle-plugin:${protobufGradlePluginVersion}"
+  }
 }
 
+
 allprojects {
-    group 'com.github.lalifeier'
-    version rootProject.ext.projectVersion
+  group 'com.github.lalifeier'
+  version rootProject.ext.projectVersion
 
-    apply plugin: 'idea'
+  apply plugin: 'idea'
 
-    idea {
-        module {
-            downloadJavadoc = false
-            downloadSources = false
-            inheritOutputDirs = false
-            outputDir = file("$buildDir/classes/main/")
-        }
+  idea {
+    module {
+      downloadJavadoc = false
+      downloadSources = false
+      inheritOutputDirs = false
+      outputDir = file("$buildDir/classes/main/")
+      // sourceDirs += file('src/generated/main/java')
+      // sourceDirs += file('src/generated/main/grpc')
+      // generatedSourceDirs += file('src/generated/main/java')
+      // generatedSourceDirs += file('src/generated/main/grpc')
     }
+  }
 }
 
 ext {
-    javaProjects = subprojects.findAll { it.file("build.gradle").exists() }
-    bootProjects = subprojects.findAll { it.name.endsWith('-service') || it.name in ['mall-gateway', 'mall-monitor', 'mall-admin', 'mall-demo'] }
+  javaProjects = subprojects.findAll { it.file("build.gradle").exists() }
+  bootProjects = subprojects.findAll { it.name.endsWith('-service') || it.name in ['mall-gateway', 'mall-monitor', 'mall-admin'] }
 }
 
 configure(javaProjects) { project ->
-    apply plugin: 'java-library'
-    apply plugin: 'maven-publish'
-    apply plugin: 'org.springframework.boot'
-    apply plugin: 'io.spring.dependency-management'
-    apply plugin: 'org.jetbrains.kotlin.jvm'
-    apply plugin: 'org.jetbrains.kotlin.plugin.spring'
+  apply plugin: 'java-library'
+  apply plugin: 'maven-publish'
+  apply plugin: 'org.springframework.boot'
+  apply plugin: 'io.spring.dependency-management'
+  apply plugin: 'org.jetbrains.kotlin.jvm'
+  apply plugin: 'org.jetbrains.kotlin.plugin.spring'
+  apply plugin: 'com.google.protobuf'
 
-    repositories {
-        maven { url 'https://maven.aliyun.com/repository/public/' }
-        maven { url 'https://developer.huawei.com/repo/'}
-        mavenLocal()
-        mavenCentral()
+  protobuf {
+    protoc {
+      artifact = "com.google.protobuf:protoc:${protobufVersion}"
     }
-
-    configurations {
-        compileOnly {
-            extendsFrom annotationProcessor
-        }
+    generatedFilesBaseDir = "$projectDir/src/generated"
+    clean {
+      delete generatedFilesBaseDir
     }
-
-    bootJar {
-        enabled = false
+    plugins {
+      grpc {
+        artifact = 'io.grpc:protoc-gen-grpc-java:${grpcVersion}'
+      }
     }
-
-    compileJava {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-        options.encoding = 'UTF-8'
+    generateProtoTasks {
+      all()*.plugins {
+        grpc {}
+      }
     }
-    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+  }
 
-    compileKotlin {
-        kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
-        kotlinOptions.freeCompilerArgs = ['-Xjsr305=strict']
+  repositories {
+    maven { url 'https://maven.aliyun.com/repository/public/' }
+    maven { url 'https://developer.huawei.com/repo/' }
+    mavenLocal()
+    mavenCentral()
+  }
+
+  configurations {
+    compileOnly {
+      extendsFrom annotationProcessor
     }
+  }
 
-    dependencyManagement {
-        imports {
-            mavenBom "org.springframework.boot:spring-boot-dependencies:${rootProject.ext.springBootVersion}"
-            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${rootProject.ext.springCloudVersion}"
-            mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${rootProject.ext.springCloudAlibabaVersion}"
-        }
+  bootJar {
+    enabled = false
+  }
 
-        dependencies {
-             for (depJar in rootProject.ext.dependencies) {
-               dependency depJar.value
-             }
-        }
+  compileJava {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+    options.encoding = 'UTF-8'
+  }
+  [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+  compileKotlin {
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
+    kotlinOptions.freeCompilerArgs = ['-Xjsr305=strict']
+  }
+
+  dependencyManagement {
+    imports {
+      mavenBom "org.springframework.boot:spring-boot-dependencies:${rootProject.ext.springBootVersion}"
+      mavenBom "org.springframework.cloud:spring-cloud-dependencies:${rootProject.ext.springCloudVersion}"
+      mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${rootProject.ext.springCloudAlibabaVersion}"
     }
 
     dependencies {
-        //  gradle 5.0+
+      for (depJar in rootProject.ext.dependencies) {
+        dependency depJar.value
+      }
+    }
+  }
+
+  dependencies {
+    //  gradle 5.0+
 //        implementation platform("org.springframework.boot:spring-boot-dependencies:${rootProject.ext.springBootVersion}")
 //        implementation platform("org.springframework.cloud:spring-cloud-dependencies:${rootProject.ext.springCloudVersion}")
 //        implementation platform("com.alibaba.cloud:spring-cloud-alibaba-dependencies:${rootProject.ext.springCloudAlibabaVersion}")
 
-       compileOnly rootProject.ext.dependencies.lombok
-       annotationProcessor rootProject.ext.dependencies.lombok
-       testCompileOnly rootProject.ext.dependencies.lombok
-       testAnnotationProcessor rootProject.ext.dependencies.lombok
+    compileOnly rootProject.ext.dependencies.lombok
+    annotationProcessor rootProject.ext.dependencies.lombok
+    testCompileOnly rootProject.ext.dependencies.lombok
+    testAnnotationProcessor rootProject.ext.dependencies.lombok
 //
 //        api rootProject.ext.slf4j
 
 //        annotationProcessor rootProject.ext.mapstructProcessor
 //        testAnnotationProcessor rootProject.ext.mapstructProcessor
-    }
+  }
 
-    test {
-        useJUnitPlatform()
-    }
+  test {
+    useJUnitPlatform()
+  }
 
 
 }
 
 //maven
 configure(javaProjects) { project ->
-    publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                from components.java
-            }
-        }
-
-        repositories {
-            maven {
-                url MAVEN_REPOSITORY_URL
-                credentials {
-                    username = MAVEN_REPOSITORY_USERNAME
-                    password = MAVEN_REPOSITORY_PASSWORD
-                }
-            }
-        }
+  publishing {
+    publications {
+      mavenJava(MavenPublication) {
+        from components.java
+      }
     }
+
+    repositories {
+      maven {
+        url MAVEN_REPOSITORY_URL
+        credentials {
+          username = MAVEN_REPOSITORY_USERNAME
+          password = MAVEN_REPOSITORY_PASSWORD
+        }
+      }
+    }
+  }
 }
 
 //docker
 configure(bootProjects) {
-    apply plugin: 'application'
-    apply plugin: 'com.bmuschko.docker-remote-api'
-    apply plugin: 'com.bmuschko.docker-spring-boot-application'
+  apply plugin: 'application'
+  apply plugin: 'com.bmuschko.docker-remote-api'
+  apply plugin: 'com.bmuschko.docker-spring-boot-application'
 
-    bootJar {
-        enabled = true
-        archiveFileName = "${project.name}.jar"
+  bootJar {
+    enabled = true
+    archiveFileName = "${project.name}.jar"
+  }
+
+  jar {
+    from sourceSets.main.output
+  }
+  dependencies {
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+  }
+
+  docker {
+    registryCredentials {
+      url = DOCKER_REGISTRY_URL
+      username = DOCKER_USERNAME
+      password = DOCKER_PASSWORD
     }
 
-    jar {
-        from sourceSets.main.output
+    springBootApplication {
+      baseImage = 'openjdk:8-alpine'
+      ports = [8080]
+      images = ["${project.group}/${project.name}:${project.version}", "${project.group}/${project.name}:latest"]
+      jvmArgs = ['-Dspring.profiles.active=prod']
     }
-    dependencies {
-        developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    }
-
-    docker {
-        registryCredentials {
-            url = DOCKER_REGISTRY_URL
-            username = DOCKER_USERNAME
-            password = DOCKER_PASSWORD
-        }
-
-        springBootApplication {
-            baseImage = 'openjdk:8-alpine'
-            ports = [8080]
-            images = ["${project.group}/${project.name}:${project.version}", "${project.group}/${project.name}:latest"]
-            jvmArgs = ['-Dspring.profiles.active=prod']
-        }
-    }
+  }
 }
