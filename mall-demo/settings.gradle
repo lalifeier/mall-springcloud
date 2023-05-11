@@ -1,2 +1,3 @@
 includeFlat 'mall-demo:demo-grpc'
+includeFlat 'mall-demo:demo-dubbo'
 includeFlat 'mall-demo:demo-service'

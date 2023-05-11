@@ -20,6 +20,7 @@ include 'mall-component:mall-common-version'
 
 //demo
 include 'mall-demo:demo-grpc'
+include 'mall-demo:demo-dubbo'
 include 'mall-demo:demo-service'
 
 //gateway

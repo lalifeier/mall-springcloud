@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.demo.interfaces.rpc.hello;
+package com.github.lalifeier.mall.demo.interfaces.dubbo;
 
 public interface HelloService {
 
