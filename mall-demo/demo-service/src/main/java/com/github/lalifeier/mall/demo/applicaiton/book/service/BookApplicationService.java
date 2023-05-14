@@ -1,11 +1,12 @@
 package com.github.lalifeier.mall.demo.applicaiton.book.service;
 
-import java.util.List;
-
 import com.github.lalifeier.mall.common.model.PageList;
+import com.github.lalifeier.mall.common.model.PageRequest;
 import com.github.lalifeier.mall.demo.applicaiton.book.bo.BookBO;
 import com.github.lalifeier.mall.demo.applicaiton.book.bo.CreateBookBO;
 import com.github.lalifeier.mall.demo.applicaiton.book.bo.UpdateBookBO;
+
+import java.util.List;
 
 public interface BookApplicationService {
   void createBook(CreateBookBO createBookBO);
@@ -16,7 +17,7 @@ public interface BookApplicationService {
 
   BookBO getBookById(Long id);
 
-  PageList<BookBO> getBooks(int pageNum, int pageSize);
+  PageList<BookBO> getBooks(PageRequest request);
 
   List<BookBO> getAllBooks();
 }

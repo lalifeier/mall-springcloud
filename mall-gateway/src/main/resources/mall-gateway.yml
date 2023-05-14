@@ -18,6 +18,7 @@ spring:
             - Path=/demo/**
           filters:
             - StripPrefix=1
+        #            - Decode
         - id: mall-account
           uri: lb://mall-account
           predicates:

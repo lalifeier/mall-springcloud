@@ -1,23 +1,25 @@
 package com.github.lalifeier.mall.demo.infrastructure.repository;
 
-import java.util.List;
-
-import com.github.lalifeier.mall.mybatispluss.converter.MybatisPlusPageConverter;
-import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
-
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.lalifeier.mall.common.model.PageList;
+import com.github.lalifeier.mall.common.model.PageRequest;
 import com.github.lalifeier.mall.demo.domain.book.model.entity.BookDO;
 import com.github.lalifeier.mall.demo.domain.book.model.valueobject.BookId;
 import com.github.lalifeier.mall.demo.domain.book.repository.BookRepository;
 import com.github.lalifeier.mall.demo.infrastructure.repository.mybatis.book.converter.BookConverter;
 import com.github.lalifeier.mall.demo.infrastructure.repository.mybatis.book.mapper.BookMapper;
 import com.github.lalifeier.mall.demo.infrastructure.repository.mybatis.book.po.BookPO;
+import com.github.lalifeier.mall.mybatispluss.converter.MybatisPlusPageConverter;
+import com.github.lalifeier.mall.mybatispluss.utils.QueryWrapperUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Slf4j
 @Repository
@@ -25,7 +27,7 @@ public class BookRepositoryImpl implements BookRepository {
 
   private final BookMapper bookMapper;
 
-  private final BookConverter bookConverter =  BookConverter.INSTANCE;
+  private final BookConverter bookConverter = BookConverter.INSTANCE;
 
   public BookRepositoryImpl(BookMapper bookMapper) {
     this.bookMapper = bookMapper;
@@ -80,16 +82,14 @@ public class BookRepositoryImpl implements BookRepository {
     return bookConverter.convertList(bookPOList);
   }
 
-  public PageList<BookDO> page(int pageNum, int pageSize) {
-    Page<BookPO> page = new Page<>(pageNum, pageSize);
-    LambdaQueryWrapper<BookPO> queryWrapper = Wrappers.lambdaQuery();
+  public PageList<BookDO> page(PageRequest request) {
+    Page<BookPO> page = new Page<>(request.getPageNum(), request.getPageSize());
 
-    queryWrapper.orderByDesc(BookPO::getId);
+    QueryWrapper<BookPO> queryWrapper = new QueryWrapper<BookPO>();
+
+    QueryWrapperUtils.buildQueryWrapper(queryWrapper, request.getFilter(), BookPO.class, request.getOrderBy(), request.getOrderDirection());
 
     IPage<BookPO> bookPage = bookMapper.selectPage(page, queryWrapper);
-
-    // IPage<BookPO> bookPage = bookMapper.selectPage(new Page<>(pageNum, pageSize),
-    // Wrappers.<BookPO>lambdaQuery().orderByDesc(BookPO::getId));
 
     return MybatisPlusPageConverter.convert(bookPage, bookConverter::convert);
   }

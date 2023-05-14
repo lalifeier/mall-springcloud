@@ -1,14 +1,10 @@
-
 package com.github.lalifeier.mall.demo.domain.book.service.impl;
 
-import com.github.lalifeier.mall.common.model.PageList;
 import com.github.lalifeier.mall.demo.domain.book.model.entity.BookDO;
 import com.github.lalifeier.mall.demo.domain.book.model.valueobject.BookId;
 import com.github.lalifeier.mall.demo.domain.book.repository.BookRepository;
 import com.github.lalifeier.mall.demo.domain.book.service.BookDomainService;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class BookDomainServiceImpl implements BookDomainService {
@@ -37,20 +33,21 @@ public class BookDomainServiceImpl implements BookDomainService {
   @Override
   public void deleteBook(BookId bookId) {
     BookDO bookDO = bookRepository.find(bookId);
-    if (bookDO == null) {
-      // throw new BookNotFoundException(bookId);
+    if (bookDO != null) {
+      bookRepository.remove(bookDO);
     }
-    bookRepository.remove(bookDO);
+
+    // throw new BookNotFoundException(bookId);
   }
 
-  @Override
-  public List<BookDO> getAllBooks() {
-    return  bookRepository.findAll();
-  }
-
-  @Override
-  public PageList<BookDO> getBooks(int pageNum, int pageSize) {
-    return bookRepository.page(pageNum, pageSize);
-  }
+  //@Override
+  //public List<BookDO> getAllBooks() {
+  //  return  bookRepository.findAll();
+  //}
+  //
+  //@Override
+  //public PageList<BookDO> getBooks(int pageNum, int pageSize) {
+  //  return bookRepository.page(pageNum, pageSize);
+  //}
 
 }

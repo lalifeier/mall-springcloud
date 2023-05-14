@@ -53,8 +53,9 @@ ext {
     lombok                      : "org.projectlombok:lombok:${lombokVersion}",
 //            slf4j: "org.slf4j:slf4j-api:${sl4jApiVersion}",
     dubbo                       : "org.apache.dubbo:dubbo-spring-boot-starter:${dubboVersion}",
-    grpcProtobuf                : "io.grpc:grpc-protobuf:${grpcVersion}",
-    grpcStub                    : "io.grpc:grpc-stub:${grpcVersion}",
+    grpcNettyShaded             : "io.grpc:grpc-netty-shaded:${grpcVersion}", // gRPC 核心库
+    grpcProtobuf                : "io.grpc:grpc-protobuf:${grpcVersion}", // gRPC Protocol Buffers 序列化支持
+    grpcStub                    : "io.grpc:grpc-stub:${grpcVersion}", // gRPC Stub 和客户端库
     grpcSpringBoot              : "net.devh:grpc-spring-boot-starter:${grpcSpringBootVersion}",
     springBootAdmin             : "de.codecentric:spring-boot-admin-starter-server:${springBootAdminVersion}",
     springSecurityOauth2        : "org.springframework.security.oauth:spring-security-oauth2:${springSecurityOauth2Version}",

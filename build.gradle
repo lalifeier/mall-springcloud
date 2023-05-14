@@ -44,15 +44,10 @@ allprojects {
 ext {
   javaProjects = subprojects.findAll { it.file("build.gradle").exists() }
   bootProjects = subprojects.findAll { it.name.endsWith('-service') || it.name in ['mall-gateway', 'mall-monitor', 'mall-admin'] }
+  grpcProjects = subprojects.findAll { it.name.endsWith('-grpc') }
 }
 
-configure(javaProjects) { project ->
-  apply plugin: 'java-library'
-  apply plugin: 'maven-publish'
-  apply plugin: 'org.springframework.boot'
-  apply plugin: 'io.spring.dependency-management'
-  apply plugin: 'org.jetbrains.kotlin.jvm'
-  apply plugin: 'org.jetbrains.kotlin.plugin.spring'
+configure(grpcProjects) { project ->
   apply plugin: 'com.google.protobuf'
 
   protobuf {
@@ -74,6 +69,15 @@ configure(javaProjects) { project ->
       }
     }
   }
+}
+
+configure(javaProjects) { project ->
+  apply plugin: 'java-library'
+  apply plugin: 'maven-publish'
+  apply plugin: 'org.springframework.boot'
+  apply plugin: 'io.spring.dependency-management'
+  apply plugin: 'org.jetbrains.kotlin.jvm'
+  apply plugin: 'org.jetbrains.kotlin.plugin.spring'
 
   repositories {
     maven { url 'https://maven.aliyun.com/repository/public/' }

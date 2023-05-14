@@ -1,6 +1,7 @@
 package com.github.lalifeier.mall.common.model;
 
 import java.io.Serializable;
+import java.util.Map;
 
 public abstract class PageRequest implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -17,6 +18,16 @@ public abstract class PageRequest implements Serializable {
   private String orderDirection = DEFAULT_ORDER_DIRECTION;
   private String groupBy;
   private boolean needTotalCount = DEFAULT_NEED_TOTAL_COUNT;
+
+  private Map<String, String> filter;
+
+  public Map<String, String> getFilter() {
+    return filter;
+  }
+
+  public void setFilter(Map<String, String> filter) {
+    this.filter = filter;
+  }
 
   public int getPageNum() {
     return Math.max(pageNum, 1);
@@ -79,12 +90,12 @@ public abstract class PageRequest implements Serializable {
   @Override
   public String toString() {
     return "PageQuery{" +
-        "pageNum=" + pageNum +
-        ", pageSize=" + pageSize +
-        ", orderBy='" + orderBy + '\'' +
-        ", orderDirection='" + orderDirection + '\'' +
-        ", groupBy='" + groupBy + '\'' +
-        ", needTotalCount=" + needTotalCount +
-        '}';
+      "pageNum=" + pageNum +
+      ", pageSize=" + pageSize +
+      ", orderBy='" + orderBy + '\'' +
+      ", orderDirection='" + orderDirection + '\'' +
+      ", groupBy='" + groupBy + '\'' +
+      ", needTotalCount=" + needTotalCount +
+      '}';
   }
 }
