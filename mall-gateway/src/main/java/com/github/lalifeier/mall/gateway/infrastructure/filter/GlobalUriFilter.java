@@ -2,21 +2,20 @@
 
 package com.github.lalifeier.mall.gateway.infrastructure.filter;
 
-import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR;
-import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR;
-
-import java.net.URI;
-
+import lombok.var;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
-import org.springframework.cloud.gateway.filter.RouteToRequestUrlFilter;
+import org.springframework.cloud.gateway.filter.ReactiveLoadBalancerClientFilter;
 import org.springframework.cloud.gateway.route.Route;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
-
-import lombok.var;
 import reactor.core.publisher.Mono;
+
+import java.net.URI;
+
+import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR;
+import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR;
 
 @Component
 public class GlobalUriFilter implements GlobalFilter, Ordered {
@@ -31,32 +30,31 @@ public class GlobalUriFilter implements GlobalFilter, Ordered {
         return chain.filter(exchange);
       }
 
-      // Use the original incomingUri path and query params
-      final var routeUri = route.getUri();
-      URI mergedUri = createUri(incomingUri, routeUri);
-
-      // Save it as the outgoing URI to call the service, and override the "wrongly"
-      // double encoded URI
+      // Save it as the outgoing URI to call the service, and override the "wrongly" double encoded URI
+      // in  ReactiveLoadBalancerClientFilter LoadBalancerUriTools::containsEncodedParts double encoded URI again
+      URI balanceUrl = exchange.getRequiredAttribute(GATEWAY_REQUEST_URL_ATTR);
+      URI mergedUri = createUri(incomingUri, balanceUrl);
       exchange.getAttributes().put(GATEWAY_REQUEST_URL_ATTR, mergedUri);
     }
 
     return chain.filter(exchange);
   }
 
-  private URI createUri(URI incomingUri, URI routeUri) {
-    final var port = routeUri.getPort() != -1 ? ":" + routeUri.getPort() : "";
-    final var rawPath = incomingUri.getRawPath() != null ? incomingUri.getRawPath() : "";
+  private URI createUri(URI incomingUri, URI balanceUrl) {
+    final var port = balanceUrl.getPort() != -1 ? ":" + balanceUrl.getPort() : "";
+    final var rawPath = balanceUrl.getRawPath() != null ? balanceUrl.getRawPath() : "";
     final var query = incomingUri.getRawQuery() != null ? "?" + incomingUri.getRawQuery() : "";
-    return URI.create(routeUri.getScheme() + "://" + routeUri.getHost() + port + rawPath + query);
+    return URI.create(balanceUrl.getScheme() + "://" + balanceUrl.getHost() + port + rawPath + query);
   }
 
   private static boolean isUriEncoded(URI uri) {
     return (uri.getRawQuery() != null && uri.getRawQuery().contains("%"))
-        || (uri.getRawPath() != null && uri.getRawPath().contains("%"));
+      || (uri.getRawPath() != null && uri.getRawPath().contains("%"));
   }
 
+  //order after ReactiveLoadBalancerClientFilter
   @Override
   public int getOrder() {
-    return RouteToRequestUrlFilter.ROUTE_TO_URL_FILTER_ORDER + 1;
+    return ReactiveLoadBalancerClientFilter.LOAD_BALANCER_CLIENT_FILTER_ORDER + 1;
   }
 }
