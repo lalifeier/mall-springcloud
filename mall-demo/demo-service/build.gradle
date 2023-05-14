@@ -20,4 +20,5 @@ dependencies {
   annotationProcessor 'org.mapstruct:mapstruct-processor'
   implementation 'org.springframework.boot:spring-boot-starter-validation'
   implementation 'net.devh:grpc-spring-boot-starter'
+  implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 }
