@@ -47,4 +47,3 @@ public class GlobalErrorWebExceptionHandler implements ErrorWebExceptionHandler 
     }));
   }
 }
-
