@@ -1,6 +1,6 @@
 package com.github.lalifeier.mall.demo.interfaces.dubbo;
 
-public interface HelloService {
+public interface IHelloService {
 
   String hello(String name);
 

@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.demo.interfaces.rest.book;
+package com.github.lalifeier.mall.demo.interfaces.api.book;
 
 import com.github.lalifeier.mall.common.model.PageList;
 import com.github.lalifeier.mall.common.result.PageResult;
@@ -6,11 +6,11 @@ import com.github.lalifeier.mall.demo.applicaiton.book.bo.BookBO;
 import com.github.lalifeier.mall.demo.applicaiton.book.bo.CreateBookBO;
 import com.github.lalifeier.mall.demo.applicaiton.book.bo.UpdateBookBO;
 import com.github.lalifeier.mall.demo.applicaiton.book.service.BookApplicationService;
-import com.github.lalifeier.mall.demo.interfaces.rest.book.converter.BookConverter;
-import com.github.lalifeier.mall.demo.interfaces.rest.book.model.request.BookPageRequest;
-import com.github.lalifeier.mall.demo.interfaces.rest.book.model.request.CreateBookRequest;
-import com.github.lalifeier.mall.demo.interfaces.rest.book.model.request.UpdateBookRequest;
-import com.github.lalifeier.mall.demo.interfaces.rest.book.model.response.BookResponse;
+import com.github.lalifeier.mall.demo.interfaces.api.book.converter.BookConverter;
+import com.github.lalifeier.mall.demo.interfaces.api.book.model.request.BookPageRequest;
+import com.github.lalifeier.mall.demo.interfaces.api.book.model.request.CreateBookRequest;
+import com.github.lalifeier.mall.demo.interfaces.api.book.model.request.UpdateBookRequest;
+import com.github.lalifeier.mall.demo.interfaces.api.book.model.response.BookResponse;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

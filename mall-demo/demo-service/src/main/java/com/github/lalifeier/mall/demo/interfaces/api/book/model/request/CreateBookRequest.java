@@ -1,11 +1,10 @@
-package com.github.lalifeier.mall.demo.interfaces.rest.book.model.request;
+package com.github.lalifeier.mall.demo.interfaces.api.book.model.request;
 
-import javax.validation.constraints.NotBlank;
-
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
-import lombok.Data;
+import javax.validation.constraints.NotBlank;
 
 @Data
 @NoArgsConstructor
