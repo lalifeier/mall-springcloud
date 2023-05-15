@@ -1,19 +1,20 @@
 package com.github.lalifeier.mall.demo.applicaiton.book.service.impl;
 
-import java.util.List;
-
+import com.github.lalifeier.mall.common.model.PageList;
+import com.github.lalifeier.mall.common.model.PageRequest;
 import com.github.lalifeier.mall.demo.applicaiton.book.bo.BookBO;
 import com.github.lalifeier.mall.demo.applicaiton.book.bo.CreateBookBO;
 import com.github.lalifeier.mall.demo.applicaiton.book.bo.UpdateBookBO;
 import com.github.lalifeier.mall.demo.applicaiton.book.converter.BookConverter;
+import com.github.lalifeier.mall.demo.applicaiton.book.service.BookApplicationService;
 import com.github.lalifeier.mall.demo.domain.book.model.entity.BookDO;
+import com.github.lalifeier.mall.demo.domain.book.model.valueobject.BookId;
+import com.github.lalifeier.mall.demo.domain.book.repository.BookRepository;
+import com.github.lalifeier.mall.demo.domain.book.service.BookDomainService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.lalifeier.mall.common.model.PageList;
-import com.github.lalifeier.mall.demo.applicaiton.book.service.BookApplicationService;
-import com.github.lalifeier.mall.demo.domain.book.model.valueobject.BookId;
-import com.github.lalifeier.mall.demo.domain.book.service.BookDomainService;
+import java.util.List;
 
 @Service
 @Transactional
@@ -21,10 +22,13 @@ public class BookApplicationServiceImpl implements BookApplicationService {
 
   private final BookDomainService bookDomainService;
 
-  private final BookConverter bookConverter =  BookConverter.INSTANCE;
+  private final BookRepository bookRepository;
 
-  public BookApplicationServiceImpl(BookDomainService bookDomainService) {
+  private final BookConverter bookConverter = BookConverter.INSTANCE;
+
+  public BookApplicationServiceImpl(BookDomainService bookDomainService, BookRepository bookRepository) {
     this.bookDomainService = bookDomainService;
+    this.bookRepository = bookRepository;
   }
 
   @Override
@@ -53,15 +57,17 @@ public class BookApplicationServiceImpl implements BookApplicationService {
   }
 
   @Override
-  public PageList<BookBO> getBooks(int pageNum, int pageSize) {
-    PageList<BookDO> bookDOPageList =  bookDomainService.getBooks(pageNum, pageSize);
+  public PageList<BookBO> getBooks(PageRequest request) {
+    PageList<BookDO> bookDOPageList = bookRepository.page(request);
     return this.bookConverter.toDTO(bookDOPageList);
   }
 
+
   @Override
   public List<BookBO> getAllBooks() {
-    List<BookDO> bookDOList = bookDomainService.getAllBooks();
-    return this.bookConverter.toDTO(bookDOList);
+    //List<BookDO> bookDOList = bookDomainService.getAllBooks();
+    //return this.bookConverter.toDTO(bookDOList);
+    return null;
   }
 
 }

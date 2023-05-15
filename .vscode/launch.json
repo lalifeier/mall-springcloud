@@ -40,6 +40,16 @@
       "projectName": "mall-demo",
       "args": "",
       "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-MallDemoApplication<demo-service>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.github.lalifeier.mall.demo.MallDemoApplication",
+      "projectName": "demo-service",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }

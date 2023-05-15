@@ -35,6 +35,6 @@
   "java.import.gradle.java.home": "~/.sdkman/candidates/java/17.0.6-librca",
   "java.import.gradle.home": "~/.sdkman/candidates/gradle/current",
   "java.import.gradle.wrapper.enabled": true,
-  // "java.import.gradle.version": "",
-  "java.saveActions.organizeImports": true,
+  "java.import.gradle.version": "",
+  "java.saveActions.organizeImports": true
 }

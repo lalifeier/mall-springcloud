@@ -16,7 +16,8 @@ public interface BookConverter {
   @Mapping(source = "id", target = "id.value")
   BookDO convert(BookPO bookPO);
 
-  @Mapping(target = "id", ignore = true)
+  //@Mapping(target = "id", ignore = true)
+  @Mapping(source = "id.value", target = "id")
   @Mapping(target = "createdAt", ignore = true)
   @Mapping(target = "createdBy", ignore = true)
   @Mapping(target = "updatedAt", ignore = true)

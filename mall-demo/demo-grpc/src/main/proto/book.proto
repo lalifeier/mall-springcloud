@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/field_mask.proto";
+
+service BookService {
+  rpc CreateBook(CreateBookReq) returns (Book);
+  rpc UpdateBook(UpdateBookReq) returns (Book);
+  rpc DeleteBook(DeleteBookReq) returns (google.protobuf.Empty);
+  rpc GetBook(GetBookReq) returns (Book);
+  rpc ListBooks(ListBooksRequest) returns (ListBooksResponse);
+}
+
+message Book {
+  uint32 id = 1;
+  optional string username = 2;
+}
+
+message CreateBookReq {
+  Book Book = 1;
+}
+message UpdateBookReq {
+  uint32 id = 1;
+  Book Book = 2;
+}
+
+message DeleteBookReq {uint32 id = 1;}
+
+message GetBookReq {
+  uint32 id = 1;
+  google.protobuf.FieldMask field_mask = 2;
+}
+
+message ListBooksRequest {
+  int32 pageNum = 1 [json_name = "pageNum"];
+  int32 pageSize = 2 [json_name = "pageSize"];
+  map<string, string> query = 3;
+  map<string, string> orderBy = 4 [json_name = "orderBy"];
+}
+message ListBooksResponse {
+  repeated Book list = 1;
+  int32 total = 2;
+  int32 pageNum = 3;
+  int32 pageSize = 4;
+}
