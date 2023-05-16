@@ -1,6 +1,7 @@
 dependencies {
   implementation project(':mall-component:mall-common-spring-cloud-starter')
   implementation project(':mall-component:mall-mybatis-plus-spring-boot-starter')
+  implementation project(':mall-component:mall-xxl-job-spring-boot-starter')
   implementation project(':mall-demo:demo-api')
   implementation project(':mall-demo:demo-grpc')
   implementation project(':mall-demo:demo-dubbo')
@@ -12,7 +13,6 @@ dependencies {
   implementation 'org.freemarker:freemarker'
   implementation 'mysql:mysql-connector-java'
   implementation 'org.apache.dubbo:dubbo-spring-boot-starter'
-  implementation 'com.xuxueli:xxl-job-core'
   implementation 'org.springframework.boot:spring-boot-starter-cache'
   implementation 'com.github.ben-manes.caffeine:caffeine'
   implementation 'io.github.openfeign:feign-okhttp'
