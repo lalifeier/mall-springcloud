@@ -1,3 +1,8 @@
+#spring.cloud.stream.kafka.binder.brokers=localhost:9092
+#spring.cloud.stream.bindings.myOutput.destination=my-topic
+#spring.cloud.stream.bindings.myInput.destination=my-topic
+
+
 spring:
   application:
     name: ${APP_NAME:mall-demo}
@@ -21,3 +26,5 @@ spring:
         group: DEFAULT_GROUP
         file-extension: ${CONFIG_FILE_EXTENSION:yml}
         refresh-enabled: true
+
+

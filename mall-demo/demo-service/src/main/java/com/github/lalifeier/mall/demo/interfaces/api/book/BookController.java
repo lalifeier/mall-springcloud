@@ -11,6 +11,8 @@ import com.github.lalifeier.mall.demo.interfaces.api.book.model.request.BookPage
 import com.github.lalifeier.mall.demo.interfaces.api.book.model.request.CreateBookRequest;
 import com.github.lalifeier.mall.demo.interfaces.api.book.model.request.UpdateBookRequest;
 import com.github.lalifeier.mall.demo.interfaces.api.book.model.response.BookResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +25,9 @@ public class BookController {
   private final BookApplicationService bookApplicationService;
 
   private final BookConverter bookConverter = BookConverter.INSTANCE;
+
+  @Autowired
+  private StreamBridge streamBridge;
 
   public BookController(BookApplicationService bookApplicationService) {
     this.bookApplicationService = bookApplicationService;
@@ -66,4 +71,9 @@ public class BookController {
   //  List<BookBO> bookBOList = this.bookApplicationService.getAllBooks();
   //  return this.bookConverter.toVO(bookBOList);
   //}
+
+  @GetMapping("/send")
+  public void send() {
+    streamBridge.send("source1-out-0", "hello");
+  }
 }

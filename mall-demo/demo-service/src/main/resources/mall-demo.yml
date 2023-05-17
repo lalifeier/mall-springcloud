@@ -1,7 +1,7 @@
 server:
   port: 0
-  # servlet:
-  #   context-path: /api
+  servlet:
+    context-path: /
 
 grpc:
   server:
@@ -26,6 +26,28 @@ spring:
     url: jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
     username: root
     password: 123456
+
+  cloud:
+    stream:
+      #      rocketmq:
+      #        name-server: localhost:9876
+      #        producer:
+      #          group: my-group
+      #        consumer:
+      #          group: my-group
+      kafka:
+        binder:
+          brokers: localhost:9092
+          auto-create-topics: true
+          required-acks: 1
+      bindings:
+        sink1-in-0:
+          destination: test1
+        #          content-type: text/plain
+        source1-out-0:
+          destination: test1
+    function:
+      definition: sink1;source1
 
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
