@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.mybatispluss.po;
+package com.github.lalifeier.mall.mybatisplus.po;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;

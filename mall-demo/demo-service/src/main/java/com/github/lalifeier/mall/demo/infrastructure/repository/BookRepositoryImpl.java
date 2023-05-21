@@ -1,10 +1,5 @@
 package com.github.lalifeier.mall.demo.infrastructure.repository;
 
-import java.util.List;
-
-import org.jetbrains.annotations.NotNull;
-import org.springframework.stereotype.Repository;
-
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -18,10 +13,13 @@ import com.github.lalifeier.mall.demo.domain.book.repository.BookRepository;
 import com.github.lalifeier.mall.demo.infrastructure.repository.mybatis.book.converter.BookConverter;
 import com.github.lalifeier.mall.demo.infrastructure.repository.mybatis.book.mapper.BookMapper;
 import com.github.lalifeier.mall.demo.infrastructure.repository.mybatis.book.po.BookPO;
-import com.github.lalifeier.mall.mybatispluss.converter.MybatisPlusPageConverter;
-import com.github.lalifeier.mall.mybatispluss.utils.QueryWrapperUtils;
-
+import com.github.lalifeier.mall.mybatisplus.converter.MybatisPlusPageConverter;
+import com.github.lalifeier.mall.mybatisplus.utils.QueryWrapperUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Slf4j
 @Repository

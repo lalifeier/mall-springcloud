@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.mybatispluss.utils;
+package com.github.lalifeier.mall.mybatisplus.utils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

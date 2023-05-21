@@ -1,4 +1,11 @@
-package com.github.lalifeier.mall.mybatispluss.utils;
+package com.github.lalifeier.mall.mybatisplus.utils;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.github.lalifeier.mall.common.model.PageRequest;
+import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -8,14 +15,6 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import org.apache.commons.collections4.MapUtils;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.ReflectionUtils;
-
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.github.lalifeier.mall.common.model.PageRequest;
 
 public class QueryWrapperUtils {
 
@@ -54,11 +53,11 @@ public class QueryWrapperUtils {
 
     // 使用 Stream API 筛选出有效的列名称，并添加到 QueryWrapper 对象中。
     Stream.of(columns)
-        .filter(StringUtils::isNotBlank) // 过滤掉空白列。
-        .map(fieldName -> ReflectionUtils.findField(clazz, fieldName)) // 查找类中的字段。
-        .filter(Objects::nonNull) // 过滤掉无效的字段。
-        .map(Field::getName) // 获取字段名称。
-        .forEach(wrapper::select); // 添加到 QueryWrapper 对象中。
+      .filter(StringUtils::isNotBlank) // 过滤掉空白列。
+      .map(fieldName -> ReflectionUtils.findField(clazz, fieldName)) // 查找类中的字段。
+      .filter(Objects::nonNull) // 过滤掉无效的字段。
+      .map(Field::getName) // 获取字段名称。
+      .forEach(wrapper::select); // 添加到 QueryWrapper 对象中。
   }
 
   /**
@@ -76,9 +75,9 @@ public class QueryWrapperUtils {
 
     // 使用 Stream API 筛选出有效的过滤条件，并添加到 QueryWrapper 对象中。
     filter.entrySet().stream()
-        .filter(entry -> StringUtils.isNotBlank(entry.getKey()) && StringUtils.isNotBlank(entry.getValue())) // 过滤掉空白条件。
-        .forEach(entry -> addFilterToWrapper(wrapper, clazz, entry.getKey(), entry.getValue())); // 添加到 QueryWrapper
-                                                                                                 // 对象中。
+      .filter(entry -> StringUtils.isNotBlank(entry.getKey()) && StringUtils.isNotBlank(entry.getValue())) // 过滤掉空白条件。
+      .forEach(entry -> addFilterToWrapper(wrapper, clazz, entry.getKey(), entry.getValue())); // 添加到 QueryWrapper
+    // 对象中。
   }
 
   /**
@@ -109,7 +108,7 @@ public class QueryWrapperUtils {
     } else {
       Object typedValue = TypeConvertUtils.convertStringToType(value, fieldType);
       Method method = ReflectionUtils.findMethod(QueryWrapper.class, operator, boolean.class, Object.class,
-          Object.class);
+        Object.class);
       if (method != null) {
         ReflectionUtils.invokeMethod(method, wrapper, true, fieldName, typedValue); // 否则，使用对应的方法。
       }
@@ -131,18 +130,18 @@ public class QueryWrapperUtils {
 
     // 按逗号分隔排序选项，构造排序条件
     List<Function<QueryWrapper<?>, QueryWrapper<?>>> orderBys = Stream.of(orderBy.split(","))
-        .map(order -> {
-          boolean isAsc = !order.startsWith("-");
-          String columnName = isAsc ? order : order.substring(1);
-          Field field = ReflectionUtils.findField(clazz, columnName);
-          if (field != null) {
-            return (Function<QueryWrapper<?>, QueryWrapper<?>>) (wrapper1 -> wrapper1.orderBy(true, isAsc,
-                field.getName()));
-          }
-          return null;
-        })
-        .filter(Objects::nonNull)
-        .collect(Collectors.toList());
+      .map(order -> {
+        boolean isAsc = !order.startsWith("-");
+        String columnName = isAsc ? order : order.substring(1);
+        Field field = ReflectionUtils.findField(clazz, columnName);
+        if (field != null) {
+          return (Function<QueryWrapper<?>, QueryWrapper<?>>) (wrapper1 -> wrapper1.orderBy(true, isAsc,
+            field.getName()));
+        }
+        return null;
+      })
+      .filter(Objects::nonNull)
+      .collect(Collectors.toList());
 
     // 将所有排序条件应用到查询条件构造器中
     orderBys.forEach(orderByFunc -> orderByFunc.apply(wrapper));

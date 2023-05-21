@@ -36,5 +36,3 @@ ENTRYPOINT ["sh","-c","java $JAVA_OPTS \
     -javaagent:/opt/skywalking-agent/skywalking-agent.jar \
     $AGENT_OPTS \
     -jar /app.jar"]
-
-#-javaagent:/opt/skywalking-agent/skywalking-agent.jar -DSW_AGENT_NAME=mall_auth -DSW_AGENT_COLLECTOR_BACKEND_SERVICES=127.0.0.1:11800

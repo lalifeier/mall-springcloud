@@ -1,9 +1,8 @@
-package com.github.lalifeier.mall.mybatispluss.converter;
+package com.github.lalifeier.mall.mybatisplus.converter;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.lalifeier.mall.common.model.PageInfo;
 import com.github.lalifeier.mall.common.model.PageList;
-
 
 import java.util.List;
 import java.util.function.Function;

@@ -1,8 +1,7 @@
 package com.github.lalifeier.mall.demo.infrastructure.repository.mybatis.book.po;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.github.lalifeier.mall.mybatispluss.po.BasePO;
-
+import com.github.lalifeier.mall.mybatisplus.po.BasePO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

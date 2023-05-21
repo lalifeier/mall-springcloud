@@ -1,13 +1,11 @@
-package com.github.lalifeier.mall.demo.infrastructure.component;
+package com.github.lalifeier.mall.mybatisplus.handler;
 
-import java.time.LocalDateTime;
-
+import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
-import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-
-import lombok.extern.slf4j.Slf4j;
+import java.time.LocalDateTime;
 
 @Slf4j
 @Component
