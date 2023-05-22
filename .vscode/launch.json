@@ -2,6 +2,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "AppCredentialsGenerator",
+      "request": "launch",
+      "mainClass": "com.github.lalifeier.mall.sign.utils.AppCredentialsGenerator",
+      "projectName": "mall-sign-spring-boot-starter"
+    },
+    {
+      "type": "java",
       "name": "MallAccountApplication",
       "request": "launch",
       "mainClass": "com.github.lalifeier.mall.account.MallAccountApplication",

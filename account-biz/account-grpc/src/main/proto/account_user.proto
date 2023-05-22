@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+//package com.github.lalifeier.mall.account_user.interfaces.rpc;
+//
+//option java_multiple_files = true;
+//option java_package = "com.github.lalifeier.mall.account_user.interfaces.rpc";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/field_mask.proto";
+import "google/api/annotations.proto";
+
+service AccountUserService {
+  rpc CreateAccountUser(CreateAccountUserReq) returns (AccountUser) {
+    option (google.api.http) = {
+      post : "/api/account_user"
+      body : "*"
+    };
+  }
+  rpc UpdateAccountUser(UpdateAccountUserReq) returns (AccountUser) {
+    option (google.api.http) = {
+      put : "/api/account_user/{id}"
+      body : "*"
+    };
+  }
+  rpc DeleteAccountUser(DeleteAccountUserReq) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete : "/api/account_user/{id}"
+    };
+  }
+  rpc GetAccountUser(GetAccountUserReq) returns (AccountUser) {
+    option (google.api.http) = {
+      get : "/api/account_user/{id}"
+    };
+  }
+  rpc ListAccountUser(ListAccountUserRequest) returns (ListAccountUserResponse) {
+    option (google.api.http) = {
+      get : "/api/account_user"
+    };
+  }
+}
+
+message AccountUser {
+  uint32 id = 1;
+  optional string username = 2;
+}
+
+message CreateAccountUserReq {
+  AccountUser AccountUser = 1;
+}
+message UpdateAccountUserReq {
+  uint32 id = 1;
+  AccountUser AccountUser = 2;
+}
+
+message DeleteAccountUserReq {uint32 id = 1;}
+
+message GetAccountUserReq {
+  uint32 id = 1;
+  google.protobuf.FieldMask field_mask = 2;
+}
+
+message ListAccountUserRequest {
+  int32 pageNum = 1 [json_name = "pageNum"];
+  int32 pageSize = 2 [json_name = "pageSize"];
+  map<string, string> query = 3;
+  map<string, string> orderBy = 4 [json_name = "orderBy"];
+}
+message ListAccountUserResponse {
+  repeated AccountUser data = 1;
+  int32 total = 2;
+  int32 pageNum = 3;
+  int32 pageSize = 4;
+}

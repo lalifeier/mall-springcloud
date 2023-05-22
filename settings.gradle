@@ -37,7 +37,7 @@ include 'mall-admin'
 
 //account
 include 'account-biz:account-api'
-include 'account-biz:account-rpc'
+include 'account-biz:account-grpc'
 include 'account-biz:account-service'
 
 //auth
