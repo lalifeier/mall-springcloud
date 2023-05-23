@@ -20,7 +20,6 @@ buildscript {
   }
 }
 
-
 allprojects {
   group 'com.github.lalifeier'
   version rootProject.ext.projectVersion
@@ -109,11 +108,11 @@ configure(javaProjects) { project ->
   }
 
   dependencyManagement {
-    imports {
-      mavenBom "org.springframework.boot:spring-boot-dependencies:${rootProject.ext.springBootVersion}"
-      mavenBom "org.springframework.cloud:spring-cloud-dependencies:${rootProject.ext.springCloudVersion}"
-      mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${rootProject.ext.springCloudAlibabaVersion}"
-    }
+//    imports {
+//      mavenBom "org.springframework.boot:spring-boot-dependencies:${rootProject.ext.springBootVersion}"
+//      mavenBom "org.springframework.cloud:spring-cloud-dependencies:${rootProject.ext.springCloudVersion}"
+//      mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${rootProject.ext.springCloudAlibabaVersion}"
+//    }
 
     dependencies {
       for (depJar in rootProject.ext.dependencies) {
@@ -124,9 +123,9 @@ configure(javaProjects) { project ->
 
   dependencies {
     //  gradle 5.0+
-//        implementation platform("org.springframework.boot:spring-boot-dependencies:${rootProject.ext.springBootVersion}")
-//        implementation platform("org.springframework.cloud:spring-cloud-dependencies:${rootProject.ext.springCloudVersion}")
-//        implementation platform("com.alibaba.cloud:spring-cloud-alibaba-dependencies:${rootProject.ext.springCloudAlibabaVersion}")
+    implementation platform("org.springframework.boot:spring-boot-dependencies:${rootProject.ext.springBootVersion}")
+    implementation platform("org.springframework.cloud:spring-cloud-dependencies:${rootProject.ext.springCloudVersion}")
+    implementation platform("com.alibaba.cloud:spring-cloud-alibaba-dependencies:${rootProject.ext.springCloudAlibabaVersion}")
 
     compileOnly rootProject.ext.dependencies.lombok
     annotationProcessor rootProject.ext.dependencies.lombok

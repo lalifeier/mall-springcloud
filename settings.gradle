@@ -18,6 +18,8 @@ include 'mall-component:mall-double-cache-spring-boot-starter'
 include 'mall-component:mall-http-spring-boot-starter'
 include 'mall-component:mall-common-version'
 include 'mall-component:mall-xxl-job-spring-boot-starter'
+include 'mall-component:mall-local-cache-spring-boot-starter'
+
 
 //demo
 include 'mall-demo:demo-api'
