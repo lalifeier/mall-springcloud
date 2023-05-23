@@ -1,3 +1,0 @@
-includeFlat 'account-biz:account-api'
-includeFlat 'account-biz:account-grpc'
-includeFlat 'account-biz:account-service'
