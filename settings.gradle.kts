@@ -1,5 +1,46 @@
 rootProject.name = "mall-springcloud"
 
+//apply(from = "version.gradle.kts")
+
+object Versions {
+  const val springBootVersion = "2.6.13"
+  const val kotlinVersion = "1.6.10"
+  const val gradleDockerPluginVersion = "6.7.0"
+  const val protobufVersion = "3.23.0"
+}
+
+pluginManagement {
+  plugins {
+//    id("org.springframework.boot") version Versions.springBootVersion
+//    kotlin("jvm") version Versions.kotlinVersion
+//    kotlin("plugin.spring") version Versions.kotlinVersion
+//    id("com.bmuschko.gradle-docker-plugin") version Versions.gradleDockerPluginVersion
+//    id("com.google.protobuf") version Versions.protobufVersion
+
+    id("org.springframework.boot") version "2.6.13"
+    kotlin("jvm") version "1.8.21"
+    kotlin("plugin.spring") version "1.8.21"
+//    id("com.bmuschko.gradle-docker-plugin") version "6.7.0"
+//    id("com.google.protobuf") version"3.23.0"
+  }
+
+  repositories {
+    mavenLocal()
+    maven("https://maven.aliyun.com/repository/public/")
+    maven("https://developer.huawei.com/repo/")
+    mavenCentral()
+  }
+
+//  resolutionStrategy {
+//    eachPlugin {
+//      if (requested.id.id == "org.springframework.boot") {
+//        useModule("org.springframework.boot:spring-boot-gradle-plugin:${requested.version}")
+//      }
+//    }
+//  }
+}
+
+
 //mall-common
 include("mall-common")
 

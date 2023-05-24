@@ -48,58 +48,7 @@ object Versions {
   const val aliyunSdkOssVersion = "3.15.1"
   const val micrometerRegistryPrometheusVersion = "1.10.2"
   const val saTokenVersion = "1.34.0"
-  const val wechatpayVersion = "0.2
-
-//  const val dependencies = mapOf(
-//    "lombok" to "org.projectlombok:lombok:${lombokVersion}",
-////    "slf4j:" to "org.slf4j:slf4j-api:${sl4jApiVersion}",
-//    "dubbo" to "org.apache.dubbo:dubbo-spring-boot-starter:${dubboVersion}",
-//    "grpcNettyShaded" to "io.grpc:grpc-netty-shaded:${grpcVersion}", // gRPC 核心库
-//    "grpcProtobuf" to "io.grpc:grpc-protobuf:${grpcVersion}", // gRPC Protocol Buffers 序列化支持
-//    "grpcStub" to "io.grpc:grpc-stub:${grpcVersion}", // gRPC Stub 和客户端库
-//    "grpcSpringBoot" to "net.devh:grpc-spring-boot-starter:${grpcSpringBootVersion}",
-//    "springBootAdmin" to "de.codecentric:spring-boot-admin-starter-server:${springBootAdminVersion}",
-//    "springSecurityOauth2" to "org.springframework.security.oauth:spring-security-oauth2:${springSecurityOauth2Version}",
-//    "springCloudOauth2" to "org.springframework.cloud:spring-cloud-starter-oauth2:${springCloudOauth2Version}",
-//    "springAuthorizationServer" to "org.springframework.security:spring-security-oauth2-authorization-server:${springAuthorizationServerVersion}",
-//    "mapstruct" to "org.mapstruct:mapstruct:${mapstructVersion}",
-//    "mapstructProcessor" to "org.mapstruct:mapstruct-processor:${mapstructVersion}",
-//    "nimbusJoseJwt" to "com.nimbusds:nimbus-jose-jwt:${nimbusJoseJwtVersion}",
-//    "pagehelperStarter" to "com.github.pagehelper:pagehelper-spring-boot-starter:${pagehelperStarterVersion}",
-//    "pagehelper" to "com.github.pagehelper:pagehelper:${pagehelperVersion}",
-//    "mybatisPlus" to "com.baomidou:mybatis-plus-boot-starter:${mybatisPlusVersion}",
-//    "mybatisPlusJoin" to "com.github.yulichang:mybatis-plus-join-boot-starter:${mybatisPlusJoinVersion}",
-//    "mybatisPlusGenerator" to "com.baomidou:mybatis-plus-generator:${mybatisPlusGeneratorVersion}",
-//    "freemarker" to "org.freemarker:freemarker:${freemarkerVersion}",
-//    "druid" to "com.alibaba:druid-spring-boot-starter:${druidVersion}",
-//    "mysqlConnector" to "mysql:mysql-connector-java:${mysqlConnectorVersion}",
-//    "shardingsphere" to "org.apache.shardingsphere:shardingsphere-jdbc-core-spring-boot-starter:${shardingsphereVersion}",
-//    "hutool" to "cn.hutool:hutool-all:${hutoolVersion}",
-//    "springdoc" to "org.springdoc:springdoc-openapi-ui:${springdocVersion}",
-//    "springdocWebflux" to "org.springdoc:springdoc-openapi-webflux-ui:${springdocVersion}",
-//    "knife4j" to "com.github.xiaoymin:knife4j-springdoc-ui:${knife4jVersion}",
-//    "gson" to "com.google.code.gson:gson:${gsonVersion}",
-//    "fastjson" to "com.alibaba:fastjson:${fastjsonVersion}",
-//    "guava" to "com.google.guava:guava:${guavaVersion}",
-//    "commonsLang3" to "org.apache.commons:commons-lang3:${commonsLang3Version}",
-//    "commonsIo" to "commons-io:commons-io:${commonsIoVersion}",
-//    "commonsCodec" to "commons-codec:commons-codec:${commonsCodecVersion}",
-//    "commonsBeanutils" to "commons-beanutils:commons-beanutils:${commonsBeanutilsVersion}",
-//    "commonsCollections4" to "org.apache.commons:commons-collections4:${commonsCollections4Version}",
-//    "logstash" to "net.logstash.logback:logstash-logback-encoder:${logstashVersion}",
-//    "skywalking" to "org.apache.skywalking:apm-toolkit-logback-1.x:${skywalkingVersion}",
-//    "skywalkingTrace" to "org.apache.skywalking:apm-toolkit-trace:${skywalkingVersion}",
-//    "caffeine" to "com.github.ben-manes.caffeine:caffeine:${caffeineVersion}",
-//    "xxlJob" to "com.xuxueli:xxl-job-core:${xxlJobVersion}",
-//    "okhttp" to "com.squareup.okhttp3:okhttp:${okhttpVersion}",
-//    "retrofit" to "com.github.lianjiatech:retrofit-spring-boot-starter:${retrofitVersion}",
-//    "feignOkhttp" to "io.github.openfeign:feign-okhttp:${feignOkhttpVersion}",
-//    "aliyunSdkOss" to "com.aliyun.oss:aliyun-sdk-oss:${aliyunSdkOssVersion}",
-//    "micrometerRegistryPrometheus" to "io.micrometer:micrometer-registry-prometheus:${micrometerRegistryPrometheusVersion}",
-//    "saToken" to "cn.dev33:sa-token-spring-boot-starter:${saTokenVersion}",
-//    "wechatpay" to "com.github.wechatpay-apiv3:wechatpay-java:${wechatpayVersion}",
-//    "alipay" to "com.alipay.sdk:alipay-sdk-java:${alipayVersion}"
-//  )
+  const val wechatpayVersion = "0.2.7"
 }
 
 object Dependencies {
@@ -151,6 +100,20 @@ object Dependencies {
   const val alipay = "com.alipay.sdk:alipay-sdk-java:${Versions.alipayVersion}"
 
   val all by lazy {
-    listOf(lombok, dubbo, grpcNettyShaded, grpcProtobuf)
+    listOf(lombok, dubbo, grpcNettyShaded, grpcProtobuf, grpcStub, grpcSpringBoot, springBootAdmin,
+      springSecurityOauth2, springCloudOauth2, springAuthorizationServer,
+      mapstruct, mapstructProcessor,
+      nimbusJoseJwt,
+      pagehelperStarter, pagehelper,
+      mybatisPlus, mybatisPlusJoin, mybatisPlusGenerator, freemarker,
+      druid, mysqlConnector, shardingsphere,
+      hutool,
+      springdoc, knife4j,
+      gson, fastjson, guava,
+      commonsLang3, commonsIo, commonsIo, commonsCodec, commonsBeanutils, commonsCollections4,
+      logstash, skywalking, skywalkingTrace, caffeine, xxlJob,
+      okhttp, retrofit, feignOkhttp, aliyunSdkOss, micrometerRegistryPrometheus, saToken,
+      wechatpay, alipay
+    )
   }
 }
