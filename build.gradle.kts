@@ -1,39 +1,18 @@
-//apply(from = "version.gradle.kts")
-
-//buildscript {
-//  apply(from = "version.gradle.kts")
-//
-//  dependencies {
-//    classpath("org.springframework.boot:spring-boot-gradle-plugin:${Versions.springBootVersion}")
-//    classpath("com.bmuschko:gradle-docker-plugin:${Versions.gradleDockerPluginVersion}")
-//    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}")
-//    classpath("org.jetbrains.kotlin:kotlin-allopen:${Versions.kotlinVersion}")
-//    // ASSUMES GRADLE 2.12 OR HIGHER. Use plugin version 0.7.5 with earlier
-//    // gradle versions
-//    classpath("com.google.protobuf:protobuf-gradle-plugin:${Versions.protobufGradlePluginVersion}")
-//  }
-//}
-
 plugins {
   kotlin("jvm")
-  java
+  kotlin("plugin.spring")
   id("org.springframework.boot")
+//  id("io.spring.dependency-management")
 //  id("com.google.protobuf")
 }
 
-group = "com.github.lalifeier"
-//  version = rootProject.ext.projectVersion
+
 
 allprojects {
-  repositories {
-    maven("https://maven.aliyun.com/repository/public/")
-    maven("https://developer.huawei.com/repo/")
-    mavenLocal()
-    mavenCentral()
-  }
+  apply(plugin = "idea")
 
-
-//  apply(plugin = "idea")
+  group = "com.github.lalifeier"
+  version = Versions.projectVersion
 
 //  idea {
 //    module {
@@ -49,27 +28,24 @@ allprojects {
 //  }
 }
 
-//tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-//  kotlinOptions {
-//    freeCompilerArgs += "-Xjsr305=strict"
-//    jvmTarget = JavaVersion.VERSION_1_8.toString()
-//  }
-//}
 
+//subprojects {
+//  apply(plugin = "java-library")
+//  apply(plugin = "maven-publish")
+//  apply(plugin = "org.springframework.boot")
+//  apply(plugin = "io.spring.dependency-management")
+//  apply(plugin = "org.jetbrains.kotlin.jvm")
+//  apply(plugin = "org.jetbrains.kotlin.plugin.spring")
+//}
 
 val javaProjects = subprojects.filter { it.file("build.gradle").exists() }
 val bootProjects = subprojects.filter { it.name.endsWith("-service") || it.name in listOf("mall-gateway", "mall-monitor", "mall-admin") }
 val grpcProjects = subprojects.filter { it.name.endsWith("-grpc") }
 
 
-//configure<JavaPluginConvention> {
-//  subprojects {
-//  }
-//}
 
-
-//configure(grpcProjects) { project ->
-//  apply(plugin = "com.google.protobuf")
+configure(grpcProjects) {
+  apply(plugin = "com.google.protobuf")
 
 //  protobuf {
 //    protoc {
@@ -88,23 +64,17 @@ val grpcProjects = subprojects.filter { it.name.endsWith("-grpc") }
 //      }
 //    }
 //  }
-//}
+}
 
-//configure(javaProjects) { project ->
-//  apply(plugin = "java-library")
-//  apply(plugin = "maven-publish")
-//  apply(plugin = "org.springframework.boot")
-//  apply(plugin = "io.spring.dependency-management")
-//  apply(plugin = "org.jetbrains.kotlin.jvm")
-//  apply(plugin = "org.jetbrains.kotlin.plugin.spring")
-//
-//  repositories {
-//    maven(url = "https://maven.aliyun.com/repository/public/")
-//    maven(url = "https://developer.huawei.com/repo/")
-//    mavenLocal()
-//    mavenCentral()
-//  }
-//
+
+configure(javaProjects) {
+  apply(plugin = "java-library")
+  apply(plugin = "maven-publish")
+  apply(plugin = "org.springframework.boot")
+  apply(plugin = "io.spring.dependency-management")
+  apply(plugin = "org.jetbrains.kotlin.jvm")
+  apply(plugin = "org.jetbrains.kotlin.plugin.spring")
+
 //  configurations {
 //    create("compileOnly") {
 //      extendsFrom(annotationProcessor)
@@ -129,14 +99,13 @@ val grpcProjects = subprojects.filter { it.name.endsWith("-grpc") }
 //    kotlinOptions.jvmTarget = JavaVersion.VERSION_17
 //    kotlinOptions.freeCompilerArgs = listOf("-Xjsr305=strict")
 //  }
-//
+
 //  dependencyManagement {
 ////    imports {
 ////      mavenBom("org.springframework.boot:spring-boot-dependencies:${rootProject.ext.springBootVersion}")
 ////      mavenBom("org.springframework.cloud:spring-cloud-dependencies:${rootProject.ext.springCloudVersion}")
 ////      mavenBom("com.alibaba.cloud:spring-cloud-alibaba-dependencies:${rootProject.ext.springCloudAlibabaVersion}")
 ////    }
-//
 //
 //    dependencies {
 //      Dependencies.all.forEach { dependency ->
@@ -148,7 +117,7 @@ val grpcProjects = subprojects.filter { it.name.endsWith("-grpc") }
 //
 //  dependencies {
 //    // gradle 5.0+
-//    implementation(platform("org.springframework.boot:spring-boot-dependencies:${Versions.pringBootVersion}"))
+//    implementation(platform("org.springframework.boot:spring-boot-dependencies:${Versions.springBootVersion}"))
 //    implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${Versions.springCloudVersion}"))
 //    implementation(platform("com.alibaba.cloud:spring-cloud-alibaba-dependencies:${Versions.springCloudAlibabaVersion}"))
 //
@@ -157,17 +126,15 @@ val grpcProjects = subprojects.filter { it.name.endsWith("-grpc") }
 //    testCompileOnly("org.projectlombok:lombok:${Versions.lombokVersion}")
 //    testAnnotationProcessor("org.projectlombok:lombok:${Versions.lombokVersion}")
 //  }
-//
-//
+
+
 //  test {
 //    useJUnitPlatform()
 //  }
-//
-//
-//}
-//
-////maven
-//configure(javaProjects) { project ->
+}
+
+//maven
+//configure(javaProjects) {
 //  publishing {
 //    publications {
 //      create<MavenPublication>("mavenJava") {
@@ -186,9 +153,8 @@ val grpcProjects = subprojects.filter { it.name.endsWith("-grpc") }
 //    }
 //  }
 //}
-//
-//
-////docker
+
+//docker
 //configure(bootProjects) {
 //  apply(plugin = "application")
 //  apply(plugin = "com.bmuschko.docker-remote-api")
@@ -222,4 +188,4 @@ val grpcProjects = subprojects.filter { it.name.endsWith("-grpc") }
 //    }
 //  }
 //}
-//
+
