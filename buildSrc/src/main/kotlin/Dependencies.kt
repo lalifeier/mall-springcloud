@@ -1,3 +1,11 @@
+object BuildPlugins {
+//  val gradle by lazy { "com.android.tools.build:gradle:${Versions.gradlePlugin}" }
+//  val kotlinGradle by lazy { "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}" }
+//  val safeArgs by lazy { "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.safeArgs}" }
+
+//  val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}"
+}
+
 object Dependencies {
   const val lombok = "org.projectlombok:lombok:${Versions.lombokVersion}"
   const val dubbo = "org.apache.dubbo:dubbo-spring-boot-starter:${Versions.dubboVersion}"

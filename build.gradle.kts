@@ -1,18 +1,41 @@
+import org.gradle.api.tasks.SourceSetContainer
+import com.diffplug.gradle.spotless.KotlinExtension
+import com.diffplug.gradle.spotless.SpotlessExtension
+import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
   kotlin("jvm")
   kotlin("plugin.spring")
+  id("java")
   id("org.springframework.boot")
 //  id("io.spring.dependency-management")
 //  id("com.google.protobuf")
 }
 
-
+//sourceSets {
+//  main.java.srcDirs += 'src/main/kotlin'
+//}
 
 allprojects {
+  apply(plugin = "java")
   apply(plugin = "idea")
+
+
 
   group = "com.github.lalifeier"
   version = Versions.projectVersion
+
+//  configure<SourceSetContainer> {
+//    sourceSets {
+//      main {
+//        java {
+//          srcDir("thirdParty/src/main/java")
+//        }
+//      }
+//    }
+//  }
+
 
 //  idea {
 //    module {
@@ -95,17 +118,20 @@ configure(javaProjects) {
 //    it.options.encoding = "UTF-8"
 //  }
 //
+
 //  tasks.compileKotlin {
-//    kotlinOptions.jvmTarget = JavaVersion.VERSION_17
-//    kotlinOptions.freeCompilerArgs = listOf("-Xjsr305=strict")
+//    kotlinOptions {
+//      jvmTarget = JavaVersion.VERSION_17
+//      freeCompilerArgs = listOf("-Xjsr305=strict")
+//    }
 //  }
 
-//  dependencyManagement {
-////    imports {
-////      mavenBom("org.springframework.boot:spring-boot-dependencies:${rootProject.ext.springBootVersion}")
-////      mavenBom("org.springframework.cloud:spring-cloud-dependencies:${rootProject.ext.springCloudVersion}")
-////      mavenBom("com.alibaba.cloud:spring-cloud-alibaba-dependencies:${rootProject.ext.springCloudAlibabaVersion}")
-////    }
+//  configure<DependencyManagementExtension> {
+//    imports {
+//      mavenBom("org.springframework.boot:spring-boot-dependencies:${rootProject.ext.springBootVersion}")
+//      mavenBom("org.springframework.cloud:spring-cloud-dependencies:${rootProject.ext.springCloudVersion}")
+//      mavenBom("com.alibaba.cloud:spring-cloud-alibaba-dependencies:${rootProject.ext.springCloudAlibabaVersion}")
+//    }
 //
 //    dependencies {
 //      Dependencies.all.forEach { dependency ->
@@ -113,6 +139,7 @@ configure(javaProjects) {
 //      }
 //    }
 //  }
+
 //
 //
 //  dependencies {
@@ -127,10 +154,9 @@ configure(javaProjects) {
 //    testAnnotationProcessor("org.projectlombok:lombok:${Versions.lombokVersion}")
 //  }
 
-
-//  test {
-//    useJUnitPlatform()
-//  }
+  tasks.withType<Test> {
+    useJUnitPlatform()
+  }
 }
 
 //maven
@@ -189,3 +215,12 @@ configure(javaProjects) {
 //  }
 //}
 
+dependencies {
+    implementation(kotlin("stdlib-jdk8"))
+}
+repositories {
+    mavenCentral()
+}
+kotlin {
+    jvmToolchain(11)
+}

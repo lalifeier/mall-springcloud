@@ -2,7 +2,7 @@ rootProject.name = "mall-springcloud"
 
 pluginManagement {
   plugins {
-    id("org.springframework.boot") version Versions.springBootVersion
+    id("org.springframework.boot") Versions.springBootVersion
     kotlin("jvm") version Versions.kotlinVersion
     kotlin("plugin.spring") version Versions.kotlinVersion
     id("com.bmuschko.gradle-docker-plugin") version Versions.gradleDockerPluginVersion
