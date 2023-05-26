@@ -1,13 +1,20 @@
 rootProject.name = "mall-springcloud"
 
 pluginManagement {
-  plugins {
-    id("org.springframework.boot") Versions.springBootVersion
-    kotlin("jvm") version Versions.kotlinVersion
-    kotlin("plugin.spring") version Versions.kotlinVersion
-    id("com.bmuschko.gradle-docker-plugin") version Versions.gradleDockerPluginVersion
-    id("com.google.protobuf") version Versions.protobufVersion
-  }
+//  plugins {
+//    id("org.springframework.boot") version "{${Versions.springBoot}}"
+//    kotlin("jvm") version "{${Versions.kotlin}}"
+//    kotlin("plugin.spring") version  "{${Versions.kotlin}}"
+//    id("com.bmuschko.gradle-docker-plugin") version  "{${Versions.gradleDockerPlugin}}"
+//    id("com.google.protobuf") version  "{${Versions.protobuf}}"
+
+
+//    id("org.springframework.boot") version "2.6.13"
+//    kotlin("jvm") version "1.8.21"
+//    kotlin("plugin.spring") version "1.8.21"
+//    id("com.bmuschko.gradle-docker-plugin") version "6.7.0"
+//    id("com.google.protobuf") version "3.23.0"
+//  }
 
   repositories {
     mavenLocal()

@@ -1,30 +1,40 @@
 import org.gradle.api.tasks.SourceSetContainer
-import com.diffplug.gradle.spotless.KotlinExtension
-import com.diffplug.gradle.spotless.SpotlessExtension
 import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+//import org.gradle.plugins.ide.*
 
-plugins {
-  kotlin("jvm")
-  kotlin("plugin.spring")
-  id("java")
-  id("org.springframework.boot")
-//  id("io.spring.dependency-management")
-//  id("com.google.protobuf")
+buildscript {
+  repositories {
+    mavenLocal()
+    maven("https://maven.aliyun.com/repository/public/")
+    maven("https://developer.huawei.com/repo/")
+    mavenCentral()
+    gradlePluginPortal()
+  }
+
+  dependencies {
+    classpath(Plugins.springBoot)
+    classpath(Plugins.gradleDocker)
+    classpath(Plugins.kotlinGradle)
+    classpath(Plugins.kotlinAllopen)
+    classpath(Plugins.protobufGradle)
+  }
 }
 
-//sourceSets {
-//  main.java.srcDirs += 'src/main/kotlin'
+//plugins {
+//  kotlin("jvm")
+//  kotlin("plugin.spring")
+//  id("org.springframework.boot")
+////  id("io.spring.dependency-management")
+////  id("com.google.protobuf")
 //}
 
 allprojects {
-  apply(plugin = "java")
   apply(plugin = "idea")
 
-
-
   group = "com.github.lalifeier"
-  version = Versions.projectVersion
+  version = Versions.project
 
 //  configure<SourceSetContainer> {
 //    sourceSets {
@@ -36,12 +46,11 @@ allprojects {
 //    }
 //  }
 
-
 //  idea {
 //    module {
-//      downloadJavadoc = false
-//      downloadSources = false
-//      inheritOutputDirs = false
+//      downloadJavadoc.set(false)
+//      downloadSources.set(false)
+//      inheritOutputDirs.set(false)
 //      outputDir = file("$buildDir/classes/main/")
 //      sourceDirs += file("src/generated/main/java")
 //      sourceDirs += file("src/generated/main/grpc")
@@ -51,44 +60,9 @@ allprojects {
 //  }
 }
 
-
-//subprojects {
-//  apply(plugin = "java-library")
-//  apply(plugin = "maven-publish")
-//  apply(plugin = "org.springframework.boot")
-//  apply(plugin = "io.spring.dependency-management")
-//  apply(plugin = "org.jetbrains.kotlin.jvm")
-//  apply(plugin = "org.jetbrains.kotlin.plugin.spring")
-//}
-
 val javaProjects = subprojects.filter { it.file("build.gradle").exists() }
 val bootProjects = subprojects.filter { it.name.endsWith("-service") || it.name in listOf("mall-gateway", "mall-monitor", "mall-admin") }
 val grpcProjects = subprojects.filter { it.name.endsWith("-grpc") }
-
-
-
-configure(grpcProjects) {
-  apply(plugin = "com.google.protobuf")
-
-//  protobuf {
-//    protoc {
-//      artifact = "com.google.protobuf:protoc:${Versions.protobufVersion}"
-//    }
-//    plugins {
-//      create("grpc") {
-//        artifact = "io.grpc:protoc-gen-grpc-java:${Versions.grpcVersion}"
-//      }
-//    }
-//    generateProtoTasks {
-//      all().forEach { task ->
-//        task.plugins {
-//          create("grpc")
-//        }
-//      }
-//    }
-//  }
-}
-
 
 configure(javaProjects) {
   apply(plugin = "java-library")
@@ -98,64 +72,73 @@ configure(javaProjects) {
   apply(plugin = "org.jetbrains.kotlin.jvm")
   apply(plugin = "org.jetbrains.kotlin.plugin.spring")
 
-//  configurations {
-//    create("compileOnly") {
-//      extendsFrom(annotationProcessor)
-//    }
-//  }
-//
-//  tasks.bootJar {
-//    enabled = false
-//  }
-//
-//  tasks.compileJava {
-//    sourceCompatibility = JavaVersion.VERSION_17
-//    targetCompatibility = JavaVersion.VERSION_17
-//    options.encoding = "UTF-8"
-//  }
-//
-//  [tasks.compileJava, tasks.compileTestJava, tasks.javadoc].forEach {
-//    it.options.encoding = "UTF-8"
-//  }
-//
+  configurations {
+    getByName("compileOnly") {
+      extendsFrom(getByName("annotationProcessor"))
+    }
+  }
 
-//  tasks.compileKotlin {
-//    kotlinOptions {
-//      jvmTarget = JavaVersion.VERSION_17
-//      freeCompilerArgs = listOf("-Xjsr305=strict")
-//    }
-//  }
+  tasks.named<BootJar>("bootJar") {
+    enabled = false
+  }
 
-//  configure<DependencyManagementExtension> {
-//    imports {
-//      mavenBom("org.springframework.boot:spring-boot-dependencies:${rootProject.ext.springBootVersion}")
-//      mavenBom("org.springframework.cloud:spring-cloud-dependencies:${rootProject.ext.springCloudVersion}")
-//      mavenBom("com.alibaba.cloud:spring-cloud-alibaba-dependencies:${rootProject.ext.springCloudAlibabaVersion}")
-//    }
-//
-//    dependencies {
-//      Dependencies.all.forEach { dependency ->
-//        dependency(dependency)
-//      }
-//    }
-//  }
+  tasks.withType<JavaCompile> {
+    sourceCompatibility = JavaVersion.VERSION_1_8.toString()
+    targetCompatibility = JavaVersion.VERSION_1_8.toString()
+    options.encoding = "UTF-8"
+  }
 
-//
-//
-//  dependencies {
-//    // gradle 5.0+
-//    implementation(platform("org.springframework.boot:spring-boot-dependencies:${Versions.springBootVersion}"))
-//    implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${Versions.springCloudVersion}"))
-//    implementation(platform("com.alibaba.cloud:spring-cloud-alibaba-dependencies:${Versions.springCloudAlibabaVersion}"))
-//
-//    compileOnly("org.projectlombok:lombok:${Versions.lombokVersion}")
-//    annotationProcessor("org.projectlombok:lombok:${Versions.lombokVersion}")
-//    testCompileOnly("org.projectlombok:lombok:${Versions.lombokVersion}")
-//    testAnnotationProcessor("org.projectlombok:lombok:${Versions.lombokVersion}")
-//  }
+  tasks.withType<KotlinCompile> {
+    kotlinOptions {
+      jvmTarget = JavaVersion.VERSION_1_8.toString()
+      freeCompilerArgs = listOf("-Xjsr305=strict")
+    }
+  }
+
+  configure<DependencyManagementExtension> {
+    imports {
+
+    }
+    dependencies {
+      Dependencies.all.forEach { dependency ->
+        dependency(dependency)
+      }
+    }
+  }
+
+  dependencies {
+    implementation(platform(Dependencies.springBoot))
+    implementation(platform(Dependencies.springCloud))
+    implementation(platform(Dependencies.springCloudAlibaba))
+
+    compileOnly(Dependencies.lombok)
+    annotationProcessor(Dependencies.lombok)
+    testCompileOnly(Dependencies.lombok)
+    testAnnotationProcessor(Dependencies.lombok)
+  }
 
   tasks.withType<Test> {
     useJUnitPlatform()
+  }
+}
+
+configure(grpcProjects) {
+  apply(plugin = "com.google.protobuf")
+
+  protobuf {
+    protoc {
+      artifact = "com.google.protobuf:protoc:${Versions.protobuf}"
+    }
+
+    generateProtoTasks {
+      all().configureEach { task ->
+        task.builtins {
+          java {
+            option "lite"
+          }
+        }
+      }
+    }
   }
 }
 
@@ -186,12 +169,12 @@ configure(javaProjects) {
 //  apply(plugin = "com.bmuschko.docker-remote-api")
 //  apply(plugin = "com.bmuschko.docker-spring-boot-application")
 //
-//  tasks.bootJar {
+//  tasks.named("bootJar") {
 //    enabled = true
 //    archiveFileName = "${project.name}.jar"
 //  }
 //
-//  tasks.jar {
+//  tasks.named<Jar>("jar") {
 //    from(sourceSets.main.get().output)
 //  }
 //
@@ -215,12 +198,5 @@ configure(javaProjects) {
 //  }
 //}
 
-dependencies {
-    implementation(kotlin("stdlib-jdk8"))
-}
-repositories {
-    mavenCentral()
-}
-kotlin {
-    jvmToolchain(11)
-}
+
+

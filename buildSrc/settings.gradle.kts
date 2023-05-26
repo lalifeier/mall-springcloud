@@ -1,9 +1,9 @@
 rootProject.name = "buildSrc"
 
 pluginManagement {
-  plugins {
-    kotlin("jvm") version Versions.kotlinVersion
-  }
+//  plugins {
+//    kotlin("jvm") version Versions.kotlinVersion
+//  }
 
   repositories {
     mavenLocal()
