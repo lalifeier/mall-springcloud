@@ -1,21 +1,6 @@
 rootProject.name = "mall-springcloud"
 
 pluginManagement {
-//  plugins {
-//    id("org.springframework.boot") version "{${Versions.springBoot}}"
-//    kotlin("jvm") version "{${Versions.kotlin}}"
-//    kotlin("plugin.spring") version  "{${Versions.kotlin}}"
-//    id("com.bmuschko.gradle-docker-plugin") version  "{${Versions.gradleDockerPlugin}}"
-//    id("com.google.protobuf") version  "{${Versions.protobuf}}"
-
-
-//    id("org.springframework.boot") version "2.6.13"
-//    kotlin("jvm") version "1.8.21"
-//    kotlin("plugin.spring") version "1.8.21"
-//    id("com.bmuschko.gradle-docker-plugin") version "6.7.0"
-//    id("com.google.protobuf") version "3.23.0"
-//  }
-
   repositories {
     mavenLocal()
     maven("https://maven.aliyun.com/repository/public/")
@@ -23,21 +8,9 @@ pluginManagement {
     mavenCentral()
     gradlePluginPortal()
   }
-
-//  resolutionStrategy {
-//    eachPlugin {
-//      if (requested.id.id == "org.springframework.boot") {
-//        useModule("org.springframework.boot:spring-boot-gradle-plugin:${requested.version}")
-//      }
-//      if (requested.id.namespace == "com.google.protobuf") {
-//        useModule("com.google.protobuf:protobuf-gradle-plugin:${requested.version}")
-//      }
-//    }
-//  }
 }
 
 dependencyResolutionManagement {
-//  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
   repositories {
     mavenLocal()
     maven("https://maven.aliyun.com/repository/public/")
