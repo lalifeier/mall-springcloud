@@ -245,3 +245,33 @@ services:
       - /data/mongo/db:/data/db
       - /data/mongo/log:/var/log/mongodb
     command: [ "mongod", "--config", "/data/configdb/mongod.conf" ]
+
+
+  # http://localhost:8086/xxl-job-admin
+  # user admin
+  # password 123456
+  xxl-job:
+    image: xuxueli/xxl-job-admin:2.3.1
+    container_name: xxl-job
+    ports:
+      - 8080:8080
+    networks:
+      - app_net
+    restart: always
+    volumes:
+      - /data/docker/xxl-job/logs:/data/applogs
+    environment:
+      - TZ=Asia/Shanghai
+      - JAVA_OPTS=-Xmx512m
+      # - PARAMS=--spring.datasource.url=jdbc:mysql://mysql:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai --spring.datasource.username=root --spring.datasource.password=123456 --xxl.job.accessToken=
+      - spring_datasource_url=jdbc:mysql://mysql:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+      - spring_datasource_username=root
+      - spring_datasource_password=123456
+      # - spring_mail_host=
+      # - spring_mail_port=
+      # - spring_mail_username=
+      # - spring_mail_password=
+      # - xxl_job_accessToken=
+      # - xxl_job_i18n=
+    depends_on:
+      - mysql

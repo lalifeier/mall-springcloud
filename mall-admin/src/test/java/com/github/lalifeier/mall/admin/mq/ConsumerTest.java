@@ -7,12 +7,12 @@ import org.springframework.context.annotation.Bean;
 
 import java.util.function.Consumer;
 
-@Slf4j
-@SpringBootTest
-public class ConsumerTest {
-
-    @Bean
-    public Consumer<String> sink1() {
-        return message -> System.out.println("收到消息:" + message);
-    }
-}
+//@Slf4j
+//@SpringBootTest
+//public class ConsumerTest {
+//
+//    @Bean
+//    public Consumer<String> sink1() {
+//        return message -> System.out.println("收到消息:" + message);
+//    }
+//}

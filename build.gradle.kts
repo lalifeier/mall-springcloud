@@ -20,22 +20,37 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 //  }
 //}
 
+
+
+
 plugins {
+  java
   `java-library`
+  idea
   `maven-publish`
   id("org.springframework.boot") version Versions.springBoot
 //    https://docs.spring.io/spring-boot/docs/2.6.13/gradle-plugin/reference/htmlsingle/#appendix-dependency-versions
-//  id("io.spring.dependency-management") version "1.0.15.RELEASE"
+  id("io.spring.dependency-management") version "1.0.15.RELEASE"
   id("org.jetbrains.kotlin.jvm") version  Versions.kotlin
   id("org.jetbrains.kotlin.plugin.spring") version  Versions.kotlin
   id("com.bmuschko.docker-remote-api") version  Versions.dockerGadle
   id("com.bmuschko.docker-spring-boot-application") version  Versions.dockerGadle
   id("com.google.protobuf") version  Versions.protobufGradle
+  id("org.sonarqube") version Versions.sonarqube
+}
+
+fun getVariable(name: String): String? {
+  val value = System.getenv(name)
+  if (value != null) {
+    return value
+  }
+  val propName = name.replace('_', '.').toLowerCase()
+  return project.findProperty(propName)?.toString()
 }
 
 allprojects {
   group = "com.github.lalifeier"
-  version = Versions.project
+  version = project.findProperty("version") as String
 
 //  sourceSets {
 //    main {
@@ -60,13 +75,21 @@ val grpcProjects = subprojects.filter { it.name.endsWith("-grpc") }
 //val kotlinProjects = subprojects.filter { it.file("build.gradle.kts").exists() }
 
 configure(javaProjects) {
+  apply(plugin = "java")
   apply(plugin = "java-library")
+  apply(plugin = "idea")
   apply(plugin = "org.springframework.boot")
   apply(plugin = "io.spring.dependency-management")
   apply(plugin = "org.jetbrains.kotlin.jvm")
   apply(plugin = "org.jetbrains.kotlin.plugin.spring")
 
   configurations {
+    all {
+      resolutionStrategy {
+        cacheChangingModulesFor(24, "hours")
+        cacheDynamicVersionsFor(24, "hours")
+      }
+    }
     getByName("compileOnly") {
       extendsFrom(getByName("annotationProcessor"))
     }
@@ -77,14 +100,14 @@ configure(javaProjects) {
   }
 
   tasks.withType<JavaCompile> {
-    sourceCompatibility = JavaVersion.VERSION_1_8.toString()
-    targetCompatibility = JavaVersion.VERSION_1_8.toString()
+    sourceCompatibility = JavaVersion.VERSION_17.toString()
+    targetCompatibility = JavaVersion.VERSION_17.toString()
     options.encoding = "UTF-8"
   }
 
   tasks.withType<KotlinCompile> {
     kotlinOptions {
-      jvmTarget = JavaVersion.VERSION_1_8.toString()
+      jvmTarget = JavaVersion.VERSION_17.toString()
       freeCompilerArgs = listOf("-Xjsr305=strict")
     }
   }
@@ -152,10 +175,10 @@ configure(javaProjects) {
 
     repositories {
       maven {
-        url = uri(project.findProperty("MAVEN_REPOSITORY_URL") as String)
+        url = uri(getVariable("MAVEN_REPOSITORY_URL") as String)
         credentials {
-          username = project.findProperty("MAVEN_REPOSITORY_USERNAME") as String
-          password = project.findProperty("MAVEN_REPOSITORY_PASSWORD") as String
+          username = getVariable("MAVEN_REPOSITORY_USERNAME")
+          password = getVariable("MAVEN_REPOSITORY_PASSWORD")
         }
       }
     }
@@ -164,10 +187,11 @@ configure(javaProjects) {
 
 //docker
 configure(bootProjects) {
+  apply(plugin = "application")
   apply(plugin = "com.bmuschko.docker-remote-api")
   apply(plugin = "com.bmuschko.docker-spring-boot-application")
 
-  tasks.named("bootJar") {
+  tasks.named<BootJar>("bootJar") {
     enabled = true
   }
 
@@ -181,9 +205,9 @@ configure(bootProjects) {
 
   docker {
     registryCredentials {
-      url.set(project.findProperty("DOCKER_REGISTRY_URL") as String)
-      username.set(project.findProperty("DOCKER_USERNAME") as String)
-      password.set(project.findProperty("DOCKER_PASSWORD") as String)
+      url.set(getVariable("DOCKER_REGISTRY_URL"))
+      username.set(getVariable("DOCKER_USERNAME"))
+      password.set(getVariable("DOCKER_PASSWORD"))
     }
 
     springBootApplication {

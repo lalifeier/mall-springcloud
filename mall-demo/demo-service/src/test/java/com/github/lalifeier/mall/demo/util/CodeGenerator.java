@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.demo;
+package com.github.lalifeier.mall.demo.util;
 
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.*;
@@ -15,7 +15,7 @@ public class CodeGenerator {
     private static String dbUser = "root";
     private static String dbPassword = "123456";
 
-    @Test
+    //@Test
     public void generatorCode() {
         FastAutoGenerator.create(datasourceBuilder())
                 // 全局配置

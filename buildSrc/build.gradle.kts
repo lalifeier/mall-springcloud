@@ -4,9 +4,9 @@ plugins {
 //  id("org.jetbrains.kotlin.jvm")
 }
 
-dependencies {
-  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-}
+//dependencies {
+//  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+//}
 
 //tasks.register<JavaCompile>("compileKotlin") {
 //  sourceCompatibility = JavaVersion.VERSION_1_8

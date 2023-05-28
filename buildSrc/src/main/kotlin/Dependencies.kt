@@ -50,6 +50,9 @@ object Dependencies {
   const val wechatpay = "com.github.wechatpay-apiv3:wechatpay-java:${Versions.wechatpay}"
   const val alipay = "com.alipay.sdk:alipay-sdk-java:${Versions.alipay}"
 
+  const val queryDslApt = "com.querydsl:querydsl-apt:${Versions.queryDsl}"
+  const val queryDslJpa = "com.querydsl:querydsl-jpa:${Versions.queryDsl}"
+
   val all by lazy {
     listOf(lombok, dubbo, grpcNettyShaded, grpcProtobuf, grpcStub, grpcSpringBoot, springBootAdmin,
       springSecurityOauth2, springCloudOauth2, springAuthorizationServer,
@@ -64,7 +67,8 @@ object Dependencies {
       commonsLang3, commonsIo, commonsIo, commonsCodec, commonsBeanutils, commonsCollections4,
       logstash, skywalking, skywalkingTrace, caffeine, xxlJob,
       okhttp, retrofit, feignOkhttp, aliyunSdkOss, micrometerRegistryPrometheus, saToken,
-      wechatpay, alipay
+      wechatpay, alipay,
+      queryDslApt, queryDslJpa
     )
   }
 }

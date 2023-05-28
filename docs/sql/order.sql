@@ -138,6 +138,7 @@ CREATE TABLE IF NOT EXISTS `order_detail` (
   `price` decimal(10,2) NOT NULL COMMENT '单价',
   `discount_rate` decimal(5,2) NOT NULL DEFAULT '0.00' COMMENT '折扣比例',
   `discount_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT '折扣金额',
+  `actual_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT '实付金额',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `created_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建人',
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',

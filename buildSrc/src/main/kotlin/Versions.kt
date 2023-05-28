@@ -1,5 +1,4 @@
 object Versions {
-  const val project = "1.0.0-SNAPSHOT"
   const val springBoot = "2.6.13"
   const val springCloud = "2021.0.5"
   const val springCloudAlibaba = "2021.0.5.0"
@@ -11,6 +10,7 @@ object Versions {
   const val grpc = "1.55.1"
   const val protobuf = "3.23.0"
   const val protobufGradle = "0.9.3"
+  const val sonarqube = "4.1.0.3113"
   const val grpcSpringBoot = "2.13.1.RELEASE"
   const val springBootAdmin = "2.6.9"
   const val springSecurityOauth2 = "2.5.2.RELEASE"
@@ -50,4 +50,6 @@ object Versions {
   const val saToken = "1.34.0"
   const val wechatpay = "0.2.7"
   const val alipay = "4.35.132.ALL"
+  const val queryDsl = "4.2.1"
 }
+
