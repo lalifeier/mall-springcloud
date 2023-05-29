@@ -1,6 +1,11 @@
 package com.github.lalifeier.mall.jpa.po;
 
+import com.github.lalifeier.mall.jpa.audit.Auditable;
+import com.querydsl.core.BooleanBuilder;
 import lombok.Data;
+import javax.annotation.Nullable;
+
+import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.Column;
@@ -8,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class BasePO extends Auditable<String> {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,4 +22,9 @@ public class BasePO extends Auditable<String> {
 
   @Column(name = "is_deleted")
   private Boolean isDeleted;
+
+  @Nullable
+  public BooleanBuilder booleanBuilder() {
+    return null;
+  }
 }

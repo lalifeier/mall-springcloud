@@ -50,8 +50,15 @@ object Dependencies {
   const val wechatpay = "com.github.wechatpay-apiv3:wechatpay-java:${Versions.wechatpay}"
   const val alipay = "com.alipay.sdk:alipay-sdk-java:${Versions.alipay}"
 
+  const val queryDslCore = "com.querydsl:querydsl-core:${Versions.queryDsl}"
+  const val queryDslSql = "com.querydsl:querydsl-sql:${Versions.queryDsl}"
   const val queryDslApt = "com.querydsl:querydsl-apt:${Versions.queryDsl}"
   const val queryDslJpa = "com.querydsl:querydsl-jpa:${Versions.queryDsl}"
+
+  const val blazePersistenceCoreApi = "com.blazebit:blaze-persistence-core-api:${Versions.blazePersistence}"
+  const val blazePersistenceCoreImpl = "com.blazebit:blaze-persistence-core-impl:${Versions.blazePersistence}"
+  const val blazePersistenceQueryDsl = "com.blazebit:blaze-persistence-integration-querydsl-expressions:${Versions.blazePersistence}"
+  const val blazePersistenceHibernate = "com.blazebit:blaze-persistence-integration-hibernate-5.6:${Versions.blazePersistence}"
 
   val all by lazy {
     listOf(lombok, dubbo, grpcNettyShaded, grpcProtobuf, grpcStub, grpcSpringBoot, springBootAdmin,
@@ -68,7 +75,8 @@ object Dependencies {
       logstash, skywalking, skywalkingTrace, caffeine, xxlJob,
       okhttp, retrofit, feignOkhttp, aliyunSdkOss, micrometerRegistryPrometheus, saToken,
       wechatpay, alipay,
-      queryDslApt, queryDslJpa
+      queryDslCore, queryDslSql, queryDslApt, queryDslJpa,
+      blazePersistenceCoreApi, blazePersistenceCoreImpl, blazePersistenceQueryDsl, blazePersistenceHibernate
     )
   }
 }

@@ -15,7 +15,7 @@ plugins {
   id("com.bmuschko.docker-remote-api") version  Versions.dockerGadle
   id("com.bmuschko.docker-spring-boot-application") version  Versions.dockerGadle
   id("com.google.protobuf") version Versions.protobufGradle
-  id("org.sonarqube") version Versions.sonarqube
+//  id("org.sonarqube") version Versions.sonarqube
 }
 
 allprojects {

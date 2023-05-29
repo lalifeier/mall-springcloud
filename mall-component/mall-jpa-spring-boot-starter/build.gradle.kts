@@ -1,6 +1,15 @@
 dependencies {
   api(project(":mall-common"))
   api("org.springframework.boot:spring-boot-starter-data-jpa")
-  implementation("com.querydsl:querydsl-jpa")
+//  implementation("com.querydsl:querydsl-core")
+//  implementation("com.querydsl:querydsl-sql")
+  api("com.querydsl:querydsl-jpa")
+  implementation("org.apache.commons:commons-lang3")
+  implementation("org.apache.commons:commons-collections4")
+  implementation("org.springframework.boot:spring-boot-configuration-processor")
   annotationProcessor("com.querydsl:querydsl-apt")
+  annotationProcessor("javax.annotation:javax.annotation-api:1.3.2")
+  annotationProcessor("javax.validation:validation-api:2.0.1.Final")
+  annotationProcessor("com.fasterxml.jackson.core:jackson-annotations:2.15.1")
+  annotationProcessor("com.fasterxml.jackson.core:jackson-databind:2.15.1")
 }

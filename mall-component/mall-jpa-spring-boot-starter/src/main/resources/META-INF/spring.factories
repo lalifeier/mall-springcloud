@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.github.lalifeier.mall.jpa.config.JpaAutoConfiguration,\
+com.github.lalifeier.mall.jpa.config.JpaAuditingConfiguration

@@ -51,5 +51,6 @@ object Versions {
   const val wechatpay = "0.2.7"
   const val alipay = "4.35.132.ALL"
   const val queryDsl = "4.2.1"
+  const val blazePersistence = "1.6.8"
 }
 
