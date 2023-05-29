@@ -1,5 +1,7 @@
 rootProject.name = "mall-springcloud"
 
+
+
 pluginManagement {
   repositories {
     mavenLocal()
@@ -8,6 +10,12 @@ pluginManagement {
     mavenCentral()
     gradlePluginPortal()
   }
+
+//  val protobufPlugin = "0.8.17"
+//
+//  plugins {
+//    id("com.google.protobuf") version protobufPlugin
+//  }
 }
 
 dependencyResolutionManagement {
@@ -48,10 +56,10 @@ include("mall-demo:demo-dubbo")
 include("mall-demo:demo-service")
 
 //gateway
-include("mall-gateway")
+include("mall-cloud-gateway")
 
 //monitor
-include("mall-monitor")
+include("mall-cloud-monitor")
 
 //admin
 include("mall-admin")
@@ -65,4 +73,8 @@ include("account-biz:account-service")
 include("auth-service")
 
 
-include("mall-kotlin-demo")
+include("mall-cloud-kotlin:mall-cloud-demo")
+
+//bigdata
+include("mall-cloud-bigdata:mall-cloud-data-analysis")
+include("mall-cloud-bigdata:mall-cloud-data-sync")

@@ -1,13 +1,12 @@
 package com.github.lalifeier.mall.jpa.model;
 
-import com.github.lalifeier.mall.jpa.model.SelectBuilder;
-import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.dsl.*;
-
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.function.Consumer;
-
+//import com.querydsl.core.BooleanBuilder;
+//import com.querydsl.core.types.dsl.*;
+//
+//import java.time.LocalDateTime;
+//import java.util.Collection;
+//import java.util.function.Consumer;
+//
 //public class SelectBooleanBuilder extends SelectBuilder<BooleanBuilder> {
 //
 //  private final BooleanBuilder builder;

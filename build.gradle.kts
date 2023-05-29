@@ -2,27 +2,6 @@ import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
-//buildscript {
-//  repositories {
-//    mavenLocal()
-//    maven("https://maven.aliyun.com/repository/public/")
-//    maven("https://developer.huawei.com/repo/")
-//    mavenCentral()
-//    gradlePluginPortal()
-//  }
-//
-//  dependencies {
-//    classpath(Plugins.springBoot)
-//    classpath(Plugins.gradleDocker)
-//    classpath(Plugins.kotlinGradle)
-//    classpath(Plugins.kotlinAllopen)
-//    classpath(Plugins.protobufGradle)
-//  }
-//}
-
-
-
-
 plugins {
   java
   `java-library`
@@ -35,17 +14,8 @@ plugins {
   id("org.jetbrains.kotlin.plugin.spring") version  Versions.kotlin
   id("com.bmuschko.docker-remote-api") version  Versions.dockerGadle
   id("com.bmuschko.docker-spring-boot-application") version  Versions.dockerGadle
-  id("com.google.protobuf") version  Versions.protobufGradle
+  id("com.google.protobuf") version Versions.protobufGradle
   id("org.sonarqube") version Versions.sonarqube
-}
-
-fun getVariable(name: String): String? {
-  val value = System.getenv(name)
-  if (value != null) {
-    return value
-  }
-  val propName = name.replace('_', '.').toLowerCase()
-  return project.findProperty(propName)?.toString()
 }
 
 allprojects {
@@ -69,9 +39,8 @@ allprojects {
 }
 
 val javaProjects = subprojects.filter { it.file("build.gradle.kts").exists() }
-val bootProjects = subprojects.filter { it.name.endsWith("-service") || it.name in listOf("mall-gateway", "mall-monitor", "mall-admin") }
+val bootProjects = subprojects.filter { it.name.endsWith("-service") || it.name in listOf("mall-cloud-gateway", "mall-cloud-monitor", "mall-admin") }
 val grpcProjects = subprojects.filter { it.name.endsWith("-grpc") }
-
 //val kotlinProjects = subprojects.filter { it.file("build.gradle.kts").exists() }
 
 configure(javaProjects) {
@@ -84,12 +53,12 @@ configure(javaProjects) {
   apply(plugin = "org.jetbrains.kotlin.plugin.spring")
 
   configurations {
-    all {
-      resolutionStrategy {
-        cacheChangingModulesFor(24, "hours")
-        cacheDynamicVersionsFor(24, "hours")
-      }
-    }
+//    all {
+//      resolutionStrategy {
+//        cacheChangingModulesFor(24, "hours")
+//        cacheDynamicVersionsFor(24, "hours")
+//      }
+//    }
     getByName("compileOnly") {
       extendsFrom(getByName("annotationProcessor"))
     }
@@ -137,8 +106,12 @@ configure(javaProjects) {
   }
 }
 
+//apply(from = rootProject.file("protobuf.gradle.kts"))
+
 //grpc
 configure(grpcProjects) {
+//  apply(from = "$rootDir/gradle/protobuf.gradle.kts")
+
   apply(plugin = "com.google.protobuf")
 
   protobuf {
@@ -175,10 +148,10 @@ configure(javaProjects) {
 
     repositories {
       maven {
-        url = uri(getVariable("MAVEN_REPOSITORY_URL") as String)
+        url = uri(project.getVariable("MAVEN_REPOSITORY_URL") as String)
         credentials {
-          username = getVariable("MAVEN_REPOSITORY_USERNAME")
-          password = getVariable("MAVEN_REPOSITORY_PASSWORD")
+          username = project.getVariable("MAVEN_REPOSITORY_USERNAME")
+          password = project.getVariable("MAVEN_REPOSITORY_PASSWORD")
         }
       }
     }
@@ -187,9 +160,10 @@ configure(javaProjects) {
 
 //docker
 configure(bootProjects) {
-  apply(plugin = "application")
   apply(plugin = "com.bmuschko.docker-remote-api")
   apply(plugin = "com.bmuschko.docker-spring-boot-application")
+
+//  apply(from =  rootProject.file("gradle/docker.gradle.kts"))
 
   tasks.named<BootJar>("bootJar") {
     enabled = true
@@ -205,13 +179,14 @@ configure(bootProjects) {
 
   docker {
     registryCredentials {
-      url.set(getVariable("DOCKER_REGISTRY_URL"))
-      username.set(getVariable("DOCKER_USERNAME"))
-      password.set(getVariable("DOCKER_PASSWORD"))
+      url.set(project.getVariable("DOCKER_REGISTRY_URL"))
+      username.set(project.getVariable("DOCKER_USERNAME"))
+      password.set(project.getVariable("DOCKER_PASSWORD"))
     }
 
     springBootApplication {
-      baseImage.set("openjdk:8-alpine")
+      baseImage.set("openjdk:17-alpine")
+//    maintainer.set("lalifeier")
       ports.set(listOf(9090, 8080))
       images.set(setOf("${project.group}/${project.name}:${project.version}", "${project.group}/${project.name}:latest"))
       jvmArgs.set(listOf("-Dspring.profiles.active=prod"))
