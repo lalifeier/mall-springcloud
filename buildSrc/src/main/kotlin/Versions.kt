@@ -52,5 +52,12 @@ object Versions {
   const val alipay = "4.35.132.ALL"
   const val queryDsl = "4.2.1"
   const val blazePersistence = "1.6.8"
+
+  const val clickhouseJDBC = "0.4.6"
+  const val flinkConnectorKafka = "1.17.1"
+  const val flinkConnectorJDBC = "3.1.0-1.17"
+  const val flinkConnectorClickhouse = "1.16.0-SNAPSHOT"
+
+  const val flinkMySQLCDC = "2.4-SNAPSHOT"
 }
 

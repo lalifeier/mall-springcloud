@@ -10,9 +10,11 @@ object Dependencies {
   const val grpcStub = "io.grpc:grpc-stub:${Versions.grpc}" // gRPC Stub 和客户端库
   const val grpcSpringBoot = "net.devh:grpc-spring-boot-starter:${Versions.grpcSpringBoot}"
   const val springBootAdmin = "de.codecentric:spring-boot-admin-starter-server:${Versions.springBootAdmin}"
-  const val springSecurityOauth2 = "org.springframework.security.oauth:spring-security-oauth2:${Versions.springSecurityOauth2}"
+  const val springSecurityOauth2 =
+    "org.springframework.security.oauth:spring-security-oauth2:${Versions.springSecurityOauth2}"
   const val springCloudOauth2 = "org.springframework.cloud:spring-cloud-starter-oauth2:${Versions.springCloudOauth2}"
-  const val springAuthorizationServer = "org.springframework.security:spring-security-oauth2-authorization-server:${Versions.springAuthorizationServer}"
+  const val springAuthorizationServer =
+    "org.springframework.security:spring-security-oauth2-authorization-server:${Versions.springAuthorizationServer}"
   const val mapstruct = "org.mapstruct:mapstruct:${Versions.mapstruct}"
   const val mapstructProcessor = "org.mapstruct:mapstruct-processor:${Versions.mapstruct}"
   const val nimbusJoseJwt = "com.nimbusds:nimbus-jose-jwt:${Versions.nimbusJoseJwt}"
@@ -24,7 +26,8 @@ object Dependencies {
   const val freemarker = "org.freemarker:freemarker:${Versions.freemarker}"
   const val druid = "com.alibaba:druid-spring-boot-starter:${Versions.druid}"
   const val mysqlConnector = "mysql:mysql-connector-java:${Versions.mysqlConnector}"
-  const val shardingsphere = "org.apache.shardingsphere:shardingsphere-jdbc-core-spring-boot-starter:${Versions.shardingsphere}"
+  const val shardingsphere =
+    "org.apache.shardingsphere:shardingsphere-jdbc-core-spring-boot-starter:${Versions.shardingsphere}"
   const val hutool = "cn.hutool:hutool-all:${Versions.hutool}"
   const val springdoc = "org.springdoc:springdoc-openapi-ui:${Versions.springdoc}"
   const val knife4j = "com.github.xiaoymin:knife4j-springdoc-ui:${Versions.knife4j}"
@@ -45,7 +48,8 @@ object Dependencies {
   const val retrofit = "com.github.lianjiatech:retrofit-spring-boot-starter:${Versions.retrofit}"
   const val feignOkhttp = "io.github.openfeign:feign-okhttp:${Versions.feignOkhttp}"
   const val aliyunSdkOss = "com.aliyun.oss:aliyun-sdk-oss:${Versions.aliyunSdkOss}"
-  const val micrometerRegistryPrometheus = "io.micrometer:micrometer-registry-prometheus:${Versions.micrometerRegistryPrometheus}"
+  const val micrometerRegistryPrometheus =
+    "io.micrometer:micrometer-registry-prometheus:${Versions.micrometerRegistryPrometheus}"
   const val saToken = "cn.dev33:sa-token-spring-boot-starter:${Versions.saToken}"
   const val wechatpay = "com.github.wechatpay-apiv3:wechatpay-java:${Versions.wechatpay}"
   const val alipay = "com.alipay.sdk:alipay-sdk-java:${Versions.alipay}"
@@ -57,11 +61,25 @@ object Dependencies {
 
   const val blazePersistenceCoreApi = "com.blazebit:blaze-persistence-core-api:${Versions.blazePersistence}"
   const val blazePersistenceCoreImpl = "com.blazebit:blaze-persistence-core-impl:${Versions.blazePersistence}"
-  const val blazePersistenceQueryDsl = "com.blazebit:blaze-persistence-integration-querydsl-expressions:${Versions.blazePersistence}"
-  const val blazePersistenceHibernate = "com.blazebit:blaze-persistence-integration-hibernate-5.6:${Versions.blazePersistence}"
+  const val blazePersistenceQueryDsl =
+    "com.blazebit:blaze-persistence-integration-querydsl-expressions:${Versions.blazePersistence}"
+  const val blazePersistenceHibernate =
+    "com.blazebit:blaze-persistence-integration-hibernate-5.6:${Versions.blazePersistence}"
+
+  const val clickhouseJDBC = "com.clickhouse:clickhouse-jdbc:${Versions.blazePersistence}"
+
+  const val flinkConnectorJDBC = "org.apache.flink:flink-connector-jdbc:${Versions.flinkConnectorJDBC}"
+  const val flinkConnectorKafka = "org.apache.flink:flink-connector-kafka:${Versions.flinkConnectorKafka}"
+
+  //  https://github.com/itinycheng/flink-connector-clickhouse
+  //  const val flinkConnectorClickhouse =
+  //    "org.apache.flink:flink-connector-clickhouse:${Versions.flinkConnectorClickhouse}"
+
+  const val flinkMySQLCDC = "com.ververica:flink-connector-mysql-cdc:${Versions.flinkMySQLCDC}"
 
   val all by lazy {
-    listOf(lombok, dubbo, grpcNettyShaded, grpcProtobuf, grpcStub, grpcSpringBoot, springBootAdmin,
+    listOf(
+      lombok, dubbo, grpcNettyShaded, grpcProtobuf, grpcStub, grpcSpringBoot, springBootAdmin,
       springSecurityOauth2, springCloudOauth2, springAuthorizationServer,
       mapstruct, mapstructProcessor,
       nimbusJoseJwt,
@@ -76,7 +94,10 @@ object Dependencies {
       okhttp, retrofit, feignOkhttp, aliyunSdkOss, micrometerRegistryPrometheus, saToken,
       wechatpay, alipay,
       queryDslCore, queryDslSql, queryDslApt, queryDslJpa,
-      blazePersistenceCoreApi, blazePersistenceCoreImpl, blazePersistenceQueryDsl, blazePersistenceHibernate
+      blazePersistenceCoreApi, blazePersistenceCoreImpl, blazePersistenceQueryDsl, blazePersistenceHibernate,
+      clickhouseJDBC,
+      flinkConnectorJDBC, flinkConnectorKafka,
+      flinkMySQLCDC
     )
   }
 }
