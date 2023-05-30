@@ -59,5 +59,7 @@ object Versions {
   const val flinkConnectorClickhouse = "1.16.0-SNAPSHOT"
 
   const val flinkMySQLCDC = "2.4-SNAPSHOT"
+
+  const val shardingSphereJDBC = "4.1.1"
 }
 

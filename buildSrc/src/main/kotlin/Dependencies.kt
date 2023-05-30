@@ -77,6 +77,8 @@ object Dependencies {
 
   const val flinkMySQLCDC = "com.ververica:flink-connector-mysql-cdc:${Versions.flinkMySQLCDC}"
 
+  const val shardingSphereJDBC = "org.apache.shardingsphere:sharding-jdbc-spring-boot-starter:${Versions.shardingSphereJDBC}"
+
   val all by lazy {
     listOf(
       lombok, dubbo, grpcNettyShaded, grpcProtobuf, grpcStub, grpcSpringBoot, springBootAdmin,
@@ -97,7 +99,8 @@ object Dependencies {
       blazePersistenceCoreApi, blazePersistenceCoreImpl, blazePersistenceQueryDsl, blazePersistenceHibernate,
       clickhouseJDBC,
       flinkConnectorJDBC, flinkConnectorKafka,
-      flinkMySQLCDC
+      flinkMySQLCDC,
+      shardingSphereJDBC
     )
   }
 }

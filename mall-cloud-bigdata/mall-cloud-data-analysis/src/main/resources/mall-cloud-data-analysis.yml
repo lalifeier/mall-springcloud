@@ -5,12 +5,45 @@ spring:
   profiles:
     active: dev
 
+#  datasource:
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    driver-class-name: ru.yandex.clickhouse.ClickHouseDriver
+#    url: jdbc:jdbc:clickhouse://localhost:3306/default
+#    username: default
+#    password: 123456
+
+  shardingsphere:
     datasource:
-      type: com.alibaba.druid.pool.DruidDataSource
-      driver-class-name: ru.yandex.clickhouse.ClickHouseDriver
-      url: jdbc:jdbc:clickhouse://localhost:3306/default
-      username: default
-      password: 123456
+      names: master_ds, slave_ds_0
+      master_ds:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url:  jdbc:mysql://localhost:3306/test_db_sharding_master?allowPublicKeyRetrieval=true&useSSL=false&autoReconnect=true&characterEncoding=utf8
+        username: root
+        password: 123456
+      slave_ds_0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name:  com.mysql.cj.jdbc.Driver
+        url:  jdbc:mysql://localhost:3306/test_db_sharding_slave0?allowPublicKeyRetrieval=true&useSSL=false&autoReconnect=true&characterEncoding=utf8
+        username: root
+        password: 123456
+
+    rules:
+      readwrite-splitting:
+        data-sources:
+          master-slave:
+            type: Static
+            props:
+              auto-aware-data-source-name: master_ds
+              write-data-source-name: master_ds
+              read-data-source-names: slave_ds_0
+          load-balancers:
+            roundRobin:
+              type: ROUND_ROBIN
+
+    props:
+      sql:
+        show: true
 
   #  datasource:
   #    dynamic:
@@ -31,17 +64,12 @@ spring:
   #          password: 123456
 
   jpa:
-    show-sql: true
-    database: mysql
-    hibernate:
-      ddl-auto: update
-      database-platform=: mysql
-      dialect: org.hibernate.dialect.MySQL57Dialect
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    open-in-view: false
+    generate-ddl: false
+    show-sql: false
     properties:
       hibernate:
-        show_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
 
 #  redis:
