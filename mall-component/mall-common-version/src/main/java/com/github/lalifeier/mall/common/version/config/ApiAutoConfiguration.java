@@ -1,6 +1,6 @@
 package com.github.lalifeier.mall.common.version.config;
 
-import com.github.lalifeier.mall.common.version.apiversion.ApiVersionRequestMappingHandlerMapping;
+import com.github.lalifeier.mall.common.version.apiversion.ApiHandlerMapping;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcRegistrations;
@@ -14,8 +14,7 @@ public class ApiAutoConfiguration implements WebMvcRegistrations {
     @Override
     @NonNull
     public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
-        return new ApiVersionRequestMappingHandlerMapping();
+        return new ApiHandlerMapping();
     }
-
 }
 

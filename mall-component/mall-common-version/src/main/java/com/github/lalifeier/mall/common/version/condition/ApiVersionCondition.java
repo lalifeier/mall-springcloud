@@ -28,6 +28,8 @@ public class ApiVersionCondition implements RequestCondition<ApiVersionCondition
     @Getter
     private final String apiVersion;
 
+    //private int apiPlatform;
+
     public ApiVersionCondition(String apiVersion) {
         this.apiVersion = apiVersion;
     }

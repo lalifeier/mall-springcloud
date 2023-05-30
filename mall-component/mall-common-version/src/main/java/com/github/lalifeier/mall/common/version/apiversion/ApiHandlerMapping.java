@@ -9,7 +9,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 import java.lang.reflect.Method;
 
-public class ApiVersionRequestMappingHandlerMapping extends RequestMappingHandlerMapping {
+public class ApiHandlerMapping extends RequestMappingHandlerMapping {
 
     /**
      * add @ApiVersion to controller class.
@@ -35,4 +35,7 @@ public class ApiVersionRequestMappingHandlerMapping extends RequestMappingHandle
         return null == apiVersion ? super.getCustomMethodCondition(method) : new ApiVersionCondition(apiVersion.value());
     }
 
+  private RequestCondition<ApiVersionCondition> createCondition(ApiVersion apiVersion) {
+    return apiVersion == null ? null : new ApiVersionCondition(apiVersion.value());
+  }
 }

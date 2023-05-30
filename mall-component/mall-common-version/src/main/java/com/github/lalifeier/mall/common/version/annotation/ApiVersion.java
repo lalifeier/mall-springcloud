@@ -10,4 +10,6 @@ import java.lang.annotation.*;
 @Mapping
 public @interface ApiVersion {
     String value() default "1.0.0";
+
+    int platform() default 0;
 }
