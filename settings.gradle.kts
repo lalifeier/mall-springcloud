@@ -1,7 +1,5 @@
 rootProject.name = "mall-springcloud"
 
-
-
 pluginManagement {
   repositories {
     mavenLocal()
@@ -37,7 +35,7 @@ include("mall-cloud-starter:mall-cloud-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-spring-cloud-starter")
 include("mall-cloud-starter:mall-cloud-jpa-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-mybatis-plus-spring-boot-starter")
-include("mall-cloud-starter:mall-cloud-swagger-spring-boot-starter")
+include("mall-cloud-starter:mall-cloud-openapi-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-redis-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-feign-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-logging-spring-boot-starter")
@@ -49,20 +47,20 @@ include("mall-cloud-starter:mall-cloud-local-cache-spring-boot-starter")
 
 
 //demo
-include("mall-demo:demo-api")
-include("mall-demo:demo-feign")
-include("mall-demo:demo-grpc")
-include("mall-demo:demo-dubbo")
-include("mall-demo:demo-service")
+include("mall-cloud-business:mall-cloud-demo:mall-cloud-demo-api")
+include("mall-cloud-business:mall-cloud-demo:mall-cloud-demo-feign")
+include("mall-cloud-business:mall-cloud-demo:mall-cloud-demo-grpc")
+include("mall-cloud-business:mall-cloud-demo:mall-cloud-demo-dubbo")
+include("mall-cloud-business:mall-cloud-demo:mall-cloud-demo-service")
 
 //gateway
-include("mall-cloud-gateway")
+include("mall-cloud-business:mall-cloud-gateway")
 
 //monitor
-include("mall-cloud-monitor")
+include("mall-cloud-business:mall-cloud-monitor")
 
 //admin
-include("mall-admin")
+include("mall-cloud-business:mall-cloud-admin")
 
 //account
 include("account-biz:account-api")

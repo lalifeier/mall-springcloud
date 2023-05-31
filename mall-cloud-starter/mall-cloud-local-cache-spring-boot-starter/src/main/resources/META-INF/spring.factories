@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.github.lalifeier.mall.cache.config.CacheAutoConfiguration
+com.github.lalifeier.mall.cloud.cache.config.CacheAutoConfiguration
