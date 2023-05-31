@@ -1,5 +1,5 @@
 dependencies {
-  api(project(":mall-common"))
+  api(project(":mall-cloud-common:mall-cloud-common-core"))
   api("org.springframework.boot:spring-boot-starter-data-jpa")
 //  implementation("com.querydsl:querydsl-core")
 //  implementation("com.querydsl:querydsl-sql")

@@ -27,25 +27,25 @@ dependencyResolutionManagement {
   }
 }
 
-//mall-common
-include("mall-common")
+//mall-cloud-common
+include("mall-cloud-common:mall-cloud-common-core")
+include("mall-cloud-common:mall-cloud-common-error")
+include("mall-cloud-common:mall-cloud-common-version")
 
-//mall-component
-include("mall-component:mall-common-error")
-include("mall-component:mall-common-spring-boot-starter")
-include("mall-component:mall-common-spring-cloud-starter")
-include("mall-component:mall-jpa-spring-boot-starter")
-include("mall-component:mall-mybatis-plus-spring-boot-starter")
-include("mall-component:mall-swagger-spring-boot-starter")
-include("mall-component:mall-redis-spring-boot-starter")
-include("mall-component:mall-feign-spring-boot-starter")
-include("mall-component:mall-logging-spring-boot-starter")
-include("mall-component:mall-sign-spring-boot-starter")
-include("mall-component:mall-double-cache-spring-boot-starter")
-include("mall-component:mall-http-spring-boot-starter")
-include("mall-component:mall-common-version")
-include("mall-component:mall-xxl-job-spring-boot-starter")
-include("mall-component:mall-local-cache-spring-boot-starter")
+//mall-cloud-starter
+include("mall-cloud-starter:mall-cloud-spring-boot-starter")
+include("mall-cloud-starter:mall-cloud-spring-cloud-starter")
+include("mall-cloud-starter:mall-cloud-jpa-spring-boot-starter")
+include("mall-cloud-starter:mall-cloud-mybatis-plus-spring-boot-starter")
+include("mall-cloud-starter:mall-cloud-swagger-spring-boot-starter")
+include("mall-cloud-starter:mall-cloud-redis-spring-boot-starter")
+include("mall-cloud-starter:mall-cloud-feign-spring-boot-starter")
+include("mall-cloud-starter:mall-cloud-logging-spring-boot-starter")
+include("mall-cloud-starter:mall-cloud-sign-spring-boot-starter")
+include("mall-cloud-starter:mall-cloud-double-cache-spring-boot-starter")
+include("mall-cloud-starter:mall-cloud-http-spring-boot-starter")
+include("mall-cloud-starter:mall-cloud-xxl-job-spring-boot-starter")
+include("mall-cloud-starter:mall-cloud-local-cache-spring-boot-starter")
 
 
 //demo

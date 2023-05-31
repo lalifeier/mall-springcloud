@@ -1,7 +1,7 @@
 dependencies {
-  implementation(project(":mall-component:mall-common-spring-cloud-starter"))
-  implementation(project(":mall-component:mall-mybatis-plus-spring-boot-starter"))
-  implementation(project(":mall-component:mall-xxl-job-spring-boot-starter"))
+  implementation(project(":mall-cloud-starter:mall-cloud-spring-cloud-starter"))
+  implementation(project(":mall-cloud-starter:mall-cloud-mybatis-plus-spring-boot-starterr"))
+  implementation(project(":mall-cloud-starter:mall-cloud-xxl-job-spring-boot-starter"))
   implementation(project(":mall-demo:demo-api"))
   implementation(project(":mall-demo:demo-grpc"))
   implementation(project(":mall-demo:demo-dubbo"))

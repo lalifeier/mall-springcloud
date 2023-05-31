@@ -1,6 +1,6 @@
 dependencies {
-  implementation(project(":mall-component:mall-common-spring-cloud-starter"))
-  implementation(project(":mall-component:mall-jpa-spring-boot-starter"))
+  implementation(project(":mall-cloud-starter:mall-cloud-spring-cloud-starter"))
+  implementation(project(":mall-cloud-starter:mall-cloud-jpa-spring-boot-starter"))
   implementation("mysql:mysql-connector-java")
   implementation("com.alibaba:druid-spring-boot-starter")
   implementation("org.springframework.boot:spring-boot-starter-security")

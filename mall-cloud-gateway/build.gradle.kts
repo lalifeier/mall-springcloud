@@ -1,8 +1,8 @@
 dependencies {
-  implementation(project(":mall-common"))
-  implementation(project(":mall-component:mall-logging-spring-boot-starter"))
-  implementation(project(":mall-component:mall-common-spring-cloud-starter")) {
-    exclude(group = "com.github.lalifeier", module = "mall-common-spring-boot-starter")
+  implementation(project("mall-cloud-common:mall-cloud-common-core"))
+  implementation(project("mall-cloud-starter:mall-cloud-logging-spring-boot-starter"))
+  implementation(project(":mall-cloud-starter:mall-cloud-spring-cloud-starter")) {
+    exclude(group = "com.github.lalifeier", module = "mall-cloud-spring-boot-starter")
   }
   implementation("org.springframework.boot:spring-boot-starter-actuator")
   implementation("io.micrometer:micrometer-registry-prometheus")

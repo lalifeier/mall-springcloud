@@ -1,5 +1,5 @@
 dependencies {
-  api(project(":mall-component:mall-common-error"))
+  api(project(":mall-cloud-common:mall-cloud-common-error"))
   implementation("com.google.guava:guava")
   implementation("org.apache.commons:commons-lang3")
   implementation("com.google.code.gson:gson")

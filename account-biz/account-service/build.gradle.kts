@@ -1,6 +1,6 @@
 dependencies {
-  implementation(project(":mall-component:mall-common-spring-cloud-starter"))
-  implementation(project(":mall-component:mall-mybatis-plus-spring-boot-starter"))
+  implementation(project(":mall-cloud-starter:mall-cloud-spring-cloud-starter"))
+  implementation(project(":mall-cloud-starter:mall-cloud-mybatis-plus-spring-boot-starterr"))
   implementation(project(":account-biz:account-grpc"))
   implementation("net.devh:grpc-spring-boot-starter")
   implementation("org.springframework.boot:spring-boot-starter-validation")
