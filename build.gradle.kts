@@ -39,7 +39,7 @@ allprojects {
 }
 
 val javaProjects = subprojects.filter { it.file("build.gradle.kts").exists() }
-val bootProjects = subprojects.filter { it.name.endsWith("-service") || it.name in listOf("mall-cloud-gateway", "mall-cloud-monitor", "mall-admin") }
+val bootProjects = subprojects.filter { it.name.endsWith("-service") || it.name in listOf("mall-cloud-gateway", "mall-cloud-monitor", "mall-cloud-admin") }
 val grpcProjects = subprojects.filter { it.name.endsWith("-grpc") }
 //val kotlinProjects = subprojects.filter { it.file("build.gradle.kts").exists() }
 

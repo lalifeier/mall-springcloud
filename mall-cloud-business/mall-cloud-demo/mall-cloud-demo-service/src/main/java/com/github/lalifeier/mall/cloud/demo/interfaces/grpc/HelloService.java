@@ -1,6 +1,5 @@
 package com.github.lalifeier.mall.cloud.demo.interfaces.grpc;
 
-
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 

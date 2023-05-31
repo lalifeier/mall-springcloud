@@ -63,12 +63,12 @@ include("mall-cloud-business:mall-cloud-monitor")
 include("mall-cloud-business:mall-cloud-admin")
 
 //account
-include("account-biz:account-api")
-include("account-biz:account-grpc")
-include("account-biz:account-service")
+include("mall-cloud-business:mall-cloud-account-biz:mall-cloud-account-api")
+include("mall-cloud-business:mall-cloud-account-biz:mall-cloud-account-grpc")
+include("mall-cloud-business:mall-cloud-account-biz:mall-cloud-account-service")
 
 //auth
-include("auth-service")
+include("mall-cloud-business:mall-cloud-auth-service")
 
 
 include("mall-cloud-kotlin:mall-cloud-demo")
