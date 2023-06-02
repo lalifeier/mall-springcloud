@@ -77,7 +77,10 @@ object Dependencies {
 
   const val flinkMySQLCDC = "com.ververica:flink-connector-mysql-cdc:${Versions.flinkMySQLCDC}"
 
-  const val shardingSphereJDBC = "org.apache.shardingsphere:sharding-jdbc-spring-boot-starter:${Versions.shardingSphereJDBC}"
+  const val shardingSphereJDBC =
+    "org.apache.shardingsphere:sharding-jdbc-spring-boot-starter:${Versions.shardingSphereJDBC}"
+  
+  const val easyExcel = "com.alibaba:easyexcel:${Versions.easyExcel}"
 
   val all by lazy {
     listOf(
@@ -100,7 +103,8 @@ object Dependencies {
       clickhouseJDBC,
       flinkConnectorJDBC, flinkConnectorKafka,
       flinkMySQLCDC,
-      shardingSphereJDBC
+      shardingSphereJDBC,
+      easyExcel
     )
   }
 }

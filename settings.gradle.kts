@@ -29,6 +29,7 @@ dependencyResolutionManagement {
 include("mall-cloud-common:mall-cloud-common-core")
 include("mall-cloud-common:mall-cloud-common-error")
 include("mall-cloud-common:mall-cloud-common-version")
+include("mall-cloud-common:mall-cloud-common-dict")
 
 //mall-cloud-starter
 include("mall-cloud-starter:mall-cloud-spring-boot-starter")

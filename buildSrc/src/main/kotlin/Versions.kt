@@ -61,5 +61,7 @@ object Versions {
   const val flinkMySQLCDC = "2.4-SNAPSHOT"
 
   const val shardingSphereJDBC = "4.1.1"
+
+  const val easyExcel = "3.3.2"
 }
 
