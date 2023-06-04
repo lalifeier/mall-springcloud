@@ -5,6 +5,7 @@ object Dependencies {
 
   const val lombok = "org.projectlombok:lombok:${Versions.lombok}"
   const val dubbo = "org.apache.dubbo:dubbo-spring-boot-starter:${Versions.dubbo}"
+  const val protobufJava = "com.google.protobuf:protobuf-java:${Versions.protobuf}"
   const val grpcNettyShaded = "io.grpc:grpc-netty-shaded:${Versions.grpc}" // gRPC 核心库
   const val grpcProtobuf = "io.grpc:grpc-protobuf:${Versions.grpc}" // gRPC Protocol Buffers 序列化支持
   const val grpcStub = "io.grpc:grpc-stub:${Versions.grpc}" // gRPC Stub 和客户端库
@@ -79,12 +80,14 @@ object Dependencies {
 
   const val shardingSphereJDBC =
     "org.apache.shardingsphere:sharding-jdbc-spring-boot-starter:${Versions.shardingSphereJDBC}"
-  
+
   const val easyExcel = "com.alibaba:easyexcel:${Versions.easyExcel}"
 
   val all by lazy {
     listOf(
-      lombok, dubbo, grpcNettyShaded, grpcProtobuf, grpcStub, grpcSpringBoot, springBootAdmin,
+      lombok,
+      dubbo, protobufJava,
+      grpcNettyShaded, grpcProtobuf, grpcStub, grpcSpringBoot, springBootAdmin,
       springSecurityOauth2, springCloudOauth2, springAuthorizationServer,
       mapstruct, mapstructProcessor,
       nimbusJoseJwt,

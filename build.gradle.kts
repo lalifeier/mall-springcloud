@@ -10,10 +10,10 @@ plugins {
   id("org.springframework.boot") version Versions.springBoot
 //    https://docs.spring.io/spring-boot/docs/2.6.13/gradle-plugin/reference/htmlsingle/#appendix-dependency-versions
   id("io.spring.dependency-management") version "1.0.15.RELEASE"
-  id("org.jetbrains.kotlin.jvm") version  Versions.kotlin
-  id("org.jetbrains.kotlin.plugin.spring") version  Versions.kotlin
-  id("com.bmuschko.docker-remote-api") version  Versions.dockerGadle
-  id("com.bmuschko.docker-spring-boot-application") version  Versions.dockerGadle
+  id("org.jetbrains.kotlin.jvm") version Versions.kotlin
+  id("org.jetbrains.kotlin.plugin.spring") version Versions.kotlin
+  id("com.bmuschko.docker-remote-api") version Versions.dockerGadle
+  id("com.bmuschko.docker-spring-boot-application") version Versions.dockerGadle
   id("com.google.protobuf") version Versions.protobufGradle
 //  id("org.sonarqube") version Versions.sonarqube
 }
@@ -39,7 +39,13 @@ allprojects {
 }
 
 val javaProjects = subprojects.filter { it.file("build.gradle.kts").exists() }
-val bootProjects = subprojects.filter { it.name.endsWith("-service") || it.name in listOf("mall-cloud-gateway", "mall-cloud-monitor", "mall-cloud-admin") }
+val bootProjects = subprojects.filter {
+  it.name.endsWith("-service") || it.name in listOf(
+    "mall-cloud-gateway",
+    "mall-cloud-monitor",
+    "mall-cloud-admin"
+  )
+}
 val grpcProjects = subprojects.filter { it.name.endsWith("-grpc") }
 //val kotlinProjects = subprojects.filter { it.file("build.gradle.kts").exists() }
 
@@ -123,6 +129,10 @@ configure(grpcProjects) {
       create("grpc") {
         artifact = "io.grpc:protoc-gen-grpc-java:${Versions.grpc}"
       }
+
+//      create("dubbo") {
+//        artifact = "org.apache.dubbo:dubbo-compiler:${Versions.dubbo}"
+//      }
     }
     generateProtoTasks {
       all().forEach {
@@ -188,7 +198,12 @@ configure(bootProjects) {
       baseImage.set("openjdk:17-alpine")
 //    maintainer.set("lalifeier")
       ports.set(listOf(9090, 8080))
-      images.set(setOf("${project.group}/${project.name}:${project.version}", "${project.group}/${project.name}:latest"))
+      images.set(
+        setOf(
+          "${project.group}/${project.name}:${project.version}",
+          "${project.group}/${project.name}:latest"
+        )
+      )
       jvmArgs.set(listOf("-Dspring.profiles.active=prod"))
     }
   }
