@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package com.github.lalifeier.mall.cloud.account.interfaces.grpc;
+
+option java_multiple_files = true;
+option java_package = "com.github.lalifeier.mall.cloud.account.interfaces.grpc";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/field_mask.proto";
+import "google/api/annotations.proto";
+
+service AccountService {
+  rpc Login(LoginRequest) returns (LoginResponse) {
+    option (google.api.http) = {
+      post: "/v1/login"
+      body: "*"
+    };
+  }
+  rpc Register(RegisterRequest) returns (RegisterResponse) {
+    option (google.api.http) = {
+      post: "/v1/register"
+      body: "*"
+    };
+  }
+}
+
+message LoginRequest {
+  optional string username = 1;
+  optional string password = 2;
+  optional string email = 3;
+  optional string phone = 4;
+  optional string code = 5;
+  string type = 6;
+}
+message LoginResponse {
+  uint32 id = 1;
+  string username = 2;
+  string email = 3;
+  string phone = 4;
+}
+
+message RegisterRequest {
+  optional string username = 1;
+  optional string password = 2;
+  optional string email = 3;
+  optional string phone = 4;
+  optional string code = 5;
+  string type = 6;
+}
+message RegisterResponse {uint32 id = 1;}

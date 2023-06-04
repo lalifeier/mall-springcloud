@@ -63,9 +63,6 @@ CREATE TABLE IF NOT EXISTS `account_device` (
   KEY `idx_login_ip` (`login_ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='帐号设备信息表';
 
-
-
-
 CREATE TABLE IF NOT EXISTS `xxx_app_user` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
   `account_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '账号id',

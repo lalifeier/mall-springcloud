@@ -21,3 +21,10 @@ spring:
         group: DEFAULT_GROUP
         file-extension: ${CONFIG_FILE_EXTENSION:yml}
         refresh-enabled: true
+
+# 动态路由配置
+route:
+  dynamic:
+    enabled: false
+    dataId: mall-gateway-route.json
+

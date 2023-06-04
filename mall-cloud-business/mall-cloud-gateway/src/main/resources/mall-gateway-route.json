@@ -1,0 +1,22 @@
+[
+  {
+    "id": "demo",
+    "uri": "lb://demo",
+    "predicates": [
+      {
+        "name": "Path",
+        "args": {
+          "pattern": "/api/demo/**"
+        }
+      }
+    ],
+    "filters": [
+      {
+        "name": "StripPrefix",
+        "args": {
+          "parts": "2"
+        }
+      }
+    ]
+  }
+]

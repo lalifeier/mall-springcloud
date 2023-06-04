@@ -1,33 +1,33 @@
 syntax = "proto3";
 
-//package com.github.lalifeier.mall.account_user.interfaces.rpc;
-//
-//option java_multiple_files = true;
-//option java_package = "com.github.lalifeier.mall.account_user.interfaces.rpc";
+package com.github.lalifeier.mall.cloud.account.interfaces.grpc;
+
+option java_multiple_files = true;
+option java_package = "com.github.lalifeier.mall.cloud.account.interfaces.grpc";
 
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 import "google/api/annotations.proto";
 
 service AccountUserService {
-  rpc CreateAccountUser(CreateAccountUserReq) returns (AccountUser) {
+  rpc CreateAccountUser(CreateAccountUserRequest) returns (AccountUser) {
     option (google.api.http) = {
       post : "/api/account_user"
       body : "*"
     };
   }
-  rpc UpdateAccountUser(UpdateAccountUserReq) returns (AccountUser) {
+  rpc UpdateAccountUser(UpdateAccountUserRequest) returns (AccountUser) {
     option (google.api.http) = {
       put : "/api/account_user/{id}"
       body : "*"
     };
   }
-  rpc DeleteAccountUser(DeleteAccountUserReq) returns (google.protobuf.Empty) {
+  rpc DeleteAccountUser(DeleteAccountUserRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
       delete : "/api/account_user/{id}"
     };
   }
-  rpc GetAccountUser(GetAccountUserReq) returns (AccountUser) {
+  rpc GetAccountUser(GetAccountUserRequest) returns (AccountUser) {
     option (google.api.http) = {
       get : "/api/account_user/{id}"
     };
@@ -44,17 +44,17 @@ message AccountUser {
   optional string username = 2;
 }
 
-message CreateAccountUserReq {
+message CreateAccountUserRequest {
   AccountUser AccountUser = 1;
 }
-message UpdateAccountUserReq {
+message UpdateAccountUserRequest {
   uint32 id = 1;
   AccountUser AccountUser = 2;
 }
 
-message DeleteAccountUserReq {uint32 id = 1;}
+message DeleteAccountUserRequest {uint32 id = 1;}
 
-message GetAccountUserReq {
+message GetAccountUserRequest {
   uint32 id = 1;
   google.protobuf.FieldMask field_mask = 2;
 }

@@ -1,16 +1,11 @@
 package com.github.lalifeier.mall.cloud.account.domain.account.model.entity;
 
-import java.time.LocalDateTime;
-
-import com.github.lalifeier.mall.cloud.account.domain.account.model.valueobject.AccountId;
-import com.github.lalifeier.mall.cloud.account.domain.account.model.valueobject.AccountName;
-import com.github.lalifeier.mall.cloud.account.domain.account.model.valueobject.AccountPassword;
-import com.github.lalifeier.mall.cloud.account.domain.account.model.valueobject.Email;
-import com.github.lalifeier.mall.cloud.account.domain.account.model.valueobject.PhoneNumber;
+import com.github.lalifeier.mall.cloud.account.domain.account.model.valueobject.*;
 import com.github.lalifeier.mall.cloud.common.model.StatusEnum;
 import com.github.lalifeier.mall.cloud.common.model.ddd.Aggregate;
-
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @Data
 public class AccountDO implements Aggregate<AccountId> {
@@ -37,5 +32,4 @@ public class AccountDO implements Aggregate<AccountId> {
     account.setPassword(password);
     return account;
   }
-
 }
