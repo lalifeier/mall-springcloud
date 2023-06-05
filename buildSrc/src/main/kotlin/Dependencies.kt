@@ -2,10 +2,10 @@ object Dependencies {
   const val springBoot = "org.springframework.boot:spring-boot-dependencies:${Versions.springBoot}"
   const val springCloud = "org.springframework.cloud:spring-cloud-dependencies:${Versions.springCloud}"
   const val springCloudAlibaba = "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${Versions.springCloudAlibaba}"
-
   const val lombok = "org.projectlombok:lombok:${Versions.lombok}"
   const val dubbo = "org.apache.dubbo:dubbo-spring-boot-starter:${Versions.dubbo}"
   const val protobufJava = "com.google.protobuf:protobuf-java:${Versions.protobuf}"
+  const val protobufJavaUtil = "com.google.protobuf:protobuf-java-util:${Versions.protobuf}"
   const val grpcNettyShaded = "io.grpc:grpc-netty-shaded:${Versions.grpc}" // gRPC 核心库
   const val grpcProtobuf = "io.grpc:grpc-protobuf:${Versions.grpc}" // gRPC Protocol Buffers 序列化支持
   const val grpcStub = "io.grpc:grpc-stub:${Versions.grpc}" // gRPC Stub 和客户端库
@@ -86,7 +86,7 @@ object Dependencies {
   val all by lazy {
     listOf(
       lombok,
-      dubbo, protobufJava,
+      dubbo, protobufJava, protobufJavaUtil,
       grpcNettyShaded, grpcProtobuf, grpcStub, grpcSpringBoot, springBootAdmin,
       springSecurityOauth2, springCloudOauth2, springAuthorizationServer,
       mapstruct, mapstructProcessor,

@@ -24,16 +24,37 @@ allprojects {
 
 //  sourceSets {
 //    main {
-//      java.srcDirs("src/main/java")
-////      kotlin.srcDirs("src/main/kotlin")
-//      proto.srcDirs("src/main/proto")
-//      resources.srcDirs("src/main/resources")
+//      java {
+//        srcDirs("src/main/java")
+//        srcDir("build/generated/source/proto/main/java")
+//      }
+////      kotlin{
+////        java {
+////          srcDirs("src/main/kotlin")
+////        }
+////      }
+//      proto {
+//        srcDirs("src/main/proto")
+//      }
+//      resources {
+//        srcDirs("src/main/resources")
+//      }
 //    }
 //    test {
-//      java.srcDirs("src/test/java")
-////      kotlin.srcDirs("src/test/kotlin")
-//      proto.srcDirs("src/test/proto")
-//      resources.srcDirs("src/test/resources")
+//      java {
+//        srcDirs("src/test/java")
+//      }
+////      kotlin{
+////        java {
+////          srcDirs("src/test/kotlin")
+////        }
+////      }
+//      proto {
+//        srcDirs("src/test/proto")
+//      }
+//      resources {
+//        srcDirs("src/test/resources")
+//      }
 //    }
 //  }
 }
@@ -47,6 +68,7 @@ val bootProjects = subprojects.filter {
   )
 }
 val grpcProjects = subprojects.filter { it.name.endsWith("-grpc") }
+val dubboProjects = subprojects.filter { it.name.endsWith("-dubbo") }
 //val kotlinProjects = subprojects.filter { it.file("build.gradle.kts").exists() }
 
 configure(javaProjects) {
@@ -59,12 +81,12 @@ configure(javaProjects) {
   apply(plugin = "org.jetbrains.kotlin.plugin.spring")
 
   configurations {
-//    all {
-//      resolutionStrategy {
-//        cacheChangingModulesFor(24, "hours")
-//        cacheDynamicVersionsFor(24, "hours")
-//      }
-//    }
+    all {
+      resolutionStrategy {
+        cacheChangingModulesFor(24, "hours")
+        cacheDynamicVersionsFor(24, "hours")
+      }
+    }
     getByName("compileOnly") {
       extendsFrom(getByName("annotationProcessor"))
     }
@@ -129,15 +151,49 @@ configure(grpcProjects) {
       create("grpc") {
         artifact = "io.grpc:protoc-gen-grpc-java:${Versions.grpc}"
       }
-
-//      create("dubbo") {
-//        artifact = "org.apache.dubbo:dubbo-compiler:${Versions.dubbo}"
-//      }
     }
     generateProtoTasks {
       all().forEach {
         it.plugins {
           create("grpc")
+        }
+      }
+    }
+  }
+}
+
+//val osName = System.getProperty("os.name").toLowerCase()
+//val osArch = System.getProperty("os.arch").toLowerCase()
+//val osClassifier = when {
+//  osName.contains("windows") -> "windows-x86_64"
+//  osName.contains("mac") -> "osx-x86_64"
+//  osName.contains("linux") -> if (osArch.contains("64")) "linux-x86_64" else "linux-x86"
+//  else -> throw GradleException("Unsupported OS: ${osName.toUpperCase()}")
+//}
+
+//dubbo
+configure(dubboProjects) {
+//  apply(from = "$rootDir/gradle/protobuf.gradle.kts")
+
+  apply(plugin = "com.google.protobuf")
+
+  protobuf {
+    protoc {
+      artifact = "com.google.protobuf:protoc:${Versions.protobuf}"
+//        "com.google.protobuf:protoc:${Versions.protobuf}:${org.gradle.internal.os.OperatingSystem.current()}"
+//      artifact = "com.google.protobuf:protoc:${Versions.protobuf}:exe:${osClassifier}"
+    }
+
+    plugins {
+      create("dubbo") {
+        artifact = "org.apache.dubbo:dubbo-compiler:${Versions.dubbo}"
+//        mainClass = "org.apache.dubbo.gen.tri.Dubbo3TripleGenerator"
+      }
+    }
+    generateProtoTasks {
+      all().forEach {
+        it.plugins {
+          create("dubbo")
         }
       }
     }

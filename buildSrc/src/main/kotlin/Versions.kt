@@ -6,7 +6,7 @@ object Versions {
   const val dockerGadle = "9.3.1"
   const val lombok = "1.18.24"
   const val sl4jApi = "2.0.6"
-  const val dubbo = "3.1.1"
+  const val dubbo = "3.1.8"
   const val grpc = "1.55.1"
   const val protobuf = "3.23.0"
   const val protobufGradle = "0.9.3"
