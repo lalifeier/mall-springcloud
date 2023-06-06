@@ -7,4 +7,7 @@ dependencies {
     // see: https://github.com/grpc/grpc-java/issues/3633
     compileOnly("jakarta.annotation:jakarta.annotation-api")
   }
+
+  implementation("io.grpc:grpc-kotlin-stub")
+  implementation("com.google.protobuf:protobuf-kotlin")
 }

@@ -6,10 +6,14 @@ object Versions {
   const val dockerGadle = "9.3.1"
   const val lombok = "1.18.24"
   const val sl4jApi = "2.0.6"
-  const val dubbo = "3.1.8"
+  const val dubbo = "3.2.0"
   const val grpc = "1.55.1"
-  const val protobuf = "3.23.0"
+  const val protobuf = "3.22.2"
   const val protobufGradle = "0.9.3"
+
+  const val grpcKotlin = "1.3.0"
+
+
   const val sonarqube = "4.1.0.3113"
   const val grpcSpringBoot = "2.13.1.RELEASE"
   const val springBootAdmin = "2.6.9"

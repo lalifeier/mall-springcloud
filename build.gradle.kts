@@ -18,45 +18,43 @@ plugins {
 //  id("org.sonarqube") version Versions.sonarqube
 }
 
+sourceSets {
+  main {
+    java {
+      srcDirs("src/main/java")
+      srcDirs("build/generated/source/proto/main/java")
+    }
+//    kotlin {
+//      srcDir("src/main/kotlin")
+//    }
+    proto {
+      srcDirs("src/main/proto")
+    }
+    resources {
+      srcDirs("src/main/resources")
+    }
+  }
+  test {
+    java {
+      srcDirs("src/test/java")
+    }
+//    kotlin {
+//        srcDirs("src/test/kotlin")
+//    }
+    proto {
+      srcDirs("src/test/proto")
+    }
+    resources {
+      srcDirs("src/test/resources")
+    }
+  }
+}
+
 allprojects {
   group = "com.github.lalifeier"
   version = project.findProperty("version") as String
 
-//  sourceSets {
-//    main {
-//      java {
-//        srcDirs("src/main/java")
-//        srcDir("build/generated/source/proto/main/java")
-//      }
-////      kotlin{
-////        java {
-////          srcDirs("src/main/kotlin")
-////        }
-////      }
-//      proto {
-//        srcDirs("src/main/proto")
-//      }
-//      resources {
-//        srcDirs("src/main/resources")
-//      }
-//    }
-//    test {
-//      java {
-//        srcDirs("src/test/java")
-//      }
-////      kotlin{
-////        java {
-////          srcDirs("src/test/kotlin")
-////        }
-////      }
-//      proto {
-//        srcDirs("src/test/proto")
-//      }
-//      resources {
-//        srcDirs("src/test/resources")
-//      }
-//    }
-//  }
+
 }
 
 val javaProjects = subprojects.filter { it.file("build.gradle.kts").exists() }
@@ -151,11 +149,27 @@ configure(grpcProjects) {
       create("grpc") {
         artifact = "io.grpc:protoc-gen-grpc-java:${Versions.grpc}"
       }
+//      create("grpckt") {
+//        artifact = "io.grpc:protoc-gen-grpc-kotlin:${Versions.grpcKotlin}:jdk8@jar"
+//      }
     }
     generateProtoTasks {
       all().forEach {
         it.plugins {
-          create("grpc")
+          create("grpc") {
+            option("lite")
+          }
+//          create("grpckt") {
+//            option("lite")
+//          }
+        }
+        it.builtins {
+          named("java") {
+            option("lite")
+          }
+//          create("kotlin") {
+//            option("lite")
+//          }
         }
       }
     }

@@ -9,6 +9,8 @@ object Dependencies {
   const val grpcNettyShaded = "io.grpc:grpc-netty-shaded:${Versions.grpc}" // gRPC 核心库
   const val grpcProtobuf = "io.grpc:grpc-protobuf:${Versions.grpc}" // gRPC Protocol Buffers 序列化支持
   const val grpcStub = "io.grpc:grpc-stub:${Versions.grpc}" // gRPC Stub 和客户端库
+  const val grpcKotlinStub = "io.grpc:grpc-kotlin-stub:${Versions.grpcKotlin}"
+  const val protobufKotlin = "com.google.protobuf:protobuf-kotlin:${Versions.protobuf}"
   const val grpcSpringBoot = "net.devh:grpc-spring-boot-starter:${Versions.grpcSpringBoot}"
   const val springBootAdmin = "de.codecentric:spring-boot-admin-starter-server:${Versions.springBootAdmin}"
   const val springSecurityOauth2 =
@@ -87,7 +89,9 @@ object Dependencies {
     listOf(
       lombok,
       dubbo, protobufJava, protobufJavaUtil,
-      grpcNettyShaded, grpcProtobuf, grpcStub, grpcSpringBoot, springBootAdmin,
+      grpcNettyShaded, grpcProtobuf, grpcStub,
+      grpcKotlinStub, protobufKotlin,
+      grpcSpringBoot, springBootAdmin,
       springSecurityOauth2, springCloudOauth2, springAuthorizationServer,
       mapstruct, mapstructProcessor,
       nimbusJoseJwt,
