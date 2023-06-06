@@ -35,7 +35,7 @@ public class DictSerializer extends StdSerializer<Object> implements ContextualS
 
     // 创建新的DictSerializer对象，并设置字典类型和字典目标
     DictSerializer dictSerializer = new DictSerializer();
-    dictSerializer.setDictType(dict.type1());
+    dictSerializer.setDictType(dict.type());
     dictSerializer.setDictTarget(dict.target());
     return dictSerializer;
   }
