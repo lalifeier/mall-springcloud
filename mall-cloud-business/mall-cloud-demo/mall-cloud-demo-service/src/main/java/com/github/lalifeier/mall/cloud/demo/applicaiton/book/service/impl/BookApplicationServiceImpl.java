@@ -1,16 +1,16 @@
 package com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.impl;
 
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.converter.BookConverter;
 import com.github.lalifeier.mall.cloud.common.model.PageList;
 import com.github.lalifeier.mall.cloud.common.model.PageRequest;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.bo.BookBO;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.bo.CreateBookBO;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.bo.UpdateBookBO;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.converter.BookConverter;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.BookApplicationService;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.BookDO;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.valueobject.BookId;
 import com.github.lalifeier.mall.cloud.demo.domain.book.repository.BookRepository;
 import com.github.lalifeier.mall.cloud.demo.domain.book.service.BookDomainService;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.bo.BookBO;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.bo.CreateBookBO;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.bo.UpdateBookBO;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.BookApplicationService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,11 +58,10 @@ public class BookApplicationServiceImpl implements BookApplicationService {
 
   @Override
   public PageList<BookBO> getBooks(PageRequest request) {
-    PageList<BookDO> bookDOPageList = bookRepository.page(request);
+    PageList<BookDO> bookDOPageList = bookRepository.pageList(request);
     return this.bookConverter.toDTO(bookDOPageList);
   }
-
-
+  
   @Override
   public List<BookBO> getAllBooks() {
     //List<BookDO> bookDOList = bookDomainService.getAllBooks();

@@ -1,12 +1,12 @@
-package com.github.lalifeier.mall.cloud.demo.interfaces.api.book.converter;
+package com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.converter;
 
+import com.github.lalifeier.mall.cloud.common.model.PageList;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.bo.BookBO;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.bo.CreateBookBO;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.bo.UpdateBookBO;
-import com.github.lalifeier.mall.cloud.common.model.PageList;
-import com.github.lalifeier.mall.cloud.demo.interfaces.api.book.model.request.CreateBookRequest;
-import com.github.lalifeier.mall.cloud.demo.interfaces.api.book.model.request.UpdateBookRequest;
-import com.github.lalifeier.mall.cloud.demo.interfaces.api.book.model.response.BookResponse;
+import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.CreateBookRequest;
+import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.UpdateBookRequest;
+import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.response.BookResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

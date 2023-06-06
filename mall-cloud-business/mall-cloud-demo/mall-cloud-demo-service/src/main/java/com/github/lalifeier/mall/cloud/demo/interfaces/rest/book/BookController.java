@@ -1,16 +1,16 @@
-package com.github.lalifeier.mall.cloud.demo.interfaces.api.book;
+package com.github.lalifeier.mall.cloud.demo.interfaces.rest.book;
 
+import com.github.lalifeier.mall.cloud.common.model.PageList;
+import com.github.lalifeier.mall.cloud.common.result.PageResult;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.bo.BookBO;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.bo.CreateBookBO;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.bo.UpdateBookBO;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.BookApplicationService;
-import com.github.lalifeier.mall.cloud.demo.interfaces.api.book.converter.BookConverter;
-import com.github.lalifeier.mall.cloud.demo.interfaces.api.book.model.request.BookPageRequest;
-import com.github.lalifeier.mall.cloud.demo.interfaces.api.book.model.request.CreateBookRequest;
-import com.github.lalifeier.mall.cloud.demo.interfaces.api.book.model.request.UpdateBookRequest;
-import com.github.lalifeier.mall.cloud.demo.interfaces.api.book.model.response.BookResponse;
-import com.github.lalifeier.mall.cloud.common.model.PageList;
-import com.github.lalifeier.mall.cloud.common.result.PageResult;
+import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.converter.BookConverter;
+import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.BookPageRequest;
+import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.CreateBookRequest;
+import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.UpdateBookRequest;
+import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.response.BookResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.validation.annotation.Validated;

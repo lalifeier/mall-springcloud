@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.demo.interfaces.api.book.model.request;
+package com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

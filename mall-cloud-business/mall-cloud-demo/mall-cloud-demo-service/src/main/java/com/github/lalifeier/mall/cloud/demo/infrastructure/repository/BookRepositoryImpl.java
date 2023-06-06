@@ -5,14 +5,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.lalifeier.mall.cloud.common.model.PageList;
+import com.github.lalifeier.mall.cloud.common.model.PageRequest;
+import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.BookDO;
+import com.github.lalifeier.mall.cloud.demo.domain.book.model.valueobject.BookId;
+import com.github.lalifeier.mall.cloud.demo.domain.book.repository.BookRepository;
 import com.github.lalifeier.mall.cloud.demo.infrastructure.repository.mybatis.book.converter.BookConverter;
 import com.github.lalifeier.mall.cloud.demo.infrastructure.repository.mybatis.book.mapper.BookMapper;
 import com.github.lalifeier.mall.cloud.demo.infrastructure.repository.mybatis.book.po.BookPO;
-import com.github.lalifeier.mall.cloud.common.model.PageList;
-import com.github.lalifeier.mall.cloud.common.model.PageRequest;
-import com.github.lalifeier.mall.cloud.demo.domain.book.repository.BookRepository;
-import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.BookDO;
-import com.github.lalifeier.mall.cloud.demo.domain.book.model.valueobject.BookId;
 import com.github.lalifeier.mall.cloud.mybatisplus.converter.MybatisPlusPageConverter;
 import com.github.lalifeier.mall.cloud.mybatisplus.utils.QueryWrapperUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -59,9 +59,6 @@ public class BookRepositoryImpl implements BookRepository {
   @Override
   public void save(@NotNull BookDO aggregate) {
     BookPO bookPO = bookConverter.convert(aggregate);
-
-    log.info(bookPO.toString());
-
     if (aggregate.getId() != null && aggregate.getId().getValue() > 0) {
       bookMapper.updateById(bookPO);
     } else {
@@ -82,7 +79,7 @@ public class BookRepositoryImpl implements BookRepository {
     return bookConverter.convertList(bookPOList);
   }
 
-  public PageList<BookDO> page(PageRequest request) {
+  public PageList<BookDO> pageList(PageRequest request) {
     Page<BookPO> page = new Page<>(request.getPageNum(), request.getPageSize());
 
     QueryWrapper<BookPO> queryWrapper = QueryWrapperUtils.buildQueryWrapper(BookPO.class, request);

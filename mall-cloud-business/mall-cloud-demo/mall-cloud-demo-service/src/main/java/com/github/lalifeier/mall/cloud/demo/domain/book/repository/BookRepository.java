@@ -11,5 +11,5 @@ import java.util.List;
 public interface BookRepository extends Repository<BookDO, BookId> {
   List<BookDO> findAll();
 
-  PageList<BookDO> page(PageRequest request);
+  PageList<BookDO> pageList(PageRequest request);
 }

@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.demo.interfaces.api.book.model.response;
+package com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.response;
 
 import lombok.Data;
 
