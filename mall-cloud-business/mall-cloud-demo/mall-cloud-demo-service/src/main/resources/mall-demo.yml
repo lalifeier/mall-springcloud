@@ -61,6 +61,7 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     cache-enabled: false
     url-encoder: false
+#  type-enums-package: com.github.lalifeier.mall.cloud.demo.enums
 
 dubbo:
   application:

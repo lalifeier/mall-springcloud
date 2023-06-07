@@ -13,7 +13,7 @@ import com.github.lalifeier.mall.cloud.demo.domain.book.repository.BookRepositor
 import com.github.lalifeier.mall.cloud.demo.infrastructure.repository.mybatis.book.converter.BookConverter;
 import com.github.lalifeier.mall.cloud.demo.infrastructure.repository.mybatis.book.mapper.BookMapper;
 import com.github.lalifeier.mall.cloud.demo.infrastructure.repository.mybatis.book.po.BookPO;
-import com.github.lalifeier.mall.cloud.mybatisplus.converter.MybatisPlusPageConverter;
+import com.github.lalifeier.mall.cloud.mybatisplus.converter.PageConverter;
 import com.github.lalifeier.mall.cloud.mybatisplus.utils.QueryWrapperUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
@@ -86,6 +86,6 @@ public class BookRepositoryImpl implements BookRepository {
 
     IPage<BookPO> bookPage = bookMapper.selectPage(page, queryWrapper);
 
-    return MybatisPlusPageConverter.convert(bookPage, bookConverter::convert);
+    return PageConverter.convert(bookPage, bookConverter::convert);
   }
 }

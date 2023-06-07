@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class MybatisPlusPageConverter {
+public class PageConverter {
   public static <T, R> PageList<R> convert(com.baomidou.mybatisplus.extension.plugins.pagination.Page<T> page,
                                            Function<T, R> mapper) {
     List<R> records = page.getRecords().stream().map(mapper).collect(Collectors.toList());

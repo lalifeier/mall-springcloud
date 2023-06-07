@@ -5,8 +5,6 @@ import com.github.lalifeier.mall.cloud.common.model.StatusEnum;
 import com.github.lalifeier.mall.cloud.common.model.ddd.Aggregate;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 public class AccountDO implements Aggregate<AccountId> {
   private AccountId id;
@@ -14,11 +12,6 @@ public class AccountDO implements Aggregate<AccountId> {
   private PhoneNumber phone;
   private AccountName username;
   private AccountPassword password;
-  private LocalDateTime createdAt;
-  private String createIp;
-  private LocalDateTime lastLoginAt;
-  private String lastLoginIp;
-  private int loginTimes;
   private StatusEnum status;
 
   @Override
@@ -30,6 +23,19 @@ public class AccountDO implements Aggregate<AccountId> {
     AccountDO account = new AccountDO();
     account.setUsername(username);
     account.setPassword(password);
+    return account;
+  }
+
+  public static AccountDO createAccount(Email email, AccountPassword password) {
+    AccountDO account = new AccountDO();
+    account.setEmail(email);
+    account.setPassword(password);
+    return account;
+  }
+
+  public static AccountDO createAccount(PhoneNumber phone) {
+    AccountDO account = new AccountDO();
+    account.setPhone(phone);
     return account;
   }
 }
