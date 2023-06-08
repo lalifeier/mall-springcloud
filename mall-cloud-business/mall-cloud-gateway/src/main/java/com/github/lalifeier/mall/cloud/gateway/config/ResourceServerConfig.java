@@ -1,7 +1,7 @@
 package com.github.lalifeier.mall.cloud.gateway.config;
 
 import cn.hutool.core.util.ArrayUtil;
-import com.github.lalifeier.mall.cloud.common.constant.Common;
+import com.github.lalifeier.mall.cloud.common.constant.CommonConstant;
 import com.github.lalifeier.mall.cloud.common.result.Result;
 import com.github.lalifeier.mall.cloud.common.utils.JsonUtils;
 import com.github.lalifeier.mall.cloud.gateway.component.AuthorizationManager;
@@ -97,8 +97,8 @@ public class ResourceServerConfig {
   @Bean
   public Converter<Jwt, ? extends Mono<? extends AbstractAuthenticationToken>> jwtAuthenticationConverter() {
     JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-    jwtGrantedAuthoritiesConverter.setAuthorityPrefix(Common.AUTHORITY_PREFIX);
-    jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName(Common.AUTHORITY_CLAIM_NAME);
+    jwtGrantedAuthoritiesConverter.setAuthorityPrefix(CommonConstant.AUTHORITY_PREFIX);
+    jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName(CommonConstant.AUTHORITY_CLAIM_NAME);
     JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
     jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
     return new ReactiveJwtAuthenticationConverterAdapter(jwtAuthenticationConverter);

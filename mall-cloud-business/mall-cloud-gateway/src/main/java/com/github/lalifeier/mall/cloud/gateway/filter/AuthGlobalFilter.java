@@ -1,6 +1,6 @@
 package com.github.lalifeier.mall.cloud.gateway.filter;
 
-import com.github.lalifeier.mall.cloud.common.constant.Common;
+import com.github.lalifeier.mall.cloud.common.constant.CommonConstant;
 import com.nimbusds.jose.JWSObject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -27,7 +27,7 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
 
     try {
       //从token中解析用户信息并设置到Header中去
-      String realToken = token.replace(Common.BEARER_TYPE, "").trim();
+      String realToken = token.replace(CommonConstant.BEARER_TYPE, "").trim();
       log.info("Authorization：{}", realToken);
       JWSObject jwsObject = JWSObject.parse(realToken);
       String userStr = jwsObject.getPayload().toString();

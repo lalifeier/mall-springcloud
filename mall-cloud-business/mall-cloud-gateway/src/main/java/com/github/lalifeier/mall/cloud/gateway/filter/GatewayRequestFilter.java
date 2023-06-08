@@ -1,6 +1,6 @@
 package com.github.lalifeier.mall.cloud.gateway.filter;
 
-import com.github.lalifeier.mall.cloud.common.constant.Common;
+import com.github.lalifeier.mall.cloud.common.constant.CommonConstant;
 import com.github.lalifeier.mall.cloud.common.utils.JsonUtils;
 import com.google.gson.JsonObject;
 import com.nimbusds.jose.JWSObject;
@@ -43,7 +43,7 @@ public class GatewayRequestFilter implements GlobalFilter {
 
 
   private boolean isBlack(String headerToken) throws ParseException {
-    String token = headerToken.replace(Common.BEARER_TYPE, "").trim();
+    String token = headerToken.replace(CommonConstant.BEARER_TYPE, "").trim();
 
     JWSObject jwsObject = JWSObject.parse(token);
     String payload = jwsObject.getPayload().toString();
@@ -52,7 +52,7 @@ public class GatewayRequestFilter implements GlobalFilter {
     JsonObject jsonObject = JsonUtils.json2Bean(payload, JsonObject.class);
 
     String jti = jsonObject.get("jti").getAsString();
-    return redisTemplate.hasKey(Common.TOKEN_BLACKLIST_PREFIX + jti);
+    return redisTemplate.hasKey(CommonConstant.TOKEN_BLACKLIST_PREFIX + jti);
   }
 
   private boolean isPv(String requestUri) {

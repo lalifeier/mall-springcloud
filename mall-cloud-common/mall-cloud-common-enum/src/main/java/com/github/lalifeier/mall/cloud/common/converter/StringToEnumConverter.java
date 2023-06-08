@@ -20,6 +20,10 @@ public class StringToEnumConverter<T extends BaseEnum<String>> implements Conver
 
   @Override
   public T convert(@NotNull String source) {
-    return enumConstantMap.get(source);
+    T enumValue = enumConstantMap.get(source);
+    if (enumValue == null) {
+      throw new IllegalArgumentException("StringToEnumConverter: invalid enum code " + source);
+    }
+    return enumValue;
   }
 }

@@ -1,3 +1,4 @@
 dependencies {
-  implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+  api("org.springframework.cloud:spring-cloud-starter-openfeign")
+  api("io.github.openfeign:feign-okhttp")
 }

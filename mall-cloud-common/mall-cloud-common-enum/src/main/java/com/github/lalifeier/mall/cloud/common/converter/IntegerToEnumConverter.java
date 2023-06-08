@@ -20,6 +20,10 @@ public class IntegerToEnumConverter<T extends BaseEnum<Integer>> implements Conv
 
   @Override
   public T convert(@NotNull Integer source) {
-    return enumConstantMap.get(source);
+    T enumValue = enumConstantMap.get(source);
+    if (enumValue == null) {
+      throw new IllegalArgumentException("IntegerToEnumConverter: invalid enum code " + source);
+    }
+    return enumValue;
   }
 }
