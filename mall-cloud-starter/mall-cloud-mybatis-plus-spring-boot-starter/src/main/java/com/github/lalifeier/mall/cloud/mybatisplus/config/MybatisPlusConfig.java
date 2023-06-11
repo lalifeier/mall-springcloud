@@ -4,15 +4,17 @@ import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.dialects.MySqlDialect;
+import com.github.lalifeier.mall.cloud.mybatisplus.injector.MySqlInjector;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
-@EnableTransactionManagement
 @Configuration
-//@MapperScan("com.github.lalifeier.mall.demo.infrastructure")
+@EnableTransactionManagement
 public class MybatisPlusConfig {
+
+
   @Bean
   public MybatisPlusInterceptor mybatisPlusInterceptor() {
     MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
@@ -30,4 +32,8 @@ public class MybatisPlusConfig {
     return interceptor;
   }
 
+  @Bean
+  public MySqlInjector mysqlInjector() {
+    return new MySqlInjector();
+  }
 }

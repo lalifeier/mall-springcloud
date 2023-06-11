@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IEnum;
 
 import java.io.Serializable;
 
-public interface IDictEnum<T extends Serializable> extends IEnum<T> {
+public interface DictEnum<T extends Serializable> extends IEnum<T> {
 //  /**
 //   * 数据库中存储的值
 //   *

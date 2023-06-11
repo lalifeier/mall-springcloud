@@ -29,7 +29,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
+    url: jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&rewriteBatchedStatements=true
     username: root
     password: 123456
 
@@ -134,6 +134,12 @@ feign:
 #  ribbon:
 #    ReadTimeout: 5000
 #    ConnectTimeout: 5000
+
+encrypt:
+  body:
+    enable: false
+    publicKey: ""
+    privateKey: ""
 
 management:
   endpoints:

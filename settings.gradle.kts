@@ -48,7 +48,7 @@ include("mall-cloud-starter:mall-cloud-double-cache-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-http-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-xxl-job-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-local-cache-spring-boot-starter")
-
+include("mall-cloud-starter:mall-cloud-encrypt-body-spring-boot-starter")
 
 //demo
 include("mall-cloud-business:mall-cloud-demo:mall-cloud-demo-api")
