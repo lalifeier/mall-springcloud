@@ -7,6 +7,7 @@ import com.github.lalifeier.mall.cloud.common.utils.RSAUtil;
 import com.github.lalifeier.mall.cloud.encryptbody.annotation.EncryptRequest;
 import com.github.lalifeier.mall.cloud.encryptbody.config.EncryptBodyConfig;
 import com.github.lalifeier.mall.cloud.encryptbody.http.DecryptHttpInputMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpMethod;
@@ -21,6 +22,7 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
+@Slf4j
 @ControllerAdvice
 public class DecryptRequestBodyAdvice implements RequestBodyAdvice {
   private final EncryptBodyConfig config;

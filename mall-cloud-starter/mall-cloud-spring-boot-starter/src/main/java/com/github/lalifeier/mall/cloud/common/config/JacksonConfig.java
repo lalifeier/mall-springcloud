@@ -1,13 +1,5 @@
-//package com.github.lalifeier.config;
-//
-//import com.fasterxml.jackson.annotation.JsonInclude;
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.context.annotation.Primary;
-//import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
-//
+package com.github.lalifeier.mall.cloud.common.config;
+
 //@Configuration
 //public class JacksonConfig {
 //    @Bean
@@ -18,4 +10,19 @@
 //        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 //        return objectMapper;
 //    }
+//}
+
+
+//@Configuration
+//public class JacksonConfig implements SmartInitializingSingleton {
+//
+//  @Autowired
+//  private ObjectMapper objectMapper;
+//
+//  @Override
+//  public void afterSingletonsInstantiated() {
+//    SimpleModule simpleModule = new SimpleModule();
+//    simpleModule.addDeserializer(Enum.class, new EnumDeserializer());
+//    objectMapper.registerModule(simpleModule);
+//  }
 //}

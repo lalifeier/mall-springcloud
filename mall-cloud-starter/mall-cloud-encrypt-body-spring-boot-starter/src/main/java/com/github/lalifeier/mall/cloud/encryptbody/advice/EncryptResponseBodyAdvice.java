@@ -47,7 +47,7 @@ public class EncryptResponseBodyAdvice implements ResponseBodyAdvice<Object> {
   }
 
 
-  public String encryptData(String data, String publicKey) throws Exception {
+  public Map<String, String> encryptData(String data, String publicKey) throws Exception {
     String aesKey = AESUtil.generateKeyString();
     String encryptData = AESUtil.encrypt(data, aesKey);
     String key = RSAUtil.encrypt(aesKey, publicKey);
@@ -56,7 +56,7 @@ public class EncryptResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     encryptedData.put("data", encryptData);
     encryptedData.put("key", key);
 
-    return objectMapper.writeValueAsString(encryptedData);
+    return encryptedData;
   }
 
 
@@ -79,11 +79,11 @@ public class EncryptResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
       if (body instanceof Result) {
         Object data = ((Result<?>) body).getData();
-        String encryptData = encryptData((String) data, publicKey);
-        ((Result<String>) body).setData(encryptData);
+        Map<String, String> encryptData = encryptData((String) data, publicKey);
+        ((Result<Map<String, String>>) body).setData(encryptData);
         return body;
       } else {
-        return encryptData((String) body, publicKey);
+        return objectMapper.writeValueAsString((encryptData((String) body, publicKey)));
       }
     } catch (Exception e) {
       log.error("Failed to encrypt the response body", e);

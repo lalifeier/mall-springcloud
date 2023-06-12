@@ -3,9 +3,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
+  idea
   java
   `java-library`
-  idea
   `maven-publish`
   id("org.springframework.boot") version Versions.springBoot
 //    https://docs.spring.io/spring-boot/docs/2.6.13/gradle-plugin/reference/htmlsingle/#appendix-dependency-versions

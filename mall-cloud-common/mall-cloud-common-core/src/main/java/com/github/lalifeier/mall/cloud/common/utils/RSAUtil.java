@@ -62,10 +62,11 @@ public class RSAUtil {
    * @return 公钥对象
    * @throws InvalidKeySpecException 如果公钥字符串无效
    */
-  public static PublicKey loadPublicKey(String publicKeyStr, CipherAlgorithm algorithm) throws Exception {
+  public static PublicKey loadPublicKey(String publicKeyStr) throws Exception {
     byte[] publicKeyBytes = Base64.decodeBase64(publicKeyStr.getBytes(CHARSET));
     X509EncodedKeySpec keySpec = new X509EncodedKeySpec(publicKeyBytes);
-    return RSAUtil.generatePublicKey(keySpec, algorithm);
+    KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+    return keyFactory.generatePublic(keySpec);
   }
 
   /**
@@ -75,10 +76,11 @@ public class RSAUtil {
    * @return 私钥对象
    * @throws InvalidKeySpecException 如果私钥字符串无效
    */
-  public static PrivateKey loadPrivateKey(String privateKeyStr, CipherAlgorithm algorithm) throws Exception {
+  public static PrivateKey loadPrivateKey(String privateKeyStr) throws Exception {
     byte[] privateKeyBytes = Base64.decodeBase64(privateKeyStr.getBytes(CHARSET));
     PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
-    return RSAUtil.generatePrivateKey(keySpec, algorithm);
+    KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+    return keyFactory.generatePrivate(keySpec);
   }
 
   /**
@@ -97,12 +99,12 @@ public class RSAUtil {
   }
 
   public static String encrypt(String data, String publicKey, CipherAlgorithm algorithm) throws Exception {
-    PublicKey key = loadPublicKey(publicKey, algorithm);
+    PublicKey key = loadPublicKey(publicKey);
     return RSAUtil.encrypt(data, key, algorithm);
   }
 
   public static String encrypt(String data, String publicKey) throws Exception {
-    PublicKey key = loadPublicKey(publicKey, DEFAULT_CIPHER_ALGORITHM);
+    PublicKey key = loadPublicKey(publicKey);
     return RSAUtil.encrypt(data, key, DEFAULT_CIPHER_ALGORITHM);
   }
 
@@ -123,54 +125,22 @@ public class RSAUtil {
   }
 
   public static String decrypt(String encryptedData, String privateKey, CipherAlgorithm algorithm) throws Exception {
-    PrivateKey key = loadPrivateKey(privateKey, algorithm);
+    PrivateKey key = loadPrivateKey(privateKey);
     return RSAUtil.decrypt(encryptedData, key, algorithm);
   }
 
   public static String decrypt(String encryptedData, String privateKey) throws Exception {
-    PrivateKey key = loadPrivateKey(privateKey, DEFAULT_CIPHER_ALGORITHM);
+    PrivateKey key = loadPrivateKey(privateKey);
     return RSAUtil.decrypt(encryptedData, key, DEFAULT_CIPHER_ALGORITHM);
   }
 
-  /**
-   * 生成公钥对象
-   *
-   * @param keySpec X509EncodedKeySpec对象
-   * @return 公钥对象
-   * @throws InvalidKeySpecException 如果keySpec参数无效
-   */
-  public static PublicKey generatePublicKey(X509EncodedKeySpec keySpec, CipherAlgorithm algorithm) throws InvalidKeySpecException {
-    try {
-      KeyFactory keyFactory = KeyFactory.getInstance(algorithm.getAlgorithm());
-      return keyFactory.generatePublic(keySpec);
-    } catch (NoSuchAlgorithmException e) {
-      throw new InvalidKeySpecException(e);
-    }
-  }
-
-  public static String generatePublicKey(KeyPair keyPair) throws Exception {
+  public static String generatePublicKey(KeyPair keyPair) {
     PublicKey publicKey = keyPair.getPublic();
     X509EncodedKeySpec keySpec = new X509EncodedKeySpec(publicKey.getEncoded());
     return Base64.encodeBase64String(keySpec.getEncoded());
   }
 
-  /**
-   * 生成私钥对象
-   *
-   * @param keySpec PKCS8EncodedKeySpec对象
-   * @return 私钥对象
-   * @throws InvalidKeySpecException 如果keySpec参数无效
-   */
-  public static PrivateKey generatePrivateKey(PKCS8EncodedKeySpec keySpec, CipherAlgorithm algorithm) throws InvalidKeySpecException {
-    try {
-      KeyFactory keyFactory = KeyFactory.getInstance(algorithm.getAlgorithm());
-      return keyFactory.generatePrivate(keySpec);
-    } catch (NoSuchAlgorithmException e) {
-      throw new InvalidKeySpecException(e);
-    }
-  }
-
-  public static String generatePrivateKey(KeyPair keyPair) throws Exception {
+  public static String generatePrivateKey(KeyPair keyPair) {
     PrivateKey privateKey = keyPair.getPrivate();
     PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKey.getEncoded());
     return Base64.encodeBase64String(keySpec.getEncoded());

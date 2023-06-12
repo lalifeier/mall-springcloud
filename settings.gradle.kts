@@ -31,7 +31,6 @@ include("mall-cloud-common:mall-cloud-common-error")
 include("mall-cloud-common:mall-cloud-common-version")
 include("mall-cloud-common:mall-cloud-common-dict")
 include("mall-cloud-common:mall-cloud-common-mark")
-include("mall-cloud-common:mall-cloud-common-enum")
 
 
 //mall-cloud-starter

@@ -82,7 +82,7 @@ public class AESUtil {
     return generateKeyString(KEY_SIZE);
   }
 
-  private static SecretKey generateSecretKey(String key, CipherAlgorithm cipherAlgorithm) throws Exception {
+  private static SecretKey generateSecretKey(String key) {
     byte[] keyBytes = Base64.decodeBase64(key);
     return new SecretKeySpec(keyBytes, KEY_ALGORITHM);
   }
@@ -109,7 +109,7 @@ public class AESUtil {
   }
 
   public static String encrypt(String data, String key, CipherAlgorithm cipherAlgorithm, String iv) throws Exception {
-    SecretKey secretKey = generateSecretKey(key, cipherAlgorithm);
+    SecretKey secretKey = generateSecretKey(key);
     return encrypt(data, secretKey, cipherAlgorithm, iv.getBytes(CHARSET));
   }
 
@@ -131,16 +131,16 @@ public class AESUtil {
     byte[] encryptedBytes = Base64.decodeBase64(encryptedData);
     Cipher cipher = Cipher.getInstance(cipherAlgorithm.getAlgorithm());
     if (cipherAlgorithm.getBlockSize() > 0) {
-      cipher.init(Cipher.ENCRYPT_MODE, secretKey, new IvParameterSpec(iv));
+      cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(iv));
     } else {
-      cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+      cipher.init(Cipher.DECRYPT_MODE, secretKey);
     }
     byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
     return new String(decryptedBytes, CHARSET);
   }
 
   public static String decrypt(String encryptedData, String key, CipherAlgorithm cipherAlgorithm, String iv) throws Exception {
-    SecretKey secretKey = generateSecretKey(key, cipherAlgorithm);
+    SecretKey secretKey = generateSecretKey(key);
     return decrypt(encryptedData, secretKey, cipherAlgorithm, iv.getBytes(CHARSET));
   }
 
@@ -148,21 +148,21 @@ public class AESUtil {
     return decrypt(encryptedData, key, DEFAULT_CIPHER_ALGORITHM, "");
   }
 
-
-  public static void main(String[] args) throws Exception {
-    // 生成一个 128 位的 AES 密钥
-    String secretKey = generateKeyString(128);
-    System.out.println("SecretKey: " + secretKey);
-
-    // 加密数据
-    String plaintext = "Hello, world!";
-    String ciphertextString = encrypt(plaintext, secretKey);
-    System.out.println("Ciphertext: " + ciphertextString);
-
-    // 解密数据
-    String decryptedText = decrypt(ciphertextString, secretKey);
-    System.out.println("Decrypted text: " + decryptedText);
-  }
+//  public static void main(String[] args) throws Exception {
+//    // 生成一个 128 位的 AES 密钥
+//    String secretKey = generateKeyString();
+////    String secretKey = Base64Util.encode();
+//    System.out.println("SecretKey: " + secretKey);
+//
+//    // 加密数据
+//    String plaintext = "Hello, world!";
+//    String ciphertextString = encrypt(plaintext, secretKey);
+//    System.out.println("Ciphertext: " + ciphertextString);
+//
+//    // 解密数据
+//    String decryptedText = decrypt(ciphertextString, secretKey);
+//    System.out.println("Decrypted text: " + decryptedText);
+//  }
 }
 
 

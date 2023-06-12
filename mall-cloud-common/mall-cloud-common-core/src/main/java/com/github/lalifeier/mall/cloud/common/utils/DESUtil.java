@@ -10,21 +10,6 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 
 public class DESUtil {
-  public enum KeyAlgorithm {
-    DES("DES"),
-    DESede("DESede");
-
-    private final String algorithm;
-
-    KeyAlgorithm(String algorithm) {
-      this.algorithm = algorithm;
-    }
-
-    public String getAlgorithm() {
-      return algorithm;
-    }
-  }
-
   public enum CipherAlgorithm {
     DES_ECB_PKCS5Padding("DES/ECB/PKCS5Padding"),
     DES_CBC_PKCS5Padding("DES/CBC/PKCS5Padding"),
@@ -42,30 +27,49 @@ public class DESUtil {
     }
   }
 
+
+  public static final String KEY_ALGORITHM = "DES";
+
   // 默认加密方式
   public static final CipherAlgorithm DEFAULT_CIPHER_ALGORITHM = CipherAlgorithm.DES_ECB_PKCS5Padding;
 
-  public static final int KEY_SIZE = 2048;
+  public static final int KEY_SIZE = 56;
 
   public static final String CHARSET = StandardCharsets.UTF_8.name();
 
   /**
    * 生成DES密钥
    *
-   * @param keySize   密钥长度，可以是56或112或168
-   * @param algorithm 密钥算法枚举类型，可以是DES或DESede
+   * @param keySize 密钥长度，可以是56或112或168
    * @return 密钥对象
    * @throws Exception 如果生成过程出错
    */
-  public static SecretKey generateKey(int keySize, KeyAlgorithm algorithm) throws Exception {
-    KeyGenerator keyGenerator = KeyGenerator.getInstance(algorithm.getAlgorithm());
+  public static SecretKey generateKey(int keySize) throws Exception {
+    KeyGenerator keyGenerator = KeyGenerator.getInstance(KEY_ALGORITHM);
     keyGenerator.init(keySize);
     return keyGenerator.generateKey();
   }
 
-  private static SecretKey generateSecretKey(String key, CipherAlgorithm cipherAlgorithm) throws Exception {
+  private static SecretKey generateSecretKey(String key) {
     byte[] keyBytes = Base64.decodeBase64(key);
-    return new SecretKeySpec(keyBytes, cipherAlgorithm.getAlgorithm());
+    return new SecretKeySpec(keyBytes, KEY_ALGORITHM);
+  }
+
+  /**
+   * 生成密钥字符串
+   *
+   * @param keySize 密钥长度
+   * @return 密钥字符串
+   * @throws Exception 如果生成密钥过程出错
+   */
+  public static String generateKeyString(int keySize) throws Exception {
+    SecretKey secretKey = generateKey(keySize);
+    byte[] encodedKey = secretKey.getEncoded();
+    return Base64.encodeBase64String(encodedKey);
+  }
+
+  public static String generateKeyString() throws Exception {
+    return generateKeyString(KEY_SIZE);
   }
 
   /**
@@ -91,12 +95,12 @@ public class DESUtil {
   }
 
   public static String encrypt(String data, String key, CipherAlgorithm cipherAlgorithm, String iv) throws Exception {
-    SecretKey secretKey = generateSecretKey(key, cipherAlgorithm);
-    return decrypt(data, secretKey, cipherAlgorithm, iv.getBytes(CHARSET));
+    SecretKey secretKey = generateSecretKey(key);
+    return encrypt(data, secretKey, cipherAlgorithm, iv.getBytes(CHARSET));
   }
 
-  public static String encrypt(String data, SecretKey key) throws Exception {
-    return encrypt(data, key, DEFAULT_CIPHER_ALGORITHM, null);
+  public static String encrypt(String data, String key) throws Exception {
+    return encrypt(data, key, DEFAULT_CIPHER_ALGORITHM, "");
   }
 
   /**
@@ -123,12 +127,27 @@ public class DESUtil {
   }
 
   public static String decrypt(String encryptedData, String key, CipherAlgorithm cipherAlgorithm, String iv) throws Exception {
-    SecretKey secretKey = generateSecretKey(key, cipherAlgorithm);
+    SecretKey secretKey = generateSecretKey(key);
     return decrypt(encryptedData, secretKey, cipherAlgorithm, iv.getBytes(CHARSET));
   }
 
-  public static String decrypt(String encryptedData, SecretKey key) throws Exception {
-    return decrypt(encryptedData, key, DEFAULT_CIPHER_ALGORITHM, null);
+  public static String decrypt(String encryptedData, String key) throws Exception {
+    return decrypt(encryptedData, key, DEFAULT_CIPHER_ALGORITHM, "");
   }
+
+//  public static void main(String[] args) throws Exception {
+//    // 生成一个 128 位的 AES 密钥
+//    String secretKey = generateKeyString();
+//    System.out.println("SecretKey: " + secretKey);
+//
+//    // 加密数据
+//    String plaintext = "Hello, world!";
+//    String ciphertextString = encrypt(plaintext, secretKey);
+//    System.out.println("Ciphertext: " + ciphertextString);
+//
+//    // 解密数据
+//    String decryptedText = decrypt(ciphertextString, secretKey);
+//    System.out.println("Decrypted text: " + decryptedText);
+//  }
 }
 
