@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.common.advice;
+package com.github.lalifeier.mall.cloud.common.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.skywalking.apm.toolkit.trace.Trace;
 import org.apache.skywalking.apm.toolkit.trace.TraceContext;
 import org.springframework.core.MethodParameter;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
@@ -19,7 +21,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import java.util.Objects;
 
 @Slf4j
-@RestControllerAdvice(basePackages = "com.github.lalifeier")
+//@RestControllerAdvice(basePackages = "com.github.lalifeier")
+@RestControllerAdvice
+//@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(Ordered.LOWEST_PRECEDENCE)
 public class RestResponseHandler implements ResponseBodyAdvice<Object> {
 
   private final ObjectMapper objectMapper;
@@ -57,7 +62,6 @@ public class RestResponseHandler implements ResponseBodyAdvice<Object> {
     if (body instanceof String) {
       try {
         result.setData(body);
-
         response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
         return objectMapper.writeValueAsString(result);
       } catch (JsonProcessingException e) {

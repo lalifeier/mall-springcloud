@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.common.advice;
+package com.github.lalifeier.mall.cloud.common.handler;
 
 
 import com.github.lalifeier.mall.cloud.common.exception.IErrorCodeException;

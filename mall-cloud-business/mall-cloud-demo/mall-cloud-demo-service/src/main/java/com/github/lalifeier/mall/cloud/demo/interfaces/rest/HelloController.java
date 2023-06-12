@@ -1,8 +1,11 @@
 package com.github.lalifeier.mall.cloud.demo.interfaces.rest;
 
+import com.github.lalifeier.mall.cloud.common.result.Result;
 import com.github.lalifeier.mall.cloud.demo.api.HelloApi;
+import com.github.lalifeier.mall.cloud.encryptbody.annotation.EncryptRequest;
 import com.github.lalifeier.mall.cloud.encryptbody.annotation.EncryptResponse;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -13,9 +16,10 @@ public class HelloController implements HelloApi {
   }
 
 
+  @EncryptRequest
   @EncryptResponse
   @PostMapping("/test")
-  public String test() {
-    return "123456";
+  public Result<String> test(@RequestBody String a) {
+    return Result.success("123456");
   }
 }

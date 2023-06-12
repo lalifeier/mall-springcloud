@@ -27,6 +27,7 @@ public class EncryptBodyAutoConfiguration {
   }
 
   @Bean
+  @ConditionalOnMissingBean
   public DecryptRequestBodyAdvice decryptRequestBodyAdvice(EncryptBodyConfig encryptBodyConfig) {
     return new DecryptRequestBodyAdvice(encryptBodyConfig);
   }

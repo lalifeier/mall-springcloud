@@ -2,13 +2,12 @@ package com.github.lalifeier.mall.cloud.encryptbody.advice;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.lalifeier.mall.cloud.common.result.Result;
-import com.github.lalifeier.mall.cloud.common.utils.AESUtil;
-import com.github.lalifeier.mall.cloud.common.utils.RSAUtil;
 import com.github.lalifeier.mall.cloud.encryptbody.annotation.EncryptResponse;
 import com.github.lalifeier.mall.cloud.encryptbody.config.EncryptBodyConfig;
+import com.github.lalifeier.mall.cloud.encryptbody.model.EncryptData;
+import com.github.lalifeier.mall.cloud.encryptbody.util.EncryptUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
@@ -16,12 +15,8 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Slf4j
 @ControllerAdvice
-@Order(999)
 public class EncryptResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
   private final EncryptBodyConfig config;
@@ -34,6 +29,8 @@ public class EncryptResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
   @Override
   public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
+    System.out.println("============================EncryptResponseBodyAdvice=======================================");
+
     if (!config.getEnable()) {
       return false;
     }
@@ -47,43 +44,23 @@ public class EncryptResponseBodyAdvice implements ResponseBodyAdvice<Object> {
   }
 
 
-  public Map<String, String> encryptData(String data, String publicKey) throws Exception {
-    String aesKey = AESUtil.generateKeyString();
-    String encryptData = AESUtil.encrypt(data, aesKey);
-    String key = RSAUtil.encrypt(aesKey, publicKey);
-
-    Map<String, String> encryptedData = new HashMap<>();
-    encryptedData.put("data", encryptData);
-    encryptedData.put("key", key);
-
-    return encryptedData;
-  }
-
-
   @Override
   public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
     if (body == null) {
       return null;
     }
 
-    //try {
-    //  final byte[] decryptedBytes = objectMapper.writeValueAsBytes(body);
-    //  return RSAUtil.encryptString(new String(decryptedBytes), config.getPublicKey());
-    //} catch (JsonProcessingException e) {
-    //  log.error("Error while encrypting the response body", e);
-    //}
-
     try {
-
       String publicKey = config.getPublicKey();
 
       if (body instanceof Result) {
         Object data = ((Result<?>) body).getData();
-        Map<String, String> encryptData = encryptData((String) data, publicKey);
-        ((Result<Map<String, String>>) body).setData(encryptData);
+        EncryptData encryptedData = EncryptUtil.encrypt(data.toString(), publicKey);
+        ((Result<EncryptData>) body).setData(encryptedData);
         return body;
       } else {
-        return objectMapper.writeValueAsString((encryptData((String) body, publicKey)));
+        EncryptData encryptedData = EncryptUtil.encrypt((String) body, publicKey);
+        return objectMapper.writeValueAsString(encryptedData);
       }
     } catch (Exception e) {
       log.error("Failed to encrypt the response body", e);
