@@ -1,11 +1,11 @@
 package com.github.lalifeier.mall.cloud.encryptbody.advice;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.lalifeier.mall.cloud.common.model.EncryptBody;
 import com.github.lalifeier.mall.cloud.common.result.Result;
+import com.github.lalifeier.mall.cloud.common.utils.EncryptBodyUtil;
 import com.github.lalifeier.mall.cloud.encryptbody.annotation.EncryptResponse;
 import com.github.lalifeier.mall.cloud.encryptbody.config.EncryptBodyConfig;
-import com.github.lalifeier.mall.cloud.encryptbody.model.EncryptData;
-import com.github.lalifeier.mall.cloud.encryptbody.util.EncryptUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -55,12 +55,12 @@ public class EncryptResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
       if (body instanceof Result) {
         Object data = ((Result<?>) body).getData();
-        EncryptData encryptedData = EncryptUtil.encrypt(data.toString(), publicKey);
-        ((Result<EncryptData>) body).setData(encryptedData);
+        EncryptBody encryptBody = EncryptBodyUtil.encrypt(data.toString(), publicKey);
+        ((Result<EncryptBody>) body).setData(encryptBody);
         return body;
       } else {
-        EncryptData encryptedData = EncryptUtil.encrypt((String) body, publicKey);
-        return objectMapper.writeValueAsString(encryptedData);
+        EncryptBody encryptedBody = EncryptBodyUtil.encrypt((String) body, publicKey);
+        return objectMapper.writeValueAsString(encryptedBody);
       }
     } catch (Exception e) {
       log.error("Failed to encrypt the response body", e);

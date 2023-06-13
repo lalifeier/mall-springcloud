@@ -2,10 +2,10 @@ package com.github.lalifeier.mall.cloud.encryptbody.advice;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.lalifeier.mall.cloud.common.utils.EncryptBodyUtil;
 import com.github.lalifeier.mall.cloud.encryptbody.annotation.EncryptRequest;
 import com.github.lalifeier.mall.cloud.encryptbody.config.EncryptBodyConfig;
 import com.github.lalifeier.mall.cloud.encryptbody.http.DecryptHttpInputMessage;
-import com.github.lalifeier.mall.cloud.encryptbody.util.EncryptUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
@@ -66,9 +66,9 @@ public class DecryptRequestBodyAdvice implements RequestBodyAdvice {
       String encryptedData = rootNode.get("data").asText();
       String key = rootNode.get("key").asText();
 
-      String decryptedData = EncryptUtil.decrypt(encryptedData, key, privateKey);
+      String body = EncryptBodyUtil.decrypt(encryptedData, key, privateKey);
 
-      InputStream decryptedStream = new ByteArrayInputStream(decryptedData.getBytes(StandardCharsets.UTF_8));
+      InputStream decryptedStream = new ByteArrayInputStream(body.getBytes(StandardCharsets.UTF_8));
 
       return new DecryptHttpInputMessage(decryptedStream, inputMessage.getHeaders());
     } catch (Exception e) {

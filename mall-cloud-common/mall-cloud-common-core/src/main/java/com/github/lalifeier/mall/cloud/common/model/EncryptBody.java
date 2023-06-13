@@ -1,10 +1,10 @@
-package com.github.lalifeier.mall.cloud.encryptbody.model;
+package com.github.lalifeier.mall.cloud.common.model;
 
-public class EncryptData {
+public class EncryptBody {
   private final String data;
   private final String key;
 
-  public EncryptData(String data, String key) {
+  public EncryptBody(String data, String key) {
     this.data = data;
     this.key = key;
   }

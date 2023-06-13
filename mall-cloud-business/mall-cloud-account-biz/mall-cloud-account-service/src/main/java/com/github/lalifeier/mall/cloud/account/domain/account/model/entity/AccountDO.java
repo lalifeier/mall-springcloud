@@ -1,7 +1,7 @@
 package com.github.lalifeier.mall.cloud.account.domain.account.model.entity;
 
 import com.github.lalifeier.mall.cloud.account.domain.account.model.valueobject.*;
-import com.github.lalifeier.mall.cloud.common.model.StatusEnum;
+import com.github.lalifeier.mall.cloud.common.enums.StatusEnum;
 import com.github.lalifeier.mall.cloud.common.model.ddd.Aggregate;
 import lombok.Data;
 
