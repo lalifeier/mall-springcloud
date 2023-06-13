@@ -2,6 +2,7 @@ package com.github.lalifeier.mall.cloud.gateway.utils;
 
 import cn.hutool.core.util.ObjectUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.bouncycastle.util.Strings;
 import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
@@ -105,5 +106,16 @@ public final class WebFluxUtil {
     DataBuffer buffer = (DataBuffer) obj;
     CharBuffer charBuffer = StandardCharsets.UTF_8.decode(buffer.asByteBuffer());
     return charBuffer.toString();
+  }
+
+  private static String toRaw(Flux<DataBuffer> body) {
+    AtomicReference<String> rawRef = new AtomicReference<>();
+    body.subscribe(buffer -> {
+      byte[] bytes = new byte[buffer.readableByteCount()];
+      buffer.read(bytes);
+      DataBufferUtils.release(buffer);
+      rawRef.set(Strings.fromUTF8ByteArray(bytes));
+    });
+    return rawRef.get();
   }
 }

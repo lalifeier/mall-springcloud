@@ -8,7 +8,7 @@ import com.github.lalifeier.mall.cloud.gateway.utils.WebFluxUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
-import org.springframework.cloud.gateway.filter.factory.GatewayFilterFactory;
+import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpMethod;
@@ -22,7 +22,11 @@ import java.util.List;
 
 @Slf4j
 @Component
-public class RequestEncryptFilter implements GatewayFilterFactory<RequestEncryptFilter.Config>, Ordered {
+public class EncryptRequestFilter extends AbstractGatewayFilterFactory<EncryptRequestFilter.Config> implements Ordered {
+
+  public EncryptRequestFilter() {
+    super(Config.class);
+  }
 
   private static final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -88,12 +92,6 @@ public class RequestEncryptFilter implements GatewayFilterFactory<RequestEncrypt
     };
 
 
-  }
-
-
-  @Override
-  public Class<Config> getConfigClass() {
-    return Config.class;
   }
 
   @Data
