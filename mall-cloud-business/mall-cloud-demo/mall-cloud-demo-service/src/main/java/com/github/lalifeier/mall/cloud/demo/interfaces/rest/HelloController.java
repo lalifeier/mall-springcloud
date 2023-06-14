@@ -17,6 +17,6 @@ public class HelloController implements HelloApi {
 //  @EncryptResponse
   @PostMapping("/test")
   public Result<String> test(@RequestBody String a) {
-    return Result.success("123456");
+    return Result.success(a);
   }
 }

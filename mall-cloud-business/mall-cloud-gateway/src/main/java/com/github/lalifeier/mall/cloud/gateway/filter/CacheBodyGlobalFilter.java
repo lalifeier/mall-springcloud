@@ -22,6 +22,7 @@ public class CacheBodyGlobalFilter implements Ordered, GlobalFilter {
     if (exchange.getRequest().getHeaders().getContentType() == null) {
       return chain.filter(exchange);
     }
+    
     return DataBufferUtils.join(exchange.getRequest().getBody())
       .flatMap(dataBuffer -> {
         DataBufferUtils.retain(dataBuffer);
@@ -36,7 +37,6 @@ public class CacheBodyGlobalFilter implements Ordered, GlobalFilter {
         //exchange.getAttributes().put(CACHE_REQUEST_BODY_OBJECT_KEY, cachedFlux);
         return chain.filter(exchange.mutate().request(mutatedRequest).build());
       });
-
   }
 
   @Override

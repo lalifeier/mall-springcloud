@@ -28,3 +28,7 @@ route:
     enabled: false
     dataId: mall-gateway-route.json
 
+
+logging:
+  level:
+    root: info
