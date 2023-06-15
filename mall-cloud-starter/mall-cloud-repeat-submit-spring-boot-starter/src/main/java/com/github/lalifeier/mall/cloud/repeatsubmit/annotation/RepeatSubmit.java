@@ -1,6 +1,6 @@
-package com.github.lalifeier.mall.cloud.common.annotation;
+package com.github.lalifeier.mall.cloud.repeatsubmit.annotation;
 
-import com.github.lalifeier.mall.cloud.common.enums.RepeatSubmitType;
+import com.github.lalifeier.mall.cloud.repeatsubmit.enums.RepeatSubmitType;
 
 import java.lang.annotation.*;
 

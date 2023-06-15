@@ -1,5 +1,6 @@
 dependencies {
   api(project(":mall-cloud-common:mall-cloud-common-core"))
+  api(project(":mall-cloud-common:mall-cloud-common-web"))
   api(project(":mall-cloud-starter:mall-cloud-logging-spring-boot-starter"))
   api("org.springframework.boot:spring-boot-starter-web") {
     exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")

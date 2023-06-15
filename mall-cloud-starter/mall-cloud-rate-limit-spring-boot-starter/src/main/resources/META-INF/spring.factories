@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.github.lalifeier.mall.cloud.ratelimit.config.RateLimitAutoConfiguration

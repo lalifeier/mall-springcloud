@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.common.properties;
+package com.github.lalifeier.mall.cloud.repeatsubmit.properties;
 
 
 import lombok.Data;

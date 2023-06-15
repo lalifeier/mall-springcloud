@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.github.lalifeier.mall.cloud.common.config.RepeatSubmitAutoConfiguration
+com.github.lalifeier.mall.cloud.repeatsubmit.config.RepeatSubmitAutoConfiguration

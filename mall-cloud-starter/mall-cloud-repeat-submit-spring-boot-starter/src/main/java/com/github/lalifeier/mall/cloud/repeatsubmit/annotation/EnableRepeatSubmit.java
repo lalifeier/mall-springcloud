@@ -1,6 +1,6 @@
-package com.github.lalifeier.mall.cloud.common.annotation;
+package com.github.lalifeier.mall.cloud.repeatsubmit.annotation;
 
-import com.github.lalifeier.mall.cloud.common.config.RepeatSubmitAutoConfiguration;
+import com.github.lalifeier.mall.cloud.repeatsubmit.config.RepeatSubmitAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
