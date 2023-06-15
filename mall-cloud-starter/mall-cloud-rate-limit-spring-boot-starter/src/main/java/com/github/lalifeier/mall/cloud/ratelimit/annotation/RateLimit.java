@@ -18,12 +18,22 @@ public @interface RateLimit {
   /**
    * 限流时间,单位秒
    */
-  int time() default 60;
+  int interval() default 60;
 
   /**
    * 限流次数
    */
   int maxCount() default 100;
+
+  /**
+   * 令牌桶的容量，默认100
+   */
+  int capacity() default 100;
+
+  /**
+   * 每秒钟默认产生令牌数量，默认10个
+   */
+  int rate() default 10;
 
   /**
    * 限流条件类型

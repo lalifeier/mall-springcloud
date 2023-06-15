@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -31,8 +32,8 @@ public class RateLimitAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public RateLimitAspect rateLimitAspect() {
-    return new RateLimitAspect();
+  public RateLimitAspect rateLimitAspect(RedisTemplate<String, Object> redisTemplate, DefaultRedisScript<Long> limitScript) {
+    return new RateLimitAspect(redisTemplate, limitScript);
   }
 
   @Bean
