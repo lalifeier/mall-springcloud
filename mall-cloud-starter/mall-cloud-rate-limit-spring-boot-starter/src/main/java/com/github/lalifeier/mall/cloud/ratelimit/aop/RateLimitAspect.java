@@ -1,8 +1,11 @@
 package com.github.lalifeier.mall.cloud.ratelimit.aop;
 
+import com.github.lalifeier.mall.cloud.common.utils.WebUtil;
 import com.github.lalifeier.mall.cloud.ratelimit.annotation.RateLimit;
+import com.github.lalifeier.mall.cloud.ratelimit.enums.LimitType;
 import com.google.common.util.concurrent.RateLimiter;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -13,7 +16,7 @@ import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -43,35 +46,64 @@ public class RateLimitAspect {
     Method method = signature.getMethod();
     log.info("当前限流方法:" + method.toGenericString());
 
-    int maxCount = rateLimit.maxCount();
-    long timeout = rateLimit.time();
-    String combineKey = rateLimit.limitType().generateCombinedKey(rateLimit);
+    String prefix = rateLimit.prefix();
+    LimitType limitType = rateLimit.limitType();
+    String key = getKey(point, limitType, prefix, rateLimit.key());
 
-    Long currentCount = executeLimitScript(combineKey, maxCount, timeout);
-    log.info("限制请求:{}, 当前请求次数:{}, 缓存key:{}", combineKey, currentCount, rateLimit.key());
+    int capacity = rateLimit.capacity();
+    int rate = rateLimit.rate();
 
-    if (currentCount.intValue() > maxCount) {
-      throw new Exception("");
+//    log.info("限制请求:{}, 当前请求次数:{}, 缓存key:{}", combineKey, currentCount, rateLimit.key());
+
+    if (tryAcquire(key, capacity, rate)) {
+      return point.proceed();
+    } else {
+      throw new RuntimeException("too many requests, please try again later...");
     }
-
-
-    //// get rate limiter
-    //RateLimiter rateLimiter = EXISTED_RATE_LIMITERS.computeIfAbsent(method.getName(), k -> RateLimiter.create(annotation.limit()));
-    //
-    //// process
-    //if (rateLimiter!=null && rateLimiter.tryAcquire()) {
-    //  return point.proceed();
-    //} else {
-    //  throw new RuntimeException("too many requests, please try again later...");
-    //}
-
-
-    return point.proceed();
   }
 
-  private Long executeLimitScript(String key, int limit, long timeout) {
-    List<String> keys = new ArrayList<>();
-    keys.add(key);
-    return redisTemplate.execute(limitScript, keys, limit, timeout);
+
+  /**
+   * 尝试获取令牌并进行限流处理
+   *
+   * @param key             令牌桶键名
+   * @param bucketCapacity  令牌桶容量
+   * @param tokensPerSecond 每秒生成的令牌数目
+   * @return 如果获取到令牌则返回true，否则返回false
+   */
+  public boolean tryAcquire(String key, int bucketCapacity, double tokensPerSecond) {
+    List<String> keys = Collections.singletonList(key);
+    Long result = redisTemplate.execute(limitScript, keys, bucketCapacity, tokensPerSecond);
+
+    return (result != null && result == 1L);
+  }
+
+  private String getKey(JoinPoint point, LimitType limitType, String prefix, String originKey) {
+    String key = "";
+    switch (limitType) {
+      case GLOBAL:
+        key = ((Class) point.getTarget()).getName() + ":" + ((MethodSignature) point.getSignature()).getMethod().getName();
+        break;
+      case IP:
+        key = WebUtil.getIP();
+        break;
+      case USER:
+//        Long userId = SecurityUtil.getUserId();
+//        if (userId == null) {
+//        }
+//        key = String.valueOf(userId);
+        break;
+      case CUSTOM:
+//        key = String.valueOf(resolve(point, originKey));
+        break;
+      default:
+        key = "";
+    }
+
+//    if (StringUtils.isBlank(key)) {
+//      ExceptionUtil.rethrowClientSideException("Key不能为空");
+//    }
+
+    return prefix + key;
   }
 }

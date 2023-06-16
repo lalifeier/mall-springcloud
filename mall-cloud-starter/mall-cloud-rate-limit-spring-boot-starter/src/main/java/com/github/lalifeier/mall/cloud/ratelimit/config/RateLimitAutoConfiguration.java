@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import com.github.lalifeier.mall.cloud.ratelimit.aop.RateLimitAspect;
+import com.github.lalifeier.mall.cloud.ratelimit.limit.RateLimiter;
 import com.github.lalifeier.mall.cloud.ratelimit.properties.RateLimitProperties;
 import com.github.lalifeier.mall.cloud.ratelimit.script.LuaScript;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -65,5 +66,11 @@ public class RateLimitAutoConfiguration {
     objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
     serializer.setObjectMapper(objectMapper);
     return serializer;
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public RateLimiter rateLimiter(RedisTemplate<String, Object> redisTemplate, DefaultRedisScript<Long> limitScript) {
+    return new RateLimiter(redisTemplate, limitScript);
   }
 }

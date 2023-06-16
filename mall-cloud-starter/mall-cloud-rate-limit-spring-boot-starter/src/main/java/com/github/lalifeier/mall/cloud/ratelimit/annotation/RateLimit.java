@@ -13,17 +13,25 @@ public @interface RateLimit {
   /**
    * 限流key
    */
-  String key() default "None";
+  String key() default "";
+
 
   /**
-   * 限流时间,单位秒
+   * Key的前缀
    */
-  int interval() default 60;
+  String prefix() default "limiter:";
 
-  /**
-   * 限流次数
-   */
-  int maxCount() default 100;
+
+//  /**
+//   * 限制请求数量，默认为10
+//   */
+//  int limit() default 10;
+//
+//
+//  /**
+//   * 时间窗口大小，默认为1秒钟
+//   */
+//  long timeout() default 1000L;
 
   /**
    * 令牌桶的容量，默认100
@@ -40,8 +48,9 @@ public @interface RateLimit {
    */
   LimitType limitType() default LimitType.GLOBAL;
 
+
   /**
-   * 限流使用的缓存类型
+   * 提示消息
    */
-//  CacheType cacheType() default CacheType.REDIS;
+  String message() default "您的访问过于频繁，请稍后重试";
 }

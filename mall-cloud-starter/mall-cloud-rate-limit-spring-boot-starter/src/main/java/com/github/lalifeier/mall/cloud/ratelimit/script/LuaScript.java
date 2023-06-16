@@ -9,7 +9,6 @@ import org.springframework.scripting.support.ResourceScriptSource;
 @Configuration
 public class LuaScript {
 
-
   /**
    * 流量限制脚本
    *
