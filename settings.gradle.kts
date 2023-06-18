@@ -49,7 +49,7 @@ include("mall-cloud-starter:mall-cloud-xxl-job-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-local-cache-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-encrypt-body-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-repeat-submit-spring-boot-starter")
-include("mall-cloud-starter:mall-cloud-rate-limit-spring-boot-starter")
+include("mall-cloud-starter:mall-cloud-rate-limiter-spring-boot-starter")
 
 //demo
 include("mall-cloud-business:mall-cloud-demo:mall-cloud-demo-api")

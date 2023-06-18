@@ -2,7 +2,7 @@ package com.github.lalifeier.mall.cloud.gateway.component;
 
 
 import cn.hutool.core.convert.Convert;
-import com.github.lalifeier.mall.cloud.common.constant.CommonConstant;
+import com.github.lalifeier.mall.cloud.common.constant.Constants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -35,10 +35,10 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
 
     //从Redis中获取当前路径可访问角色列表
     URI uri = authorizationContext.getExchange().getRequest().getURI();
-    Object obj = redisTemplate.opsForHash().get(CommonConstant.RESOURCE_ROLES_MAP, uri.getPath());
+    Object obj = redisTemplate.opsForHash().get(Constants.RESOURCE_ROLES_MAP, uri.getPath());
     //List<String> authorities = (List<String>) ConvertUtils.convert(obj, String.class)l
     List<String> authorities = Convert.toList(String.class, obj);
-    authorities = authorities.stream().map(i -> i = CommonConstant.AUTHORITY_PREFIX + i).collect(Collectors.toList());
+    authorities = authorities.stream().map(i -> i = Constants.AUTHORITY_PREFIX + i).collect(Collectors.toList());
 
     //认证通过且角色匹配的用户可访问当前路径
     return authenticationMono
