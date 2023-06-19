@@ -4,5 +4,5 @@ public final class Constants {
   /**
    * redis script path.
    */
-  public static final String SCRIPT_PATH = "/META-INF/scripts/";
+  public static final String SCRIPT_PATH = "/META-INF/script/";
 }

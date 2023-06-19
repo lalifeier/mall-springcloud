@@ -1,5 +1,6 @@
 package com.github.lalifeier.mall.cloud.ratelimiter.aop;
 
+import com.github.lalifeier.mall.cloud.common.exception.TooManyRequestsException;
 import com.github.lalifeier.mall.cloud.common.utils.WebUtil;
 import com.github.lalifeier.mall.cloud.ratelimiter.annotation.RateLimiter;
 import com.github.lalifeier.mall.cloud.ratelimiter.enums.LimitTypeEnum;
@@ -38,12 +39,10 @@ public class RateLimiterAspect {
     LimitTypeEnum limitType = rateLimiter.limitType();
     String key = getKey(point, limitType);
 
-//    log.info("限制请求:{}, 当前请求次数:{}, 缓存key:{}", combineKey, currentCount, rateLimit.key());
-
     if (redisRateLimiter.acquire(key, rateLimiter)) {
       return point.proceed();
     } else {
-      throw new RuntimeException("too many requests, please try again later...");
+      throw new TooManyRequestsException(rateLimiter.message());
     }
   }
 
@@ -62,16 +61,9 @@ public class RateLimiterAspect {
 //        }
 //        key = String.valueOf(userId);
         break;
-      case CUSTOM:
-        //key = String.valueOf(resolve(point, originKey));
-        break;
       default:
         key = "";
     }
-
-//    if (StringUtils.isBlank(key)) {
-//      ExceptionUtil.rethrowClientSideException("Key不能为空");
-//    }
 
     return key;
   }

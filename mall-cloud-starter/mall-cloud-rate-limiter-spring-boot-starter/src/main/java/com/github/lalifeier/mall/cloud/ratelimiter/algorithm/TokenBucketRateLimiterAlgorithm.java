@@ -7,4 +7,8 @@ public class TokenBucketRateLimiterAlgorithm extends AbstractRateLimiterAlgorith
     super(RateLimitEnum.TOKEN_BUCKET.getScriptName());
   }
 
+  @Override
+  protected String getKeyName() {
+    return RateLimitEnum.TOKEN_BUCKET.getKeyName();
+  }
 }

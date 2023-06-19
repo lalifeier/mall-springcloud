@@ -6,19 +6,21 @@ import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.scripting.support.ResourceScriptSource;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractRateLimiterAlgorithm implements RateLimiterAlgorithm {
+public abstract class AbstractRateLimiterAlgorithm implements RateLimiterAlgorithm<List<Long>> {
   private final String scriptName;
 
-  private final RedisScript<Long> script;
+  private final RedisScript<List<Long>> script;
+
+  protected abstract String getKeyName();
 
   protected AbstractRateLimiterAlgorithm(String scriptName) {
-    DefaultRedisScript<Long> redisScript = new DefaultRedisScript<>();
+    DefaultRedisScript redisScript = new DefaultRedisScript<>();
     String scriptPath = Constants.SCRIPT_PATH + scriptName;
     redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource(scriptPath)));
-    redisScript.setResultType(Long.class);
+    redisScript.setResultType(List.class);
 
     this.script = redisScript;
     this.scriptName = scriptName;
@@ -30,13 +32,15 @@ public abstract class AbstractRateLimiterAlgorithm implements RateLimiterAlgorit
   }
 
   @Override
-  public RedisScript<Long> getScript() {
+  public RedisScript<List<Long>> getScript() {
     return script;
   }
-
+  
   @Override
   public List<String> getKeys(String key) {
-    List<String> keys = Collections.singletonList(key);
-    return keys;
+    String prefix = getKeyName() + ".{" + key;
+    String tokenKey = prefix + "}.tokens";
+    String timestampKey = prefix + "}.timestamp";
+    return Arrays.asList(tokenKey, timestampKey);
   }
 }

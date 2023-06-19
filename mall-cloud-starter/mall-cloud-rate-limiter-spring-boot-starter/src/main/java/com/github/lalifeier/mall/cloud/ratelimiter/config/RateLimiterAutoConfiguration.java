@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import com.github.lalifeier.mall.cloud.ratelimiter.aop.RateLimiterAspect;
+import com.github.lalifeier.mall.cloud.ratelimiter.executor.RedisRateLimiter;
 import com.github.lalifeier.mall.cloud.ratelimiter.properties.RateLimiterProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -28,8 +29,13 @@ public class RateLimiterAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public RateLimiterAspect rateLimiterAspect(RedisTemplate<String, Object> redisTemplate) {
-    return new RateLimiterAspect(redisTemplate);
+  public RateLimiterAspect rateLimiterAspect(RedisRateLimiter redisRateLimiter) {
+    return new RateLimiterAspect(redisRateLimiter);
+  }
+
+  @Bean
+  public RedisRateLimiter redisRateLimiter(RedisTemplate<String, Object> redisTemplate) {
+    return new RedisRateLimiter(redisTemplate);
   }
 
   @Bean

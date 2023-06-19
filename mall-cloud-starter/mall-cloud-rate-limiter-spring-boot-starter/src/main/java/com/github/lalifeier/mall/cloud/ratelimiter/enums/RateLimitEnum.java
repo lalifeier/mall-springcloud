@@ -1,9 +1,6 @@
 package com.github.lalifeier.mall.cloud.ratelimiter.enums;
 
 public enum RateLimitEnum {
-
-  //COUNTER("request_rate_limiter", "request_rate_limiter.lua"),
-
   TOKEN_BUCKET("token_bucket_rate_limiter", "token_bucket_rate_limiter.lua");
 
   private final String keyName;

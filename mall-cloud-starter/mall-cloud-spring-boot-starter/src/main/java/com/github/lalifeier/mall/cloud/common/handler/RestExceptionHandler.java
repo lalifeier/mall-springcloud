@@ -2,6 +2,7 @@ package com.github.lalifeier.mall.cloud.common.handler;
 
 
 import com.github.lalifeier.mall.cloud.common.exception.IErrorCodeException;
+import com.github.lalifeier.mall.cloud.common.exception.TooManyRequestsException;
 import com.github.lalifeier.mall.cloud.common.manager.ErrorInfo;
 import com.github.lalifeier.mall.cloud.common.result.Result;
 import com.github.lalifeier.mall.cloud.common.system.HttpCodes;
@@ -11,7 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -51,32 +54,6 @@ public class RestExceptionHandler {
     return Result.failure(SystemErrorCodes.SYSTEM_ERROR.getCode(), pair.getLeft().getClass().getSimpleName() + ": " + pair.getRight());
   }
 
-  //@ExceptionHandler(value = {BindException.class, ValidationException.class, MethodArgumentNotValidException.class})
-  //public ResponseEntity<Response<String>> handleValidatedException(HttpServletRequest request, Exception e) {
-  //    String message = "";
-  //    if (e instanceof MethodArgumentNotValidException) {
-  //        MethodArgumentNotValidException ex = (MethodArgumentNotValidException) e;
-  //        message =
-  //                ex.getBindingResult().getAllErrors().stream()
-  //                        .map(ObjectError::getDefaultMessage)
-  //                        .collect(Collectors.joining(", "));
-  //    } else if (e instanceof ConstraintViolationException) {
-  //        ConstraintViolationException ex = (ConstraintViolationException) e;
-  //        message =
-  //                ex.getConstraintViolations().stream()
-  //                        .map(ConstraintViolation::getMessage)
-  //                        .collect(Collectors.joining(", "));
-  //    } else if (e instanceof BindException) {
-  //        BindException ex = (BindException) e;
-  //        message = ex.getAllErrors().stream()
-  //                .map(ObjectError::getDefaultMessage)
-  //                .collect(Collectors.joining(", "));
-  //    }
-  //
-  //    log.error("BadRequestException, request: {}", parseParam(request), e);
-  //    return new ResponseEntity<>(Response.failure(HttpCodes.BAD_REQUEST.getStatus(), message), HttpStatus.BAD_REQUEST);
-  //}
-
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler(value = MethodArgumentNotValidException.class)
   public Result<?> handleValidatedException(HttpServletRequest request, MethodArgumentNotValidException e) {
@@ -106,6 +83,29 @@ public class RestExceptionHandler {
       .map(ObjectError::getDefaultMessage)
       .collect(Collectors.joining(", "));
     return Result.failure(HttpCodes.BAD_REQUEST.getStatus(), message);
+  }
+
+
+  @ResponseStatus(HttpStatus.TOO_MANY_REQUESTS)
+  @ExceptionHandler(value = TooManyRequestsException.class)
+  public ResponseEntity<Result<?>> handleTooManyRequestsException(HttpServletRequest request, TooManyRequestsException e) {
+//    // 获取限制的时间戳，例如 1633220000 表示 2021-10-03 18:00:00
+//    long limitTimestamp = e.getLimitTimestamp();
+//    // 获取当前时间戳，例如 1633220500 表示 2021-10-03 18:08:20
+//    long currentTimestamp = System.currentTimeMillis() / 1000L;
+//    // 计算还剩余的时间，例如剩余 40 秒
+//    long remainingSeconds = limitTimestamp - currentTimestamp;
+    // 设置响应头信息
+    HttpHeaders headers = new HttpHeaders();
+//    headers.add("X-RateLimit-Limit", "1000");
+//    headers.add("X-RateLimit-Remaining", "950");
+//    headers.add("X-RateLimit-Reset", String.valueOf(limitTimestamp));
+//    headers.add("Retry-After", String.valueOf(remainingSeconds));
+
+    return ResponseEntity
+      .status(HttpStatus.TOO_MANY_REQUESTS)
+      .headers(headers)
+      .body(Result.failure(HttpStatus.TOO_MANY_REQUESTS.value(), e.getMessage()));
   }
 
   public String parseParam(HttpServletRequest request) {

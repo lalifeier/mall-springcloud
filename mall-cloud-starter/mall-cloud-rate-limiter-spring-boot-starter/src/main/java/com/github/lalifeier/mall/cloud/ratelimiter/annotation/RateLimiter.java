@@ -16,46 +16,27 @@ public @interface RateLimiter {
    */
   AlgorithmTypeEnum algorithmType() default AlgorithmTypeEnum.TOKEN_BUCKET;
 
-
-  ///**
-  // * 限流key
-  // */
-  //String key() default "";
-  //
-  //
-  ///**
-  // * Key的前缀
-  // */
-  //String prefix() default "limiter:";
-
-
-//  /**
-//   * 限制请求数量，默认为10
-//   */
-//  int limit() default 10;
-//
-//
-//  /**
-//   * 时间窗口大小，默认为1秒钟
-//   */
-//  long timeout() default 1000L;
-
   /**
-   * 令牌桶的容量，默认100
+   * 令牌桶容量，默认100
    */
   int capacity() default 100;
 
   /**
-   * 每秒钟默认产生令牌数量，默认10个
+   * 令牌生成速率，默认10个
    */
   int rate() default 10;
+
+  /**
+   * 令牌消耗速率，默认1个
+   */
+
+  int perSecond() default 1;
 
   /**
    * 限流条件类型
    */
   LimitTypeEnum limitType() default LimitTypeEnum.GLOBAL;
-
-
+  
   /**
    * 提示消息
    */

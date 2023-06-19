@@ -1,7 +1,7 @@
 package com.github.lalifeier.mall.cloud.ratelimiter.executor;
 
 import com.github.lalifeier.mall.cloud.ratelimiter.algorithm.RateLimiterAlgorithm;
-import com.github.lalifeier.mall.cloud.ratelimiter.algorithm.RateLimiterAlgorithmFactory;
+import com.github.lalifeier.mall.cloud.ratelimiter.algorithm.factory.RateLimiterAlgorithmFactory;
 import com.github.lalifeier.mall.cloud.ratelimiter.annotation.RateLimiter;
 import com.github.lalifeier.mall.cloud.ratelimiter.enums.AlgorithmTypeEnum;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -21,22 +21,21 @@ public class RedisRateLimiter {
   }
 
   public boolean acquire(String key, RateLimiter rateLimiter) {
-    //List<String> keys = Collections.singletonList(key);
-
-    AlgorithmTypeEnum algorithmType = rateLimiter.algorithmType();
     int capacity = rateLimiter.capacity();
     int rate = rateLimiter.rate();
+    int perSecond = rateLimiter.perSecond();
 
+    AlgorithmTypeEnum algorithmType = rateLimiter.algorithmType();
     RateLimiterAlgorithm rateLimiterAlgorithm = RateLimiterAlgorithmFactory.getRateLimiterAlgorithm(algorithmType.getName());
-    RedisScript<Long> script = rateLimiterAlgorithm.getScript();
+    RedisScript<List<Long>> script = rateLimiterAlgorithm.getScript();
     List<String> keys = rateLimiterAlgorithm.getKeys(key);
-    List<String> scriptArgs = Arrays.asList();
-    Long result = redisTemplate.execute(script, keys, scriptArgs);
+    List<String> scriptArgs = Arrays.asList(String.valueOf(rate), String.valueOf(capacity), String.valueOf(System.currentTimeMillis() / 1000), String.valueOf(perSecond));
+//    List<Long> results = redisTemplate.execute(script, keys, scriptArgs.toArray());
+//
+//
+//    boolean allowed = results.get(0) == 1L;
+//    Long tokensLeft = results.get(1);
 
-    return (result != null && result == 1L);
-  }
-
-  private String doubleToString(final double param) {
-    return String.valueOf(param);
+    return false;
   }
 }

@@ -1,4 +1,7 @@
-package com.github.lalifeier.mall.cloud.ratelimiter.algorithm;
+package com.github.lalifeier.mall.cloud.ratelimiter.algorithm.factory;
+
+import com.github.lalifeier.mall.cloud.ratelimiter.algorithm.RateLimiterAlgorithm;
+import com.github.lalifeier.mall.cloud.ratelimiter.algorithm.TokenBucketRateLimiterAlgorithm;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

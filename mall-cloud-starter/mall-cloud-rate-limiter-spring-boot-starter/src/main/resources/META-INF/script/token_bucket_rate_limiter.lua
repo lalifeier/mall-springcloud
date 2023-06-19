@@ -5,10 +5,19 @@ local timestamp_key = KEYS[2]
 redis.log(redis.LOG_WARNING, "tokens_key " .. tokens_key)
 redis.log(redis.LOG_WARNING, "timestamp_key " .. timestamp_key)
 
+
+redis.log(redis.LOG_WARNING, "rate " .. ARGV[1])
+redis.log(redis.LOG_WARNING, "capacity " .. ARGV[2])
+redis.log(redis.LOG_WARNING, "now " .. ARGV[3])
+redis.log(redis.LOG_WARNING, "requested " .. ARGV[4])
+
 local rate = tonumber(ARGV[1])
 local capacity = tonumber(ARGV[2])
 local now = tonumber(ARGV[3])
 local requested = tonumber(ARGV[4])
+
+redis.log(redis.LOG_WARNING, "rate " .. rate)
+redis.log(redis.LOG_WARNING, "capacity " .. capacity)
 
 -- 填满令牌桶所需要的时间
 -- 填充速度
@@ -17,10 +26,6 @@ local fill_time = capacity/rate
 -- 令牌过期时间（重置桶内令牌的时间间隔） 填充时间*2
 local ttl = math.floor(fill_time*2)
 
-redis.log(redis.LOG_WARNING, "rate " .. ARGV[1])
-redis.log(redis.LOG_WARNING, "capacity " .. ARGV[2])
-redis.log(redis.LOG_WARNING, "now " .. now)
-redis.log(redis.LOG_WARNING, "requested " .. ARGV[4])
 redis.log(redis.LOG_WARNING, "filltime " .. fill_time)
 redis.log(redis.LOG_WARNING, "ttl " .. ttl)
 

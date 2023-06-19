@@ -4,10 +4,10 @@ import org.springframework.data.redis.core.script.RedisScript;
 
 import java.util.List;
 
-public interface RateLimiterAlgorithm {
+public interface RateLimiterAlgorithm<T> {
   String getScriptName();
 
-  RedisScript<Long> getScript();
+  RedisScript<T> getScript();
 
   List<String> getKeys(String key);
 }
