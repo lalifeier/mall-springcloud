@@ -1,6 +1,8 @@
 package com.github.lalifeier.mall.cloud.common.utils;
 
 import com.github.lalifeier.mall.cloud.common.model.EncryptBody;
+import com.github.lalifeier.mall.cloud.common.utils.crypto.AESUtil;
+import com.github.lalifeier.mall.cloud.common.utils.crypto.RSAUtil;
 
 public class EncryptBodyUtil {
   public static EncryptBody encrypt(String data, String publicKey) throws Exception {

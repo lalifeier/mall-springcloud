@@ -32,7 +32,9 @@ spring:
             encryptData: eabycHWn8eFCXpMiChRWtQpyUd0zxFzzOuLM9eLBLcW+difwvxxnI1i0TgDBSKSEZe1G8/g3xhZsnkUWBC815tETUGtKY9O034/F7DjydUf/3aNI64nReuYJ5soTRJT5zRKAOkFTi5DYnAFfMIBvkT1IQPPvAOdpKShgCW4b+rLkU/pH7DYyDztfMh+Z6wiarxERmCC2fhQJxvebl5JLx9fb7MNYclKqpL/um5TuzFDVbzu2SyxwIsrhtLzOaTwSWp/VY+dJtQ6S/Vozi3rESaU1yC3Dn7INECrFSgi1yumYrayBQ8SpsNmweEs8DGH0FNkzTeznz+AYn5ArfOPI4w=="
                 whiteList:
                 blackList:
-
+            - name: SignatureFilter
+              args:
+                whiteList:
 
         - id: mall-account
           uri: lb://mall-account
