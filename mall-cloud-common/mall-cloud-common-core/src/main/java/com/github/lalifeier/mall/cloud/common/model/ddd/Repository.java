@@ -31,5 +31,5 @@ public interface Repository<T extends Aggregate<ID>, ID extends Identifier> {
    * 保存一个Aggregate
    * 保存后自动重置追踪条件
    */
-  void save(@NotNull T aggregate);
+  T save(@NotNull T aggregate);
 }

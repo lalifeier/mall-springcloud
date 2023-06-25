@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.lalifeier.mall.cloud.account.infrastructure.repository.mybatis.mapper.AccountUserMapper">
+
+  <!--  <select id="findByUsername" parameterType="java.lang.String"-->
+  <!--          resultType="com.github.lalifeier.mall.cloud.account.infrastructure.repository.mybatis.po.AccountUserPO">-->
+  <!--    SELECT *-->
+  <!--    FROM account_user-->
+  <!--    WHERE username = #{username}-->
+  <!--  </select>-->
+
+  <!--  <select id="findByEmail" parameterType="java.lang.String"-->
+  <!--          resultType="com.github.lalifeier.mall.cloud.account.infrastructure.repository.mybatis.po.AccountUserPO">-->
+  <!--    SELECT *-->
+  <!--    FROM account_user-->
+  <!--    WHERE email = #{email}-->
+  <!--  </select>-->
+
+  <!--  <select id="findByPhone" parameterType="java.lang.String"-->
+  <!--          resultType="com.github.lalifeier.mall.cloud.account.infrastructure.repository.mybatis.po.AccountUserPO">-->
+  <!--    SELECT *-->
+  <!--    FROM account_user-->
+  <!--    WHERE phone = #{phone}-->
+  <!--  </select>-->
+
+</mapper>

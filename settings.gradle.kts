@@ -68,9 +68,9 @@ include("mall-cloud-business:mall-cloud-monitor")
 include("mall-cloud-business:mall-cloud-admin")
 
 //account
-include("mall-cloud-business:mall-cloud-account-biz:mall-cloud-account-api")
-include("mall-cloud-business:mall-cloud-account-biz:mall-cloud-account-grpc")
-include("mall-cloud-business:mall-cloud-account-biz:mall-cloud-account-service")
+include("mall-cloud-business:mall-cloud-account:mall-cloud-account-api")
+include("mall-cloud-business:mall-cloud-account:mall-cloud-account-grpc")
+include("mall-cloud-business:mall-cloud-account:mall-cloud-account-service")
 
 //auth
 include("mall-cloud-business:mall-cloud-auth-service")

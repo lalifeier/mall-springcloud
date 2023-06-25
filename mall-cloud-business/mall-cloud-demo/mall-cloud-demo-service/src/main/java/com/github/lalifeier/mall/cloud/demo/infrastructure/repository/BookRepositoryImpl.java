@@ -57,7 +57,7 @@ public class BookRepositoryImpl implements BookRepository {
   }
 
   @Override
-  public void save(@NotNull BookDO aggregate) {
+  public BookDO save(@NotNull BookDO aggregate) {
     BookPO bookPO = bookConverter.convert(aggregate);
     if (aggregate.getId() != null && aggregate.getId().getValue() > 0) {
       bookMapper.updateById(bookPO);
@@ -65,6 +65,7 @@ public class BookRepositoryImpl implements BookRepository {
       bookMapper.insert(bookPO);
       aggregate.setId(new BookId(bookPO.getId()));
     }
+    return aggregate;
   }
 
   @Override
