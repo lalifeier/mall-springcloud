@@ -1,10 +1,10 @@
 package com.github.lalifeier.mall.cloud.demo.applicaiton.book.converter;
 
 import com.github.lalifeier.mall.cloud.common.model.PageList;
-import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.BookDO;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.bo.BookBO;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.bo.CreateBookBO;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.bo.UpdateBookBO;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.dto.BookDTO;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.dto.CreateBookCommand;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.dto.UpdateBookCommand;
+import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.BookEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -16,18 +16,18 @@ public interface BookConverter {
   BookConverter INSTANCE = Mappers.getMapper(BookConverter.class);
 
   @Mapping(source = "id", target = "id.value")
-  BookDO toDO(BookBO bookBO);
+  BookEntity toDO(BookDTO bookDTO);
 
   @Mapping(target = "id", ignore = true)
-  BookDO toDO(CreateBookBO createBookBO);
+  BookEntity toDO(CreateBookCommand createBookBO);
 
   @Mapping(source = "id", target = "id.value")
-  BookDO toDO(UpdateBookBO UpdateBookBO);
+  BookEntity toDO(UpdateBookCommand UpdateBookCommand);
 
   @Mapping(source = "id.value", target = "id")
-  BookBO toDTO(BookDO bookDO);
+  BookDTO toDTO(BookEntity bookEntity);
 
-  List<BookBO> toDTO(List<BookDO> bookPOList);
+  List<BookDTO> toDTO(List<BookEntity> bookPOList);
 
-  PageList<BookBO> toDTO(PageList<BookDO> bookPOList);
+  PageList<BookDTO> toDTO(PageList<BookEntity> bookPOList);
 }

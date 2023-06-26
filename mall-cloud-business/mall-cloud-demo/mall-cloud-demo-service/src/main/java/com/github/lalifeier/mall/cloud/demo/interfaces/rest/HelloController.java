@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HelloController implements HelloApi {
+
+  //  @Autowired
+//  private StreamBridge streamBridge;
+
   @Override
   public String hello(String name) {
     return null;
@@ -22,4 +26,9 @@ public class HelloController implements HelloApi {
   public Result<String> test(@RequestBody String a) {
     return Result.success(a);
   }
+
+  //  @GetMapping("/send")
+//  public void send() {
+//    streamBridge.send("source1-out-0", "hello");
+//  }
 }

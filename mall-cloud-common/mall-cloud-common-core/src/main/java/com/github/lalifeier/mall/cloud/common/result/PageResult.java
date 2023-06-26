@@ -1,12 +1,11 @@
 package com.github.lalifeier.mall.cloud.common.result;
 
-import java.util.List;
-
 import com.github.lalifeier.mall.cloud.common.model.PageInfo;
 import com.github.lalifeier.mall.cloud.common.model.PageList;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

@@ -1,7 +1,7 @@
 package com.github.lalifeier.mall.cloud.mybatisplus.utils;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.github.lalifeier.mall.cloud.common.model.PageRequest;
+import com.github.lalifeier.mall.cloud.common.model.PageQuery;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -26,7 +26,7 @@ public class QueryWrapperUtils {
    * @param <T>     查询结果的类型。
    * @return 构建的 QueryWrapper 对象。
    */
-  public static <T> QueryWrapper<T> buildQueryWrapper(Class<?> clazz, PageRequest request) {
+  public static <T> QueryWrapper<T> buildQueryWrapper(Class<?> clazz, PageQuery request) {
     QueryWrapper<T> queryWrapper = new QueryWrapper<>();
 
     addColumnsToWrapper(queryWrapper, clazz, request.getColumns());

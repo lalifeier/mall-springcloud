@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.lalifeier.mall.cloud.common.model.PageList;
-import com.github.lalifeier.mall.cloud.common.model.PageRequest;
-import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.BookDO;
+import com.github.lalifeier.mall.cloud.common.model.PageQuery;
+import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.BookEntity;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.valueobject.BookId;
 import com.github.lalifeier.mall.cloud.demo.domain.book.repository.BookRepository;
 import com.github.lalifeier.mall.cloud.demo.infrastructure.repository.mybatis.book.converter.BookConverter;
@@ -34,30 +34,30 @@ public class BookRepositoryImpl implements BookRepository {
   }
 
   @Override
-  public void attach(@NotNull BookDO aggregate) {
+  public void attach(@NotNull BookEntity aggregate) {
 
   }
 
   @Override
-  public void detach(@NotNull BookDO aggregate) {
+  public void detach(@NotNull BookEntity aggregate) {
 
   }
 
   @Override
-  public BookDO find(@NotNull BookId bookId) {
+  public BookEntity find(@NotNull BookId bookId) {
     Long id = bookId.getValue();
     BookPO bookPO = bookMapper.selectById(id);
     return bookConverter.convert(bookPO);
   }
 
   @Override
-  public void remove(@NotNull BookDO aggregate) {
+  public void remove(@NotNull BookEntity aggregate) {
     BookPO bookPO = bookConverter.convert(aggregate);
     bookMapper.deleteById(bookPO);
   }
 
   @Override
-  public BookDO save(@NotNull BookDO aggregate) {
+  public BookEntity save(@NotNull BookEntity aggregate) {
     BookPO bookPO = bookConverter.convert(aggregate);
     if (aggregate.getId() != null && aggregate.getId().getValue() > 0) {
       bookMapper.updateById(bookPO);
@@ -69,7 +69,7 @@ public class BookRepositoryImpl implements BookRepository {
   }
 
   @Override
-  public List<BookDO> findAll() {
+  public List<BookEntity> findAll() {
     LambdaQueryWrapper<BookPO> queryWrapper = Wrappers.lambdaQuery();
 
     // queryWrapper.eq(BookPO::getId, "");
@@ -80,7 +80,7 @@ public class BookRepositoryImpl implements BookRepository {
     return bookConverter.convertList(bookPOList);
   }
 
-  public PageList<BookDO> pageList(PageRequest request) {
+  public PageList<BookEntity> pageList(PageQuery request) {
     Page<BookPO> page = new Page<>(request.getPageNum(), request.getPageSize());
 
     QueryWrapper<BookPO> queryWrapper = QueryWrapperUtils.buildQueryWrapper(BookPO.class, request);

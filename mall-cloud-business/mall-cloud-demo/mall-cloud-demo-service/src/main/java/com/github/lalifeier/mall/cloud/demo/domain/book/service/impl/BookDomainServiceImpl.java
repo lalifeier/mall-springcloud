@@ -1,8 +1,8 @@
 package com.github.lalifeier.mall.cloud.demo.domain.book.service.impl;
 
-import com.github.lalifeier.mall.cloud.demo.domain.book.repository.BookRepository;
-import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.BookDO;
+import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.BookEntity;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.valueobject.BookId;
+import com.github.lalifeier.mall.cloud.demo.domain.book.repository.BookRepository;
 import com.github.lalifeier.mall.cloud.demo.domain.book.service.BookDomainService;
 import org.springframework.stereotype.Service;
 
@@ -16,25 +16,25 @@ public class BookDomainServiceImpl implements BookDomainService {
   }
 
   @Override
-  public void createBook(BookDO bookDO) {
-    bookRepository.save(bookDO);
+  public void createBook(BookEntity bookEntity) {
+    bookRepository.save(bookEntity);
   }
 
   @Override
-  public void updateBook(BookDO bookDO) {
-    bookRepository.save(bookDO);
+  public void updateBook(BookEntity bookEntity) {
+    bookRepository.save(bookEntity);
   }
 
   @Override
-  public BookDO getBookById(BookId bookId) {
+  public BookEntity getBookById(BookId bookId) {
     return bookRepository.find(bookId);
   }
 
   @Override
   public void deleteBook(BookId bookId) {
-    BookDO bookDO = bookRepository.find(bookId);
-    if (bookDO != null) {
-      bookRepository.remove(bookDO);
+    BookEntity bookEntity = bookRepository.find(bookId);
+    if (bookEntity != null) {
+      bookRepository.remove(bookEntity);
     }
 
     // throw new BookNotFoundException(bookId);

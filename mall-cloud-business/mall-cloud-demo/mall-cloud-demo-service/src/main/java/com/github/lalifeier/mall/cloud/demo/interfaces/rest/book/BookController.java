@@ -2,17 +2,16 @@ package com.github.lalifeier.mall.cloud.demo.interfaces.rest.book;
 
 import com.github.lalifeier.mall.cloud.common.model.PageList;
 import com.github.lalifeier.mall.cloud.common.result.PageResult;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.bo.BookBO;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.bo.CreateBookBO;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.bo.UpdateBookBO;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.BookApplicationService;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.command.BookCommandApplicationService;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.dto.BookDTO;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.dto.CreateBookCommand;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.dto.UpdateBookCommand;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.query.BookQueryApplicationService;
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.converter.BookConverter;
-import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.BookPageRequest;
+import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.BookPageQuery;
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.CreateBookRequest;
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.UpdateBookRequest;
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.response.BookResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,45 +20,45 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/books")
 public class BookController {
+  private final BookCommandApplicationService bookCommandApplicationService;
 
-  private final BookApplicationService bookApplicationService;
+  private final BookQueryApplicationService bookQueryApplicationService;
 
   private final BookConverter bookConverter = BookConverter.INSTANCE;
 
-  @Autowired
-  private StreamBridge streamBridge;
-
-  public BookController(BookApplicationService bookApplicationService) {
-    this.bookApplicationService = bookApplicationService;
+  public BookController(BookCommandApplicationService bookCommandApplicationService, BookQueryApplicationService bookQueryApplicationService) {
+    this.bookCommandApplicationService = bookCommandApplicationService;
+    this.bookQueryApplicationService = bookQueryApplicationService;
   }
+
 
   @PostMapping("")
   public void createBook(@Validated @RequestBody CreateBookRequest createBookRequest) {
-    CreateBookBO createBookBO = bookConverter.toDTO(createBookRequest);
-    this.bookApplicationService.createBook(createBookBO);
-  }
-
-  @GetMapping("/{id}")
-  public BookResponse getBook(@PathVariable Long id) {
-    BookBO bookBO = this.bookApplicationService.getBookById(id);
-    return this.bookConverter.toVO(bookBO);
+    CreateBookCommand createBookBO = bookConverter.toDTO(createBookRequest);
+    this.bookCommandApplicationService.createBook(createBookBO);
   }
 
   @PutMapping("/{id}")
   public void updateBook(@PathVariable Long id, @Validated @RequestBody UpdateBookRequest updateBookRequest) {
-    UpdateBookBO updateBookBO = bookConverter.toDTO(updateBookRequest);
-    updateBookBO.setId(id);
-    this.bookApplicationService.updateBook(updateBookBO);
+    UpdateBookCommand updateBookCommand = bookConverter.toDTO(updateBookRequest);
+    updateBookCommand.setId(id);
+    this.bookCommandApplicationService.updateBook(updateBookCommand);
   }
 
   @DeleteMapping("/{id}")
   public void deleteBook(@PathVariable Long id) {
-    this.bookApplicationService.deleteBook(id);
+    this.bookCommandApplicationService.deleteBook(id);
+  }
+
+  @GetMapping("/{id}")
+  public BookResponse getBook(@PathVariable Long id) {
+    BookDTO bookDTO = this.bookQueryApplicationService.getBookById(id);
+    return this.bookConverter.toVO(bookDTO);
   }
 
   @GetMapping("")
-  public PageResult<BookResponse> getBooks(@ModelAttribute BookPageRequest request) {
-    PageList<BookBO> bookBOPageList = this.bookApplicationService.getBooks(request);
+  public PageResult<BookResponse> getBooks(@ModelAttribute BookPageQuery request) {
+    PageList<BookDTO> bookBOPageList = this.bookQueryApplicationService.getBooks(request);
 
     List<BookResponse> bookResponseList = this.bookConverter.toVO(bookBOPageList.getData());
 
@@ -72,8 +71,4 @@ public class BookController {
   //  return this.bookConverter.toVO(bookBOList);
   //}
 
-  @GetMapping("/send")
-  public void send() {
-    streamBridge.send("source1-out-0", "hello");
-  }
 }

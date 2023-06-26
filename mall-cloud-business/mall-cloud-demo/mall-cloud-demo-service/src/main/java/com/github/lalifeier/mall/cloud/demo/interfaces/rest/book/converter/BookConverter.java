@@ -1,9 +1,9 @@
 package com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.converter;
 
 import com.github.lalifeier.mall.cloud.common.model.PageList;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.bo.BookBO;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.bo.CreateBookBO;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.bo.UpdateBookBO;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.dto.BookDTO;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.dto.CreateBookCommand;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.dto.UpdateBookCommand;
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.CreateBookRequest;
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.UpdateBookRequest;
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.response.BookResponse;
@@ -17,14 +17,14 @@ import java.util.List;
 public interface BookConverter {
   BookConverter INSTANCE = Mappers.getMapper(BookConverter.class);
 
-  CreateBookBO toDTO(CreateBookRequest createBookRequest);
+  CreateBookCommand toDTO(CreateBookRequest createBookRequest);
 
   @Mapping(target = "id", ignore = true)
-  UpdateBookBO toDTO(UpdateBookRequest updateBookRequest);
+  UpdateBookCommand toDTO(UpdateBookRequest updateBookRequest);
 
-  BookResponse toVO(BookBO bookBO);
+  BookResponse toVO(BookDTO bookDTO);
 
-  List<BookResponse> toVO(List<BookBO> bookBOList);
+  List<BookResponse> toVO(List<BookDTO> bookDTOList);
 
-  PageList<BookResponse> toVO(PageList<BookBO> bookPOList);
+  PageList<BookResponse> toVO(PageList<BookDTO> bookPOList);
 }
