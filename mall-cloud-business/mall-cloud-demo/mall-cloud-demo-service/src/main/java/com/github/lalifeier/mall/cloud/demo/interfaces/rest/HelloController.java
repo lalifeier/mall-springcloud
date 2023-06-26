@@ -1,6 +1,6 @@
 package com.github.lalifeier.mall.cloud.demo.interfaces.rest;
 
-import com.github.lalifeier.mall.cloud.common.result.Result;
+import com.github.lalifeier.mall.cloud.common.model.result.Result;
 import com.github.lalifeier.mall.cloud.demo.api.HelloApi;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

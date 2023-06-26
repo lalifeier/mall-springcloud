@@ -1,9 +1,9 @@
 package com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.converter;
 
-import com.github.lalifeier.mall.cloud.common.model.PageList;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.dto.BookDTO;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.dto.CreateBookCommand;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.dto.UpdateBookCommand;
+import com.github.lalifeier.mall.cloud.common.model.query.Pagination;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.dto.BookDTO;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.command.CreateBookCommand;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.command.UpdateBookCommand;
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.CreateBookRequest;
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.UpdateBookRequest;
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.response.BookResponse;
@@ -26,5 +26,5 @@ public interface BookConverter {
 
   List<BookResponse> toVO(List<BookDTO> bookDTOList);
 
-  PageList<BookResponse> toVO(PageList<BookDTO> bookPOList);
+  Pagination<BookResponse> toVO(Pagination<BookDTO> bookPOList);
 }

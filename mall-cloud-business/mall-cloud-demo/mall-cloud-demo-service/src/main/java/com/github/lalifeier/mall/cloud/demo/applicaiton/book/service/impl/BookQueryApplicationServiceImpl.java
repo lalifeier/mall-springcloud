@@ -1,10 +1,10 @@
-package com.github.lalifeier.mall.cloud.demo.applicaiton.book.query.impl;
+package com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.impl;
 
-import com.github.lalifeier.mall.cloud.common.model.PageList;
-import com.github.lalifeier.mall.cloud.common.model.PageQuery;
+import com.github.lalifeier.mall.cloud.common.model.query.Pagination;
+import com.github.lalifeier.mall.cloud.common.model.query.PageQuery;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.converter.BookConverter;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.dto.BookDTO;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.query.BookQueryApplicationService;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.dto.BookDTO;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.BookQueryApplicationService;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.BookEntity;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.valueobject.BookId;
 import com.github.lalifeier.mall.cloud.demo.domain.book.repository.BookRepository;
@@ -39,9 +39,9 @@ public class BookQueryApplicationServiceImpl implements BookQueryApplicationServ
   }
 
   @Override
-  public PageList<BookDTO> getBooks(PageQuery query) {
-    PageList<BookEntity> bookDOPageList = bookRepository.pageList(query);
-    return this.bookConverter.toDTO(bookDOPageList);
+  public Pagination<BookDTO> getBooks(PageQuery query) {
+    Pagination<BookEntity> bookDOPagination = bookRepository.pageList(query);
+    return this.bookConverter.toDTO(bookDOPagination);
 
 //    Page<BookPO> page = new Page<>(query.getPageNum(), query.getPageSize());
 //

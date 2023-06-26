@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request;
+package com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.query;
 
 import com.github.lalifeier.mall.cloud.common.model.query.PageQuery;
 

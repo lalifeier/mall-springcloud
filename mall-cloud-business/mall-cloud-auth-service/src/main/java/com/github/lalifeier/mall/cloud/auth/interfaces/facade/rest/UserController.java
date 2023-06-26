@@ -3,7 +3,7 @@ package com.github.lalifeier.mall.cloud.auth.interfaces.facade.rest;
 import com.github.lalifeier.mall.cloud.auth.applicaiton.service.command.UserCommandApplicationService;
 import com.github.lalifeier.mall.cloud.auth.applicaiton.service.query.UserQueryApplicationService;
 import com.github.lalifeier.mall.cloud.auth.interfaces.model.req.*;
-import com.github.lalifeier.mall.cloud.common.result.Result;
+import com.github.lalifeier.mall.cloud.common.model.result.Result;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

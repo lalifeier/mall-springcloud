@@ -1,12 +1,12 @@
 package com.github.lalifeier.mall.cloud.demo.interfaces.rest.book;
 
-import com.github.lalifeier.mall.cloud.common.model.PageList;
-import com.github.lalifeier.mall.cloud.common.result.PageResult;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.command.BookCommandApplicationService;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.dto.BookDTO;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.dto.CreateBookCommand;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.dto.UpdateBookCommand;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.query.BookQueryApplicationService;
+import com.github.lalifeier.mall.cloud.common.model.query.Pagination;
+import com.github.lalifeier.mall.cloud.common.model.result.PageResult;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.BookApplicationService;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.dto.BookDTO;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.command.CreateBookCommand;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.command.UpdateBookCommand;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.BookQueryApplicationService;
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.converter.BookConverter;
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.BookPageQuery;
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.CreateBookRequest;
@@ -20,14 +20,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/books")
 public class BookController {
-  private final BookCommandApplicationService bookCommandApplicationService;
+  private final BookApplicationService bookApplicationService;
 
   private final BookQueryApplicationService bookQueryApplicationService;
 
   private final BookConverter bookConverter = BookConverter.INSTANCE;
 
-  public BookController(BookCommandApplicationService bookCommandApplicationService, BookQueryApplicationService bookQueryApplicationService) {
-    this.bookCommandApplicationService = bookCommandApplicationService;
+  public BookController(BookApplicationService bookApplicationService, BookQueryApplicationService bookQueryApplicationService) {
+    this.bookApplicationService = bookApplicationService;
     this.bookQueryApplicationService = bookQueryApplicationService;
   }
 
@@ -35,19 +35,19 @@ public class BookController {
   @PostMapping("")
   public void createBook(@Validated @RequestBody CreateBookRequest createBookRequest) {
     CreateBookCommand createBookBO = bookConverter.toDTO(createBookRequest);
-    this.bookCommandApplicationService.createBook(createBookBO);
+    this.bookApplicationService.create(createBookBO);
   }
 
   @PutMapping("/{id}")
   public void updateBook(@PathVariable Long id, @Validated @RequestBody UpdateBookRequest updateBookRequest) {
     UpdateBookCommand updateBookCommand = bookConverter.toDTO(updateBookRequest);
     updateBookCommand.setId(id);
-    this.bookCommandApplicationService.updateBook(updateBookCommand);
+    this.bookApplicationService.update(updateBookCommand);
   }
 
   @DeleteMapping("/{id}")
   public void deleteBook(@PathVariable Long id) {
-    this.bookCommandApplicationService.deleteBook(id);
+    this.bookApplicationService.delete(id);
   }
 
   @GetMapping("/{id}")
@@ -58,11 +58,11 @@ public class BookController {
 
   @GetMapping("")
   public PageResult<BookResponse> getBooks(@ModelAttribute BookPageQuery request) {
-    PageList<BookDTO> bookBOPageList = this.bookQueryApplicationService.getBooks(request);
+    Pagination<BookDTO> bookBOPagination = this.bookQueryApplicationService.getBooks(request);
 
-    List<BookResponse> bookResponseList = this.bookConverter.toVO(bookBOPageList.getData());
+    List<BookResponse> bookResponseList = this.bookConverter.toVO(bookBOPagination.getData());
 
-    return PageResult.success(bookResponseList, bookBOPageList.getPageInfo());
+    return PageResult.success(bookResponseList, bookBOPagination.getPageInfo());
   }
 
   //@GetMapping("/list")

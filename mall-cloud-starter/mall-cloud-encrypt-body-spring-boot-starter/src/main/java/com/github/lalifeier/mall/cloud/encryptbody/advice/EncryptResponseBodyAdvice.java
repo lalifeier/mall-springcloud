@@ -2,7 +2,7 @@ package com.github.lalifeier.mall.cloud.encryptbody.advice;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.lalifeier.mall.cloud.common.model.EncryptBody;
-import com.github.lalifeier.mall.cloud.common.result.Result;
+import com.github.lalifeier.mall.cloud.common.model.result.Result;
 import com.github.lalifeier.mall.cloud.common.utils.EncryptBodyUtil;
 import com.github.lalifeier.mall.cloud.encryptbody.annotation.EncryptResponse;
 import com.github.lalifeier.mall.cloud.encryptbody.config.EncryptBodyConfig;

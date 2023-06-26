@@ -2,7 +2,7 @@ package com.github.lalifeier.mall.cloud.gateway.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.lalifeier.mall.cloud.common.result.Result;
+import com.github.lalifeier.mall.cloud.common.model.result.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

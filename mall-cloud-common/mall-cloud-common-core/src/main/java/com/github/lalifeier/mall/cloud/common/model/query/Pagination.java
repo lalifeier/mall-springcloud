@@ -1,12 +1,12 @@
-package com.github.lalifeier.mall.cloud.common.model;
+package com.github.lalifeier.mall.cloud.common.model.query;
 
 import java.util.List;
 
-public class PageList<T> {
+public class Pagination<T> {
   private List<T> data;
   private PageInfo pageInfo;
 
-  public PageList(List<T> data, PageInfo pageInfo) {
+  public Pagination(List<T> data, PageInfo pageInfo) {
     this.data = data;
     this.pageInfo = pageInfo;
   }

@@ -4,7 +4,7 @@ package com.github.lalifeier.mall.cloud.common.handler;
 import com.github.lalifeier.mall.cloud.common.api.IErrorCodeException;
 import com.github.lalifeier.mall.cloud.common.exception.TooManyRequestsException;
 import com.github.lalifeier.mall.cloud.common.manager.ErrorInfo;
-import com.github.lalifeier.mall.cloud.common.result.Result;
+import com.github.lalifeier.mall.cloud.common.model.result.Result;
 import com.github.lalifeier.mall.cloud.common.system.HttpCodes;
 import com.github.lalifeier.mall.cloud.common.system.SystemErrorCodes;
 import com.google.common.base.Joiner;

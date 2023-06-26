@@ -1,7 +1,7 @@
 package com.github.lalifeier.mall.cloud.mybatisplus.utils;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.github.lalifeier.mall.cloud.common.model.PageQuery;
+import com.github.lalifeier.mall.cloud.common.model.query.PageQuery;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;

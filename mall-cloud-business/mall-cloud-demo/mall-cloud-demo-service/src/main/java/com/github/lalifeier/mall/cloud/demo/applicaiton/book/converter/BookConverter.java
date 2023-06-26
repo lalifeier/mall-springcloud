@@ -1,9 +1,9 @@
 package com.github.lalifeier.mall.cloud.demo.applicaiton.book.converter;
 
-import com.github.lalifeier.mall.cloud.common.model.PageList;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.dto.BookDTO;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.dto.CreateBookCommand;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.dto.UpdateBookCommand;
+import com.github.lalifeier.mall.cloud.common.model.query.Pagination;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.dto.BookDTO;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.command.CreateBookCommand;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.command.UpdateBookCommand;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.BookEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -29,5 +29,5 @@ public interface BookConverter {
 
   List<BookDTO> toDTO(List<BookEntity> bookPOList);
 
-  PageList<BookDTO> toDTO(PageList<BookEntity> bookPOList);
+  Pagination<BookDTO> toDTO(Pagination<BookEntity> bookPOList);
 }

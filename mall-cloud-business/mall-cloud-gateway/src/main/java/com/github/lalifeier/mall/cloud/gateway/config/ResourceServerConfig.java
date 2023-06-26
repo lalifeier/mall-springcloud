@@ -2,7 +2,7 @@ package com.github.lalifeier.mall.cloud.gateway.config;
 
 import cn.hutool.core.util.ArrayUtil;
 import com.github.lalifeier.mall.cloud.common.constant.Constants;
-import com.github.lalifeier.mall.cloud.common.result.Result;
+import com.github.lalifeier.mall.cloud.common.model.result.Result;
 import com.github.lalifeier.mall.cloud.common.utils.JsonUtils;
 import com.github.lalifeier.mall.cloud.gateway.component.AuthorizationManager;
 import com.github.lalifeier.mall.cloud.gateway.filter.IgnoreUrlsRemoveJwtFilter;

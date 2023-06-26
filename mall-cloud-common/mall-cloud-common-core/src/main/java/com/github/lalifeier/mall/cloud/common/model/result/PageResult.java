@@ -1,7 +1,7 @@
-package com.github.lalifeier.mall.cloud.common.result;
+package com.github.lalifeier.mall.cloud.common.model.result;
 
-import com.github.lalifeier.mall.cloud.common.model.PageInfo;
-import com.github.lalifeier.mall.cloud.common.model.PageList;
+import com.github.lalifeier.mall.cloud.common.model.query.PageInfo;
+import com.github.lalifeier.mall.cloud.common.model.query.Pagination;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -31,11 +31,11 @@ public class PageResult<T> extends BaseResult {
     return pageResult;
   }
 
-  public static <T> PageResult<T> success(PageList<T> pageList) {
+  public static <T> PageResult<T> success(Pagination<T> pagination) {
     PageResult<T> pageResult = new PageResult<>();
     pageResult.setSuccess(true);
-    pageResult.setData(pageList.getData());
-    pageResult.setPageInfo(pageList.getPageInfo());
+    pageResult.setData(pagination.getData());
+    pageResult.setPageInfo(pagination.getPageInfo());
     return pageResult;
   }
 

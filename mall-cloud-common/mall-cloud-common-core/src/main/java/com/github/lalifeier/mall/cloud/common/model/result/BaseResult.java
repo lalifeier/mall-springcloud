@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.common.result;
+package com.github.lalifeier.mall.cloud.common.model.result;
 
 import lombok.Data;
 

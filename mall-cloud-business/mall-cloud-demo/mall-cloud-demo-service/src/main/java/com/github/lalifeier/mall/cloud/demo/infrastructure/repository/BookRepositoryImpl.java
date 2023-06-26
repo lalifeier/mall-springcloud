@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.github.lalifeier.mall.cloud.common.model.PageList;
-import com.github.lalifeier.mall.cloud.common.model.PageQuery;
+import com.github.lalifeier.mall.cloud.common.model.query.Pagination;
+import com.github.lalifeier.mall.cloud.common.model.query.PageQuery;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.BookEntity;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.valueobject.BookId;
 import com.github.lalifeier.mall.cloud.demo.domain.book.repository.BookRepository;
@@ -80,7 +80,7 @@ public class BookRepositoryImpl implements BookRepository {
     return bookConverter.convertList(bookPOList);
   }
 
-  public PageList<BookEntity> pageList(PageQuery request) {
+  public Pagination<BookEntity> pageList(PageQuery request) {
     Page<BookPO> page = new Page<>(request.getPageNum(), request.getPageSize());
 
     QueryWrapper<BookPO> queryWrapper = QueryWrapperUtils.buildQueryWrapper(BookPO.class, request);
