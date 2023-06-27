@@ -1,9 +1,9 @@
 package com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.impl;
 
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.BookApplicationService;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.converter.BookConverter;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.command.CreateBookCommand;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.command.UpdateBookCommand;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.BookApplicationService;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.BookEntity;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.valueobject.BookId;
 import com.github.lalifeier.mall.cloud.demo.domain.book.repository.BookRepository;
@@ -28,18 +28,18 @@ public class BookApplicationServiceImpl implements BookApplicationService {
   @Override
   public void create(CreateBookCommand command) {
     BookEntity bookEntity = this.bookConverter.toDO(command);
-    bookDomainService.createBook(bookEntity);
+    bookDomainService.create(bookEntity);
   }
 
   @Override
   public void update(UpdateBookCommand command) {
     BookEntity bookEntity = this.bookConverter.toDO(command);
-    bookDomainService.updateBook(bookEntity);
+    bookDomainService.update(bookEntity);
   }
 
   @Override
   public void delete(Long id) {
     BookId bookId = new BookId(id);
-    bookDomainService.deleteBook(bookId);
+    bookDomainService.delete(bookId);
   }
 }

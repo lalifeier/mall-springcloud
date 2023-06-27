@@ -2,10 +2,10 @@ package com.github.lalifeier.mall.cloud.demo.interfaces.rest.book;
 
 import com.github.lalifeier.mall.cloud.common.model.query.Pagination;
 import com.github.lalifeier.mall.cloud.common.model.result.PageResult;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.BookApplicationService;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.dto.BookDTO;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.command.CreateBookCommand;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.command.UpdateBookCommand;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.dto.BookDTO;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.BookApplicationService;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.BookQueryApplicationService;
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.converter.BookConverter;
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.BookPageQuery;
@@ -33,36 +33,36 @@ public class BookController {
 
 
   @PostMapping("")
-  public void createBook(@Validated @RequestBody CreateBookRequest createBookRequest) {
+  public void create(@Validated @RequestBody CreateBookRequest createBookRequest) {
     CreateBookCommand createBookBO = bookConverter.toDTO(createBookRequest);
     this.bookApplicationService.create(createBookBO);
   }
 
   @PutMapping("/{id}")
-  public void updateBook(@PathVariable Long id, @Validated @RequestBody UpdateBookRequest updateBookRequest) {
+  public void update(@PathVariable Long id, @Validated @RequestBody UpdateBookRequest updateBookRequest) {
     UpdateBookCommand updateBookCommand = bookConverter.toDTO(updateBookRequest);
     updateBookCommand.setId(id);
     this.bookApplicationService.update(updateBookCommand);
   }
 
   @DeleteMapping("/{id}")
-  public void deleteBook(@PathVariable Long id) {
+  public void delete(@PathVariable Long id) {
     this.bookApplicationService.delete(id);
   }
 
   @GetMapping("/{id}")
-  public BookResponse getBook(@PathVariable Long id) {
-    BookDTO bookDTO = this.bookQueryApplicationService.getBookById(id);
+  public BookResponse get(@PathVariable Long id) {
+    BookDTO bookDTO = this.bookQueryApplicationService.get(id);
     return this.bookConverter.toVO(bookDTO);
   }
 
   @GetMapping("")
-  public PageResult<BookResponse> getBooks(@ModelAttribute BookPageQuery request) {
-    Pagination<BookDTO> bookBOPagination = this.bookQueryApplicationService.getBooks(request);
+  public PageResult<BookResponse> pageList(@ModelAttribute BookPageQuery request) {
+    Pagination<BookDTO> bookDTOPagination = this.bookQueryApplicationService.pageList(request);
 
-    List<BookResponse> bookResponseList = this.bookConverter.toVO(bookBOPagination.getData());
+    List<BookResponse> bookResponseList = this.bookConverter.toVO(bookDTOPagination.getData());
 
-    return PageResult.success(bookResponseList, bookBOPagination.getPageInfo());
+    return PageResult.success(bookResponseList, bookDTOPagination.getPageInfo());
   }
 
   //@GetMapping("/list")

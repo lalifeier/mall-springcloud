@@ -16,22 +16,22 @@ public class BookDomainServiceImpl implements BookDomainService {
   }
 
   @Override
-  public void createBook(BookEntity bookEntity) {
+  public void create(BookEntity bookEntity) {
     bookRepository.save(bookEntity);
   }
 
   @Override
-  public void updateBook(BookEntity bookEntity) {
+  public void update(BookEntity bookEntity) {
     bookRepository.save(bookEntity);
   }
 
   @Override
-  public BookEntity getBookById(BookId bookId) {
+  public BookEntity get(BookId bookId) {
     return bookRepository.find(bookId);
   }
 
   @Override
-  public void deleteBook(BookId bookId) {
+  public void delete(BookId bookId) {
     BookEntity bookEntity = bookRepository.find(bookId);
     if (bookEntity != null) {
       bookRepository.remove(bookEntity);
