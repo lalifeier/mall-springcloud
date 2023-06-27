@@ -4,8 +4,10 @@ import com.github.lalifeier.mall.cloud.common.model.query.PageQuery;
 import com.github.lalifeier.mall.cloud.common.model.query.Pagination;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.BookEntity;
 
+import java.util.List;
+
 public interface BookQueryRepository {
-//  List<BookEntity> list();
+  List<BookEntity> list();
 
   Pagination<BookEntity> pageList(PageQuery request);
 }
