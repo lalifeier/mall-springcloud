@@ -14,5 +14,5 @@ public final class Constants {
 
   public static final String TOKEN_BLACKLIST_PREFIX = "InvalidToken";
 
-
+  public static final String TRACE_ID = "traceId";
 }

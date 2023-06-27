@@ -3,11 +3,11 @@ package com.github.lalifeier.mall.cloud.common.handler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.lalifeier.mall.cloud.common.annotation.IgnoreResponseAdvice;
+import com.github.lalifeier.mall.cloud.common.constant.HeaderConstant;
 import com.github.lalifeier.mall.cloud.common.model.result.PageResult;
 import com.github.lalifeier.mall.cloud.common.model.result.Result;
+import com.github.lalifeier.mall.cloud.common.utils.TraceUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.skywalking.apm.toolkit.trace.Trace;
-import org.apache.skywalking.apm.toolkit.trace.TraceContext;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -46,14 +46,16 @@ public class RestResponseHandler implements ResponseBodyAdvice<Object> {
   }
 
   @Override
-  @Trace
+
   public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
                                 Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
                                 ServerHttpResponse response) {
-    String traceId = TraceContext.traceId();
+    String traceId = TraceUtil.getTraceId();
+    if (traceId != null) {
+      response.getHeaders().add(HeaderConstant.TRACE_ID, traceId);
+    }
 
     Result<Object> result = Result.success();
-    result.setTraceId(traceId);
 
     if (body == null) {
       return result;
@@ -71,12 +73,10 @@ public class RestResponseHandler implements ResponseBodyAdvice<Object> {
     }
 
     if (body instanceof Result) {
-      ((Result<?>) body).setTraceId(traceId);
       return (Result<?>) body;
     }
 
     if (body instanceof PageResult) {
-      ((PageResult<?>) body).setTraceId(traceId);
       return (PageResult<?>) body;
     }
 

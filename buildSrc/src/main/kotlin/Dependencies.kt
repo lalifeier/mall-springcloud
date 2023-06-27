@@ -85,6 +85,8 @@ object Dependencies {
 
   const val easyExcel = "com.alibaba:easyexcel:${Versions.easyExcel}"
 
+  const val transmittableThreadLocal = "com.alibaba:transmittable-thread-local:${Versions.transmittableThreadLocal}"
+
   val all by lazy {
     listOf(
       lombok,

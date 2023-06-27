@@ -10,6 +10,4 @@ public class BaseResult {
     private int errCode;
 
     private String errMessage;
-
-    private String traceId;
 }

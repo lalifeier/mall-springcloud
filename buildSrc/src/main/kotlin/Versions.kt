@@ -64,5 +64,7 @@ object Versions {
   const val shardingSphereJDBC = "4.1.1"
 
   const val easyExcel = "3.3.2"
+
+  const val transmittableThreadLocal = "2.14.2"
 }
 
