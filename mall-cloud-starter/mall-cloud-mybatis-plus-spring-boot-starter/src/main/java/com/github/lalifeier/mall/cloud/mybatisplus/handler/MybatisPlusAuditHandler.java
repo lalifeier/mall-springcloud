@@ -31,7 +31,7 @@ public class MybatisPlusAuditHandler implements MetaObjectHandler {
     Long userId = getUserId();
 
     this.strictUpdateFill(metaObject, "updatedAt", LocalDateTime.class, LocalDateTime.now());
-    //this.strictInsertFill(metaObject, "updatedBy", Long.class, userId);
+    this.strictInsertFill(metaObject, "updatedBy", Long.class, userId);
   }
 
   public Long getUserId() {

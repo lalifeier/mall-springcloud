@@ -113,7 +113,8 @@ object Dependencies {
       flinkConnectorJDBC, flinkConnectorKafka,
       flinkMySQLCDC,
       shardingSphereJDBC,
-      easyExcel
+      easyExcel,
+      transmittableThreadLocal
     )
   }
 }
