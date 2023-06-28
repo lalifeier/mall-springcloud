@@ -17,7 +17,7 @@ dependencies {
   implementation("org.freemarker:freemarker")
   implementation("mysql:mysql-connector-java")
 //  implementation("org.apache.dubbo:dubbo-spring-boot-starter")
-  implementation("org.springframework.boot:spring-boot-starter-cache")
+//  implementation("org.springframework.boot:spring-boot-starter-cache")
   implementation("com.github.ben-manes.caffeine:caffeine")
   implementation("io.github.openfeign:feign-okhttp")
   testImplementation("org.springframework.boot:spring-boot-starter-test")

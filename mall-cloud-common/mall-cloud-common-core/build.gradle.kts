@@ -7,7 +7,7 @@ dependencies {
   implementation("org.apache.commons:commons-collections4")
   implementation("org.apache.skywalking:apm-toolkit-logback-1.x")
   implementation("org.apache.skywalking:apm-toolkit-trace")
-
+  implementation("com.alibaba:transmittable-thread-local")
 //    implementation("org.springframework.data:spring-data-commons")
 //    implementation("com.github.pagehelper:pagehelper")
 }

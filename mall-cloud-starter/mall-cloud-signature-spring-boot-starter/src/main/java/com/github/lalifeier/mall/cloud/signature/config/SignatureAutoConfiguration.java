@@ -33,7 +33,7 @@ public class SignatureAutoConfiguration {
   }
 
   @Bean
-  @ConditionalOnMissingBean
+  @ConditionalOnMissingBean(name = "redisTemplate")
   public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
     RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
     redisTemplate.setConnectionFactory(redisConnectionFactory);
