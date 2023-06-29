@@ -1,6 +1,6 @@
 package com.github.lalifeier.mall.cloud.demo.domain.book.service.impl;
 
-import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.BookEntity;
+import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.Book;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.valueobject.BookId;
 import com.github.lalifeier.mall.cloud.demo.domain.book.repository.BookRepository;
 import com.github.lalifeier.mall.cloud.demo.domain.book.service.BookDomainService;
@@ -16,38 +16,25 @@ public class BookDomainServiceImpl implements BookDomainService {
   }
 
   @Override
-  public void create(BookEntity bookEntity) {
-    bookRepository.save(bookEntity);
+  public Book create(Book book) {
+    return bookRepository.save(book);
   }
 
   @Override
-  public void update(BookEntity bookEntity) {
-    bookRepository.save(bookEntity);
+  public Book update(Book book) {
+    return bookRepository.save(book);
   }
 
   @Override
-  public BookEntity get(BookId bookId) {
+  public Book get(BookId bookId) {
     return bookRepository.find(bookId);
   }
 
   @Override
   public void delete(BookId bookId) {
-    BookEntity bookEntity = bookRepository.find(bookId);
-    if (bookEntity != null) {
-      bookRepository.remove(bookEntity);
+    Book book = bookRepository.find(bookId);
+    if (book != null) {
+      bookRepository.remove(book);
     }
-
-    // throw new BookNotFoundException(bookId);
   }
-
-  //@Override
-  //public List<BookDO> getAllBooks() {
-  //  return  bookRepository.findAll();
-  //}
-  //
-  //@Override
-  //public PageList<BookDO> getBooks(int pageNum, int pageSize) {
-  //  return bookRepository.page(pageNum, pageSize);
-  //}
-
 }

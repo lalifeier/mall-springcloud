@@ -2,12 +2,8 @@ package com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.repository
 
 import com.github.lalifeier.mall.cloud.common.model.query.PageQuery;
 import com.github.lalifeier.mall.cloud.common.model.query.Pagination;
-import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.BookEntity;
-
-import java.util.List;
+import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.Book;
 
 public interface BookQueryRepository {
-  List<BookEntity> list();
-
-  Pagination<BookEntity> pageList(PageQuery request);
+  Pagination<Book> query(PageQuery request);
 }

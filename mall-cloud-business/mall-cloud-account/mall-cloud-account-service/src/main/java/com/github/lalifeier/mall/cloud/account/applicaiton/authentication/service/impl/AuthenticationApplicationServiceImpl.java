@@ -1,7 +1,7 @@
 package com.github.lalifeier.mall.cloud.account.applicaiton.authentication.service.impl;
 
-import com.github.lalifeier.mall.cloud.account.applicaiton.authentication.dto.login.LoginDTO;
-import com.github.lalifeier.mall.cloud.account.applicaiton.authentication.dto.login.LoginRespDTO;
+import com.github.lalifeier.mall.cloud.account.applicaiton.authentication.model.command.LoginCommand;
+import com.github.lalifeier.mall.cloud.account.applicaiton.authentication.model.dto.LoginDTO;
 import com.github.lalifeier.mall.cloud.account.applicaiton.authentication.provider.login.LoginProvider;
 import com.github.lalifeier.mall.cloud.account.applicaiton.authentication.service.AuthenticationApplicationService;
 import lombok.RequiredArgsConstructor;
@@ -18,11 +18,11 @@ public class AuthenticationApplicationServiceImpl implements AuthenticationAppli
   private final List<LoginProvider> providers;
 
   @Override
-  public LoginRespDTO login(LoginDTO loginDTO) {
+  public LoginDTO login(LoginCommand loginCommand) {
     return providers.stream()
-      .filter(provider -> provider.supports(loginDTO.getLoginType()))
+      .filter(provider -> provider.supports(loginCommand.getLoginType()))
       .findFirst()
-      .map(provider -> provider.login(loginDTO))
-      .orElseThrow(() -> new IllegalArgumentException("Unsupported login method :" + loginDTO.getClass().getName()));
+      .map(provider -> provider.login(loginCommand))
+      .orElseThrow(() -> new IllegalArgumentException("Unsupported login method :" + loginCommand.getClass().getName()));
   }
 }

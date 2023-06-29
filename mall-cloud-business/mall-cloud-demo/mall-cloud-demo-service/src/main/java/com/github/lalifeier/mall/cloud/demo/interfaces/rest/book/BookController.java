@@ -31,7 +31,6 @@ public class BookController {
     this.bookQueryApplicationService = bookQueryApplicationService;
   }
 
-
   @PostMapping("")
   public void create(@Validated @RequestBody CreateBookRequest createBookRequest) {
     CreateBookCommand createBookBO = bookConverter.toDTO(createBookRequest);
@@ -57,18 +56,11 @@ public class BookController {
   }
 
   @GetMapping("")
-  public PageResult<BookResponse> pageList(@ModelAttribute BookPageQuery request) {
-    Pagination<BookDTO> bookDTOPagination = this.bookQueryApplicationService.pageList(request);
+  public PageResult<BookResponse> query(@ModelAttribute BookPageQuery query) {
+    Pagination<BookDTO> bookDTOPagination = this.bookQueryApplicationService.query(query);
 
     List<BookResponse> bookResponseList = this.bookConverter.toVO(bookDTOPagination.getData());
 
     return PageResult.success(bookResponseList, bookDTOPagination.getPageInfo());
   }
-
-  //@GetMapping("/list")
-  //public List<BookResponse> getAllBooks() {
-  //  List<BookBO> bookBOList = this.bookApplicationService.getAllBooks();
-  //  return this.bookConverter.toVO(bookBOList);
-  //}
-
 }

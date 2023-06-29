@@ -6,13 +6,11 @@ import com.github.lalifeier.mall.cloud.demo.applicaiton.book.converter.BookConve
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.dto.BookDTO;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.BookQueryApplicationService;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.repository.BookQueryRepository;
-import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.BookEntity;
+import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.Book;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.valueobject.BookId;
 import com.github.lalifeier.mall.cloud.demo.domain.book.service.BookDomainService;
-import com.github.lalifeier.mall.cloud.demo.infrastructure.repository.mybatis.book.mapper.BookMapper;
+import com.github.lalifeier.mall.cloud.demo.infrastructure.persistence.mybatis.book.mapper.BookMapper;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class BookQueryApplicationServiceImpl implements BookQueryApplicationService {
@@ -34,20 +32,13 @@ public class BookQueryApplicationServiceImpl implements BookQueryApplicationServ
   @Override
   public BookDTO get(Long id) {
     BookId bookId = new BookId(id);
-    BookEntity bookEntity = bookDomainService.get(bookId);
-    return this.bookConverter.toDTO(bookEntity);
+    Book book = bookDomainService.get(bookId);
+    return this.bookConverter.toDTO(book);
   }
 
   @Override
-  public List<BookDTO> list() {
-//    List<BookEntity> bookDOList = bookQueryRepository.list();
-//    return this.bookConverter.toDTO(bookDOList);
-    return null;
-  }
-
-  @Override
-  public Pagination<BookDTO> pageList(PageQuery query) {
-    Pagination<BookEntity> bookDOPagination = bookQueryRepository.pageList(query);
+  public Pagination<BookDTO> query(PageQuery query) {
+    Pagination<Book> bookDOPagination = bookQueryRepository.query(query);
     return this.bookConverter.toDTO(bookDOPagination);
   }
 

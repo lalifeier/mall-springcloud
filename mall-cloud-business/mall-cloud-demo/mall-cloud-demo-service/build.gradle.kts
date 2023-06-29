@@ -8,7 +8,7 @@ dependencies {
 //  implementation(project(":mall-cloud-starter:mall-cloud-encrypt-body-spring-boot-starter"))
   implementation(project(":mall-cloud-starter:mall-cloud-redis-spring-boot-starter"))
 //  implementation(project(":mall-cloud-starter:mall-cloud-rate-limiter-spring-boot-starter"))
-  implementation(project(":mall-cloud-starter:mall-cloud-signature-spring-boot-starter"))
+//  implementation(project(":mall-cloud-starter:mall-cloud-signature-spring-boot-starter"))
   implementation("net.devh:grpc-spring-boot-starter")
   // implementation("net.devh:grpc-server-spring-boot-starter")
   // compile("net.devh:grpc-client-spring-boot-starter")

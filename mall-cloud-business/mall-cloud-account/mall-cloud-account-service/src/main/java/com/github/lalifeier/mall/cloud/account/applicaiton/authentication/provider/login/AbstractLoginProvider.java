@@ -1,22 +1,22 @@
 package com.github.lalifeier.mall.cloud.account.applicaiton.authentication.provider.login;
 
 import com.github.lalifeier.mall.cloud.account.applicaiton.account.dto.AccountDTO;
-import com.github.lalifeier.mall.cloud.account.applicaiton.authentication.dto.login.LoginDTO;
-import com.github.lalifeier.mall.cloud.account.applicaiton.authentication.dto.login.LoginRespDTO;
+import com.github.lalifeier.mall.cloud.account.applicaiton.authentication.model.command.LoginCommand;
+import com.github.lalifeier.mall.cloud.account.applicaiton.authentication.model.dto.LoginDTO;
 import com.github.lalifeier.mall.cloud.account.infrastructure.enums.LoginType;
 
 public abstract class AbstractLoginProvider implements LoginProvider {
 
 
-  protected abstract void preAuthenticationCheck(LoginDTO loginDTO);
+  protected abstract void preAuthenticationCheck(LoginCommand loginCommand);
 
-  protected abstract AccountDTO authenticate(LoginDTO loginDTO);
+  protected abstract AccountDTO authenticate(LoginCommand loginCommand);
 
   @Override
-  public LoginRespDTO login(LoginDTO loginDTO) {
-    preAuthenticationCheck(loginDTO);
+  public LoginDTO login(LoginCommand loginCommand) {
+    preAuthenticationCheck(loginCommand);
 
-    AccountDTO accountDTO = authenticate(loginDTO);
+    AccountDTO accountDTO = authenticate(loginCommand);
 
     return null;
   }

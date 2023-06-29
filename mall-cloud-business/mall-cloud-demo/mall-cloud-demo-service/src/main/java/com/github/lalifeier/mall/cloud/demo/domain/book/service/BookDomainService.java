@@ -1,17 +1,14 @@
 package com.github.lalifeier.mall.cloud.demo.domain.book.service;
 
-import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.BookEntity;
+import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.Book;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.valueobject.BookId;
 
 public interface BookDomainService {
-  void create(BookEntity bookEntity);
+  Book create(Book book);
 
-  void update(BookEntity bookEntity);
+  Book update(Book book);
 
-  BookEntity get(BookId bookId);
+  Book get(BookId bookId);
 
   void delete(BookId bookId);
-
-  //List<BookDO> getAllBooks();
-  //PageList<BookDO> getBooks(int pageNum, int pageSize);
 }
