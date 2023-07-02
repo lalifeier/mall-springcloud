@@ -21,7 +21,6 @@ import java.util.concurrent.Executor;
  */
 @Slf4j
 @Component
-//@RefreshScope
 public class DynamicRouteLoader {
   private final GatewayRouteConfig gatewayRouteConfig;
   private final DynamicRouteService dynamicRouteService;
@@ -37,19 +36,13 @@ public class DynamicRouteLoader {
     try {
       this.configService = NacosFactory.createConfigService(gatewayRouteConfig.getServiceProperties());
 
-      loadRouteDefinitions();
+      String configInfo = this.configService.getConfig(gatewayRouteConfig.getDataId(), gatewayRouteConfig.getRouteGroup(), GatewayRouteConfig.TIMEOUT);
+      List<RouteDefinition> routeDefinitions = convert(configInfo);
+      dynamicRouteService.batchSave(routeDefinitions);
 
-      registerNacosListener();
+      this.configService.addListener(gatewayRouteConfig.getDataId(), gatewayRouteConfig.getRouteGroup(), new NacosListener());
     } catch (NacosException e) {
       log.error("初始化网关路由时发生错误", e);
-    }
-  }
-
-  private void registerNacosListener() {
-    try {
-      configService.addListener(gatewayRouteConfig.getDataId(), gatewayRouteConfig.getRouteGroup(), new NacosListener());
-    } catch (NacosException e) {
-      log.error("register nacos listener error:{}", e);
     }
   }
 
@@ -61,7 +54,10 @@ public class DynamicRouteLoader {
 
     @Override
     public void receiveConfigInfo(String configInfo) {
-      loadRouteDefinitions();
+
+      List<RouteDefinition> routeDefinitions = convert(configInfo);
+      dynamicRouteService.fullUpdateRoute(routeDefinitions);
+      refreshRouteService.refreshRoutes();
     }
   }
 
@@ -71,20 +67,6 @@ public class DynamicRouteLoader {
     }
     return new Gson().fromJson(configInfo, new TypeToken<List<RouteDefinition>>() {
     }.getType());
-  }
-
-  private void loadRouteDefinitions() {
-    try {
-      String configInfo = configService.getConfig(gatewayRouteConfig.getDataId(), gatewayRouteConfig.getRouteGroup(), GatewayRouteConfig.TIMEOUT);
-      List<RouteDefinition> routeDefinitions = convert(configInfo);
-      for (RouteDefinition definition : routeDefinitions) {
-        dynamicRouteService.save(definition);
-      }
-      refreshRouteService.refreshRoutes();
-      log.info("Loaded {} route definitions from Nacos", routeDefinitions.size());
-    } catch (Exception e) {
-      log.error("loadRouteDefinitions error:{}", e);
-    }
   }
 }
 

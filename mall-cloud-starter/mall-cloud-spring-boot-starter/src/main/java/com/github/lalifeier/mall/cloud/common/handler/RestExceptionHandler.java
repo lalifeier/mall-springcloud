@@ -5,8 +5,8 @@ import com.github.lalifeier.mall.cloud.common.api.IErrorCodeException;
 import com.github.lalifeier.mall.cloud.common.exception.TooManyRequestsException;
 import com.github.lalifeier.mall.cloud.common.manager.ErrorInfo;
 import com.github.lalifeier.mall.cloud.common.model.result.Result;
-import com.github.lalifeier.mall.cloud.common.system.HttpCodes;
-import com.github.lalifeier.mall.cloud.common.system.SystemErrorCodes;
+import com.github.lalifeier.mall.cloud.common.system.HttpErrorCode;
+import com.github.lalifeier.mall.cloud.common.system.SystemErrorCode;
 import com.google.common.base.Joiner;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
@@ -46,12 +46,12 @@ public class RestExceptionHandler {
       }
       ErrorInfo errorInfo = ((IErrorCodeException) e).getErrorInfo();
       if (errorInfo == null) {
-        return Result.failure(SystemErrorCodes.SYSTEM_ERROR.getCode(), pair.getRight());
+        return Result.failure(SystemErrorCode.SYSTEM_ERROR.getCode(), pair.getRight());
       }
       return Result.failure(errorInfo.getCode(), errorInfo.getMsg());
     }
     log.error("error, request: {}", parseParam(request), e);
-    return Result.failure(SystemErrorCodes.SYSTEM_ERROR.getCode(), pair.getLeft().getClass().getSimpleName() + ": " + pair.getRight());
+    return Result.failure(SystemErrorCode.SYSTEM_ERROR.getCode(), pair.getLeft().getClass().getSimpleName() + ": " + pair.getRight());
   }
 
   @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -62,7 +62,7 @@ public class RestExceptionHandler {
       e.getBindingResult().getAllErrors().stream()
         .map(ObjectError::getDefaultMessage)
         .collect(Collectors.joining(", "));
-    return Result.failure(HttpCodes.BAD_REQUEST.getStatus(), message);
+    return Result.failure(HttpErrorCode.BAD_REQUEST.getStatus(), message);
   }
 
   @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -72,7 +72,7 @@ public class RestExceptionHandler {
     String message = e.getConstraintViolations().stream()
       .map(ConstraintViolation::getMessage)
       .collect(Collectors.joining(", "));
-    return Result.failure(HttpCodes.BAD_REQUEST.getStatus(), message);
+    return Result.failure(HttpErrorCode.BAD_REQUEST.getStatus(), message);
   }
 
   @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -82,7 +82,7 @@ public class RestExceptionHandler {
     String message = e.getAllErrors().stream()
       .map(ObjectError::getDefaultMessage)
       .collect(Collectors.joining(", "));
-    return Result.failure(HttpCodes.BAD_REQUEST.getStatus(), message);
+    return Result.failure(HttpErrorCode.BAD_REQUEST.getStatus(), message);
   }
 
 

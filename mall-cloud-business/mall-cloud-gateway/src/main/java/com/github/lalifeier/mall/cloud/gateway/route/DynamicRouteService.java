@@ -6,7 +6,10 @@ import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
 import org.springframework.cloud.gateway.route.RouteDefinitionWriter;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 /**
  * 动态更新路由网关service
@@ -41,6 +44,21 @@ public class DynamicRouteService {
   public void save(RouteDefinition definition) {
     log.info("gateway save route {}", definition);
     routeDefinitionWriter.save(Mono.just(definition)).subscribe();
+  }
+
+  public void batchSave(List<RouteDefinition> definitions) {
+    definitions.forEach(this::save);
+  }
+
+  public void fullUpdateRoute(List<RouteDefinition> definitions) {
+    List<RouteDefinition> routeDefinitionsExits = routeDefinitionLocator.getRouteDefinitions().buffer().blockFirst();
+    if (!CollectionUtils.isEmpty(routeDefinitionsExits)) {
+      routeDefinitionsExits.forEach(definition -> {
+        delete(definition.getId());
+      });
+    }
+
+    batchSave(definitions);
   }
 }
 

@@ -1,12 +1,21 @@
 package com.github.lalifeier.mall.cloud.feign.config;
 
-import com.github.lalifeier.mall.cloud.feign.component.FeignDecoder;
-import com.github.lalifeier.mall.cloud.feign.component.FeignErrorDecoder;
+import com.github.lalifeier.mall.cloud.feign.codec.FeignDecoder;
+import com.github.lalifeier.mall.cloud.feign.codec.FeignErrorDecoder;
 import feign.Logger;
 import feign.codec.Decoder;
 import feign.codec.ErrorDecoder;
+import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
+import org.springframework.cloud.openfeign.support.SpringDecoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 public class FeignAutoConfiguration {
@@ -22,11 +31,29 @@ public class FeignAutoConfiguration {
     return Logger.Level.NONE;
   }
 
-  @Bean
-  public Decoder feignDecode() {
-    return new FeignDecoder();
+//  @Bean
+//  public Retryer feignRetryer() {
+//    return new Retryer.Default(100, TimeUnit.SECONDS.toMillis(1), 5);
+//  }
+
+  public ObjectFactory<HttpMessageConverters> feignHttpMessageConverter() {
+    final HttpMessageConverters httpMessageConverters = new HttpMessageConverters(new PhpMappingJackson2HttpMessageConverter());
+    return () -> httpMessageConverters;
   }
 
+  public class PhpMappingJackson2HttpMessageConverter extends MappingJackson2HttpMessageConverter {
+    PhpMappingJackson2HttpMessageConverter() {
+      List<MediaType> mediaTypes = new ArrayList<>();
+      mediaTypes.add(MediaType.valueOf(MediaType.APPLICATION_JSON + ";charset=UTF-8"));
+      setSupportedMediaTypes(mediaTypes);
+    }
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public Decoder feignDecoder() {
+    return new FeignDecoder(new SpringDecoder(feignHttpMessageConverter()));
+  }
 
   @Bean
   public ErrorDecoder feignErrorDecoder() {
