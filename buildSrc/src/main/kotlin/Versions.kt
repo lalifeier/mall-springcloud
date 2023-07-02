@@ -12,6 +12,7 @@ object Versions {
   const val protobufGradle = "0.9.3"
   const val grpcKotlin = "1.3.0"
   const val sonarqube = "4.1.0.3113"
+  const val spotless = "6.13.0"
   const val grpcSpringBoot = "2.13.1.RELEASE"
   const val springBootAdmin = "2.6.9"
   const val springSecurityOauth2 = "2.5.2.RELEASE"

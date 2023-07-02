@@ -25,9 +25,8 @@ spring:
 # 动态路由配置
 route:
   dynamic:
-    enabled: false
+    enabled: true
     dataId: mall-gateway-route.json
-
 
 logging:
   level:

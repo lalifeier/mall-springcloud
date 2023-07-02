@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Properties;
 
 @Configuration
-public class DynamicGatewayRouteConfig {
+public class GatewayRouteConfig {
   private Boolean enabled;
   private String serverAddr;
   private String namespace;
@@ -16,7 +16,7 @@ public class DynamicGatewayRouteConfig {
   private String password;
   public static final long TIMEOUT = 30000;
 
-  public DynamicGatewayRouteConfig(
+  public GatewayRouteConfig(
     @Value("${route.dynamic.enabled}") Boolean enabled,
     @Value("${route.dynamic.dataId}") String dataId,
     @Value("${spring.cloud.nacos.config.namespace}") String namespace,

@@ -15,8 +15,24 @@ plugins {
   id("com.bmuschko.docker-remote-api") version Versions.dockerGadle
   id("com.bmuschko.docker-spring-boot-application") version Versions.dockerGadle
   id("com.google.protobuf") version Versions.protobufGradle
+  id("com.diffplug.spotless") version Versions.spotless
 //  id("org.sonarqube") version Versions.sonarqube
 }
+
+spotless {
+  java {
+    // apply a specific flavor of google-java-format
+    googleJavaFormat().aosp().reflowLongStrings()
+    // fix formatting of type annotations
+    formatAnnotations()
+  }
+}
+
+//sonarqube {
+//  properties {
+//    property("sonar.host.url", "https://sonarqube.host.com")
+//  }
+//}
 
 sourceSets {
   main {
@@ -53,8 +69,6 @@ sourceSets {
 allprojects {
   group = "com.github.lalifeier"
   version = project.findProperty("version") as String
-
-
 }
 
 val javaProjects = subprojects.filter { it.file("build.gradle.kts").exists() }
