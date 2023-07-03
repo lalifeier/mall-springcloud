@@ -7,27 +7,27 @@ import com.github.lalifeier.mall.cloud.common.manager.ErrorInfo;
 import com.github.lalifeier.mall.cloud.common.system.SystemProjectModule;
 
 public class UnauthorizedException extends BaseException {
-  protected UnauthorizedException(String message) {
+  public UnauthorizedException(String message) {
     super(message);
   }
 
-  protected UnauthorizedException(String message, Throwable cause) {
+  public UnauthorizedException(String message, Throwable cause) {
     super(message, cause);
   }
 
-  protected UnauthorizedException(Throwable cause) {
+  public UnauthorizedException(Throwable cause) {
     super(cause);
   }
 
-  protected UnauthorizedException(ErrorInfo errorInfo) {
+  public UnauthorizedException(ErrorInfo errorInfo) {
     super(errorInfo);
   }
 
-  protected UnauthorizedException(ErrorCode ErrorCode) {
+  public UnauthorizedException(ErrorCode ErrorCode) {
     super(ErrorCode);
   }
 
-  protected UnauthorizedException(ErrorCode ErrorCode, Object... args) {
+  public UnauthorizedException(ErrorCode ErrorCode, Object... args) {
     super(ErrorCode, args);
   }
 

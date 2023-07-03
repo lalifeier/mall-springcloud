@@ -7,27 +7,27 @@ import com.github.lalifeier.mall.cloud.common.manager.ErrorInfo;
 import com.github.lalifeier.mall.cloud.common.system.SystemProjectModule;
 
 public class InternalException extends BaseException {
-  protected InternalException(String message) {
+  public InternalException(String message) {
     super(message);
   }
 
-  protected InternalException(String message, Throwable cause) {
+  public InternalException(String message, Throwable cause) {
     super(message, cause);
   }
 
-  protected InternalException(Throwable cause) {
+  public InternalException(Throwable cause) {
     super(cause);
   }
 
-  protected InternalException(ErrorInfo errorInfo) {
+  public InternalException(ErrorInfo errorInfo) {
     super(errorInfo);
   }
 
-  protected InternalException(ErrorCode ErrorCode) {
+  public InternalException(ErrorCode ErrorCode) {
     super(ErrorCode);
   }
 
-  protected InternalException(ErrorCode ErrorCode, Object... args) {
+  public InternalException(ErrorCode ErrorCode, Object... args) {
     super(ErrorCode, args);
   }
 

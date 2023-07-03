@@ -9,27 +9,27 @@ import com.github.lalifeier.mall.cloud.common.system.SystemProjectModule;
 
 public class BadRequestException extends BaseException {
 
-  protected BadRequestException(String message) {
+  public BadRequestException(String message) {
     super(message);
   }
 
-  protected BadRequestException(String message, Throwable cause) {
+  public BadRequestException(String message, Throwable cause) {
     super(message, cause);
   }
 
-  protected BadRequestException(Throwable cause) {
+  public BadRequestException(Throwable cause) {
     super(cause);
   }
 
-  protected BadRequestException(ErrorInfo errorInfo) {
+  public BadRequestException(ErrorInfo errorInfo) {
     super(errorInfo);
   }
 
-  protected BadRequestException(ErrorCode errorCode) {
+  public BadRequestException(ErrorCode errorCode) {
     super(errorCode);
   }
 
-  protected BadRequestException(ErrorCode errorCode, Object... args) {
+  public BadRequestException(ErrorCode errorCode, Object... args) {
     super(errorCode, args);
   }
 

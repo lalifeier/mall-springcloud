@@ -6,27 +6,27 @@ import com.github.lalifeier.mall.cloud.common.manager.ErrorInfo;
 import com.github.lalifeier.mall.cloud.common.system.SystemProjectModule;
 
 public class RemoteServiceException extends BaseException {
-  protected RemoteServiceException(String message) {
+  public RemoteServiceException(String message) {
     super(message);
   }
 
-  protected RemoteServiceException(String message, Throwable cause) {
+  public RemoteServiceException(String message, Throwable cause) {
     super(message, cause);
   }
 
-  protected RemoteServiceException(Throwable cause) {
+  public RemoteServiceException(Throwable cause) {
     super(cause);
   }
 
-  protected RemoteServiceException(ErrorInfo errorInfo) {
+  public RemoteServiceException(ErrorInfo errorInfo) {
     super(errorInfo);
   }
 
-  protected RemoteServiceException(ErrorCode ErrorCode) {
+  public RemoteServiceException(ErrorCode ErrorCode) {
     super(ErrorCode);
   }
 
-  protected RemoteServiceException(ErrorCode ErrorCode, Object... args) {
+  public RemoteServiceException(ErrorCode ErrorCode, Object... args) {
     super(ErrorCode, args);
   }
 

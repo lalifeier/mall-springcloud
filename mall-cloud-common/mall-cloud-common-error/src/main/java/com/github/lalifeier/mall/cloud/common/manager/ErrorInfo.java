@@ -36,9 +36,9 @@ public class ErrorInfo {
     return NO_PARAM_CODES_MAP.computeIfAbsent(code, it -> new ErrorInfo(it, error.getMessage()));
   }
 
-  public static ErrorInfo parse(ErrorCode error, Object... args) {
-    String msg = MessageFormatter.arrayFormat(error.getMessage(), args).getMessage();
-    return new ErrorInfo(error.getCode(), msg);
+  public static ErrorInfo parse(ErrorCode errorCode, Object... args) {
+    String message = MessageFormatter.arrayFormat(errorCode.getMessage(), args).getMessage();
+    return new ErrorInfo(errorCode.getCode(), message);
   }
 
   @Override

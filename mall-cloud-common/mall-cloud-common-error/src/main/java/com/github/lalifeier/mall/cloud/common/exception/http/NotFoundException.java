@@ -7,27 +7,27 @@ import com.github.lalifeier.mall.cloud.common.manager.ErrorInfo;
 import com.github.lalifeier.mall.cloud.common.system.SystemProjectModule;
 
 public class NotFoundException extends BaseException {
-  protected NotFoundException(String message) {
+  public NotFoundException(String message) {
     super(message);
   }
 
-  protected NotFoundException(String message, Throwable cause) {
+  public NotFoundException(String message, Throwable cause) {
     super(message, cause);
   }
 
-  protected NotFoundException(Throwable cause) {
+  public NotFoundException(Throwable cause) {
     super(cause);
   }
 
-  protected NotFoundException(ErrorInfo errorInfo) {
+  public NotFoundException(ErrorInfo errorInfo) {
     super(errorInfo);
   }
 
-  protected NotFoundException(ErrorCode ErrorCode) {
+  public NotFoundException(ErrorCode ErrorCode) {
     super(ErrorCode);
   }
 
-  protected NotFoundException(ErrorCode ErrorCode, Object... args) {
+  public NotFoundException(ErrorCode ErrorCode, Object... args) {
     super(ErrorCode, args);
   }
 

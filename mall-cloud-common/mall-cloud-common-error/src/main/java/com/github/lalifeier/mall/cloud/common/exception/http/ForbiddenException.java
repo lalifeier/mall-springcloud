@@ -7,27 +7,27 @@ import com.github.lalifeier.mall.cloud.common.manager.ErrorInfo;
 import com.github.lalifeier.mall.cloud.common.system.SystemProjectModule;
 
 public class ForbiddenException extends BaseException {
-  protected ForbiddenException(String message) {
+  public ForbiddenException(String message) {
     super(message);
   }
 
-  protected ForbiddenException(String message, Throwable cause) {
+  public ForbiddenException(String message, Throwable cause) {
     super(message, cause);
   }
 
-  protected ForbiddenException(Throwable cause) {
+  public ForbiddenException(Throwable cause) {
     super(cause);
   }
 
-  protected ForbiddenException(ErrorInfo errorInfo) {
+  public ForbiddenException(ErrorInfo errorInfo) {
     super(errorInfo);
   }
 
-  protected ForbiddenException(ErrorCode ErrorCode) {
+  public ForbiddenException(ErrorCode ErrorCode) {
     super(ErrorCode);
   }
 
-  protected ForbiddenException(ErrorCode ErrorCode, Object... args) {
+  public ForbiddenException(ErrorCode ErrorCode, Object... args) {
     super(ErrorCode, args);
   }
 

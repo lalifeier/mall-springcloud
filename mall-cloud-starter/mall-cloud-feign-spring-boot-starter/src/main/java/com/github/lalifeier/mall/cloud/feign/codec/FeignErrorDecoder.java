@@ -1,5 +1,6 @@
 package com.github.lalifeier.mall.cloud.feign.codec;
 
+import com.github.lalifeier.mall.cloud.common.exception.BusinessException;
 import com.github.lalifeier.mall.cloud.common.model.result.Result;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -25,7 +26,7 @@ public class FeignErrorDecoder implements ErrorDecoder {
     try {
       Reader reader = response.body().asReader(Charset.defaultCharset());
       Result<?> result = new Gson().fromJson(reader, Result.class);
-      return new Exception(result.getErrMessage());
+      throw new BusinessException(result.getError().getMessage());
     } catch (Exception e) {
       log.error("Failed to parse response as Result: ", e);
       return new Exception(e.getMessage());
@@ -36,7 +37,7 @@ public class FeignErrorDecoder implements ErrorDecoder {
     try {
       Reader reader = response.body().asReader(Charset.defaultCharset());
       JsonObject json = JsonParser.parseReader(reader).getAsJsonObject();
-      return json.has("errMessage");
+      return json.has("error");
     } catch (Exception e) {
       return false;
     }

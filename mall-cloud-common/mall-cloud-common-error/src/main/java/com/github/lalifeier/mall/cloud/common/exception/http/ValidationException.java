@@ -7,27 +7,27 @@ import com.github.lalifeier.mall.cloud.common.manager.ErrorInfo;
 import com.github.lalifeier.mall.cloud.common.system.SystemProjectModule;
 
 public class ValidationException extends BaseException {
-  protected ValidationException(String message) {
+  public ValidationException(String message) {
     super(message);
   }
 
-  protected ValidationException(String message, Throwable cause) {
+  public ValidationException(String message, Throwable cause) {
     super(message, cause);
   }
 
-  protected ValidationException(Throwable cause) {
+  public ValidationException(Throwable cause) {
     super(cause);
   }
 
-  protected ValidationException(ErrorInfo errorInfo) {
+  public ValidationException(ErrorInfo errorInfo) {
     super(errorInfo);
   }
 
-  protected ValidationException(ErrorCode ErrorCode) {
+  public ValidationException(ErrorCode ErrorCode) {
     super(ErrorCode);
   }
 
-  protected ValidationException(ErrorCode ErrorCode, Object... args) {
+  public ValidationException(ErrorCode ErrorCode, Object... args) {
     super(ErrorCode, args);
   }
 

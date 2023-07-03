@@ -1,5 +1,6 @@
 package com.github.lalifeier.mall.cloud.feign.codec;
 
+import com.github.lalifeier.mall.cloud.common.exception.BusinessException;
 import com.github.lalifeier.mall.cloud.common.model.result.Result;
 import com.google.gson.Gson;
 import feign.FeignException;
@@ -39,11 +40,10 @@ public class FeignDecoder implements Decoder {
         return result.getData();
       }
 
-      throw new RuntimeException(result.getErrMessage());
+      throw new BusinessException(result.getError().getMessage());
     }
 
     return decoder.decode(response, type);
-
   }
 
   private boolean isResultType(Type type) {

@@ -9,9 +9,9 @@ import lombok.Data;
 public class Result<T> {
   private boolean success;
 
-  private String status;
-
-  private String message;
+//  private String status;
+//
+//  private String message;
 
   private ErrorInfo error;
 
@@ -44,19 +44,10 @@ public class Result<T> {
     return result;
   }
 
-//  public static Result<Object> failure(ErrorInfo error, String message) {
-//    Result<Object> result = new Result<>();
-//    result.setSuccess(false);
-//    result.setError(error);
-//    result.setMessage(message);
-//    return result;
-//  }
-
   public static Result<Object> failure(ErrorCode errorCode) {
     Result<Object> result = new Result<>();
     result.setSuccess(false);
     result.setError(ErrorInfo.parse(errorCode));
-    result.setStatus(errorCode.name());
     return result;
   }
 }

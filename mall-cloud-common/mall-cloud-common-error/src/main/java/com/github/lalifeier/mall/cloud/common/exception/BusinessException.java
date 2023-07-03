@@ -6,27 +6,27 @@ import com.github.lalifeier.mall.cloud.common.manager.ErrorInfo;
 import com.github.lalifeier.mall.cloud.common.system.SystemProjectModule;
 
 public class BusinessException extends BaseException {
-  protected BusinessException(String message) {
+  public BusinessException(String message) {
     super(message);
   }
 
-  protected BusinessException(String message, Throwable cause) {
+  public BusinessException(String message, Throwable cause) {
     super(message, cause);
   }
 
-  protected BusinessException(Throwable cause) {
+  public BusinessException(Throwable cause) {
     super(cause);
   }
 
-  protected BusinessException(ErrorInfo errorInfo) {
+  public BusinessException(ErrorInfo errorInfo) {
     super(errorInfo);
   }
 
-  protected BusinessException(ErrorCode ErrorCode) {
+  public BusinessException(ErrorCode ErrorCode) {
     super(ErrorCode);
   }
 
-  protected BusinessException(ErrorCode ErrorCode, Object... args) {
+  public BusinessException(ErrorCode ErrorCode, Object... args) {
     super(ErrorCode, args);
   }
 
