@@ -20,7 +20,7 @@ public class FeignExceptionHandler {
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public Result<?> handleFeignException(FeignException e) {
     log.error("远程调用出错：{}", e.getMessage());
-    return Result.failure(SystemErrorCode.SYSTEM_ERROR.getCode(), "远程调用出错");
+    return Result.failure(SystemErrorCode.REMOTE_CALL_ERROR.getCode(), "远程调用出错");
   }
 
   @ExceptionHandler(DecodeException.class)

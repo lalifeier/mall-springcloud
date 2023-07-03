@@ -14,17 +14,18 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ErrorInfo {
   static final Map<Integer, ErrorInfo> NO_PARAM_CODES_MAP = new ConcurrentHashMap<>();
   static final Map<String, ErrorInfo> ERROR_MSG_CODES_MAP = new ConcurrentHashMap<>();
+
   /**
    * 错误码
    */
   @Getter
   private final int code;
+
   /**
    * 返回错误信息 英文
    */
   @Getter
-  private final String msg;
-
+  private final String message;
 
   public static ErrorInfo parse(String message) {
     return ERROR_MSG_CODES_MAP.computeIfAbsent(message, it -> new ErrorInfo(SystemErrorCode.SYSTEM_ERROR.getCode(), message));
@@ -42,6 +43,6 @@ public class ErrorInfo {
 
   @Override
   public String toString() {
-    return "code=" + code + ",msg=" + msg;
+    return "code=" + code + ",message=" + message;
   }
 }

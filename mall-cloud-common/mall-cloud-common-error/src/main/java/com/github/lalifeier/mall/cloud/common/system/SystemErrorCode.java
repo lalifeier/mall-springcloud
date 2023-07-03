@@ -21,4 +21,9 @@ public enum SystemErrorCode implements ErrorCode {
     this.message = message;
     ErrorManager.register(SystemProjectModule.INSTANCE, this);
   }
+
+  @Override
+  public String getStatus() {
+    return name();
+  }
 }

@@ -1,8 +1,8 @@
 package com.github.lalifeier.mall.cloud.common.handler;
 
 
-import com.github.lalifeier.mall.cloud.common.api.IErrorCodeException;
-import com.github.lalifeier.mall.cloud.common.exception.TooManyRequestsException;
+import com.github.lalifeier.mall.cloud.common.api.ErrorCodeException;
+import com.github.lalifeier.mall.cloud.common.exception.http.*;
 import com.github.lalifeier.mall.cloud.common.manager.ErrorInfo;
 import com.github.lalifeier.mall.cloud.common.model.result.Result;
 import com.github.lalifeier.mall.cloud.common.system.HttpErrorCode;
@@ -38,17 +38,17 @@ public class RestExceptionHandler {
   @ExceptionHandler(value = Throwable.class)
   public Result<?> processException(HttpServletRequest request, Exception e) {
     Pair<Throwable, String> pair = getExceptionMessage(e);
-    if (e instanceof IErrorCodeException) {
+    if (e instanceof ErrorCodeException) {
       if (e.getCause() != null) {
         log.error("error, request: {}", parseParam(request), e.getCause());
       } else {
         log.error("error: {}, request: {}", pair.getRight(), parseParam(request));
       }
-      ErrorInfo errorInfo = ((IErrorCodeException) e).getErrorInfo();
+      ErrorInfo errorInfo = ((ErrorCodeException) e).getErrorInfo();
       if (errorInfo == null) {
         return Result.failure(SystemErrorCode.SYSTEM_ERROR.getCode(), pair.getRight());
       }
-      return Result.failure(errorInfo.getCode(), errorInfo.getMsg());
+      return Result.failure(errorInfo);
     }
     log.error("error, request: {}", parseParam(request), e);
     return Result.failure(SystemErrorCode.SYSTEM_ERROR.getCode(), pair.getLeft().getClass().getSimpleName() + ": " + pair.getRight());
@@ -62,7 +62,7 @@ public class RestExceptionHandler {
       e.getBindingResult().getAllErrors().stream()
         .map(ObjectError::getDefaultMessage)
         .collect(Collectors.joining(", "));
-    return Result.failure(HttpErrorCode.BAD_REQUEST.getStatus(), message);
+    return Result.failure(HttpErrorCode.BAD_REQUEST.getCode(), message);
   }
 
   @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -72,7 +72,7 @@ public class RestExceptionHandler {
     String message = e.getConstraintViolations().stream()
       .map(ConstraintViolation::getMessage)
       .collect(Collectors.joining(", "));
-    return Result.failure(HttpErrorCode.BAD_REQUEST.getStatus(), message);
+    return Result.failure(HttpErrorCode.BAD_REQUEST.getCode(), message);
   }
 
   @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -82,30 +82,61 @@ public class RestExceptionHandler {
     String message = e.getAllErrors().stream()
       .map(ObjectError::getDefaultMessage)
       .collect(Collectors.joining(", "));
-    return Result.failure(HttpErrorCode.BAD_REQUEST.getStatus(), message);
+    return Result.failure(HttpErrorCode.BAD_REQUEST.getCode(), message);
   }
 
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(value = BadRequestException.class)
+  public Result<?> handleBadRequestException(HttpServletRequest request, BadRequestException e) {
+    return Result.failure(HttpErrorCode.BAD_REQUEST);
+  }
 
-  @ResponseStatus(HttpStatus.TOO_MANY_REQUESTS)
+  @ResponseStatus(HttpStatus.UNAUTHORIZED)
+  @ExceptionHandler(value = UnauthorizedException.class)
+  public Result<?> handleUnauthorizedException(HttpServletRequest request, UnauthorizedException e) {
+    return Result.failure(HttpErrorCode.UNAUTHORIZED);
+  }
+
+  @ResponseStatus(HttpStatus.FORBIDDEN)
+  @ExceptionHandler(value = ForbiddenException.class)
+  public Result<?> handleForbiddenException(HttpServletRequest request, ForbiddenException e) {
+    return Result.failure(HttpErrorCode.FORBIDDEN);
+  }
+
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  @ExceptionHandler(value = NotFoundException.class)
+  public Result<?> handleNotFoundException(HttpServletRequest request, NotFoundException e) {
+    return Result.failure(HttpErrorCode.NOT_FOUND);
+  }
+
   @ExceptionHandler(value = TooManyRequestsException.class)
   public ResponseEntity<Result<?>> handleTooManyRequestsException(HttpServletRequest request, TooManyRequestsException e) {
-//    // 获取限制的时间戳，例如 1633220000 表示 2021-10-03 18:00:00
-//    long limitTimestamp = e.getLimitTimestamp();
-//    // 获取当前时间戳，例如 1633220500 表示 2021-10-03 18:08:20
-//    long currentTimestamp = System.currentTimeMillis() / 1000L;
-//    // 计算还剩余的时间，例如剩余 40 秒
-//    long remainingSeconds = limitTimestamp - currentTimestamp;
-    // 设置响应头信息
+    long limitTimestamp = e.getLimitTimestamp();
+    long currentTimestamp = System.currentTimeMillis() / 1000L;
+    long remainingSeconds = limitTimestamp - currentTimestamp;
+
     HttpHeaders headers = new HttpHeaders();
 //    headers.add("X-RateLimit-Limit", "1000");
 //    headers.add("X-RateLimit-Remaining", "950");
-//    headers.add("X-RateLimit-Reset", String.valueOf(limitTimestamp));
-//    headers.add("Retry-After", String.valueOf(remainingSeconds));
+    headers.add("X-RateLimit-Reset", String.valueOf(limitTimestamp));
+    headers.add("Retry-After", String.valueOf(remainingSeconds));
 
     return ResponseEntity
       .status(HttpStatus.TOO_MANY_REQUESTS)
       .headers(headers)
-      .body(Result.failure(HttpStatus.TOO_MANY_REQUESTS.value(), e.getMessage()));
+      .body(Result.failure(HttpErrorCode.TOO_MANY_REQUESTS));
+  }
+
+  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+  @ExceptionHandler(value = InternalException.class)
+  public Result<?> handleInternalException(HttpServletRequest request, InternalException e) {
+    return Result.failure(HttpErrorCode.INTERNAL_SERVER_ERROR);
+  }
+
+  @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
+  @ExceptionHandler(value = ServiceException.class)
+  public Result<?> handleServiceException(HttpServletRequest request, ServiceException e) {
+    return Result.failure(HttpErrorCode.SERVICE_UNAVAILABLE);
   }
 
   public String parseParam(HttpServletRequest request) {

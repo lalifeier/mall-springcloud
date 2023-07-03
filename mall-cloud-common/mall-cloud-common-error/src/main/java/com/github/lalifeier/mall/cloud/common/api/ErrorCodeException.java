@@ -3,7 +3,7 @@ package com.github.lalifeier.mall.cloud.common.api;
 
 import com.github.lalifeier.mall.cloud.common.manager.ErrorInfo;
 
-public interface IErrorCodeException {
+public interface ErrorCodeException {
   /**
    * 错误信息
    */

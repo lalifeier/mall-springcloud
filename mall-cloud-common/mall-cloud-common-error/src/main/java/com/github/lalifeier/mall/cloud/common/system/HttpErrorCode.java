@@ -7,7 +7,6 @@ import lombok.Getter;
 
 @Getter
 public enum HttpErrorCode implements ErrorCode {
-
   OK(200, "成功"),
   BAD_REQUEST(400, "错误的请求"),
   UNAUTHORIZED(401, "未授权"),
@@ -17,17 +16,17 @@ public enum HttpErrorCode implements ErrorCode {
   INTERNAL_SERVER_ERROR(500, "服务器内部错误"),
   SERVICE_UNAVAILABLE(503, "服务不可用");
 
-  private final int status;
+  private final int nodeNum;
   private final String message;
 
-  HttpErrorCode(int status, String message) {
-    this.status = status;
+  HttpErrorCode(int nodeNum, String message) {
+    this.nodeNum = nodeNum;
     this.message = message;
     ErrorManager.register(SystemProjectModule.INSTANCE, this);
   }
 
   @Override
-  public int getNodeNum() {
-    return this.status;
+  public String getStatus() {
+    return name();
   }
 }

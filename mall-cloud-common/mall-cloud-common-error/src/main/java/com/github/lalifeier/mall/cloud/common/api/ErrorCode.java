@@ -4,24 +4,26 @@ import com.github.lalifeier.mall.cloud.common.manager.ErrorManager;
 
 public interface ErrorCode {
 
-    /**
-     * 最细粒度code,不包含project、module信息
-     */
-    int getNodeNum();
+  String getStatus();
 
-    /**
-     * 异常信息 英文
-     */
-    String getMessage();
+  /**
+   * 最细粒度code,不包含project、module信息
+   */
+  int getNodeNum();
 
-    /**
-     * 拼接project、module、node后的完整的错误码
-     */
-    default int getCode() {
-        return ErrorManager.genCode(this);
-    }
+  /**
+   * 异常信息 英文
+   */
+  String getMessage();
 
-    default ProjectModule projectModule() {
-        return ErrorManager.projectModule(this);
-    }
+  /**
+   * 拼接project、module、node后的完整的错误码
+   */
+  default int getCode() {
+    return ErrorManager.genCode(this);
+  }
+
+  default ProjectModule projectModule() {
+    return ErrorManager.projectModule(this);
+  }
 }

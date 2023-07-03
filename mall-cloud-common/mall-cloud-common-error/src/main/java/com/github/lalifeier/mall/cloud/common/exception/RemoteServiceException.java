@@ -5,32 +5,31 @@ import com.github.lalifeier.mall.cloud.common.api.ProjectModule;
 import com.github.lalifeier.mall.cloud.common.manager.ErrorInfo;
 import com.github.lalifeier.mall.cloud.common.system.SystemProjectModule;
 
-public class TooManyRequestsException extends BaseException {
-  public TooManyRequestsException(String message) {
+public class RemoteServiceException extends BaseException {
+  protected RemoteServiceException(String message) {
     super(message);
   }
 
-  public TooManyRequestsException(String message, Throwable cause) {
+  protected RemoteServiceException(String message, Throwable cause) {
     super(message, cause);
   }
 
-  public TooManyRequestsException(Throwable cause) {
+  protected RemoteServiceException(Throwable cause) {
     super(cause);
   }
 
-  public TooManyRequestsException(ErrorInfo errorInfo) {
+  protected RemoteServiceException(ErrorInfo errorInfo) {
     super(errorInfo);
   }
 
-  public TooManyRequestsException(ErrorCode ErrorCode) {
+  protected RemoteServiceException(ErrorCode ErrorCode) {
     super(ErrorCode);
   }
 
-  public TooManyRequestsException(ErrorCode ErrorCode, Object... args) {
+  protected RemoteServiceException(ErrorCode ErrorCode, Object... args) {
     super(ErrorCode, args);
   }
 
-  @Override
   public ProjectModule projectModule() {
     return SystemProjectModule.INSTANCE;
   }

@@ -2,12 +2,12 @@ package com.github.lalifeier.mall.cloud.common.exception;
 
 
 import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
-import com.github.lalifeier.mall.cloud.common.api.IErrorCodeException;
+import com.github.lalifeier.mall.cloud.common.api.ErrorCodeException;
 import com.github.lalifeier.mall.cloud.common.api.ProjectModule;
 import com.github.lalifeier.mall.cloud.common.manager.ErrorInfo;
 
-public abstract class BaseException extends RuntimeException implements IErrorCodeException {
-  final ErrorInfo errorInfo;
+public abstract class BaseException extends RuntimeException implements ErrorCodeException {
+  private final ErrorInfo errorInfo;
 
   protected BaseException(String message) {
     super(message);
@@ -29,19 +29,18 @@ public abstract class BaseException extends RuntimeException implements IErrorCo
     this.errorInfo = errorInfo;
   }
 
-  protected BaseException(ErrorCode ErrorCode) {
-    this(ErrorInfo.parse(ErrorCode));
-    ProjectModule.check(projectModule(), ErrorCode.projectModule());
+  protected BaseException(ErrorCode errorCode) {
+    this(ErrorInfo.parse(errorCode));
+    ProjectModule.check(projectModule(), errorCode.projectModule());
   }
 
-  protected BaseException(ErrorCode ErrorCode, Object... args) {
-    this(ErrorInfo.parse(ErrorCode, args));
-    ProjectModule.check(projectModule(), ErrorCode.projectModule());
+  protected BaseException(ErrorCode errorCode, Object... args) {
+    this(ErrorInfo.parse(errorCode, args));
+    ProjectModule.check(projectModule(), errorCode.projectModule());
   }
 
   @Override
   public ErrorInfo getErrorInfo() {
     return errorInfo;
   }
-
 }

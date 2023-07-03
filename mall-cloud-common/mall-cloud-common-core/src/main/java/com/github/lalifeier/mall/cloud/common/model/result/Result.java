@@ -2,41 +2,61 @@ package com.github.lalifeier.mall.cloud.common.model.result;
 
 
 import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
+import com.github.lalifeier.mall.cloud.common.manager.ErrorInfo;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class Result<T> extends BaseResult {
+public class Result<T> {
+  private boolean success;
 
-    private T data;
+  private String status;
 
-    public static Result<Object> success() {
-        Result<Object> result = new Result<>();
-        result.setSuccess(true);
-        return result;
-    }
+  private String message;
 
-    public static <T> Result<T> success(T data) {
-        Result<T> result = new Result<>();
-        result.setSuccess(true);
-        result.setData(data);
-        return result;
-    }
+  private ErrorInfo error;
 
-    public static Result<Object> failure(int errCode, String errMessage) {
-        Result<Object> result = new Result<>();
-        result.setSuccess(false);
-        result.setErrCode(errCode);
-        result.setErrMessage(errMessage);
-        return result;
-    }
+  private T data;
 
-    public static Result<Object> failure(ErrorCode errorCode) {
-        Result<Object> result = new Result<>();
-        result.setSuccess(false);
-        result.setErrCode(errorCode.getCode());
-        result.setErrMessage(errorCode.getMessage());
-        return result;
-    }
+  public static Result<Object> success() {
+    Result<Object> result = new Result<>();
+    result.setSuccess(true);
+    return result;
+  }
+
+  public static <T> Result<T> success(T data) {
+    Result<T> result = new Result<>();
+    result.setSuccess(true);
+    result.setData(data);
+    return result;
+  }
+
+  public static Result<Object> failure(int errCode, String errMessage) {
+    Result<Object> result = new Result<>();
+    result.setSuccess(false);
+    result.setError(new ErrorInfo(errCode, errMessage));
+    return result;
+  }
+
+  public static Result<Object> failure(ErrorInfo error) {
+    Result<Object> result = new Result<>();
+    result.setSuccess(false);
+    result.setError(error);
+    return result;
+  }
+
+//  public static Result<Object> failure(ErrorInfo error, String message) {
+//    Result<Object> result = new Result<>();
+//    result.setSuccess(false);
+//    result.setError(error);
+//    result.setMessage(message);
+//    return result;
+//  }
+
+  public static Result<Object> failure(ErrorCode errorCode) {
+    Result<Object> result = new Result<>();
+    result.setSuccess(false);
+    result.setError(ErrorInfo.parse(errorCode));
+    result.setStatus(errorCode.name());
+    return result;
+  }
 }
