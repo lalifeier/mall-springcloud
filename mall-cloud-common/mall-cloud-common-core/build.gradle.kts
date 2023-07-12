@@ -8,6 +8,7 @@ dependencies {
   implementation("org.apache.skywalking:apm-toolkit-logback-1.x")
   implementation("org.apache.skywalking:apm-toolkit-trace")
   implementation("com.alibaba:transmittable-thread-local")
+  implementation("org.slf4j:slf4j-api:2.0.7")
 //    implementation("org.springframework.data:spring-data-commons")
 //    implementation("com.github.pagehelper:pagehelper")
 }

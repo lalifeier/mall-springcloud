@@ -1,5 +1,11 @@
-apply(plugin = "com.bmuschko.docker-remote-api")
-apply(plugin = "com.bmuschko.docker-spring-boot-application")
+//apply(plugin = "com.bmuschko.docker-remote-api")
+//apply(plugin = "com.bmuschko.docker-spring-boot-application")
+
+
+plugins {
+  id("com.bmuschko.docker-remote-api")
+  id("com.bmuschko.docker-spring-boot-application")
+}
 
 docker {
   registryCredentials {

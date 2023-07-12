@@ -34,4 +34,10 @@ dependencyResolutionManagement {
     maven("https://developer.huawei.com/repo/")
     mavenCentral()
   }
+
+//  versionCatalogs {
+//    create("libs") {
+//      from(files("../gradle/libs.versions.toml"))
+//    }
+//  }
 }

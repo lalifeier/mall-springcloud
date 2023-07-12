@@ -3,10 +3,10 @@ package com.github.lalifeier.mall.cloud.common.handler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.lalifeier.mall.cloud.common.annotation.IgnoreResponseAdvice;
-import com.github.lalifeier.mall.cloud.common.constant.HeaderConstant;
+import com.github.lalifeier.mall.cloud.common.constant.HeaderConstants;
 import com.github.lalifeier.mall.cloud.common.model.result.PageResult;
 import com.github.lalifeier.mall.cloud.common.model.result.Result;
-import com.github.lalifeier.mall.cloud.common.utils.TraceUtil;
+import com.github.lalifeier.mall.cloud.common.utils.MDCUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.Ordered;
@@ -48,10 +48,9 @@ public class RestResponseHandler implements ResponseBodyAdvice<Object> {
   public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
                                 Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
                                 ServerHttpResponse response) {
-    String traceId = TraceUtil.getTraceId();
-    if (traceId != null) {
-      response.getHeaders().add(HeaderConstant.TRACE_ID, traceId);
-    }
+
+    String traceId = MDCUtil.getTraceId();
+    response.getHeaders().add(HeaderConstants.TRACE_ID, traceId);
 
     Result<Object> result = Result.success();
 

@@ -1,7 +1,7 @@
 package com.github.lalifeier.mall.cloud.feign.interceptor;
 
-import com.github.lalifeier.mall.cloud.common.constant.HeaderConstant;
-import com.github.lalifeier.mall.cloud.common.utils.TraceUtil;
+import com.github.lalifeier.mall.cloud.common.constant.HeaderConstants;
+import com.github.lalifeier.mall.cloud.common.utils.MDCUtil;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class FeignInterceptor implements RequestInterceptor {
   @Override
   public void apply(RequestTemplate requestTemplate) {
-    String traceId = TraceUtil.getTraceId();
-    requestTemplate.header(HeaderConstant.TRACE_ID, traceId);
+    String traceId = MDCUtil.getTraceId();
+    requestTemplate.header(HeaderConstants.TRACE_ID, traceId);
   }
 }
