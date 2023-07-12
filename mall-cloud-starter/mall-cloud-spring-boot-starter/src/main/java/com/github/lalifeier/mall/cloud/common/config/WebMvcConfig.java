@@ -31,11 +31,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 
   @Bean
-  public FilterRegistrationBean<WebTraceFilter> webTraceFilter() {
-    FilterRegistrationBean<WebTraceFilter> registrationBean = new FilterRegistrationBean<>();
-    registrationBean.setFilter(new WebTraceFilter());
-    registrationBean.addUrlPatterns("/*");
-    return registrationBean;
+  public FilterRegistrationBean webTraceFilterRegistration() {
+    FilterRegistrationBean registration = new FilterRegistrationBean<>();
+    registration.setFilter(new WebTraceFilter());
+    registration.addUrlPatterns("/*");
+    return registration;
   }
 }
 
