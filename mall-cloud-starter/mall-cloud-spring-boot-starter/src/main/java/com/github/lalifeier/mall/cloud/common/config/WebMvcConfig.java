@@ -1,6 +1,7 @@
 package com.github.lalifeier.mall.cloud.common.config;
 
 
+import com.github.lalifeier.mall.cloud.common.aspect.ApiLogAspect;
 import com.github.lalifeier.mall.cloud.common.converter.*;
 import com.github.lalifeier.mall.cloud.common.filter.WebTraceFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -36,6 +37,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
     registration.setFilter(new WebTraceFilter());
     registration.addUrlPatterns("/*");
     return registration;
+  }
+
+  @Bean
+//  @ConditionalOnProperty(value = "log.enabled", havingValue = "true")
+  public ApiLogAspect apiLogAspect() {
+    return new ApiLogAspect();
   }
 }
 
