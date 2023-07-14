@@ -1,7 +1,7 @@
 package com.github.lalifeier.mall.cloud.gateway.filter;
 
 import com.github.lalifeier.mall.cloud.common.constant.HeaderConstants;
-import com.github.lalifeier.mall.cloud.common.utils.MDCUtil;
+import com.github.lalifeier.mall.cloud.common.utils.MDCTraceUtil;
 import com.github.lalifeier.mall.cloud.common.utils.TraceUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -20,7 +20,7 @@ public class TraceFilter implements GlobalFilter, Ordered {
 
     String traceId = TraceUtil.generateTraceId();
 
-    MDCUtil.setTraceId(traceId);
+    MDCTraceUtil.setTraceId(traceId);
 
     ServerHttpRequest serverHttpRequest = exchange.getRequest().mutate()
       .headers(h -> {

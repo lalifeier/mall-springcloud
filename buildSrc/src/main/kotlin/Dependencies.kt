@@ -1,9 +1,14 @@
 object Dependencies {
+  const val slf4jApi = "org.slf4:slf4j-api:${Versions.slf4j}"
+  const val springWeb = "org.springframework.boot:spring-web:${Versions.spring}"
+
+  //  const val springBootStarter = "org.springframework.boot:spring-boot-starter:${Versions.springBoot}"
   const val springBoot = "org.springframework.boot:spring-boot-dependencies:${Versions.springBoot}"
   const val springCloud = "org.springframework.cloud:spring-cloud-dependencies:${Versions.springCloud}"
   const val springCloudAlibaba = "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${Versions.springCloudAlibaba}"
   const val lombok = "org.projectlombok:lombok:${Versions.lombok}"
-  const val dubbo = "org.apache.dubbo:dubbo-spring-boot-starter:${Versions.dubbo}"
+  const val dubbo = "org.apache.dubbo:dubbo:${Versions.dubbo}"
+  const val dubboStarter = "org.apache.dubbo:dubbo-spring-boot-starter:${Versions.dubbo}"
   const val protobufJava = "com.google.protobuf:protobuf-java:${Versions.protobuf}"
   const val protobufJavaUtil = "com.google.protobuf:protobuf-java-util:${Versions.protobuf}"
   const val grpcNettyShaded = "io.grpc:grpc-netty-shaded:${Versions.grpc}" // gRPC 核心库
@@ -49,7 +54,8 @@ object Dependencies {
   const val xxlJob = "com.xuxueli:xxl-job-core:${Versions.xxlJob}"
   const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
   const val retrofit = "com.github.lianjiatech:retrofit-spring-boot-starter:${Versions.retrofit}"
-  const val feignOkhttp = "io.github.openfeign:feign-okhttp:${Versions.feignOkhttp}"
+  const val feignCore = "io.github.openfeign:feign-core:${Versions.feign}"
+  const val feignOkhttp = "io.github.openfeign:feign-okhttp:${Versions.feign}"
   const val aliyunSdkOss = "com.aliyun.oss:aliyun-sdk-oss:${Versions.aliyunSdkOss}"
   const val micrometerRegistryPrometheus =
     "io.micrometer:micrometer-registry-prometheus:${Versions.micrometerRegistryPrometheus}"
@@ -89,8 +95,10 @@ object Dependencies {
 
   val all by lazy {
     listOf(
-      lombok,
-      dubbo, protobufJava, protobufJavaUtil,
+      lombok, slf4jApi,
+      springWeb,
+      dubbo, dubboStarter,
+      protobufJava, protobufJavaUtil,
       grpcNettyShaded, grpcProtobuf, grpcStub,
       grpcKotlinStub, protobufKotlin,
       grpcSpringBoot, springBootAdmin,
@@ -105,7 +113,7 @@ object Dependencies {
       gson, fastjson, guava,
       commonsLang3, commonsIo, commonsIo, commonsCodec, commonsBeanutils, commonsCollections4,
       logstash, skywalking, skywalkingTrace, caffeine, xxlJob,
-      okhttp, retrofit, feignOkhttp, aliyunSdkOss, micrometerRegistryPrometheus, saToken,
+      okhttp, retrofit, feignCore, feignOkhttp, aliyunSdkOss, micrometerRegistryPrometheus, saToken,
       wechatpay, alipay,
       queryDslCore, queryDslSql, queryDslApt, queryDslJpa,
       blazePersistenceCoreApi, blazePersistenceCoreImpl, blazePersistenceQueryDsl, blazePersistenceHibernate,

@@ -3,8 +3,6 @@ package com.github.lalifeier.mall.cloud.common.config;
 
 import com.github.lalifeier.mall.cloud.common.aspect.ApiLogAspect;
 import com.github.lalifeier.mall.cloud.common.converter.*;
-import com.github.lalifeier.mall.cloud.common.filter.WebTraceFilter;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
@@ -30,14 +28,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     registry.addConverter(new LocalDateTimeConverter());
   }
 
-
-  @Bean
-  public FilterRegistrationBean webTraceFilterRegistration() {
-    FilterRegistrationBean registration = new FilterRegistrationBean<>();
-    registration.setFilter(new WebTraceFilter());
-    registration.addUrlPatterns("/*");
-    return registration;
-  }
 
   @Bean
 //  @ConditionalOnProperty(value = "log.enabled", havingValue = "true")

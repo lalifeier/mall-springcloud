@@ -6,7 +6,7 @@ import com.github.lalifeier.mall.cloud.common.annotation.IgnoreResponseAdvice;
 import com.github.lalifeier.mall.cloud.common.constant.HeaderConstants;
 import com.github.lalifeier.mall.cloud.common.model.result.PageResult;
 import com.github.lalifeier.mall.cloud.common.model.result.Result;
-import com.github.lalifeier.mall.cloud.common.utils.MDCUtil;
+import com.github.lalifeier.mall.cloud.common.utils.MDCTraceUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.Ordered;
@@ -49,7 +49,7 @@ public class RestResponseHandler implements ResponseBodyAdvice<Object> {
                                 Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
                                 ServerHttpResponse response) {
 
-    String traceId = MDCUtil.getTraceId();
+    String traceId = MDCTraceUtil.getTraceId();
     response.getHeaders().add(HeaderConstants.TRACE_ID, traceId);
 
     Result<Object> result = Result.success();

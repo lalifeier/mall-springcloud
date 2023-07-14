@@ -1,4 +1,6 @@
 object Versions {
+  const val slf4j = "2.0.7"
+  const val spring = "6.0.11"
   const val springBoot = "2.6.13"
   const val springCloud = "2021.0.5"
   const val springCloudAlibaba = "2021.0.5.0"
@@ -46,7 +48,7 @@ object Versions {
   const val xxlJob = "2.3.1"
   const val okhttp = "4.10.0"
   const val retrofit = "3.0.0"
-  const val feignOkhttp = "12.1"
+  const val feign = "12.1"
   const val aliyunSdkOss = "3.15.1"
   const val micrometerRegistryPrometheus = "1.10.2"
   const val saToken = "1.34.0"
