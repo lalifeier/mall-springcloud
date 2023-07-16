@@ -4,36 +4,40 @@ import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
 import com.github.lalifeier.mall.cloud.common.api.ProjectModule;
 import com.github.lalifeier.mall.cloud.common.system.SystemErrorCode;
 import com.github.lalifeier.mall.cloud.common.system.SystemProjectModule;
+import lombok.Getter;
 
-public class RemoteServiceException extends BaseException {
+public class TooManyRequestsException extends BaseException {
 
+  @Getter
+  private long limitTimestamp;
 
-  public RemoteServiceException(Throwable cause) {
+  public TooManyRequestsException(Throwable cause) {
     super(cause);
   }
 
-  public RemoteServiceException(String description) {
+  public TooManyRequestsException(String description) {
     super(description);
   }
 
-  public RemoteServiceException(int code, String description) {
+  public TooManyRequestsException(int code, String description) {
     super(code, description);
   }
 
-  public RemoteServiceException(ErrorCode errorCode) {
+  public TooManyRequestsException(ErrorCode errorCode) {
     super(errorCode);
   }
 
-  public RemoteServiceException(ErrorCode errorCode, Object... args) {
+  public TooManyRequestsException(ErrorCode errorCode, Object... args) {
     super(errorCode, args);
   }
 
+
+  @Override
   public ProjectModule projectModule() {
     return SystemProjectModule.INSTANCE;
   }
 
-  @Override
   public ErrorCode defaultErrorCode() {
-    return SystemErrorCode.REMOTE_SERVER_ERROR;
+    return SystemErrorCode.TOO_MANY_REQUESTS;
   }
 }

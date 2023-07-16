@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.annotation.Resource;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,8 +24,11 @@ import java.io.IOException;
 @Order(value = Ordered.HIGHEST_PRECEDENCE)
 public class WebTraceFilter extends OncePerRequestFilter {
 
-  @Resource
-  private TraceProperties traceProperties;
+  private final TraceProperties traceProperties;
+
+  public WebTraceFilter(TraceProperties traceProperties) {
+    this.traceProperties = traceProperties;
+  }
 
   @Override
   protected boolean shouldNotFilter(HttpServletRequest request) {

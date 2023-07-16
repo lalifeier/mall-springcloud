@@ -5,4 +5,6 @@ dependencies {
   implementation("com.google.code.gson:gson")
   implementation("org.springframework.boot:spring-boot-autoconfigure")
   implementation("org.springframework.boot:spring-boot-configuration-processor")
+//  implementation("org.springframework.retry:spring-retry")
+//  implementation("org.aspectj:aspectjweaver")
 }

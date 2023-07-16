@@ -1,9 +1,9 @@
 package com.github.lalifeier.mall.cloud.account.infrastructure.exception;
 
-import com.github.lalifeier.mall.cloud.common.exception.BaseException;
-import com.github.lalifeier.mall.cloud.common.manager.ErrorInfo;
 import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
 import com.github.lalifeier.mall.cloud.common.api.ProjectModule;
+import com.github.lalifeier.mall.cloud.common.exception.BaseException;
+import com.google.rpc.ErrorInfo;
 
 public class LoginException extends BaseException {
 

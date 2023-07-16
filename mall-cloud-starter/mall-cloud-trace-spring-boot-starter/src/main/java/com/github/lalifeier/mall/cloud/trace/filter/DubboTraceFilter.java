@@ -8,16 +8,18 @@ import org.apache.dubbo.rpc.*;
 import org.springframework.core.Ordered;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.Resource;
-
 /**
  * dubbo过滤器，传递traceId
  */
 @Activate(group = {CommonConstants.PROVIDER, CommonConstants.CONSUMER}, order = Ordered.HIGHEST_PRECEDENCE)
 public class DubboTraceFilter implements Filter {
 
-  @Resource
-  private TraceProperties traceProperties;
+
+  private final TraceProperties traceProperties;
+
+  public DubboTraceFilter(TraceProperties traceProperties) {
+    this.traceProperties = traceProperties;
+  }
 
   /**
    * 服务消费者：传递traceId给下游服务

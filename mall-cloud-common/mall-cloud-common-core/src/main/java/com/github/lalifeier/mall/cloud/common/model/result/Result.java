@@ -2,18 +2,17 @@ package com.github.lalifeier.mall.cloud.common.model.result;
 
 
 import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
-import com.github.lalifeier.mall.cloud.common.manager.ErrorInfo;
 import lombok.Data;
 
 @Data
 public class Result<T> {
   private boolean success;
 
-//  private String status;
-//
-//  private String message;
+  private int code = 200;
 
-  private ErrorInfo error;
+  private String status;
+
+  private String message;
 
   private T data;
 
@@ -30,24 +29,19 @@ public class Result<T> {
     return result;
   }
 
-  public static Result<Object> failure(int errCode, String errMessage) {
+  public static Result<Object> failure(int code, String message) {
     Result<Object> result = new Result<>();
     result.setSuccess(false);
-    result.setError(new ErrorInfo(errCode, errMessage));
-    return result;
-  }
-
-  public static Result<Object> failure(ErrorInfo error) {
-    Result<Object> result = new Result<>();
-    result.setSuccess(false);
-    result.setError(error);
+    result.setCode(code);
+    result.setMessage(message);
     return result;
   }
 
   public static Result<Object> failure(ErrorCode errorCode) {
     Result<Object> result = new Result<>();
     result.setSuccess(false);
-    result.setError(ErrorInfo.parse(errorCode));
+    result.setCode(errorCode.getCode());
+    result.setMessage(errorCode.getMessage());
     return result;
   }
 }

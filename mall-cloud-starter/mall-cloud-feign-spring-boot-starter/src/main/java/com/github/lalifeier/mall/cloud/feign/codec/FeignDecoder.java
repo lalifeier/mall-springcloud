@@ -40,7 +40,7 @@ public class FeignDecoder implements Decoder {
         return result.getData();
       }
 
-      throw new BusinessException(result.getError().getMessage());
+      throw new BusinessException(result.getMessage());
     }
 
     return decoder.decode(response, type);

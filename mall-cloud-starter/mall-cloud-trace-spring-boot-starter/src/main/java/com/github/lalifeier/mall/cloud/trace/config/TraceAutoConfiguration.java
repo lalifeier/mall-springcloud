@@ -1,6 +1,7 @@
 package com.github.lalifeier.mall.cloud.trace.config;
 
 import com.github.lalifeier.mall.cloud.trace.filter.WebTraceFilter;
+import com.github.lalifeier.mall.cloud.trace.handler.TraceResponseHandler;
 import com.github.lalifeier.mall.cloud.trace.interceptor.FeignTraceInterceptor;
 import com.github.lalifeier.mall.cloud.trace.properties.TraceProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -21,13 +22,19 @@ public class TraceAutoConfiguration {
   @Bean
   public FilterRegistrationBean webTraceFilterRegistration() {
     FilterRegistrationBean registration = new FilterRegistrationBean<>();
-    registration.setFilter(new WebTraceFilter());
+    registration.setFilter(new WebTraceFilter(properties));
     registration.addUrlPatterns("/*");
     return registration;
   }
 
   @Bean
   public FeignTraceInterceptor feignTraceInterceptor() {
-    return new FeignTraceInterceptor();
+    return new FeignTraceInterceptor(properties);
+  }
+
+
+  @Bean
+  public TraceResponseHandler traceResponseHandler() {
+    return new TraceResponseHandler(properties);
   }
 }

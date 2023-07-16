@@ -1,6 +1,5 @@
 package com.github.lalifeier.mall.cloud.trace.initializer;
 
-
 import org.slf4j.TtlMDCAdapter;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;

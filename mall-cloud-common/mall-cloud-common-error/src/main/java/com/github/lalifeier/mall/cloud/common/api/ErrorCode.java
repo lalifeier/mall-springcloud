@@ -12,15 +12,22 @@ public interface ErrorCode {
   int getNodeNum();
 
   /**
-   * 异常信息 英文
-   */
-  String getMessage();
-
-  /**
    * 拼接project、module、node后的完整的错误码
    */
   default int getCode() {
     return ErrorManager.genCode(this);
+  }
+
+  /**
+   * 异常信息
+   */
+  String getDescription();
+
+  /**
+   * 返回给用户的异常消息
+   */
+  default String getMessage() {
+    return getDescription();
   }
 
   default ProjectModule projectModule() {

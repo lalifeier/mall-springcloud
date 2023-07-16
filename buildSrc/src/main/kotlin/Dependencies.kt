@@ -1,5 +1,6 @@
 object Dependencies {
   const val slf4jApi = "org.slf4:slf4j-api:${Versions.slf4j}"
+  const val servletApi = "javax.servlet:javax.servlet-api:${Versions.servlet}"
   const val springWeb = "org.springframework.boot:spring-web:${Versions.spring}"
 
   //  const val springBootStarter = "org.springframework.boot:spring-boot-starter:${Versions.springBoot}"
@@ -93,9 +94,13 @@ object Dependencies {
 
   const val transmittableThreadLocal = "com.alibaba:transmittable-thread-local:${Versions.transmittableThreadLocal}"
 
+  const val springRetry = "org.springframework.retry:spring-retry:${Versions.springRetry}"
+  const val aspectjWeaver = "org.aspectj:aspectjweaver:${Versions.aspectjWeaver}"
+
   val all by lazy {
     listOf(
-      lombok, slf4jApi,
+      lombok,
+      slf4jApi, servletApi,
       springWeb,
       dubbo, dubboStarter,
       protobufJava, protobufJavaUtil,
@@ -122,7 +127,8 @@ object Dependencies {
       flinkMySQLCDC,
       shardingSphereJDBC,
       easyExcel,
-      transmittableThreadLocal
+      transmittableThreadLocal,
+      springRetry, aspectjWeaver,
     )
   }
 }

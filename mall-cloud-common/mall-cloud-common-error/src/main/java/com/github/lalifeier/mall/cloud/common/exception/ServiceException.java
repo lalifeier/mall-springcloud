@@ -5,35 +5,36 @@ import com.github.lalifeier.mall.cloud.common.api.ProjectModule;
 import com.github.lalifeier.mall.cloud.common.system.SystemErrorCode;
 import com.github.lalifeier.mall.cloud.common.system.SystemProjectModule;
 
-public class RemoteServiceException extends BaseException {
+public class ServiceException extends BaseException {
 
 
-  public RemoteServiceException(Throwable cause) {
+  public ServiceException(Throwable cause) {
     super(cause);
   }
 
-  public RemoteServiceException(String description) {
+  public ServiceException(String description) {
     super(description);
   }
 
-  public RemoteServiceException(int code, String description) {
+  public ServiceException(int code, String description) {
     super(code, description);
   }
 
-  public RemoteServiceException(ErrorCode errorCode) {
+  public ServiceException(ErrorCode errorCode) {
     super(errorCode);
   }
 
-  public RemoteServiceException(ErrorCode errorCode, Object... args) {
+  public ServiceException(ErrorCode errorCode, Object... args) {
     super(errorCode, args);
   }
 
+  @Override
   public ProjectModule projectModule() {
     return SystemProjectModule.INSTANCE;
   }
 
   @Override
   public ErrorCode defaultErrorCode() {
-    return SystemErrorCode.REMOTE_SERVER_ERROR;
+    return SystemErrorCode.SERVER_ERROR;
   }
 }

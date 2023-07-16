@@ -1,11 +1,9 @@
 package com.github.lalifeier.mall.cloud.common.handler;
 
 
-import com.github.lalifeier.mall.cloud.common.api.ErrorCodeException;
-import com.github.lalifeier.mall.cloud.common.exception.http.*;
-import com.github.lalifeier.mall.cloud.common.manager.ErrorInfo;
+import com.github.lalifeier.mall.cloud.common.exception.BaseException;
+import com.github.lalifeier.mall.cloud.common.exception.TooManyRequestsException;
 import com.github.lalifeier.mall.cloud.common.model.result.Result;
-import com.github.lalifeier.mall.cloud.common.system.HttpErrorCode;
 import com.github.lalifeier.mall.cloud.common.system.SystemErrorCode;
 import com.google.common.base.Joiner;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.util.HashMap;
@@ -34,84 +33,67 @@ import java.util.stream.Collectors;
 public class RestExceptionHandler {
   public static final Joiner.MapJoiner JOINER = Joiner.on(",").withKeyValueSeparator(": ");
 
-  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   @ExceptionHandler(value = Throwable.class)
-  public Result<?> processException(HttpServletRequest request, Exception e) {
-    Pair<Throwable, String> pair = getExceptionMessage(e);
-    if (e instanceof ErrorCodeException) {
-      if (e.getCause() != null) {
-        log.error("error, request: {}", parseParam(request), e.getCause());
-      } else {
-        log.error("error: {}, request: {}", pair.getRight(), parseParam(request));
-      }
-      ErrorInfo errorInfo = ((ErrorCodeException) e).getErrorInfo();
-      if (errorInfo == null) {
-        return Result.failure(SystemErrorCode.SYSTEM_ERROR.getCode(), pair.getRight());
-      }
-      return Result.failure(errorInfo);
+  public Result<?> processException(HttpServletRequest request, HttpServletResponse response, Exception exception) {
+    log.error("error, request: {}", parseParam(request), exception);
+
+    int code;
+    String message;
+    if (exception instanceof BaseException) {
+      BaseException baseException = (BaseException) exception;
+      code = baseException.getCode();
+      message = baseException.getMessage();
+    } else {
+      code = SystemErrorCode.SERVER_ERROR.getCode();
+      Pair<Throwable, String> pair = getExceptionMessage(exception);
+      message = pair.getLeft().getClass().getSimpleName() + ": " + pair.getRight();
     }
-    log.error("error, request: {}", parseParam(request), e);
-    return Result.failure(SystemErrorCode.SYSTEM_ERROR.getCode(), pair.getLeft().getClass().getSimpleName() + ": " + pair.getRight());
+
+    int status = HttpStatus.INTERNAL_SERVER_ERROR.value();
+    HttpStatus httpStatus = HttpStatus.resolve(code);
+    if (httpStatus != null) {
+      status = httpStatus.value();
+    }
+
+    response.setStatus(status);
+    return Result.failure(code, message);
   }
+
 
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler(value = MethodArgumentNotValidException.class)
-  public Result<?> handleValidatedException(HttpServletRequest request, MethodArgumentNotValidException e) {
-    log.error("BadRequestException, request: {}", parseParam(request), e);
+  public Result<?> handleValidatedException(HttpServletRequest request, MethodArgumentNotValidException exception) {
+    log.error("BadRequestException, request: {}", parseParam(request), exception);
     String message =
-      e.getBindingResult().getAllErrors().stream()
+      exception.getBindingResult().getAllErrors().stream()
         .map(ObjectError::getDefaultMessage)
         .collect(Collectors.joining(", "));
-    return Result.failure(HttpErrorCode.BAD_REQUEST.getCode(), message);
+    return Result.failure(SystemErrorCode.BAD_REQUEST.getCode(), message);
   }
 
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler(value = ConstraintViolationException.class)
-  public Result<?> handleValidatedException(HttpServletRequest request, ConstraintViolationException e) {
-    log.error("BadRequestException, request: {}", parseParam(request), e);
-    String message = e.getConstraintViolations().stream()
+  public Result<?> handleValidatedException(HttpServletRequest request, ConstraintViolationException exception) {
+    log.error("BadRequestException, request: {}", parseParam(request), exception);
+    String message = exception.getConstraintViolations().stream()
       .map(ConstraintViolation::getMessage)
       .collect(Collectors.joining(", "));
-    return Result.failure(HttpErrorCode.BAD_REQUEST.getCode(), message);
+    return Result.failure(SystemErrorCode.BAD_REQUEST.getCode(), message);
   }
 
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler(value = BindException.class)
-  public Result<?> handleValidatedException(HttpServletRequest request, BindException e) {
-    log.error("BadRequestException, request: {}", parseParam(request), e);
-    String message = e.getAllErrors().stream()
+  public Result<?> handleValidatedException(HttpServletRequest request, BindException exception) {
+    log.error("BadRequestException, request: {}", parseParam(request), exception);
+    String message = exception.getAllErrors().stream()
       .map(ObjectError::getDefaultMessage)
       .collect(Collectors.joining(", "));
-    return Result.failure(HttpErrorCode.BAD_REQUEST.getCode(), message);
-  }
-
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  @ExceptionHandler(value = BadRequestException.class)
-  public Result<?> handleBadRequestException(HttpServletRequest request, BadRequestException e) {
-    return Result.failure(HttpErrorCode.BAD_REQUEST);
-  }
-
-  @ResponseStatus(HttpStatus.UNAUTHORIZED)
-  @ExceptionHandler(value = UnauthorizedException.class)
-  public Result<?> handleUnauthorizedException(HttpServletRequest request, UnauthorizedException e) {
-    return Result.failure(HttpErrorCode.UNAUTHORIZED);
-  }
-
-  @ResponseStatus(HttpStatus.FORBIDDEN)
-  @ExceptionHandler(value = ForbiddenException.class)
-  public Result<?> handleForbiddenException(HttpServletRequest request, ForbiddenException e) {
-    return Result.failure(HttpErrorCode.FORBIDDEN);
-  }
-
-  @ResponseStatus(HttpStatus.NOT_FOUND)
-  @ExceptionHandler(value = NotFoundException.class)
-  public Result<?> handleNotFoundException(HttpServletRequest request, NotFoundException e) {
-    return Result.failure(HttpErrorCode.NOT_FOUND);
+    return Result.failure(SystemErrorCode.BAD_REQUEST.getCode(), message);
   }
 
   @ExceptionHandler(value = TooManyRequestsException.class)
-  public ResponseEntity<Result<?>> handleTooManyRequestsException(HttpServletRequest request, TooManyRequestsException e) {
-    long limitTimestamp = e.getLimitTimestamp();
+  public ResponseEntity<Result<?>> handleTooManyRequestsException(HttpServletRequest request, TooManyRequestsException exception) {
+    long limitTimestamp = exception.getLimitTimestamp();
     long currentTimestamp = System.currentTimeMillis() / 1000L;
     long remainingSeconds = limitTimestamp - currentTimestamp;
 
@@ -124,19 +106,7 @@ public class RestExceptionHandler {
     return ResponseEntity
       .status(HttpStatus.TOO_MANY_REQUESTS)
       .headers(headers)
-      .body(Result.failure(HttpErrorCode.TOO_MANY_REQUESTS));
-  }
-
-  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-  @ExceptionHandler(value = InternalException.class)
-  public Result<?> handleInternalException(HttpServletRequest request, InternalException e) {
-    return Result.failure(HttpErrorCode.INTERNAL_SERVER_ERROR);
-  }
-
-  @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
-  @ExceptionHandler(value = ServiceException.class)
-  public Result<?> handleServiceException(HttpServletRequest request, ServiceException e) {
-    return Result.failure(HttpErrorCode.SERVICE_UNAVAILABLE);
+      .body(Result.failure(SystemErrorCode.TOO_MANY_REQUESTS));
   }
 
   public String parseParam(HttpServletRequest request) {

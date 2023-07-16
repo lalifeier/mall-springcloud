@@ -1,39 +1,36 @@
 package com.github.lalifeier.mall.cloud.common.exception;
 
+
 import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
 import com.github.lalifeier.mall.cloud.common.api.ProjectModule;
 import com.github.lalifeier.mall.cloud.common.system.SystemErrorCode;
 import com.github.lalifeier.mall.cloud.common.system.SystemProjectModule;
 
-public class RemoteServiceException extends BaseException {
+public class BadRequestException extends BaseException {
 
-
-  public RemoteServiceException(Throwable cause) {
+  public BadRequestException(Throwable cause) {
     super(cause);
   }
 
-  public RemoteServiceException(String description) {
-    super(description);
+  public BadRequestException(String message) {
+    super(message);
   }
 
-  public RemoteServiceException(int code, String description) {
-    super(code, description);
+  public BadRequestException(int code, String message) {
+    super(code, message);
   }
 
-  public RemoteServiceException(ErrorCode errorCode) {
+  public BadRequestException(ErrorCode errorCode) {
     super(errorCode);
   }
 
-  public RemoteServiceException(ErrorCode errorCode, Object... args) {
-    super(errorCode, args);
-  }
-
+  @Override
   public ProjectModule projectModule() {
     return SystemProjectModule.INSTANCE;
   }
 
   @Override
   public ErrorCode defaultErrorCode() {
-    return SystemErrorCode.REMOTE_SERVER_ERROR;
+    return SystemErrorCode.BAD_REQUEST;
   }
 }

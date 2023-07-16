@@ -1,6 +1,6 @@
 package com.github.lalifeier.mall.cloud.ratelimiter.aop;
 
-import com.github.lalifeier.mall.cloud.common.exception.http.TooManyRequestsException;
+import com.github.lalifeier.mall.cloud.common.exception.TooManyRequestsException;
 import com.github.lalifeier.mall.cloud.common.utils.WebUtil;
 import com.github.lalifeier.mall.cloud.ratelimiter.annotation.RateLimiter;
 import com.github.lalifeier.mall.cloud.ratelimiter.enums.LimitTypeEnum;

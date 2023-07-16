@@ -2,7 +2,6 @@ package com.github.lalifeier.mall.cloud.common;
 
 import com.github.lalifeier.mall.cloud.common.manager.ErrorManager;
 import com.github.lalifeier.mall.cloud.common.manager.TreeNode;
-import com.github.lalifeier.mall.cloud.common.system.HttpErrorCode;
 import com.github.lalifeier.mall.cloud.common.system.SystemErrorCode;
 import org.junit.jupiter.api.Test;
 

@@ -26,7 +26,7 @@ public class FeignErrorDecoder implements ErrorDecoder {
     try {
       Reader reader = response.body().asReader(Charset.defaultCharset());
       Result<?> result = new Gson().fromJson(reader, Result.class);
-      throw new BusinessException(result.getError().getMessage());
+      throw new BusinessException(result.getMessage());
     } catch (Exception e) {
       log.error("Failed to parse response as Result: ", e);
       return new Exception(e.getMessage());

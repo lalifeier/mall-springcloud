@@ -5,26 +5,25 @@ import com.github.lalifeier.mall.cloud.common.api.ProjectModule;
 import com.github.lalifeier.mall.cloud.common.system.SystemErrorCode;
 import com.github.lalifeier.mall.cloud.common.system.SystemProjectModule;
 
-public class RemoteServiceException extends BaseException {
+public class NotFoundException extends BaseException {
 
-
-  public RemoteServiceException(Throwable cause) {
+  public NotFoundException(Throwable cause) {
     super(cause);
   }
 
-  public RemoteServiceException(String description) {
+  public NotFoundException(String description) {
     super(description);
   }
 
-  public RemoteServiceException(int code, String description) {
+  public NotFoundException(int code, String description) {
     super(code, description);
   }
 
-  public RemoteServiceException(ErrorCode errorCode) {
+  public NotFoundException(ErrorCode errorCode) {
     super(errorCode);
   }
 
-  public RemoteServiceException(ErrorCode errorCode, Object... args) {
+  public NotFoundException(ErrorCode errorCode, Object... args) {
     super(errorCode, args);
   }
 
@@ -34,6 +33,6 @@ public class RemoteServiceException extends BaseException {
 
   @Override
   public ErrorCode defaultErrorCode() {
-    return SystemErrorCode.REMOTE_SERVER_ERROR;
+    return SystemErrorCode.NOT_FOUND;
   }
 }
