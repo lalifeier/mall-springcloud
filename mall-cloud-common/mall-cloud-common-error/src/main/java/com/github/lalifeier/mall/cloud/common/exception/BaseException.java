@@ -2,7 +2,6 @@ package com.github.lalifeier.mall.cloud.common.exception;
 
 
 import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
-import com.github.lalifeier.mall.cloud.common.api.ProjectModule;
 import lombok.Getter;
 import org.slf4j.helpers.MessageFormatter;
 
@@ -42,17 +41,13 @@ public abstract class BaseException extends RuntimeException {
     super(errorCode.getDescription());
     this.code = errorCode.getCode();
     this.description = errorCode.getDescription();
-    ProjectModule.check(projectModule(), errorCode.projectModule());
   }
 
   public BaseException(ErrorCode errorCode, Object... args) {
     super(MessageFormatter.arrayFormat(errorCode.getMessage(), args).getMessage());
     this.code = errorCode.getCode();
     this.description = errorCode.getDescription();
-    ProjectModule.check(projectModule(), errorCode.projectModule());
   }
-
-  public abstract ProjectModule projectModule();
 
   public abstract ErrorCode defaultErrorCode();
 }

@@ -1,13 +1,12 @@
-package com.github.lalifeier.mall.cloud.account.infrastructure.exception;
+package com.github.lalifeier.mall.cloud.account.infrastructure.error;
 
 import com.github.lalifeier.mall.cloud.common.api.ProjectModule;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum AccountProjectCodes implements ProjectModule {
+public enum ProjectModuleCode implements ProjectModule {
   /**
    * 登录模块
    */

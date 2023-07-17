@@ -1,9 +1,7 @@
 package com.github.lalifeier.mall.cloud.common.exception;
 
 import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
-import com.github.lalifeier.mall.cloud.common.api.ProjectModule;
 import com.github.lalifeier.mall.cloud.common.system.SystemErrorCode;
-import com.github.lalifeier.mall.cloud.common.system.SystemProjectModule;
 
 public class BusinessException extends BaseException {
 
@@ -28,13 +26,8 @@ public class BusinessException extends BaseException {
   }
 
   @Override
-  public ProjectModule projectModule() {
-    return SystemProjectModule.INSTANCE;
-  }
-
-  @Override
   public ErrorCode defaultErrorCode() {
-    return SystemErrorCode.BizException;
+    return SystemErrorCode.BUSINESS_ERROR;
   }
 }
 

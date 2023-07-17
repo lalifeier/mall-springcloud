@@ -3,10 +3,12 @@ package com.github.lalifeier.mall.cloud.common.model.result;
 import com.github.lalifeier.mall.cloud.common.model.query.PageInfo;
 import com.github.lalifeier.mall.cloud.common.model.query.Pagination;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class PageResult<T> extends Result<List<T>> {
   private PageInfo pageInfo;
 

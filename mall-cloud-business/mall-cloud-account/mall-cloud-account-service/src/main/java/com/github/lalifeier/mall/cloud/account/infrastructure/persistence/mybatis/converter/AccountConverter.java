@@ -1,9 +1,11 @@
 package com.github.lalifeier.mall.cloud.account.infrastructure.persistence.mybatis.converter;
 
 import com.github.lalifeier.mall.cloud.account.domain.account.model.entity.Account;
+import com.github.lalifeier.mall.cloud.account.domain.account.model.valueobject.AccountPassword;
 import com.github.lalifeier.mall.cloud.account.infrastructure.persistence.mybatis.po.AccountUserPO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -13,9 +15,28 @@ public interface AccountConverter {
   AccountConverter INSTANCE = Mappers.getMapper(AccountConverter.class);
 
   @Mapping(source = "id", target = "id.value")
+  @Mapping(source = "username", target = "username.value")
+  @Mapping(target = "password", qualifiedByName = "encryptPassword")
+  @Mapping(source = "email", target = "email.value")
+  @Mapping(source = "phone", target = "phone.value")
   Account convert(AccountUserPO accountUserPO);
 
-  @Mapping(target = "id", ignore = true)
+  @Named("encryptPassword")
+  default AccountPassword encryptPassword(String password) {
+    return new AccountPassword(new AccountPassword.EncryptPassword(password));
+  }
+
+//  @Named("convertStatus")
+//  default Integer convertTargetType(int status) {
+//    return StatusEnum.getStatusEnum(status);
+//  }
+
+  @Mapping(source = "id.value", target = "id")
+  @Mapping(source = "username.value", target = "username")
+  @Mapping(source = "password.encryptPassword", target = "password")
+  @Mapping(source = "email.value", target = "email")
+  @Mapping(source = "phone.value", target = "phone")
+  @Mapping(target = "status", ignore = true)
   @Mapping(target = "createdAt", ignore = true)
   @Mapping(target = "createdBy", ignore = true)
   @Mapping(target = "updatedAt", ignore = true)

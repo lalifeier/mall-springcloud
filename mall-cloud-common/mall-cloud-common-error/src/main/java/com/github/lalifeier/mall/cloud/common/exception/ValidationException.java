@@ -1,9 +1,7 @@
 package com.github.lalifeier.mall.cloud.common.exception;
 
 import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
-import com.github.lalifeier.mall.cloud.common.api.ProjectModule;
 import com.github.lalifeier.mall.cloud.common.system.SystemErrorCode;
-import com.github.lalifeier.mall.cloud.common.system.SystemProjectModule;
 
 public class ValidationException extends BaseException {
 
@@ -25,10 +23,6 @@ public class ValidationException extends BaseException {
 
   public ValidationException(ErrorCode errorCode, Object... args) {
     super(errorCode, args);
-  }
-
-  public ProjectModule projectModule() {
-    return SystemProjectModule.INSTANCE;
   }
 
   @Override

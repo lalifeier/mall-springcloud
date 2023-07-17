@@ -1,29 +1,14 @@
-package com.github.lalifeier.mall.cloud.common.factory;//package com.github.lalifeier.mall.common.exception;
-//
-//public class ExceptionFactory {
-//
-//    public static BizException bizException(String errorMessage) {
-//        return new BizException(errorMessage);
-//    }
-//
-//    public static BizException bizException(String errorCode, String errorMessage) {
-//        return new BizException(errorCode, errorMessage);
-//    }
-//
-//    public static SysException sysException(String errorMessage) {
-//        return new SysException(errorMessage);
-//    }
-//
-//    public static SysException sysException(String errorCode, String errorMessage) {
-//        return new SysException(errorCode, errorMessage);
-//    }
-//
-//    public static SysException sysException(String errorMessage, Throwable e) {
-//        return new SysException(errorMessage, e);
-//    }
-//
-//    public static SysException sysException(String errorCode, String errorMessage, Throwable e) {
-//        return new SysException(errorCode, errorMessage, e);
-//    }
-//
-//}
+package com.github.lalifeier.mall.cloud.common.factory;
+
+import com.github.lalifeier.mall.cloud.common.exception.BusinessException;
+
+public class ExceptionFactory {
+
+  public static BusinessException businessException(String errorMessage) {
+    return new BusinessException(errorMessage);
+  }
+
+  public static BusinessException businessException(int errorCode, String errorMessage) {
+    return new BusinessException(errorCode, errorMessage);
+  }
+}

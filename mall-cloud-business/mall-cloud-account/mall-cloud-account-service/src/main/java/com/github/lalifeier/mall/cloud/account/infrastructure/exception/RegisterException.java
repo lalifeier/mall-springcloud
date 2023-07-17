@@ -1,26 +1,21 @@
 package com.github.lalifeier.mall.cloud.account.infrastructure.exception;
 
 import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
-import com.github.lalifeier.mall.cloud.common.api.ProjectModule;
-import com.github.lalifeier.mall.cloud.common.exception.BaseException;
-import com.google.rpc.ErrorInfo;
+import com.github.lalifeier.mall.cloud.common.exception.BusinessException;
 
-public class RegisterException extends BaseException {
+public class RegisterException extends BusinessException {
 
-  public RegisterException(String message) {
-    super(message);
-  }
-
-  public RegisterException(String message, Throwable cause) {
-    super(message, cause);
-  }
 
   public RegisterException(Throwable cause) {
     super(cause);
   }
 
-  public RegisterException(ErrorInfo errorInfo) {
-    super(errorInfo);
+  public RegisterException(String description) {
+    super(description);
+  }
+
+  public RegisterException(int code, String description) {
+    super(code, description);
   }
 
   public RegisterException(ErrorCode errorCode) {
@@ -29,10 +24,5 @@ public class RegisterException extends BaseException {
 
   public RegisterException(ErrorCode errorCode, Object... args) {
     super(errorCode, args);
-  }
-
-  @Override
-  public ProjectModule projectModule() {
-    return AccountProjectCodes.REGISTER;
   }
 }

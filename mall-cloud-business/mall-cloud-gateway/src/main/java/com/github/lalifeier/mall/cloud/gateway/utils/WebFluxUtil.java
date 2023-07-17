@@ -1,6 +1,6 @@
 package com.github.lalifeier.mall.cloud.gateway.utils;
 
-import cn.hutool.core.util.ObjectUtil;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bouncycastle.util.Strings;
 import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
@@ -100,7 +100,7 @@ public final class WebFluxUtil {
    */
   public static String resolveBodyFromCacheRequest(ServerWebExchange exchange) {
     Object obj = exchange.getAttributes().get(ServerWebExchangeUtils.CACHED_REQUEST_BODY_ATTR);
-    if (ObjectUtil.isNull(obj)) {
+    if (ObjectUtils.isEmpty(obj)) {
       return null;
     }
     DataBuffer buffer = (DataBuffer) obj;

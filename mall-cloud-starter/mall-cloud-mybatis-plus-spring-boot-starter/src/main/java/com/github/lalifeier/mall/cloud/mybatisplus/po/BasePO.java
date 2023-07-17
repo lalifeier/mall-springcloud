@@ -17,10 +17,10 @@ public abstract class BasePO<T extends Model<?>> extends Model<T> {
   @TableField(fill = FieldFill.INSERT)
   private LocalDateTime createdAt;
 
-  //@TableField(fill = FieldFill.INSERT)
+  @TableField(fill = FieldFill.INSERT)
   private String createdBy;
 
-  //@TableField(fill = FieldFill.UPDATE)
+  @TableField(fill = FieldFill.UPDATE)
   private String updatedBy;
 
   @TableField(fill = FieldFill.UPDATE)

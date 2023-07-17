@@ -39,6 +39,10 @@ public class AccountPassword implements ValueObject<AccountPassword> {
     return encryptPassword.getEncryptPassword();
   }
 
+//  public String setEncryptPassword() {
+//    return encryptPassword.getEncryptPassword();
+//  }
+
   public static class EncryptPassword {
 
     private final String encryptPassword;

@@ -22,7 +22,7 @@ object Versions {
   const val springBootAdmin = "2.6.9"
   const val springSecurityOauth2 = "2.5.2.RELEASE"
   const val springCloudOauth2 = "2.2.5.RELEASE"
-  const val springAuthorizationServer = "0.3.1"
+  const val springAuthorizationServer = "1.1.1"
   const val mapstruct = "1.5.3.Final"
   const val nimbusJoseJwt = "9.25.2"
   const val pagehelperStarter = "1.4.5"

@@ -2,9 +2,7 @@ package com.github.lalifeier.mall.cloud.common.exception;
 
 
 import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
-import com.github.lalifeier.mall.cloud.common.api.ProjectModule;
 import com.github.lalifeier.mall.cloud.common.system.SystemErrorCode;
-import com.github.lalifeier.mall.cloud.common.system.SystemProjectModule;
 
 public class BadRequestException extends BaseException {
 
@@ -22,11 +20,6 @@ public class BadRequestException extends BaseException {
 
   public BadRequestException(ErrorCode errorCode) {
     super(errorCode);
-  }
-
-  @Override
-  public ProjectModule projectModule() {
-    return SystemProjectModule.INSTANCE;
   }
 
   @Override

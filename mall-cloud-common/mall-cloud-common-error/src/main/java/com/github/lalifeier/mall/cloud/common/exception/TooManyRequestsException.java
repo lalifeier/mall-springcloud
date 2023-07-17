@@ -1,9 +1,7 @@
 package com.github.lalifeier.mall.cloud.common.exception;
 
 import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
-import com.github.lalifeier.mall.cloud.common.api.ProjectModule;
 import com.github.lalifeier.mall.cloud.common.system.SystemErrorCode;
-import com.github.lalifeier.mall.cloud.common.system.SystemProjectModule;
 import lombok.Getter;
 
 public class TooManyRequestsException extends BaseException {
@@ -29,12 +27,6 @@ public class TooManyRequestsException extends BaseException {
 
   public TooManyRequestsException(ErrorCode errorCode, Object... args) {
     super(errorCode, args);
-  }
-
-
-  @Override
-  public ProjectModule projectModule() {
-    return SystemProjectModule.INSTANCE;
   }
 
   public ErrorCode defaultErrorCode() {

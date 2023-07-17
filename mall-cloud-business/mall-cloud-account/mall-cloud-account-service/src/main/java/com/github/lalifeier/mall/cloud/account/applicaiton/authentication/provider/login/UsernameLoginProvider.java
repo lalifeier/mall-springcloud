@@ -1,6 +1,5 @@
 package com.github.lalifeier.mall.cloud.account.applicaiton.authentication.provider.login;
 
-import com.github.lalifeier.mall.cloud.account.applicaiton.account.dto.AccountDTO;
 import com.github.lalifeier.mall.cloud.account.applicaiton.authentication.model.command.LoginCommand;
 import com.github.lalifeier.mall.cloud.account.applicaiton.authentication.model.command.UsernameLoginCommand;
 import com.github.lalifeier.mall.cloud.account.domain.account.model.entity.Account;
@@ -8,6 +7,8 @@ import com.github.lalifeier.mall.cloud.account.domain.account.model.valueobject.
 import com.github.lalifeier.mall.cloud.account.domain.account.model.valueobject.AccountPassword;
 import com.github.lalifeier.mall.cloud.account.domain.account.repository.AccountRepository;
 import com.github.lalifeier.mall.cloud.account.infrastructure.enums.LoginType;
+import com.github.lalifeier.mall.cloud.account.infrastructure.error.LoginErrorCode;
+import com.github.lalifeier.mall.cloud.common.exception.BusinessException;
 
 import javax.annotation.Resource;
 
@@ -18,24 +19,26 @@ public class UsernameLoginProvider extends AbstractLoginProvider {
 
   @Override
   protected void preAuthenticationCheck(LoginCommand loginCommand) {
-
+    UsernameLoginCommand usernameLoginDTO = (UsernameLoginCommand) loginCommand;
+    String username = usernameLoginDTO.getUsername();
+    String password = usernameLoginDTO.getPassword();
   }
 
   @Override
-  protected AccountDTO authenticate(LoginCommand loginCommand) {
+  protected Account authenticate(LoginCommand loginCommand) {
     UsernameLoginCommand usernameLoginDTO = (UsernameLoginCommand) loginCommand;
     String username = usernameLoginDTO.getUsername();
     String password = usernameLoginDTO.getPassword();
 
     Account account = accountRepository.findByUsername(new AccountName(username));
     if (account == null) {
-      throw new RuntimeException("用户名不存在");
+      throw new BusinessException(LoginErrorCode.B_USER_NOT_EXIST);
     }
     if (!account.getPassword().sameValueAs(new AccountPassword(password))) {
-      throw new RuntimeException("用户名或密码错误");
+      throw new BusinessException(LoginErrorCode.B_USER_PASSWORD_ERROR);
     }
 
-    return null;
+    return account;
   }
 
   @Override

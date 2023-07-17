@@ -4,8 +4,6 @@ import com.github.lalifeier.mall.cloud.common.manager.ErrorManager;
 
 public interface ErrorCode {
 
-  String getStatus();
-
   /**
    * 最细粒度code,不包含project、module信息
    */

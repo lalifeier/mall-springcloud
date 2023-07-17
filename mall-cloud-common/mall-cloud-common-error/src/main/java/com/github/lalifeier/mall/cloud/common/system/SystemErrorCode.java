@@ -24,7 +24,7 @@ public enum SystemErrorCode implements ErrorCode {
 
   REMOTE_SERVER_ERROR(500, "远程调用错误"),
 
-  BizException(500, "业务异常"),
+  BUSINESS_ERROR(500, "业务异常"),
 
   SERVICE_UNAVAILABLE(503, "服务不可用");
 
@@ -44,10 +44,5 @@ public enum SystemErrorCode implements ErrorCode {
     this.description = description;
     this.message = message;
     ErrorManager.register(SystemProjectModule.INSTANCE, this);
-  }
-
-  @Override
-  public String getStatus() {
-    return name();
   }
 }

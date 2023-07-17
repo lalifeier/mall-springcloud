@@ -3,36 +3,32 @@ package com.github.lalifeier.mall.cloud.auth.infrastructure.error;
 
 import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
 import com.github.lalifeier.mall.cloud.common.api.ProjectModule;
-import com.github.lalifeier.mall.cloud.common.exception.BaseException;
+import com.github.lalifeier.mall.cloud.common.exception.BusinessException;
 
-public class LoginException extends BaseException {
+public class LoginException extends BusinessException {
 
-  protected LoginException(String message) {
-    super(message);
-  }
-
-  protected LoginException(String message, Throwable cause) {
-    super(message, cause);
-  }
-
-  protected LoginException(Throwable cause) {
+  public LoginException(Throwable cause) {
     super(cause);
   }
 
-  protected LoginException(ErrorInfo errorInfo) {
-    super(errorInfo);
+  public LoginException(String description) {
+    super(description);
   }
 
-  protected LoginException(ErrorCode errorCode) {
+  public LoginException(int code, String description) {
+    super(code, description);
+  }
+
+  public LoginException(ErrorCode errorCode) {
     super(errorCode);
   }
 
-  protected LoginException(ErrorCode errorCode, Object... args) {
+  public LoginException(ErrorCode errorCode, Object... args) {
     super(errorCode, args);
   }
 
   @Override
   public ProjectModule projectModule() {
-    return UserProjectCodes.LOGIN;
+    return ProjectModuleCode.LOGIN;
   }
 }
