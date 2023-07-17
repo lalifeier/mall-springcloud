@@ -167,9 +167,9 @@ CREATE TABLE IF NOT EXISTS  `product_backend_category_attributes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='后端分类属性映射表';
 
 -- 商品管理
-CREATE TABLE IF NOT EXISTS  `product` (
+CREATE TABLE IF NOT EXISTS  `product_spu` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品ID',
-  `spu` varchar(255) NOT NULL DEFAULT '' COMMENT 'SPU',
+  `spu_no` varchar(255) NOT NULL DEFAULT '' COMMENT 'SPU编号',
   `name` varchar(255) NOT NULL DEFAULT '' COMMENT '商品名称',
   `description` text NOT NULL COMMENT '商品详情',
   `brand_id` int(11) unsigned NOT NULL COMMENT '品牌ID',
@@ -189,13 +189,13 @@ CREATE TABLE IF NOT EXISTS  `product` (
   `deleted_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '删除人',
   `is_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
   PRIMARY KEY (id),
-  UNIQUE KEY unq_spu (spu)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品表';
+  UNIQUE KEY unq_spu_no (spu_no)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品SPU表';
 
 CREATE TABLE IF NOT EXISTS  `product_sku` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'SKU ID',
   `product_id` int(11) unsigned NOT NULL COMMENT '商品ID',
-  `sku` varchar(255) NOT NULL DEFAULT '' COMMENT 'SKU编码',
+  `sku_no` varchar(255) NOT NULL DEFAULT '' COMMENT 'SKU编号',
   `name` varchar(255) NOT NULL DEFAULT '' COMMENT 'SKU名称',
   `price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT 'SKU价格',
   `stock` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'SKU库存',
@@ -208,8 +208,8 @@ CREATE TABLE IF NOT EXISTS  `product_sku` (
   `deleted_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '删除人',
   `is_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
   PRIMARY KEY (id),
-  UNIQUE KEY unq_sku_product_id (product_id, sku),
-  KEY idx_product_id (product_id)
+  UNIQUE KEY unq_product_id_sku_no (product_id, sku_no),
+  KEY idx_sku_no (sku_no)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品SKU表';
 
 CREATE TABLE IF NOT EXISTS  `product_sku_spec` (
@@ -273,3 +273,21 @@ CREATE TABLE IF NOT EXISTS `product_cover_image` (
   PRIMARY KEY (`id`),
   UNIQUE KEY unq_product_id (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品封面图片表';
+
+CREATE TABLE IF NOT EXISTS  `product_sku_price` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `sku_id` int(11) NOT NULL COMMENT 'SKU ID',
+  `price_type` varchar(32) NOT NULL COMMENT '价格类型: 1 成本价 2 原价 3 售卖价',
+  `currency` VARCHAR(3) NOT NULL DEFAULT 'CNY' COMMENT '货币',
+  `price` decimal(10, 2) NOT NULL COMMENT '价格',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '价格状态：0 不启用，1 启用',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `created_by` int(11) NOT NULL DEFAULT '0' COMMENT '创建人',
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `updated_by` int(11) NOT NULL DEFAULT '0' COMMENT '更新人',
+  `deleted_at` datetime DEFAULT NULL COMMENT '删除时间',
+  `deleted_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '删除人',
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
+  PRIMARY KEY (`id`),
+  INDEX `idx_sku_id` (`sku_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品价格表';

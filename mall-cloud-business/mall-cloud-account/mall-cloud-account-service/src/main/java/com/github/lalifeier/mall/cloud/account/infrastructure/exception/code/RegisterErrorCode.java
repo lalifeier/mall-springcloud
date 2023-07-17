@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.account.infrastructure.error;
+package com.github.lalifeier.mall.cloud.account.infrastructure.exception.code;
 
 import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
 import com.github.lalifeier.mall.cloud.common.manager.ErrorManager;
@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 public enum RegisterErrorCode implements ErrorCode {
 
-  B_USER_EXIST(0, "用户已存在");
+  B_USER_EXIST(1, "用户已存在");
 
   private final int nodeNum;
   private final String description;

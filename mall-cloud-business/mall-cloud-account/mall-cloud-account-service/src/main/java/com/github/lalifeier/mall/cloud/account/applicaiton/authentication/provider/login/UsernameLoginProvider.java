@@ -7,7 +7,7 @@ import com.github.lalifeier.mall.cloud.account.domain.account.model.valueobject.
 import com.github.lalifeier.mall.cloud.account.domain.account.model.valueobject.AccountPassword;
 import com.github.lalifeier.mall.cloud.account.domain.account.repository.AccountRepository;
 import com.github.lalifeier.mall.cloud.account.infrastructure.enums.LoginType;
-import com.github.lalifeier.mall.cloud.account.infrastructure.error.LoginErrorCode;
+import com.github.lalifeier.mall.cloud.account.infrastructure.exception.code.LoginErrorCode;
 import com.github.lalifeier.mall.cloud.common.exception.BusinessException;
 
 import javax.annotation.Resource;

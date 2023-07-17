@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.account.infrastructure.error;
+package com.github.lalifeier.mall.cloud.account.infrastructure.exception.code;
 
 import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
 import com.github.lalifeier.mall.cloud.common.manager.ErrorManager;
