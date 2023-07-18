@@ -3,31 +3,29 @@ package com.github.lalifeier.mall.cloud.common.exception;
 import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
 import com.github.lalifeier.mall.cloud.common.system.SystemErrorCode;
 
-public class BusinessException extends BaseException {
-
-  public BusinessException(Throwable cause) {
+public class SystemException extends BaseException {
+  public SystemException(Throwable cause) {
     super(cause);
   }
 
-  public BusinessException(String description) {
+  public SystemException(String description) {
     super(description);
   }
 
-  public BusinessException(int code, String description) {
+  public SystemException(int code, String description) {
     super(code, description);
   }
 
-  public BusinessException(ErrorCode errorCode) {
+  public SystemException(ErrorCode errorCode) {
     super(errorCode);
   }
 
-  public BusinessException(ErrorCode errorCode, Object... args) {
+  public SystemException(ErrorCode errorCode, Object... args) {
     super(errorCode, args);
   }
 
   @Override
   public ErrorCode defaultErrorCode() {
-    return SystemErrorCode.BUSINESS_EXCEPTION;
+    return SystemErrorCode.SYSTEM_EXCEPTION;
   }
 }
-

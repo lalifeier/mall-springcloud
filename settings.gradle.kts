@@ -32,6 +32,7 @@ include("mall-cloud-common:mall-cloud-common-version")
 include("mall-cloud-common:mall-cloud-common-dict")
 include("mall-cloud-common:mall-cloud-common-mark")
 include("mall-cloud-common:mall-cloud-common-web")
+include("mall-cloud-common:mall-cloud-common-distributed-id")
 
 //mall-cloud-starter
 include("mall-cloud-starter:mall-cloud-spring-boot-starter")

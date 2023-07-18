@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import java.util.Objects;
 
 @Slf4j
-@RestControllerAdvice
+@RestControllerAdvice(basePackages = "com.github.lalifeier")
 @Order(Ordered.LOWEST_PRECEDENCE)
 public class RestResponseHandler implements ResponseBodyAdvice<Object> {
 
