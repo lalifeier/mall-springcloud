@@ -1,13 +1,12 @@
 object Dependencies {
-  const val slf4jApi = "org.slf4:slf4j-api:${Versions.slf4j}"
+  const val cglib = "cglib:cglib-nodep:${Versions.cglib}"
+  const val slf4j = "org.slf4:slf4j-api:${Versions.slf4j}"
+  const val lombok = "org.projectlombok:lombok:${Versions.lombok}"
   const val servletApi = "javax.servlet:javax.servlet-api:${Versions.servlet}"
   const val springWeb = "org.springframework.boot:spring-web:${Versions.spring}"
-
-  //  const val springBootStarter = "org.springframework.boot:spring-boot-starter:${Versions.springBoot}"
   const val springBoot = "org.springframework.boot:spring-boot-dependencies:${Versions.springBoot}"
   const val springCloud = "org.springframework.cloud:spring-cloud-dependencies:${Versions.springCloud}"
   const val springCloudAlibaba = "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${Versions.springCloudAlibaba}"
-  const val lombok = "org.projectlombok:lombok:${Versions.lombok}"
   const val dubbo = "org.apache.dubbo:dubbo:${Versions.dubbo}"
   const val dubboStarter = "org.apache.dubbo:dubbo-spring-boot-starter:${Versions.dubbo}"
   const val protobufJava = "com.google.protobuf:protobuf-java:${Versions.protobuf}"
@@ -37,6 +36,7 @@ object Dependencies {
   const val mysqlConnector = "mysql:mysql-connector-java:${Versions.mysqlConnector}"
   const val shardingsphere =
     "org.apache.shardingsphere:shardingsphere-jdbc-core-spring-boot-starter:${Versions.shardingsphere}"
+
   const val hutool = "cn.hutool:hutool-all:${Versions.hutool}"
   const val springdoc = "org.springdoc:springdoc-openapi-ui:${Versions.springdoc}"
   const val knife4j = "com.github.xiaoymin:knife4j-springdoc-ui:${Versions.knife4j}"
@@ -46,7 +46,8 @@ object Dependencies {
   const val commonsLang3 = "org.apache.commons:commons-lang3:${Versions.commonsLang3}"
   const val commonsIo = "commons-io:commons-io:${Versions.commonsIo}"
   const val commonsCodec = "commons-codec:commons-codec:${Versions.commonsCodec}"
-  const val commonsBeanutils = "commons-beanutils:commons-beanutils:${Versions.commonsBeanutils}"
+
+  //  const val commonsBeanutils = "commons-beanutils:commons-beanutils:${Versions.commonsBeanutils}"
   const val commonsCollections4 = "org.apache.commons:commons-collections4:${Versions.commonsCollections4}"
   const val logstash = "net.logstash.logback:logstash-logback-encoder:${Versions.logstash}"
   const val skywalking = "org.apache.skywalking:apm-toolkit-logback-1.x:${Versions.skywalking}"
@@ -100,7 +101,7 @@ object Dependencies {
   val all by lazy {
     listOf(
       lombok,
-      slf4jApi, servletApi,
+      slf4j, servletApi, cglib,
       springWeb,
       dubbo, dubboStarter,
       protobufJava, protobufJavaUtil,
@@ -116,7 +117,7 @@ object Dependencies {
       hutool,
       springdoc, knife4j,
       gson, fastjson, guava,
-      commonsLang3, commonsIo, commonsIo, commonsCodec, commonsBeanutils, commonsCollections4,
+      commonsLang3, commonsIo, commonsIo, commonsCodec, commonsCollections4,
       logstash, skywalking, skywalkingTrace, caffeine, xxlJob,
       okhttp, retrofit, feignCore, feignOkhttp, aliyunSdkOss, micrometerRegistryPrometheus, saToken,
       wechatpay, alipay,

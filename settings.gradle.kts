@@ -8,12 +8,6 @@ pluginManagement {
     mavenCentral()
     gradlePluginPortal()
   }
-
-//  val protobufPlugin = "0.8.17"
-//
-//  plugins {
-//    id("com.google.protobuf") version protobufPlugin
-//  }
 }
 
 dependencyResolutionManagement {

@@ -5,7 +5,7 @@ fun Project.getVariable(name: String): String? {
   if (value != null) {
     return value
   }
-  val propName = name.replace('_', '.').toLowerCase()
+  val propName = name.replace('_', '.').lowercase()
   return findProperty(propName)?.toString()
 }
 

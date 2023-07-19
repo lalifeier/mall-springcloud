@@ -1,5 +1,6 @@
 object Versions {
   const val slf4j = "2.0.7"
+  const val cglib = "3.3.0"
   const val servlet = "4.0.1"
   const val spring = "6.0.11"
   const val springRetry = "2.0.2"

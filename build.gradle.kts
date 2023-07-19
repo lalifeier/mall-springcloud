@@ -7,16 +7,16 @@ plugins {
   java
   `java-library`
   `maven-publish`
-  id("org.springframework.boot") version Versions.springBoot
-//    https://docs.spring.io/spring-boot/docs/2.6.13/gradle-plugin/reference/htmlsingle/#appendix-dependency-versions
-  id("io.spring.dependency-management") version "1.0.15.RELEASE"
-  id("org.jetbrains.kotlin.jvm") version Versions.kotlin
-  id("org.jetbrains.kotlin.plugin.spring") version Versions.kotlin
-  id("com.bmuschko.docker-remote-api") version Versions.dockerGadle
-  id("com.bmuschko.docker-spring-boot-application") version Versions.dockerGadle
-  id("com.google.protobuf") version Versions.protobufGradle
-  id("com.diffplug.spotless") version Versions.spotless
-//  id("org.sonarqube") version Versions.sonarqube
+  alias(libs.plugins.spring.boot)
+  alias(libs.plugins.spring.dependency.management) apply false
+  alias(libs.plugins.kotlin.jvm) apply false
+  alias(libs.plugins.kotlin.spring) apply false
+  alias(libs.plugins.docker.remote.api)
+  alias(libs.plugins.docker.spring.boot.application)
+  alias(libs.plugins.protobuf)
+  alias(libs.plugins.spotless)
+//  alias(libs.plugins.sonarqube)
+//  alias(libs.plugins.versions)
 }
 
 spotless {
@@ -131,14 +131,14 @@ configure(javaProjects) {
   }
 
   dependencies {
-    implementation(platform(Dependencies.springBoot))
-    implementation(platform(Dependencies.springCloud))
-    implementation(platform(Dependencies.springCloudAlibaba))
+    implementation(platform(rootProject.libs.spring.boot.dependencies))
+    implementation(platform(rootProject.libs.spring.cloud.dependencies))
+    implementation(platform(rootProject.libs.spring.cloud.alibaba.dependencies))
 
-    compileOnly(Dependencies.lombok)
-    annotationProcessor(Dependencies.lombok)
-    testCompileOnly(Dependencies.lombok)
-    testAnnotationProcessor(Dependencies.lombok)
+    compileOnly(rootProject.libs.lombok)
+    annotationProcessor(rootProject.libs.lombok)
+    testCompileOnly(rootProject.libs.lombok)
+    testAnnotationProcessor(rootProject.libs.lombok)
   }
 
   tasks.withType<Test> {
@@ -151,22 +151,25 @@ configure(javaProjects) {
 //grpc
 configure(grpcProjects) {
 //  apply(from = "$rootDir/gradle/protobuf.gradle.kts")
-
+  apply(plugin = "java")
+  apply(plugin = "java-library")
+  apply(plugin = "idea")
   apply(plugin = "com.google.protobuf")
 
   protobuf {
     protoc {
-      artifact = "com.google.protobuf:protoc:${Versions.protobuf}"
+      artifact = "com.google.protobuf:protoc:${rootProject.libs.versions.protobuf.asProvider().get()}"
     }
 
     plugins {
       create("grpc") {
-        artifact = "io.grpc:protoc-gen-grpc-java:${Versions.grpc}"
+        artifact = "io.grpc:protoc-gen-grpc-java:${rootProject.libs.versions.grpc.asProvider().get()}"
       }
 //      create("grpckt") {
-//        artifact = "io.grpc:protoc-gen-grpc-kotlin:${Versions.grpcKotlin}:jdk8@jar"
+//        artifact = "io.grpc:protoc-gen-grpc-kotlin:${rootProject.libs.versions.grpc.kotlin.get()}:jdk8@jar"
 //      }
     }
+
     generateProtoTasks {
       all().forEach {
         it.plugins {
@@ -189,6 +192,7 @@ configure(grpcProjects) {
     }
   }
 }
+
 
 //val osName = System.getProperty("os.name").toLowerCase()
 //val osArch = System.getProperty("os.arch").toLowerCase()
@@ -254,8 +258,10 @@ configure(javaProjects) {
 
 //docker
 configure(bootProjects) {
+//  apply(plugin = "org.springframework.boot")
   apply(plugin = "com.bmuschko.docker-remote-api")
   apply(plugin = "com.bmuschko.docker-spring-boot-application")
+
 
 //  apply(from =  rootProject.file("gradle/docker.gradle.kts"))
 
@@ -266,6 +272,13 @@ configure(bootProjects) {
   tasks.named<Jar>("jar") {
     from(sourceSets.main.get().output)
   }
+
+//  val developmentOnly by configurations.creating
+//  configurations {
+//    runtimeClasspath {
+//      extendsFrom(developmentOnly)
+//    }
+//  }
 
   dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")

@@ -35,9 +35,10 @@ dependencyResolutionManagement {
     mavenCentral()
   }
 
-//  versionCatalogs {
-//    create("libs") {
-//      from(files("../gradle/libs.versions.toml"))
-//    }
-//  }
+//  enableFeaturePreview("VERSION_CATALOGS")
+  versionCatalogs {
+    create("libs") {
+      from(files("../gradle/libs.versions.toml"))
+    }
+  }
 }
