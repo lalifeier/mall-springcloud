@@ -11,8 +11,8 @@ plugins {
   alias(libs.plugins.spring.dependency.management) apply false
   alias(libs.plugins.kotlin.jvm) apply false
   alias(libs.plugins.kotlin.spring) apply false
-  alias(libs.plugins.docker.remote.api)
-  alias(libs.plugins.docker.spring.boot.application)
+//  alias(libs.plugins.docker.remote.api)
+//  alias(libs.plugins.docker.spring.boot.application)
   alias(libs.plugins.protobuf)
   alias(libs.plugins.spotless)
 //  alias(libs.plugins.sonarqube)
@@ -257,54 +257,54 @@ configure(javaProjects) {
 }
 
 //docker
-configure(bootProjects) {
-//  apply(plugin = "org.springframework.boot")
-  apply(plugin = "com.bmuschko.docker-remote-api")
-  apply(plugin = "com.bmuschko.docker-spring-boot-application")
-
-
-//  apply(from =  rootProject.file("gradle/docker.gradle.kts"))
-
-  tasks.named<BootJar>("bootJar") {
-    enabled = true
-  }
-
-  tasks.named<Jar>("jar") {
-    from(sourceSets.main.get().output)
-  }
-
-//  val developmentOnly by configurations.creating
-//  configurations {
-//    runtimeClasspath {
-//      extendsFrom(developmentOnly)
+//configure(bootProjects) {
+////  apply(plugin = "org.springframework.boot")
+//  apply(plugin = "com.bmuschko.docker-remote-api")
+//  apply(plugin = "com.bmuschko.docker-spring-boot-application")
+//
+//
+////  apply(from =  rootProject.file("gradle/docker.gradle.kts"))
+//
+//  tasks.named<BootJar>("bootJar") {
+//    enabled = true
+//  }
+//
+//  tasks.named<Jar>("jar") {
+//    from(sourceSets.main.get().output)
+//  }
+//
+////  val developmentOnly by configurations.creating
+////  configurations {
+////    runtimeClasspath {
+////      extendsFrom(developmentOnly)
+////    }
+////  }
+//
+//  dependencies {
+//    developmentOnly("org.springframework.boot:spring-boot-devtools")
+//  }
+//
+//  docker {
+//    registryCredentials {
+//      url.set(project.getVariable("DOCKER_REGISTRY_URL"))
+//      username.set(project.getVariable("DOCKER_USERNAME"))
+//      password.set(project.getVariable("DOCKER_PASSWORD"))
+//    }
+//
+//    springBootApplication {
+//      baseImage.set("openjdk:17-alpine")
+////    maintainer.set("lalifeier")
+//      ports.set(listOf(9090, 8080))
+//      images.set(
+//        setOf(
+//          "${project.group}/${project.name}:${project.version}",
+//          "${project.group}/${project.name}:latest"
+//        )
+//      )
+//      jvmArgs.set(listOf("-Dspring.profiles.active=prod"))
 //    }
 //  }
-
-  dependencies {
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
-  }
-
-  docker {
-    registryCredentials {
-      url.set(project.getVariable("DOCKER_REGISTRY_URL"))
-      username.set(project.getVariable("DOCKER_USERNAME"))
-      password.set(project.getVariable("DOCKER_PASSWORD"))
-    }
-
-    springBootApplication {
-      baseImage.set("openjdk:17-alpine")
-//    maintainer.set("lalifeier")
-      ports.set(listOf(9090, 8080))
-      images.set(
-        setOf(
-          "${project.group}/${project.name}:${project.version}",
-          "${project.group}/${project.name}:latest"
-        )
-      )
-      jvmArgs.set(listOf("-Dspring.profiles.active=prod"))
-    }
-  }
-}
+//}
 
 
 

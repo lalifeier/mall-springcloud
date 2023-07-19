@@ -1,6 +1,4 @@
-//apply(plugin = "com.bmuschko.docker-remote-api")
-//apply(plugin = "com.bmuschko.docker-spring-boot-application")
-
+package plugins
 
 plugins {
   id("com.bmuschko.docker-remote-api")
