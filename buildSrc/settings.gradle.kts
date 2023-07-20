@@ -19,6 +19,7 @@ dependencyResolutionManagement {
     maven("https://maven.aliyun.com/repository/public/")
     maven("https://developer.huawei.com/repo/")
     mavenCentral()
+    gradlePluginPortal()
   }
 
 //  enableFeaturePreview("VERSION_CATALOGS")

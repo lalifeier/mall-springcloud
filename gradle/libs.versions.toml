@@ -67,12 +67,13 @@ sharding-sphere-jdbc = "4.1.1"
 easy-excel = "3.3.2"
 transmittable-thread-local = "2.14.2"
 
+spring-boot-plugin = "3.1.2"
 spring-dependency-management = "1.0.15.RELEASE"
 docker-plugin = "9.3.1"
 protobuf-plugin = "0.9.3"
 spotless = "6.13.0"
 sonarqube = "4.1.0.3113"
-versions = "0.28.0"
+versions = "0.47.0"
 
 [libraries]
 cglib-nodep = { group = "cglib", name = "cglib-nodep", version.ref = "cglib" }
@@ -158,7 +159,7 @@ easyexcel = { group = "com.alibaba", name = "easyexcel", version.ref = "easy-exc
 transmittable-thread-local = { group = "com.alibaba", name = "transmittable-thread-local", version.ref = "transmittable-thread-local" }
 
 
-spring-boot-gradle-plugin = { group = "org.springframework.boot", name = "spring-boot-gradle-plugin", version.ref = "spring" }
+spring-boot-gradle-plugin = { group = "org.springframework.boot", name = "spring-boot-gradle-plugin", version.ref = "spring-boot-plugin" }
 spring-dependency-management-plugin = { group = "io.spring.gradle", name = "dependency-management-plugin", version.ref = "spring-dependency-management" }
 kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-allopen = { group = "org.jetbrains.kotlin", name = "kotlin-allopen", version.ref = "kotlin" }
@@ -173,7 +174,7 @@ gradle-versions-plugin = { group = "com.github.ben-manes", name = "gradle-versio
 #groovy = ["groovy-core", "groovy-json", "groovy-nio"]
 
 [plugins]
-spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot-plugin" }
 spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
