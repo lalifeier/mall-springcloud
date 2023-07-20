@@ -6,6 +6,6 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-aop")
   implementation("org.springframework.boot:spring-boot-autoconfigure")
   implementation("org.springframework.boot:spring-boot-configuration-processor")
-  implementation("org.apache.commons:commons-lang3")
-  implementation("com.google.guava:guava")
+  implementation(libs.commons.lang3)
+  implementation(libs.guava)
 }

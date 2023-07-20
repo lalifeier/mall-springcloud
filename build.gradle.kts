@@ -6,65 +6,55 @@ plugins {
   idea
   java
   `java-library`
-  `maven-publish`
-  alias(libs.plugins.spring.boot)
+
+  alias(libs.plugins.spring.boot) apply false
   alias(libs.plugins.spring.dependency.management) apply false
   alias(libs.plugins.kotlin.jvm) apply false
   alias(libs.plugins.kotlin.spring) apply false
 //  alias(libs.plugins.docker.remote.api)
 //  alias(libs.plugins.docker.spring.boot.application)
-  alias(libs.plugins.protobuf)
-  alias(libs.plugins.spotless)
+//  alias(libs.plugins.protobuf)
+//  alias(libs.plugins.spotless)
 //  alias(libs.plugins.sonarqube)
 //  alias(libs.plugins.versions)
+
+  protobuf apply false
+  maven apply false
+  spotless apply false
+  versions apply false
 }
 
-spotless {
-  java {
-    // apply a specific flavor of google-java-format
-    googleJavaFormat().aosp().reflowLongStrings()
-    // fix formatting of type annotations
-    formatAnnotations()
-  }
-}
-
-//sonarqube {
-//  properties {
-//    property("sonar.host.url", "https://sonarqube.host.com")
+//sourceSets {
+//  main {
+//    java {
+//      srcDirs("src/main/java")
+//      srcDirs("build/generated/source/proto/main/java")
+//    }
+////    kotlin {
+////      srcDir("src/main/kotlin")
+////    }
+//    proto {
+//      srcDirs("src/main/proto")
+//    }
+//    resources {
+//      srcDirs("src/main/resources")
+//    }
+//  }
+//  test {
+//    java {
+//      srcDirs("src/test/java")
+//    }
+////    kotlin {
+////        srcDirs("src/test/kotlin")
+////    }
+//    proto {
+//      srcDirs("src/test/proto")
+//    }
+//    resources {
+//      srcDirs("src/test/resources")
+//    }
 //  }
 //}
-
-sourceSets {
-  main {
-    java {
-      srcDirs("src/main/java")
-      srcDirs("build/generated/source/proto/main/java")
-    }
-//    kotlin {
-//      srcDir("src/main/kotlin")
-//    }
-    proto {
-      srcDirs("src/main/proto")
-    }
-    resources {
-      srcDirs("src/main/resources")
-    }
-  }
-  test {
-    java {
-      srcDirs("src/test/java")
-    }
-//    kotlin {
-//        srcDirs("src/test/kotlin")
-//    }
-    proto {
-      srcDirs("src/test/proto")
-    }
-    resources {
-      srcDirs("src/test/resources")
-    }
-  }
-}
 
 allprojects {
   group = "com.github.lalifeier"
@@ -91,6 +81,7 @@ configure(javaProjects) {
   apply(plugin = "io.spring.dependency-management")
   apply(plugin = "org.jetbrains.kotlin.jvm")
   apply(plugin = "org.jetbrains.kotlin.plugin.spring")
+  apply(plugin = "maven")
 
   configurations {
     all {
@@ -123,11 +114,7 @@ configure(javaProjects) {
 
   configure<DependencyManagementExtension> {
     imports {}
-    dependencies {
-      Dependencies.all.forEach { dependency ->
-        dependency(dependency)
-      }
-    }
+    dependencies {}
   }
 
   dependencies {
@@ -146,53 +133,10 @@ configure(javaProjects) {
   }
 }
 
-//apply(from = rootProject.file("protobuf.gradle.kts"))
-
 //grpc
 configure(grpcProjects) {
-//  apply(from = "$rootDir/gradle/protobuf.gradle.kts")
-  apply(plugin = "java")
-  apply(plugin = "java-library")
-  apply(plugin = "idea")
-  apply(plugin = "com.google.protobuf")
-
-  protobuf {
-    protoc {
-      artifact = "com.google.protobuf:protoc:${rootProject.libs.versions.protobuf.asProvider().get()}"
-    }
-
-    plugins {
-      create("grpc") {
-        artifact = "io.grpc:protoc-gen-grpc-java:${rootProject.libs.versions.grpc.asProvider().get()}"
-      }
-//      create("grpckt") {
-//        artifact = "io.grpc:protoc-gen-grpc-kotlin:${rootProject.libs.versions.grpc.kotlin.get()}:jdk8@jar"
-//      }
-    }
-
-    generateProtoTasks {
-      all().forEach {
-        it.plugins {
-          create("grpc") {
-            option("lite")
-          }
-//          create("grpckt") {
-//            option("lite")
-//          }
-        }
-        it.builtins {
-          named("java") {
-            option("lite")
-          }
-//          create("kotlin") {
-//            option("lite")
-//          }
-        }
-      }
-    }
-  }
+  apply(plugin = "protobuf")
 }
-
 
 //val osName = System.getProperty("os.name").toLowerCase()
 //val osArch = System.getProperty("os.arch").toLowerCase()
@@ -231,30 +175,6 @@ configure(grpcProjects) {
 //    }
 //  }
 //}
-
-//maven
-configure(javaProjects) {
-  apply(plugin = "java-library")
-  apply(plugin = "maven-publish")
-
-  publishing {
-    publications {
-      create<MavenPublication>("mavenJava") {
-        from(components["java"])
-      }
-    }
-
-    repositories {
-      maven {
-        url = uri(project.getVariable("MAVEN_REPOSITORY_URL") as String)
-        credentials {
-          username = project.getVariable("MAVEN_REPOSITORY_USERNAME")
-          password = project.getVariable("MAVEN_REPOSITORY_PASSWORD")
-        }
-      }
-    }
-  }
-}
 
 //docker
 //configure(bootProjects) {

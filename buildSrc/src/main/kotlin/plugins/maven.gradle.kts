@@ -1,4 +1,6 @@
-apply(plugin = "maven-publish")
+plugins {
+  `maven-publish`
+}
 
 publishing {
   publications {

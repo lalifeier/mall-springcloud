@@ -7,8 +7,7 @@ plugins {
 //  alias(libs.plugins.spring.dependency.management) apply false
 //  alias(libs.plugins.kotlin.jvm) apply false
 //  alias(libs.plugins.kotlin.spring) apply false
-//  alias(libs.plugins.docker.remote.api)
-//  alias(libs.plugins.docker.spring.boot.application)
+
 //  alias(libs.plugins.protobuf)
 //  alias(libs.plugins.spotless)
 //  alias(libs.plugins.sonarqube)
@@ -16,19 +15,18 @@ plugins {
 }
 
 dependencies {
-//  implementation("org.jetbrains.kotlin:kotlin-stdlib-
+//  implementation(libs.spring.boot.gradle.plugin)
+//  implementation(libs.spring.dependency.management.plugin)
 
-//  implementation("org.springframework.boot:spring-boot-gradle-plugin:3.1.1")
-//  implementation("io.spring.gradle:dependency-management-plugin:1.1.2")
-//
-//  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0")
-//  implementation("org.jetbrains.kotlin:kotlin-allopen:1.9.0")
-//  implementation("org.jetbrains.kotlin:kotlin-noarg:1.9.0")
-//
-//  implementation("com.google.protobuf:protobuf-gradle-plugin:0.9.4")
-//  implementation("com.bmuschko:gradle-docker-plugin:9.3.1")
-//  implementation("com.github.ben-manes:gradle-versions-plugin:0.47.0")
-//  implementation("com.diffplug.spotless:spotless-plugin-gradle:6.20.0")
+//  implementation(libs.kotlin.gradle.plugin)
+//  implementation(libs.kotlin.allopen)
+//  implementation(libs.kotlin.noarg)
+
+  implementation(libs.protobuf.gradle.plugin)
+//  implementation(libs.docker.gradle.plugin)
+  implementation(libs.spotless.gradle.plugin)
+//  implementation(libs.sonarqube.gradle.plugin)
+  implementation(libs.gradle.versions.plugin)
 }
 
 //tasks.register<JavaCompile>("compileKotlin") {
