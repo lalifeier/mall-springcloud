@@ -8,7 +8,7 @@ import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.dto.BookDTO;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.BookApplicationService;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.BookQueryApplicationService;
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.converter.BookConverter;
-import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.BookPageQuery;
+import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.BookAbstractPageQuery;
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.CreateBookRequest;
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.UpdateBookRequest;
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.response.BookResponse;
@@ -56,7 +56,7 @@ public class BookController {
   }
 
   @GetMapping("")
-  public PageResult<BookResponse> query(@ModelAttribute BookPageQuery query) {
+  public PageResult<BookResponse> query(@ModelAttribute BookAbstractPageQuery query) {
     Pagination<BookDTO> bookDTOPagination = this.bookQueryApplicationService.query(query);
 
     List<BookResponse> bookResponseList = this.bookConverter.toVO(bookDTOPagination.getData());

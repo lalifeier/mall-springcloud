@@ -3,7 +3,7 @@ package com.github.lalifeier.mall.cloud.common.model.query;
 import java.io.Serializable;
 import java.util.Map;
 
-public abstract class PageQuery implements Serializable {
+public abstract class AbstractPageQuery implements Serializable {
   private static final long serialVersionUID = 1L;
 
   private static final int DEFAULT_PAGE_SIZE = 10;
@@ -37,7 +37,7 @@ public abstract class PageQuery implements Serializable {
     return Math.max(pageNum, 1);
   }
 
-  public PageQuery setPageNum(int pageNum) {
+  public AbstractPageQuery setPageNum(int pageNum) {
     this.pageNum = pageNum;
     return this;
   }
@@ -46,7 +46,7 @@ public abstract class PageQuery implements Serializable {
     return Math.max(pageSize, DEFAULT_PAGE_SIZE);
   }
 
-  public PageQuery setPageSize(int pageSize) {
+  public AbstractPageQuery setPageSize(int pageSize) {
     this.pageSize = Math.max(pageSize, DEFAULT_PAGE_SIZE);
     return this;
   }
@@ -59,7 +59,7 @@ public abstract class PageQuery implements Serializable {
     return orderBy;
   }
 
-  public PageQuery setOrderBy(String orderBy) {
+  public AbstractPageQuery setOrderBy(String orderBy) {
     this.orderBy = orderBy;
     return this;
   }

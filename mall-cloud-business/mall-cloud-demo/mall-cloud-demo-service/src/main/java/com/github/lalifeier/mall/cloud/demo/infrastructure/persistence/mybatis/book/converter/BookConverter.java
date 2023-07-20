@@ -13,7 +13,7 @@ public interface BookConverter {
   BookConverter INSTANCE = Mappers.getMapper(BookConverter.class);
 
   @Mapping(source = "id", target = "id.value")
-  Book convert(BookPO bookPO);
+  Book fromData(BookPO bookPO);
 
   //@Mapping(target = "id", ignore = true)
   @Mapping(source = "id.value", target = "id")
@@ -22,7 +22,7 @@ public interface BookConverter {
   @Mapping(target = "updatedAt", ignore = true)
   @Mapping(target = "updatedBy", ignore = true)
   @Mapping(target = "isDeleted", ignore = true)
-  BookPO convert(Book book);
+  BookPO toData(Book book);
 
   List<Book> convertList(List<BookPO> bookPOList);
 }

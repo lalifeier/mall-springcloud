@@ -50,7 +50,7 @@ public class AccountRepositoryImpl implements AccountRepository {
   }
 
   @Override
-  public Account save(@NotNull Account aggregate) {
+  public void save(@NotNull Account aggregate) {
     AccountUserPO accountUserPO = accountConverter.convert(aggregate);
 
     if (aggregate.getId() != null && aggregate.getId().getValue() > 0) {
@@ -59,7 +59,6 @@ public class AccountRepositoryImpl implements AccountRepository {
       accountUserMapper.insert(accountUserPO);
       aggregate.setId(new AccountId(accountUserPO.getId()));
     }
-    return aggregate;
   }
 
   @Override

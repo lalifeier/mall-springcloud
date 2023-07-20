@@ -1,7 +1,7 @@
 package com.github.lalifeier.mall.cloud.account.domain.account.model.entity;
 
 import com.github.lalifeier.mall.cloud.account.domain.account.model.valueobject.*;
-import com.github.lalifeier.mall.cloud.common.model.ddd.Aggregate;
+import com.github.lalifeier.mall.cloud.common.model.marker.Aggregate;
 import lombok.Builder;
 import lombok.Data;
 

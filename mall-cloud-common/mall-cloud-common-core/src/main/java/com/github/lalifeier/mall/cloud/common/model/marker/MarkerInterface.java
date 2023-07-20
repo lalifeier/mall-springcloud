@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.common.model.ddd;
+package com.github.lalifeier.mall.cloud.common.model.marker;
 
 /**
  * 领域服务与应用服务防腐层

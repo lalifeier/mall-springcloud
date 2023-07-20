@@ -16,13 +16,13 @@ public class BookDomainServiceImpl implements BookDomainService {
   }
 
   @Override
-  public Book create(Book book) {
-    return bookRepository.save(book);
+  public void create(Book book) {
+    bookRepository.save(book);
   }
 
   @Override
-  public Book update(Book book) {
-    return bookRepository.save(book);
+  public void update(Book book) {
+    bookRepository.save(book);
   }
 
   @Override

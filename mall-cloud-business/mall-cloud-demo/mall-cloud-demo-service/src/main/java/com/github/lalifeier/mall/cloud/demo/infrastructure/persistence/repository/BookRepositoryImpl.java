@@ -36,26 +36,23 @@ public class BookRepositoryImpl implements BookRepository {
   public Book find(@NotNull BookId bookId) {
     Long id = bookId.getValue();
     BookPO bookPO = bookMapper.selectById(id);
-    return bookConverter.convert(bookPO);
+    return bookConverter.fromData(bookPO);
   }
 
   @Override
   public void remove(@NotNull Book aggregate) {
-    BookPO bookPO = bookConverter.convert(aggregate);
+    BookPO bookPO = bookConverter.toData(aggregate);
     bookMapper.deleteById(bookPO);
   }
 
   @Override
-  public Book save(@NotNull Book aggregate) {
-    BookPO bookPO = bookConverter.convert(aggregate);
+  public void save(@NotNull Book aggregate) {
+    BookPO bookPO = bookConverter.toData(aggregate);
     if (aggregate.getId() != null && aggregate.getId().getValue() > 0) {
       bookMapper.updateById(bookPO);
     } else {
       bookMapper.insert(bookPO);
-      aggregate.setId(new BookId(bookPO.getId()));
+      aggregate.setId(bookConverter.fromData(bookPO).getId());
     }
-    return aggregate;
   }
-
-
 }

@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.common.model.ddd;
+package com.github.lalifeier.mall.cloud.common.model.marker;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -31,5 +31,5 @@ public interface Repository<T extends Aggregate<ID>, ID extends Identifier> {
    * 保存一个Aggregate
    * 保存后自动重置追踪条件
    */
-  T save(@NotNull T aggregate);
+  void save(@NotNull T aggregate);
 }

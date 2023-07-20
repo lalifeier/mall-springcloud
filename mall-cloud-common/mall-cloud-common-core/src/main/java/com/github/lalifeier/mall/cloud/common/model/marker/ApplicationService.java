@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.common.model.ddd;
+package com.github.lalifeier.mall.cloud.common.model.marker;
 
 /**
  * 应用服务标记

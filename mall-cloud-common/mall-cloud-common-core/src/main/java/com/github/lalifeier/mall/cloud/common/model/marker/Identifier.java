@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.common.model.ddd;
+package com.github.lalifeier.mall.cloud.common.model.marker;
 
 import java.io.Serializable;
 

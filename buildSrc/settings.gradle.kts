@@ -5,8 +5,8 @@ pluginManagement {
 
   repositories {
     mavenLocal()
-    maven("https://developer.huawei.com/repo/")
     maven("https://maven.aliyun.com/repository/public/")
+    maven("https://developer.huawei.com/repo/")
     mavenCentral()
     gradlePluginPortal()
   }
@@ -16,8 +16,8 @@ dependencyResolutionManagement {
 //  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
   repositories {
     mavenLocal()
-    maven("https://developer.huawei.com/repo/")
     maven("https://maven.aliyun.com/repository/public/")
+    maven("https://developer.huawei.com/repo/")
     mavenCentral()
   }
 

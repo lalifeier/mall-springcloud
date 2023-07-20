@@ -4,9 +4,9 @@ import com.github.lalifeier.mall.cloud.account.domain.account.model.entity.Accou
 import com.github.lalifeier.mall.cloud.account.domain.account.model.valueobject.AccountId;
 
 public interface AccountDomainService {
-  Account create(Account account);
+  void create(Account account);
 
-  Account update(Account account);
+  void update(Account account);
 
   Account get(AccountId accountId);
 

@@ -1,7 +1,7 @@
 package com.github.lalifeier.mall.cloud.account.domain.account.model.valueobject;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.github.lalifeier.mall.cloud.common.model.ddd.ValueObject;
+import com.github.lalifeier.mall.cloud.common.model.marker.ValueObject;
 import lombok.Getter;
 import org.apache.commons.lang3.Validate;
 

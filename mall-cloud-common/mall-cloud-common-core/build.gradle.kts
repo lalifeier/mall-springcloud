@@ -11,6 +11,7 @@ dependencies {
   implementation("com.alibaba:transmittable-thread-local")
   implementation("org.slf4j:slf4j-api")
   implementation("cglib:cglib-nodep")
+  implementation("javax.validation:validation-api")
 //    implementation("org.springframework.data:spring-data-commons")
 //    implementation("com.github.pagehelper:pagehelper")
 }

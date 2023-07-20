@@ -14,13 +14,13 @@ public class AccountDomainServiceImpl implements AccountDomainService {
   private AccountRepository accountRepository;
 
   @Override
-  public Account create(Account account) {
-    return accountRepository.save(account);
+  public void create(Account account) {
+    accountRepository.save(account);
   }
 
   @Override
-  public Account update(Account account) {
-    return accountRepository.save(account);
+  public void update(Account account) {
+    accountRepository.save(account);
   }
 
   @Override

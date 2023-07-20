@@ -3,7 +3,7 @@ package com.github.lalifeier.mall.cloud.demo.infrastructure.persistence.reposito
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.github.lalifeier.mall.cloud.common.model.query.PageQuery;
+import com.github.lalifeier.mall.cloud.common.model.query.AbstractPageQuery;
 import com.github.lalifeier.mall.cloud.common.model.query.Pagination;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.repository.BookQueryRepository;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.Book;
@@ -27,13 +27,13 @@ public class BookQueryRepositoryImpl implements BookQueryRepository {
   }
 
   @Override
-  public Pagination<Book> query(PageQuery query) {
+  public Pagination<Book> query(AbstractPageQuery query) {
     Page<BookPO> page = new Page<>(query.getPageNum(), query.getPageSize());
 
     QueryWrapper<BookPO> queryWrapper = QueryWrapperUtils.buildQueryWrapper(BookPO.class, query);
 
     IPage<BookPO> bookPage = bookMapper.selectPage(page, queryWrapper);
 
-    return PageConverter.convert(bookPage, bookConverter::convert);
+    return PageConverter.convert(bookPage, bookConverter::fromData);
   }
 }

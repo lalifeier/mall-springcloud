@@ -1,6 +1,6 @@
 package com.github.lalifeier.mall.cloud.account.domain.account.model.valueobject;
 
-import com.github.lalifeier.mall.cloud.common.model.ddd.ValueObject;
+import com.github.lalifeier.mall.cloud.common.model.marker.ValueObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
