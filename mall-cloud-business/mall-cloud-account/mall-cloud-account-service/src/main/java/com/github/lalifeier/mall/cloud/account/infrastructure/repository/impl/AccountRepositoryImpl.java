@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.account.infrastructure.persistence.repository;
+package com.github.lalifeier.mall.cloud.account.infrastructure.repository.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -40,18 +40,18 @@ public class AccountRepositoryImpl implements AccountRepository {
   public Account find(@NotNull AccountId accountId) {
     Long id = accountId.getValue();
     AccountUserPO accountUserPO = accountUserMapper.selectById(id);
-    return accountConverter.convert(accountUserPO);
+    return accountConverter.toData(accountUserPO);
   }
 
   @Override
   public void remove(@NotNull Account aggregate) {
-    AccountUserPO accountUserPO = accountConverter.convert(aggregate);
+    AccountUserPO accountUserPO = accountConverter.fromData(aggregate);
     accountUserMapper.deleteById(accountUserPO);
   }
 
   @Override
   public void save(@NotNull Account aggregate) {
-    AccountUserPO accountUserPO = accountConverter.convert(aggregate);
+    AccountUserPO accountUserPO = accountConverter.fromData(aggregate);
 
     if (aggregate.getId() != null && aggregate.getId().getValue() > 0) {
       accountUserMapper.updateById(accountUserPO);
@@ -66,7 +66,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     LambdaQueryWrapper<AccountUserPO> queryWrapper = Wrappers.lambdaQuery();
     queryWrapper.eq(AccountUserPO::getUsername, name.getValue());
     AccountUserPO accountUserPO = accountUserMapper.selectOne(queryWrapper);
-    return accountConverter.convert(accountUserPO);
+    return accountConverter.toData(accountUserPO);
   }
 
   @Override
@@ -74,7 +74,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     LambdaQueryWrapper<AccountUserPO> queryWrapper = Wrappers.lambdaQuery();
     queryWrapper.eq(AccountUserPO::getEmail, email.getValue());
     AccountUserPO accountUserPO = accountUserMapper.selectOne(queryWrapper);
-    return accountConverter.convert(accountUserPO);
+    return accountConverter.toData(accountUserPO);
   }
 
   @Override
@@ -82,7 +82,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     LambdaQueryWrapper<AccountUserPO> queryWrapper = Wrappers.lambdaQuery();
     queryWrapper.eq(AccountUserPO::getPhone, phone.getValue());
     AccountUserPO accountUserPO = accountUserMapper.selectOne(queryWrapper);
-    return accountConverter.convert(accountUserPO);
+    return accountConverter.toData(accountUserPO);
   }
 
   @Override

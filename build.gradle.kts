@@ -5,11 +5,9 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 plugins {
   idea
   java
-  `java-library`
-  alias(libs.plugins.spring.boot) apply false
-  alias(libs.plugins.spring.dependency.management) apply false
   id("local.java") apply false
   id("local.kotlin") apply false
+  id("local.spring") apply false
   id("local.protobuf") apply false
   id("local.maven") apply false
   id("local.docker") apply false
@@ -38,10 +36,9 @@ val dubboProjects = subprojects.filter { it.name.endsWith("-dubbo") }
 configure(javaProjects) {
   apply(plugin = "java")
   apply(plugin = "java-library")
-  apply(plugin = "org.springframework.boot")
-  apply(plugin = "io.spring.dependency-management")
   apply(plugin = "local.java")
   apply(plugin = "local.kotlin")
+  apply(plugin = "local.spring")
   apply(plugin = "local.maven")
 
   configurations {
@@ -51,13 +48,6 @@ configure(javaProjects) {
         cacheDynamicVersionsFor(24, "hours")
       }
     }
-//    getByName("compileOnly") {
-//      extendsFrom(getByName("annotationProcessor"))
-//    }
-  }
-
-  tasks.named<BootJar>("bootJar") {
-    enabled = false
   }
 
   configure<DependencyManagementExtension> {
@@ -74,8 +64,6 @@ configure(javaProjects) {
     annotationProcessor(rootProject.libs.lombok)
     testCompileOnly(rootProject.libs.lombok)
     testAnnotationProcessor(rootProject.libs.lombok)
-
-//    developmentOnly("org.springframework.boot:spring-boot-devtools")
   }
 }
 
@@ -100,47 +88,14 @@ configure(bootProjects) {
     from(sourceSets.main.get().output)
   }
 
-//  val developmentOnly by configurations.creating
+//  val developmentOnly1 by configurations.creating
 //  configurations {
 //    runtimeClasspath {
-//      extendsFrom(developmentOnly)
+//      extendsFrom(developmentOnly1)
 //    }
 //  }
 
-//  dependencies {
-//    developmentOnly("org.springframework.boot:spring-boot-devtools")
-//  }
+  dependencies {
+    runtimeOnly("org.springframework.boot:spring-boot-devtools")
+  }
 }
-
-
-//sourceSets {
-//  main {
-//    java {
-//      srcDirs("src/main/java")
-//      srcDirs("build/generated/source/proto/main/java")
-//    }
-////    kotlin {
-////      srcDir("src/main/kotlin")
-////    }
-//    proto {
-//      srcDirs("src/main/proto")
-//    }
-//    resources {
-//      srcDirs("src/main/resources")
-//    }
-//  }
-//  test {
-//    java {
-//      srcDirs("src/test/java")
-//    }
-////    kotlin {
-////        srcDirs("src/test/kotlin")
-////    }
-//    proto {
-//      srcDirs("src/test/proto")
-//    }
-//    resources {
-//      srcDirs("src/test/resources")
-//    }
-//  }
-//}

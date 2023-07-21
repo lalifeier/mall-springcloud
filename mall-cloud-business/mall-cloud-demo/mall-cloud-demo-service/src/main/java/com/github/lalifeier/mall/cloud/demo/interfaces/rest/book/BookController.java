@@ -33,6 +33,12 @@ public class BookController {
 
   @PostMapping("")
   public void create(@Validated @RequestBody CreateBookRequest createBookRequest) {
+    System.out.println("666666666666666666");
+
+
+    System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+
+
     CreateBookCommand createBookBO = bookConverter.toDTO(createBookRequest);
     this.bookApplicationService.create(createBookBO);
   }

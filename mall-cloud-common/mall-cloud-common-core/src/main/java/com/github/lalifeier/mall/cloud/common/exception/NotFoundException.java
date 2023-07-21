@@ -1,0 +1,26 @@
+package com.github.lalifeier.mall.cloud.common.exception;
+
+public class NotFoundException extends SystemException {
+
+
+  public NotFoundException(Throwable cause) {
+    super(cause);
+  }
+
+  public NotFoundException(String message) {
+    super(message);
+  }
+
+  public NotFoundException(ErrorCode errorCode) {
+    super(errorCode);
+  }
+
+  public NotFoundException(ErrorCode errorCode, Object... args) {
+    super(errorCode, args);
+  }
+
+  @Override
+  public ErrorCode defaultErrorCode() {
+    return ErrorCodeEnum.NOT_FOUND;
+  }
+}

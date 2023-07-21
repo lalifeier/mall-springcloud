@@ -4,6 +4,7 @@ plugins {
 
 val protocVersion = "3.22.2"
 val protocKotlinVersion = "1.3.0"
+val grpcVersion = "1.55.1"
 
 protobuf {
   protoc {
@@ -12,7 +13,7 @@ protobuf {
 
   plugins {
     create("grpc") {
-      artifact = "io.grpc:protoc-gen-grpc-java:$protocVersion"
+      artifact = "io.grpc:protoc-gen-grpc-java:$grpcVersion"
     }
 //    create("grpckt") {
 //      artifact = "io.grpc:protoc-gen-grpc-kotlin:$protocKotlinVersion:jdk8@jar"

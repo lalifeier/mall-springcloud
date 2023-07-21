@@ -1,7 +1,7 @@
 package com.github.lalifeier.mall.cloud.feign.handler;
 
+import com.github.lalifeier.mall.cloud.common.exception.ErrorCodeEnum;
 import com.github.lalifeier.mall.cloud.common.model.result.Result;
-import com.github.lalifeier.mall.cloud.common.system.SystemErrorCode;
 import feign.FeignException;
 import feign.codec.DecodeException;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ public class FeignExceptionHandler {
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public Result<?> handleFeignException(FeignException e) {
     log.error("远程调用出错：{}", e.getMessage());
-    return Result.failure(SystemErrorCode.REMOTE_CALL_ERROR);
+    return Result.failure(ErrorCodeEnum.REMOTE_SERVER_ERROR);
   }
 
   @ExceptionHandler(DecodeException.class)
@@ -31,6 +31,6 @@ public class FeignExceptionHandler {
 //    if (cause instanceof BizException){
 //      BizException bizException = (BizException) cause;
 //    }
-    return Result.failure(SystemErrorCode.SYSTEM_ERROR.getCode(), "远程调用解析返回值时出错");
+    return Result.failure(ErrorCodeEnum.REMOTE_SERVER_ERROR.getCode(), "远程调用解析返回值时出错");
   }
 }

@@ -8,7 +8,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 //@EnableSignature
 //@EnableRateLimiter
-
 @EnableDiscoveryClient
 @SpringBootApplication
 public class MallDemoApplication {

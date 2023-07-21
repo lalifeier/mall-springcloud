@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Slf4j
 @RestControllerAdvice(basePackages = "com.github.lalifeier")
@@ -54,7 +55,7 @@ public class RestResponseHandler implements ResponseBodyAdvice<Object> {
 
     if (body instanceof String) {
       try {
-        result.setData(body);
+        result.setData((Optional<Object>) body);
         response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
         return objectMapper.writeValueAsString(result);
       } catch (JsonProcessingException e) {
@@ -71,7 +72,7 @@ public class RestResponseHandler implements ResponseBodyAdvice<Object> {
       return (PageResult<?>) body;
     }
 
-    result.setData(body);
+    result.setData((Optional<Object>) body);
 
     return result;
   }

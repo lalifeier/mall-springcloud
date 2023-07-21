@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.demo.infrastructure.persistence.repository;
+package com.github.lalifeier.mall.cloud.demo.infrastructure.repository.impl;
 
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.Book;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.valueobject.BookId;

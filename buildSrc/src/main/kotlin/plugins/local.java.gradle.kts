@@ -1,8 +1,8 @@
 plugins {
   java
   `java-library`
-//  id("org.springframework.boot")
-//  id("io.spring.dependency-management")
+  id("org.springframework.boot")
+  id("io.spring.dependency-management")
 }
 
 tasks.withType<JavaCompile> {

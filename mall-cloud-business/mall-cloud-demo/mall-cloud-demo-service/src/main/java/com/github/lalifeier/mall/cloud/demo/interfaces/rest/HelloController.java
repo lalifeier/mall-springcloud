@@ -27,7 +27,7 @@ public class HelloController implements HelloApi {
     return Result.success(a);
   }
 
-  //  @GetMapping("/send")
+//  @GetMapping("/send")
 //  public void send() {
 //    streamBridge.send("source1-out-0", "hello");
 //  }

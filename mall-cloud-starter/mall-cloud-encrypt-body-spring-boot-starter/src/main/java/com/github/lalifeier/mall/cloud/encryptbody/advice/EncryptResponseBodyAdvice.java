@@ -15,6 +15,8 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+import java.util.Optional;
+
 @Slf4j
 @ControllerAdvice
 public class EncryptResponseBodyAdvice implements ResponseBodyAdvice<Object> {
@@ -56,7 +58,7 @@ public class EncryptResponseBodyAdvice implements ResponseBodyAdvice<Object> {
       if (body instanceof Result) {
         Object data = ((Result<?>) body).getData();
         EncryptBody encryptBody = EncryptBodyUtil.encrypt(data.toString(), publicKey);
-        ((Result<EncryptBody>) body).setData(encryptBody);
+        ((Result<EncryptBody>) body).setData(Optional.of(encryptBody));
         return body;
       } else {
         EncryptBody encryptedBody = EncryptBodyUtil.encrypt((String) body, publicKey);

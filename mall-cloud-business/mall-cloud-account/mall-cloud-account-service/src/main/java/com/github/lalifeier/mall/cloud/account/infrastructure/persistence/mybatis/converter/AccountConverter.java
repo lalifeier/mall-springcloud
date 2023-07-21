@@ -8,8 +8,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
-import java.util.List;
-
 @Mapper
 public interface AccountConverter {
   AccountConverter INSTANCE = Mappers.getMapper(AccountConverter.class);
@@ -19,7 +17,7 @@ public interface AccountConverter {
   @Mapping(target = "password", qualifiedByName = "encryptPassword")
   @Mapping(source = "email", target = "email.value")
   @Mapping(source = "phone", target = "phone.value")
-  Account convert(AccountUserPO accountUserPO);
+  Account toData(AccountUserPO accountUserPO);
 
   @Named("encryptPassword")
   default AccountPassword encryptPassword(String password) {
@@ -42,7 +40,5 @@ public interface AccountConverter {
   @Mapping(target = "updatedAt", ignore = true)
   @Mapping(target = "updatedBy", ignore = true)
   @Mapping(target = "isDeleted", ignore = true)
-  AccountUserPO convert(Account account);
-
-  List<Account> convertList(List<AccountUserPO> accountUserPOList);
+  AccountUserPO fromData(Account account);
 }

@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.demo.infrastructure.persistence.repository;
+package com.github.lalifeier.mall.cloud.demo.infrastructure.repository.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
