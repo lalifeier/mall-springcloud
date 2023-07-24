@@ -1,5 +1,8 @@
 package com.github.lalifeier.mall.cloud.common.exception;
 
+import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
+import com.github.lalifeier.mall.cloud.common.constant.ErrorCodeEnum;
+
 public class RemoteServiceException extends SystemException {
 
 

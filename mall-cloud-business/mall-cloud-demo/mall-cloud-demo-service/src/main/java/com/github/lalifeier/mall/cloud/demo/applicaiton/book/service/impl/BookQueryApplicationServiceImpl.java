@@ -10,9 +10,11 @@ import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.Book;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.valueobject.BookId;
 import com.github.lalifeier.mall.cloud.demo.domain.book.service.BookDomainService;
 import com.github.lalifeier.mall.cloud.demo.infrastructure.persistence.mybatis.book.mapper.BookMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class BookQueryApplicationServiceImpl implements BookQueryApplicationService {
   private final BookDomainService bookDomainService;
 
@@ -21,13 +23,6 @@ public class BookQueryApplicationServiceImpl implements BookQueryApplicationServ
   private final BookMapper bookMapper;
 
   private final BookConverter bookConverter = BookConverter.INSTANCE;
-
-  public BookQueryApplicationServiceImpl(BookDomainService bookDomainService, BookQueryRepository bookQueryRepository, BookMapper bookMapper) {
-    this.bookDomainService = bookDomainService;
-    this.bookQueryRepository = bookQueryRepository;
-    this.bookMapper = bookMapper;
-  }
-
 
   @Override
   public BookDTO get(Long id) {
@@ -41,6 +36,4 @@ public class BookQueryApplicationServiceImpl implements BookQueryApplicationServ
     Pagination<Book> bookDOPagination = bookQueryRepository.query(query);
     return this.bookConverter.toDTO(bookDOPagination);
   }
-
-
 }

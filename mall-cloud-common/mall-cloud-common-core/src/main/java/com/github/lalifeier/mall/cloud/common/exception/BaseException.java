@@ -1,6 +1,7 @@
 package com.github.lalifeier.mall.cloud.common.exception;
 
 
+import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
 import org.slf4j.helpers.MessageFormatter;
 
 public abstract class BaseException extends RuntimeException {

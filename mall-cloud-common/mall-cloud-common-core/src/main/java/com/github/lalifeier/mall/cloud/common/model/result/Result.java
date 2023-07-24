@@ -1,22 +1,22 @@
 package com.github.lalifeier.mall.cloud.common.model.result;
 
 
-import com.github.lalifeier.mall.cloud.common.exception.ErrorCode;
-import com.github.lalifeier.mall.cloud.common.exception.ErrorCodeEnum;
+import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
+import com.github.lalifeier.mall.cloud.common.constant.ErrorCodeEnum;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Optional;
 
 
 public class Result<T> {
-  private final boolean success;
+  private boolean success;
   private final int code;
   private final String status;
   private final String description;
   private final String message;
   private Optional<T> data;
 
-  Result(boolean success, int code, String status, String description, String message, Optional<T> data) {
-    this.success = success;
+  Result(int code, String status, String description, String message, Optional<T> data) {
     this.code = code;
     this.status = status;
     this.description = description;
@@ -25,27 +25,27 @@ public class Result<T> {
   }
 
   public static Result<Object> success() {
-    return new Result<>(true, ErrorCodeEnum.SUCCESS.getCode(), ErrorCodeEnum.SUCCESS.getStatus(), null, null, Optional.empty());
+    return new Result<>(ErrorCodeEnum.SUCCESS.getCode(), ErrorCodeEnum.SUCCESS.getStatus(), null, null, Optional.empty());
   }
 
   public static <T> Result<T> success(T data) {
-    return new Result<>(true, ErrorCodeEnum.SUCCESS.getCode(), ErrorCodeEnum.SUCCESS.getStatus(), null, null, Optional.ofNullable(data));
+    return new Result<>(ErrorCodeEnum.SUCCESS.getCode(), ErrorCodeEnum.SUCCESS.getStatus(), null, null, Optional.ofNullable(data));
   }
 
   public static Result<Object> failure(int code, String message) {
-    return new Result<>(false, code, ErrorCodeEnum.UN_KNOW.getStatus(), null, message, Optional.empty());
+    return new Result<>(code, ErrorCodeEnum.UNKNOWN_ERROR.getStatus(), null, message, Optional.empty());
   }
 
   public static Result<Object> failure(ErrorCode errorCode) {
-    return new Result<>(false, errorCode.getCode(), errorCode.getStatus(), errorCode.getDescription(), errorCode.getMessage(), Optional.empty());
+    return new Result<>(errorCode.getCode(), errorCode.getStatus(), errorCode.getDescription(), errorCode.getMessage(), Optional.empty());
   }
 
   public static Result<Object> failure(ErrorCode errorCode, String message) {
-    return new Result<>(false, errorCode.getCode(), errorCode.getStatus(), errorCode.getDescription(), message, Optional.empty());
+    return new Result<>(errorCode.getCode(), errorCode.getStatus(), errorCode.getDescription(), message, Optional.empty());
   }
 
   public boolean isSuccess() {
-    return success;
+    return StringUtils.isNotBlank(status) && status.equals(ErrorCodeEnum.SUCCESS.getStatus());
   }
 
   public int getCode() {

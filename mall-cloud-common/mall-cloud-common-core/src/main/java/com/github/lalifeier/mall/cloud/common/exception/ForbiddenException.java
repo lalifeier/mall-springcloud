@@ -1,5 +1,8 @@
 package com.github.lalifeier.mall.cloud.common.exception;
 
+import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
+import com.github.lalifeier.mall.cloud.common.constant.HttpErrorCodeEnum;
+
 public class ForbiddenException extends SystemException {
 
 
@@ -21,6 +24,6 @@ public class ForbiddenException extends SystemException {
 
   @Override
   public ErrorCode defaultErrorCode() {
-    return ErrorCodeEnum.FORBIDDEN;
+    return HttpErrorCodeEnum.FORBIDDEN;
   }
 }

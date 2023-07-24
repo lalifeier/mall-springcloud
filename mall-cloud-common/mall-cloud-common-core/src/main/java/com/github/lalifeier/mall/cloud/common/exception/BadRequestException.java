@@ -1,6 +1,9 @@
 package com.github.lalifeier.mall.cloud.common.exception;
 
 
+import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
+import com.github.lalifeier.mall.cloud.common.constant.HttpErrorCodeEnum;
+
 public class BadRequestException extends SystemException {
 
   public BadRequestException(Throwable cause) {
@@ -21,6 +24,6 @@ public class BadRequestException extends SystemException {
 
   @Override
   public ErrorCode defaultErrorCode() {
-    return ErrorCodeEnum.BAD_REQUEST;
+    return HttpErrorCodeEnum.BAD_REQUEST;
   }
 }

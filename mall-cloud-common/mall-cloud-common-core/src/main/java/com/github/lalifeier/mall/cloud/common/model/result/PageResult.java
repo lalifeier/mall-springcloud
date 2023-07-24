@@ -1,6 +1,6 @@
 package com.github.lalifeier.mall.cloud.common.model.result;
 
-import com.github.lalifeier.mall.cloud.common.exception.ErrorCodeEnum;
+import com.github.lalifeier.mall.cloud.common.constant.ErrorCodeEnum;
 import com.github.lalifeier.mall.cloud.common.model.query.PageInfo;
 import com.github.lalifeier.mall.cloud.common.model.query.Pagination;
 
@@ -12,7 +12,7 @@ public class PageResult<T> extends Result<List<T>> {
   private PageInfo pageInfo;
 
   public PageResult(List<T> data, PageInfo pageInfo) {
-    super(true, ErrorCodeEnum.SUCCESS.getCode(), ErrorCodeEnum.SUCCESS.getStatus(), null, null, Optional.ofNullable(data));
+    super(ErrorCodeEnum.SUCCESS.getCode(), ErrorCodeEnum.SUCCESS.getStatus(), null, null, Optional.ofNullable(data));
     this.pageInfo = pageInfo;
   }
 

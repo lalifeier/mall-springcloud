@@ -1,5 +1,7 @@
 package com.github.lalifeier.mall.cloud.common.exception;
 
+import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
+import com.github.lalifeier.mall.cloud.common.constant.HttpErrorCodeEnum;
 import lombok.Getter;
 
 public class TooManyRequestsException extends SystemException {
@@ -26,6 +28,6 @@ public class TooManyRequestsException extends SystemException {
 
   @Override
   public ErrorCode defaultErrorCode() {
-    return ErrorCodeEnum.TOO_MANY_REQUESTS;
+    return HttpErrorCodeEnum.TOO_MANY_REQUESTS;
   }
 }

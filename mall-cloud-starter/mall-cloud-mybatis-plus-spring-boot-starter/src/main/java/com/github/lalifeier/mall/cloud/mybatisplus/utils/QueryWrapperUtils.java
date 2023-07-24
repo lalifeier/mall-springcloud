@@ -38,6 +38,15 @@ public class QueryWrapperUtils {
     return queryWrapper;
   }
 
+  public static <T> QueryWrapper<T> buildSimpleQueryWrapper(Class<?> clazz, Map<String, String> filter) {
+    QueryWrapper<T> queryWrapper = new QueryWrapper<>();
+
+    addFiltersToWrapper(queryWrapper, clazz, filter);
+
+    return queryWrapper;
+  }
+
+
   /**
    * 将要选择的列添加到提供的 QueryWrapper 对象中。
    *

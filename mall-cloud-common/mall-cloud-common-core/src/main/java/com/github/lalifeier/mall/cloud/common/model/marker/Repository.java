@@ -1,6 +1,10 @@
 package com.github.lalifeier.mall.cloud.common.model.marker;
 
-import org.jetbrains.annotations.NotNull;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.Set;
 
 public interface Repository<T extends Aggregate<ID>, ID extends Identifier> {
   /**
@@ -20,6 +24,13 @@ public interface Repository<T extends Aggregate<ID>, ID extends Identifier> {
    * 找到的Aggregate自动是可追踪的
    */
   T find(@NotNull ID id);
+
+
+  /**
+   * 通过IDs寻找Aggregate。
+   * 找到的Aggregate自动是可追踪的
+   */
+  List<T> find(@NotEmpty Set<ID> ids);
 
   /**
    * 将一个Aggregate从Repository移除

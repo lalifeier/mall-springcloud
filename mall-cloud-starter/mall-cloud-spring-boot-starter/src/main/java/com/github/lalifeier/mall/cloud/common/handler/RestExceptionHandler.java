@@ -1,14 +1,17 @@
 package com.github.lalifeier.mall.cloud.common.handler;
 
 
+import com.github.lalifeier.mall.cloud.common.constant.ErrorCodeEnum;
+import com.github.lalifeier.mall.cloud.common.constant.HttpErrorCodeEnum;
 import com.github.lalifeier.mall.cloud.common.exception.BaseException;
-import com.github.lalifeier.mall.cloud.common.exception.ErrorCodeEnum;
 import com.github.lalifeier.mall.cloud.common.model.result.Result;
 import com.google.common.base.Joiner;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
@@ -27,10 +30,11 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestControllerAdvice
+@Order(Ordered.LOWEST_PRECEDENCE)
 public class RestExceptionHandler {
   public static final Joiner.MapJoiner JOINER = Joiner.on(",").withKeyValueSeparator(": ");
 
-  @ExceptionHandler(value = Throwable.class)
+  @ExceptionHandler(value = Exception.class)
   public Result<?> processException(HttpServletRequest request, HttpServletResponse response, Exception exception) {
     log.error("error, request: {}", parseParam(request), exception);
     if (exception instanceof BaseException) {
@@ -41,8 +45,8 @@ public class RestExceptionHandler {
 
     Pair<Throwable, String> pair = getExceptionMessage(exception);
     String message = pair.getLeft().getClass().getSimpleName() + ": " + pair.getRight();
-    response.setStatus(ErrorCodeEnum.UN_KNOW.getHttpCode());
-    return Result.failure(ErrorCodeEnum.UN_KNOW, message);
+    response.setStatus(ErrorCodeEnum.UNKNOWN_ERROR.getHttpCode());
+    return Result.failure(ErrorCodeEnum.UNKNOWN_ERROR, message);
   }
 
   @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -53,7 +57,7 @@ public class RestExceptionHandler {
       exception.getBindingResult().getAllErrors().stream()
         .map(ObjectError::getDefaultMessage)
         .collect(Collectors.joining(", "));
-    return Result.failure(ErrorCodeEnum.BAD_REQUEST, message);
+    return Result.failure(HttpErrorCodeEnum.BAD_REQUEST, message);
   }
 
   @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -63,7 +67,7 @@ public class RestExceptionHandler {
     String message = exception.getConstraintViolations().stream()
       .map(ConstraintViolation::getMessage)
       .collect(Collectors.joining(", "));
-    return Result.failure(ErrorCodeEnum.BAD_REQUEST, message);
+    return Result.failure(HttpErrorCodeEnum.BAD_REQUEST, message);
   }
 
   @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -73,7 +77,7 @@ public class RestExceptionHandler {
     String message = exception.getAllErrors().stream()
       .map(ObjectError::getDefaultMessage)
       .collect(Collectors.joining(", "));
-    return Result.failure(ErrorCodeEnum.BAD_REQUEST, message);
+    return Result.failure(HttpErrorCodeEnum.BAD_REQUEST, message);
   }
 
 //  @ExceptionHandler(value = TooManyRequestsException.class)

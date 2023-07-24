@@ -1,6 +1,6 @@
 package com.github.lalifeier.mall.cloud.feign.handler;
 
-import com.github.lalifeier.mall.cloud.common.exception.ErrorCodeEnum;
+import com.github.lalifeier.mall.cloud.common.constant.ErrorCodeEnum;
 import com.github.lalifeier.mall.cloud.common.model.result.Result;
 import feign.FeignException;
 import feign.codec.DecodeException;
