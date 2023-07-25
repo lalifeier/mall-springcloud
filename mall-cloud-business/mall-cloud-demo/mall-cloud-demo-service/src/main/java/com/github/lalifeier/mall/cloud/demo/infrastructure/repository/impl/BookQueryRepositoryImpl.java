@@ -39,8 +39,7 @@ public class BookQueryRepositoryImpl implements BookQueryRepository {
 
   @Override
   public Long count(BookQuery query) {
-    QueryWrapper<BookPO> queryWrapper = new QueryWrapper<>();
-
+    QueryWrapper<BookPO> queryWrapper = QueryWrapperUtils.buildQueryWrapper(BookPO.class, query);
 
     return bookMapper.selectCount(queryWrapper);
   }

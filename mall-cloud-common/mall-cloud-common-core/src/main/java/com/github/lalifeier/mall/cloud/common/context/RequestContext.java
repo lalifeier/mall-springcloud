@@ -3,18 +3,18 @@ package com.github.lalifeier.mall.cloud.common.context;
 
 import lombok.Data;
 
+import java.util.Map;
+
 @Data
 public class RequestContext {
-  /**
-   * 客户端ip
-   */
-  private String clientIp;
-
-  /**
-   * 请求路径
-   */
-  private String requestUri;
-
-
-  private String traceId;
+  private final String sessionId;
+  private final String traceId;
+  private final String requestMethod;
+  private final String requestUri;
+  private final String clientIp;
+  private final String userAgent;
+  private final String referer;
+  private final Map<String, String> headers;
+  private final String query;
+  private final String payload;
 }

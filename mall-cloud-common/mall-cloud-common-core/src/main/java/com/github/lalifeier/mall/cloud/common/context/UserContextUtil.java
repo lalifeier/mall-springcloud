@@ -11,9 +11,5 @@ public class UserContextUtil {
   public static String getUserName() {
     return (userContext != null) ? userContext.getUserName() : null;
   }
-
-  public static String getClientIP() {
-    return (userContext != null) ? userContext.getClientIP() : null;
-  }
 }
 

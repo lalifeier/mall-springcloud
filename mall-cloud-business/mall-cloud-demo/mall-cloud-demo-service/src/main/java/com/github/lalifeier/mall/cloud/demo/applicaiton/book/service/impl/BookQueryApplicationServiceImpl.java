@@ -1,6 +1,5 @@
 package com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.impl;
 
-import com.github.lalifeier.mall.cloud.common.model.query.AbstractPageQuery;
 import com.github.lalifeier.mall.cloud.common.model.query.Pagination;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.converter.BookConverter;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.dto.BookDTO;
@@ -10,6 +9,7 @@ import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.Book;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.valueobject.BookId;
 import com.github.lalifeier.mall.cloud.demo.domain.book.service.BookDomainService;
 import com.github.lalifeier.mall.cloud.demo.infrastructure.persistence.mybatis.book.mapper.BookMapper;
+import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.BookPageQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +32,7 @@ public class BookQueryApplicationServiceImpl implements BookQueryApplicationServ
   }
 
   @Override
-  public Pagination<BookDTO> query(AbstractPageQuery query) {
+  public Pagination<BookDTO> query(BookPageQuery query) {
     Pagination<Book> bookDOPagination = bookQueryRepository.query(query);
     return this.bookConverter.toDTO(bookDOPagination);
   }

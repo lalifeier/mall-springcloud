@@ -1,7 +1,7 @@
 package com.github.lalifeier.mall.cloud.mybatisplus.utils;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.github.lalifeier.mall.cloud.common.model.query.AbstractPageQuery;
+import com.github.lalifeier.mall.cloud.common.model.query.AbstractQuery;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -21,27 +21,19 @@ public class QueryWrapperUtils {
   /**
    * 根据提供的过滤器和排序选项构建 QueryWrapper 对象。
    *
-   * @param clazz   要查询的类。
-   * @param request 包含过滤器、排序选项和要选择的列的请求对象。
-   * @param <T>     查询结果的类型。
+   * @param clazz 要查询的类。
+   * @param query 包含过滤器、排序选项和要选择的列的请求对象。
+   * @param <T>   查询结果的类型。
    * @return 构建的 QueryWrapper 对象。
    */
-  public static <T> QueryWrapper<T> buildQueryWrapper(Class<?> clazz, AbstractPageQuery request) {
+  public static <T> QueryWrapper<T> buildQueryWrapper(Class<?> clazz, AbstractQuery query) {
     QueryWrapper<T> queryWrapper = new QueryWrapper<>();
 
-    addColumnsToWrapper(queryWrapper, clazz, request.getColumns());
+    addColumnsToWrapper(queryWrapper, clazz, query.getColumns());
 
-    addFiltersToWrapper(queryWrapper, clazz, request.getFilter());
+    addFiltersToWrapper(queryWrapper, clazz, query.getFilter());
 
-    addSortToWrapper(queryWrapper, clazz, request.getOrderBy());
-
-    return queryWrapper;
-  }
-
-  public static <T> QueryWrapper<T> buildSimpleQueryWrapper(Class<?> clazz, Map<String, String> filter) {
-    QueryWrapper<T> queryWrapper = new QueryWrapper<>();
-
-    addFiltersToWrapper(queryWrapper, clazz, filter);
+    addSortToWrapper(queryWrapper, clazz, query.getOrderBy());
 
     return queryWrapper;
   }

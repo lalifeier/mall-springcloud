@@ -27,6 +27,7 @@ public class ApiLogAspect {
   public void doBefore(JoinPoint joinPoint) {
     ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
     HttpServletRequest request = attributes.getRequest();
+
     HttpSession session = request.getSession();
     String sessionId = session.getId();
 

@@ -1,75 +1,25 @@
 package com.github.lalifeier.mall.cloud.common.model.query;
 
-import java.io.Serializable;
-import java.util.Map;
+import lombok.Data;
 
-public abstract class AbstractPageQuery implements Serializable {
-  private static final long serialVersionUID = 1L;
-
+@Data
+public abstract class AbstractPageQuery extends AbstractQuery {
+  private static final int DEFAULT_PAGE_NUM = 1;
   private static final int DEFAULT_PAGE_SIZE = 10;
-
-  private int pageNum = 1;
+  private int pageNum = DEFAULT_PAGE_NUM;
   private int pageSize = DEFAULT_PAGE_SIZE;
 
-  private String orderBy;
-
-  private String[] columns;
-
-  private Map<String, String> filter;
-
-  public Map<String, String> getFilter() {
-    return filter;
-  }
-
-  public void setFilter(Map<String, String> filter) {
-    this.filter = filter;
-  }
-
-  public String[] getColumns() {
-    return columns;
-  }
-
-  public void setColumns(String[] columns) {
-    this.columns = columns;
-  }
-
   public int getPageNum() {
-    return Math.max(pageNum, 1);
-  }
-
-  public AbstractPageQuery setPageNum(int pageNum) {
-    this.pageNum = pageNum;
-    return this;
+    return Math.max(pageNum, DEFAULT_PAGE_NUM);
   }
 
   public int getPageSize() {
     return Math.max(pageSize, DEFAULT_PAGE_SIZE);
   }
 
-  public AbstractPageQuery setPageSize(int pageSize) {
-    this.pageSize = Math.max(pageSize, DEFAULT_PAGE_SIZE);
-    return this;
-  }
-
   public int getOffset() {
-    return (getPageNum() - 1) * getPageSize();
-  }
-
-  public String getOrderBy() {
-    return orderBy;
-  }
-
-  public AbstractPageQuery setOrderBy(String orderBy) {
-    this.orderBy = orderBy;
-    return this;
-  }
-
-  @Override
-  public String toString() {
-    return "PageRequest{" +
-      "pageNum=" + pageNum +
-      ", pageSize=" + pageSize +
-      ", orderBy='" + orderBy + '\'' +
-      '}';
+    int pageNum = getPageNum();
+    int pageSize = getPageSize();
+    return (pageNum - 1) * pageSize;
   }
 }
