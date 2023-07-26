@@ -12,6 +12,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 public class WebUtil {
@@ -86,5 +89,29 @@ public class WebUtil {
       writeJson((HttpServletResponse) response, object);
     }
   }
+
+  public static String getSessionId(HttpServletRequest request) {
+    return request.getSession().getId();
+  }
+
+  public static Map<String, String> getRequestHeaders(HttpServletRequest request) {
+    Map<String, String> headerMap = new HashMap<>();
+
+    Enumeration<String> headerNames = request.getHeaderNames();
+    while (headerNames.hasMoreElements()) {
+      String headerName = headerNames.nextElement();
+      String headerValue = request.getHeader(headerName);
+
+      if (!org.springframework.util.StringUtils.isEmpty(headerName) && !org.springframework.util.StringUtils.isEmpty(headerValue)) {
+        headerMap.put(headerName, headerValue);
+      }
+    }
+
+    return headerMap;
+  }
+
+//  public static String getRequestPayload(HttpServletRequest request) {
+//
+//  }
 
 }

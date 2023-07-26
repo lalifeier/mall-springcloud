@@ -178,6 +178,7 @@
   <logger name="springfox" level="INFO"/>
   <logger name="io.swagger" level="INFO"/>
   <logger name="org.springframework" level="INFO"/>
+  <!--  <logger name="org.springframework.web" level="DEBUG"/>-->
   <logger name="org.hibernate.validator" level="INFO"/>
   <logger name="com.alibaba.nacos" level="INFO"/>
 
@@ -188,7 +189,7 @@
     <appender-ref ref="ASYNC"/>
   </root>
 
-  <logger name="com.github.lalifeier.mall.cloud.common.aspect.ApiLogAspect" level="DEBUG">
+  <logger name="com.github.lalifeier.mall.cloud.common.aspect.WebLogAspect" level="DEBUG">
     <!--    <appender-ref ref="LOG_STASH_RECORD"/>-->
   </logger>
 

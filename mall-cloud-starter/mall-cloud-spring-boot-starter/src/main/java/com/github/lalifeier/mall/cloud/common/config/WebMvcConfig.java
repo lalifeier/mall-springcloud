@@ -1,7 +1,7 @@
 package com.github.lalifeier.mall.cloud.common.config;
 
 
-import com.github.lalifeier.mall.cloud.common.aspect.ApiLogAspect;
+import com.github.lalifeier.mall.cloud.common.aspect.WebLogAspect;
 import com.github.lalifeier.mall.cloud.common.converter.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,8 +31,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
   @Bean
 //  @ConditionalOnProperty(value = "log.enabled", havingValue = "true")
-  public ApiLogAspect apiLogAspect() {
-    return new ApiLogAspect();
+  public WebLogAspect apiLogAspect() {
+    return new WebLogAspect();
   }
 }
 

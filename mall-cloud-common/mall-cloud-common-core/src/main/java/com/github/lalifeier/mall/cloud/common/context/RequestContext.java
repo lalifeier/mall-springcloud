@@ -8,7 +8,6 @@ import java.util.Map;
 @Data
 public class RequestContext {
   private final String sessionId;
-  private final String traceId;
   private final String requestMethod;
   private final String requestUri;
   private final String clientIp;

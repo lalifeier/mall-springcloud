@@ -10,10 +10,6 @@ public class RequestContextUtil {
     return (requestContext != null) ? requestContext.getSessionId() : null;
   }
 
-  public static String getTraceId() {
-    return (requestContext != null) ? requestContext.getTraceId() : null;
-  }
-
   public static String getRequestMethod() {
     return (requestContext != null) ? requestContext.getRequestMethod() : null;
   }

@@ -26,9 +26,9 @@ public class MybatisPlusAuditHandler implements MetaObjectHandler {
     Long userId = getUserId();
 
     this.strictInsertFill(metaObject, "createdAt", LocalDateTime.class, now);
-    this.strictInsertFill(metaObject, "createdBy", Long.class, userId);
+//    this.strictInsertFill(metaObject, "createdBy", Long.class, userId);
     this.strictInsertFill(metaObject, "updatedAt", LocalDateTime.class, now);
-    this.strictInsertFill(metaObject, "updatedBy", Long.class, userId);
+//    this.strictInsertFill(metaObject, "updatedBy", Long.class, userId);
   }
 
   @Override
@@ -42,7 +42,7 @@ public class MybatisPlusAuditHandler implements MetaObjectHandler {
     Long userId = getUserId();
 
     this.strictUpdateFill(metaObject, "updatedAt", LocalDateTime.class, LocalDateTime.now());
-    this.strictInsertFill(metaObject, "updatedBy", Long.class, userId);
+//    this.strictInsertFill(metaObject, "updatedBy", Long.class, userId);
   }
 
   private boolean shouldFill(MetaObject metaObject) {

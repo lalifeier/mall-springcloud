@@ -253,7 +253,7 @@
     <appender-ref ref="ASYNC"/>
   </root>
 
-  <logger name="com.github.lalifeier.mall.cloud.common.aspect.ApiLogAspect" level="DEBUG">
+  <logger name="com.github.lalifeier.mall.cloud.common.aspect.WebLogAspect" level="DEBUG">
     <!--    <appender-ref ref="LOG_STASH_RECORD"/>-->
   </logger>
 

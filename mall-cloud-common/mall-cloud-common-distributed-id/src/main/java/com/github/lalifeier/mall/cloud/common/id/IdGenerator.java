@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.common.idgenerator;
+package com.github.lalifeier.mall.cloud.common.id;
 
 public interface IdGenerator {
   /**
