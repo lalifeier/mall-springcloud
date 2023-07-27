@@ -11,6 +11,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -109,9 +111,31 @@ public class WebUtil {
 
     return headerMap;
   }
+  
+  public static Map<String, String> getRequestQuery(HttpServletRequest request) {
+    Map<String, String> queryMap = new HashMap<>();
+    Enumeration<String> parameterNames = request.getParameterNames();
+    while (parameterNames.hasMoreElements()) {
+      String parameterName = parameterNames.nextElement();
+      String parameterValue = request.getParameter(parameterName);
+      queryMap.put(parameterName, parameterValue);
+    }
+    return queryMap;
+  }
 
-//  public static String getRequestPayload(HttpServletRequest request) {
-//
-//  }
+  public static String getRequestPayload(HttpServletRequest request) {
+    StringBuilder payload = new StringBuilder();
+    try (BufferedReader reader = request.getReader()) {
+      String line;
+      while ((line = reader.readLine()) != null) {
+        payload.append(line);
+      }
+    } catch (IOException e) {
+      // 处理异常
+      e.printStackTrace();
+    }
+    return payload.toString();
+  }
+
 
 }

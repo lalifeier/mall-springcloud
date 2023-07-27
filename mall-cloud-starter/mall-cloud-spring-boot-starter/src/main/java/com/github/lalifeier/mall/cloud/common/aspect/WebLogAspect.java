@@ -1,29 +1,31 @@
 package com.github.lalifeier.mall.cloud.common.aspect;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.lalifeier.mall.cloud.common.config.JacksonConfig;
 import com.github.lalifeier.mall.cloud.common.utils.WebUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StreamUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.util.Map;
 
 
 @Slf4j
 @Aspect
 @Component
+@Import(JacksonConfig.class)
 public class WebLogAspect {
 
-  private final ObjectMapper objectMapper = new ObjectMapper();
+  @Autowired
+  private ObjectMapper objectMapper;
 
   private final ThreadLocal<RequestInfo> THREAD_LOCAL = new ThreadLocal<>();
 
@@ -33,12 +35,9 @@ public class WebLogAspect {
 
   @Before("webLog()")
   public void doBefore(JoinPoint joinPoint) throws IOException {
-    long startTime = System.currentTimeMillis();
     HttpServletRequest request = WebUtil.getRequest();
     RequestInfo requestInfo = new RequestInfo();
-    requestInfo.setRequestTime(Instant.ofEpochMilli(startTime)
-      .atZone(ZoneOffset.UTC)
-      .toLocalDateTime());
+    requestInfo.setRequestTime(LocalDateTime.now());
     requestInfo.setProtocol(request.getProtocol());
     requestInfo.setSchema(request.getScheme());
     requestInfo.setIp(request.getRemoteAddr());
@@ -48,37 +47,28 @@ public class WebLogAspect {
     requestInfo.setClassMethod(String.format("%s.%s", joinPoint.getSignature().getDeclaringTypeName(),
       joinPoint.getSignature().getName()));
     requestInfo.setHeader(WebUtil.getRequestHeaders(request));
-    requestInfo.setQueryString(request.getQueryString());
-    requestInfo.setRequestPayload(getRequestPayload(request));
+    requestInfo.setQuery(WebUtil.getRequestQuery(request));
+    requestInfo.setPayload(WebUtil.getRequestPayload(request));
     THREAD_LOCAL.set(requestInfo);
   }
 
   @AfterReturning(value = "webLog()", returning = "ret")
   public void doAfterReturning(Object ret) throws Throwable {
     RequestInfo requestInfo = THREAD_LOCAL.get();
-    requestInfo.setTimeCost(System.currentTimeMillis() - requestInfo.getRequestTime().toInstant(ZoneOffset.UTC).toEpochMilli());
-    log.info(requestInfo.toString());
+    requestInfo.setTimeCost(System.currentTimeMillis() - requestInfo.getRequestTime().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+    log.info(objectMapper.writeValueAsString(requestInfo));
   }
 
   @AfterThrowing(pointcut = "webLog()", throwing = "e")
   public void doAfterThrow(JoinPoint joinPoint, Throwable e) throws Throwable {
     RequestInfo requestInfo = THREAD_LOCAL.get();
-    requestInfo.setTimeCost(System.currentTimeMillis() - requestInfo.getRequestTime().toInstant(ZoneOffset.UTC).toEpochMilli());
-    log.info(requestInfo.toString());
-  }
-
-  private String getRequestPayload(HttpServletRequest request) throws IOException {
-    String requestBody = "";
-
-    if (request.getMethod().equals("POST") || request.getMethod().equals("PUT")) {
-      requestBody = StreamUtils.copyToString(request.getInputStream(), Charset.defaultCharset());
-    }
-
-    return requestBody;
+    requestInfo.setTimeCost(System.currentTimeMillis() - requestInfo.getRequestTime().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+    log.info(objectMapper.writeValueAsString(requestInfo));
   }
 
   @Data
   public class RequestInfo {
+    //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime requestTime;
     private String classMethod;
     private String httpMethod;
@@ -88,26 +78,8 @@ public class WebLogAspect {
     private String sessionId;
     private String url;
     private Map<String, String> header;
-    private String queryString;
-    private String requestPayload;
+    private Map<String, String> query;
+    private String payload;
     private Long timeCost;
-
-    @Override
-    public String toString() {
-      return "RequestInfo{" +
-        "requestTime=" + requestTime +
-        ", classMethod='" + classMethod + '\'' +
-        ", httpMethod='" + httpMethod + '\'' +
-        ", protocol='" + protocol + '\'' +
-        ", schema='" + schema + '\'' +
-        ", ip='" + ip + '\'' +
-        ", sessionId='" + sessionId + '\'' +
-        ", url='" + url + '\'' +
-        ", header=" + header +
-        ", queryString='" + queryString + '\'' +
-        ", requestPayload='" + requestPayload + '\'' +
-        ", timeCost=" + timeCost +
-        '}';
-    }
   }
 }

@@ -1,5 +1,6 @@
 package com.github.lalifeier.mall.cloud.demo.interfaces.rest.book;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.lalifeier.mall.cloud.common.model.query.Pagination;
 import com.github.lalifeier.mall.cloud.common.model.result.PageResult;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.command.CreateBookCommand;
@@ -13,12 +14,14 @@ import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.C
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.UpdateBookRequest;
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.response.BookResponse;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Positive;
 import java.util.List;
 
+@Slf4j
 @Validated
 @RestController
 @AllArgsConstructor
@@ -55,7 +58,7 @@ public class BookController {
   }
 
   @GetMapping("")
-  public PageResult<BookResponse> query(@ModelAttribute BookPageQuery query) {
+  public PageResult<BookResponse> query(@ModelAttribute BookPageQuery query) throws JsonProcessingException {
     Pagination<BookDTO> bookDTOPagination = this.bookQueryApplicationService.query(query);
 
     List<BookResponse> bookResponseList = this.bookConverter.toVO(bookDTOPagination.getData());
