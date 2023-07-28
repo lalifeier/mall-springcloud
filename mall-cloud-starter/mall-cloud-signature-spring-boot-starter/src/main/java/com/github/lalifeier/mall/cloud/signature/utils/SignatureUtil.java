@@ -1,10 +1,10 @@
 package com.github.lalifeier.mall.cloud.signature.utils;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.*;

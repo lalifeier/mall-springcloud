@@ -5,7 +5,8 @@ dependencies {
   if (JavaVersion.current().isJava9Compatible()) {
     // Workaround for @javax.annotation.Generated
     // see: https://github.com/grpc/grpc-java/issues/3633
-    compileOnly("jakarta.annotation:jakarta.annotation-api")
+//    compileOnly(libs.annotation.api)
+    compileOnly("javax.annotation:javax.annotation-api:1.3.2")
   }
 
 //  implementation(libs.grpc.kotlin.stub)

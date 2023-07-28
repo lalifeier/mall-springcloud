@@ -4,9 +4,8 @@ import com.github.lalifeier.mall.cloud.account.domain.account.model.entity.Accou
 import com.github.lalifeier.mall.cloud.account.domain.account.model.valueobject.AccountId;
 import com.github.lalifeier.mall.cloud.account.domain.account.repository.AccountRepository;
 import com.github.lalifeier.mall.cloud.account.domain.account.service.AccountDomainService;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 @Service
 public class AccountDomainServiceImpl implements AccountDomainService {

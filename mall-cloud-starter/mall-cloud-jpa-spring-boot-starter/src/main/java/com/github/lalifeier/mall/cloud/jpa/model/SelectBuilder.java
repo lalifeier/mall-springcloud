@@ -7,9 +7,8 @@ import com.querydsl.core.types.EntityPath;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Pageable;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * 查询条件构造器.

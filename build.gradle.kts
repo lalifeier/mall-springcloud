@@ -13,7 +13,7 @@ plugins {
   id("local.docker") apply false
   id("local.spotless") apply false
   id("local.sonarqube") apply false
-  id("local.versions") apply false
+  id("local.versions")
 }
 
 allprojects {
@@ -97,5 +97,6 @@ configure(bootProjects) {
 
   dependencies {
     runtimeOnly("org.springframework.boot:spring-boot-devtools")
+    runtimeOnly("org.springframework.boot:spring-boot-properties-migrator")
   }
 }

@@ -1,5 +1,4 @@
 dependencies {
-//  api(project(":mall-cloud-common:mall-cloud-common-error"))
   implementation(libs.gson)
   implementation(libs.guava)
   implementation(libs.commons.lang3)

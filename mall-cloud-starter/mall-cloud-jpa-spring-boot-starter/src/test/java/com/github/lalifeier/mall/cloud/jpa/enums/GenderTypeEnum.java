@@ -5,7 +5,7 @@ package com.github.lalifeier.mall.cloud.jpa.enums;
 //import lombok.Getter;
 //import lombok.RequiredArgsConstructor;
 //
-//import javax.persistence.Converter;
+//import jakarta.persistence.Converter;
 //
 //@Getter
 //@RequiredArgsConstructor

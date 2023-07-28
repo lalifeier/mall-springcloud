@@ -2,15 +2,15 @@ package com.github.lalifeier.mall.cloud.common.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -111,7 +111,7 @@ public class WebUtil {
 
     return headerMap;
   }
-  
+
   public static Map<String, String> getRequestQuery(HttpServletRequest request) {
     Map<String, String> queryMap = new HashMap<>();
     Enumeration<String> parameterNames = request.getParameterNames();

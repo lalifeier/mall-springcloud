@@ -1,8 +1,10 @@
 package com.github.lalifeier.mall.cloud.common.model.query;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 public abstract class AbstractPageQuery extends AbstractQuery {
   private static final int DEFAULT_PAGE_NUM = 1;
   private static final int DEFAULT_PAGE_SIZE = 10;

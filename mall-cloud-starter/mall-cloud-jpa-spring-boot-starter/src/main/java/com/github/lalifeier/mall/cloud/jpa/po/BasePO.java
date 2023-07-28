@@ -2,18 +2,16 @@ package com.github.lalifeier.mall.cloud.jpa.po;
 
 import com.github.lalifeier.mall.cloud.jpa.audit.Auditable;
 import com.querydsl.core.BooleanBuilder;
+import jakarta.annotation.Nullable;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import lombok.Data;
-import javax.annotation.Nullable;
-
 import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.Id;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class BasePO extends Auditable<String> {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)

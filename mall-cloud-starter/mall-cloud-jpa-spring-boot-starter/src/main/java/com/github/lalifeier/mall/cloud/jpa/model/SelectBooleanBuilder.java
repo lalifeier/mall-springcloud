@@ -3,11 +3,11 @@ package com.github.lalifeier.mall.cloud.jpa.model;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.*;
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.NotNull;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.annotation.Nullable;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.function.Consumer;

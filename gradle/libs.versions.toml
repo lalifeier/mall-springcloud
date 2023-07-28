@@ -2,23 +2,22 @@
 kotlin = "1.6.21"
 slf4j = "2.0.7"
 cglib = "3.3.0"
-servlet = "4.0.1"
-validation = "2.0.1.Final"
-annotation = "1.3.2"
+servlet = "6.0.0"
+validation = "3.0.2"
+annotation = "2.1.1"
 jackson = "2.15.2"
-spring = "5.3.23"
+spring = "6.0.4"
 spring-retry = "2.0.2"
 aspectjweaver = "1.9.19"
-spring-boot = "2.6.13"
-spring-cloud = "2021.0.5"
-spring-cloud-alibaba = "2021.0.5.0"
+spring-boot = "3.0.2"
+spring-cloud = "2022.0.0"
+spring-cloud-alibaba = "2022.0.0.0"
 lombok = "1.18.24"
 dubbo = "3.2.0"
 grpc = "1.55.1"
 protobuf = "3.22.2"
 grpc-kotlin = "1.3.0"
 grpc-spring-boot = "2.13.1.RELEASE"
-spring-boot-admin = "2.6.9"
 spring-security-oauth2 = "2.5.2.RELEASE"
 spring-cloud-oauth2 = "2.2.5.RELEASE"
 spring-authorization-server = "1.1.1"
@@ -26,37 +25,36 @@ mapstruct = "1.5.3.Final"
 nimbus-jose-jwt = "9.25.2"
 pagehelper-starter = "1.4.5"
 pagehelper = "5.3.2"
-mybatis-plus = "3.5.2"
+mybatis-plus = "3.5.3.1"
 mybatis-plus-join = "1.3.9"
-mybatis-plus-generator = "3.5.2"
 freemarker = "2.3.31"
-druid = "1.2.12"
-mysql-connector = "8.0.30"
+druid = "1.2.16"
+mysql-connector = "8.0.33"
 shardingsphere = "4.1.1"
-hutool = "5.8.6"
-springdoc = "1.6.11"
+hutool = "5.8.18"
+springdoc = "1.6.15"
 knife4j = "3.0.3"
-gson = "2.9.1"
-fastjson = "2.0.15"
+gson = "2.10.1"
+#fastjson = "2.0.15"
 guava = "31.1-jre"
 commons-lang3 = "3.12.0"
 commons-io = "2.11.0"
 commons-codec = "1.15"
 commons-beanutils = "1.9.4"
 commons-collections4 = "4.4"
-logstash = "7.2"
+logstash = "7.3"
 skywalking = "8.12.0"
-caffeine = "2.9.3"
+caffeine = "3.1.5"
 xxl-job = "2.3.1"
 okhttp = "4.10.0"
 retrofit = "3.0.0"
-feign = "12.1"
+feign = "12.2"
 aliyun-sdk-oss = "3.15.1"
-micrometer-registry-prometheus = "1.10.2"
-sa-token = "1.34.0"
+micrometer-registry-prometheus = "1.10.5"
+#sa-token = "1.34.0"
 wechatpay = "0.2.7"
 alipay = "4.35.132.ALL"
-querydsl = "4.2.1"
+querydsl = "5.0.0"
 blazepersistence = "1.6.8"
 clickhouse-jdbc = "0.4.6"
 flink-connector-kafka = "1.17.1"
@@ -78,12 +76,15 @@ versions = "0.47.0"
 cglib-nodep = { group = "cglib", name = "cglib-nodep", version.ref = "cglib" }
 slf4j-api = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
 lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" }
-servlet-api = { group = "javax.servlet", name = "javax.servlet-api", version.ref = "servlet" }
-annotation-api = { group = "javax.annotation", name = "javax.annotation-api", version.ref = "annotation" }
-validation-api = { group = "javax.validation", name = "validation-api", version.ref = "validation" }
+servlet-api = { group = "jakarta.servlet", name = "jakarta.servlet-api", version.ref = "servlet" }
+annotation-api = { group = "jakarta.annotation", name = "jakarta.annotation-api", version.ref = "annotation" }
+validation-api = { group = "jakarta.validation", name = "jakarta.validation-api", version.ref = "validation" }
 jackson-databind = { group = "com.fasterxml.jackson.core", name = "jackson-databind", version.ref = "jackson" }
 jackson-annotations = { group = "com.fasterxml.jackson.core", name = "jackson-annotations", version.ref = "jackson" }
 spring-web = { group = "org.springframework.boot", name = "spring-web", version.ref = "spring" }
+spring-webmvc = { group = "org.springframework.boot", name = "spring-webmvc", version.ref = "spring" }
+spring-boot-starter = { group = "org.springframework.boot", name = "spring-boot-starter", version.ref = "spring-boot" }
+spring-boot-starter-web = { group = "org.springframework.boot", name = "spring-boot-starter-web", version.ref = "spring-boot" }
 spring-retry = { group = "org.springframework.retry", name = "spring-retry", version.ref = "spring-retry" }
 aspectjweaver = { group = "org.aspectj", name = "aspectjweaver", version.ref = "aspectjweaver" }
 spring-boot-dependencies = { group = "org.springframework.boot", name = "spring-boot-dependencies", version.ref = "spring-boot" }
@@ -99,7 +100,7 @@ grpc-stub = { group = "io.grpc", name = "grpc-stub", version.ref = "grpc" }
 grpc-kotlin-stub = { group = "io.grpc", name = "grpc-kotlin-stub", version.ref = "grpc-kotlin" }
 protobuf-kotlin = { group = "com.google.protobuf", name = "protobuf-kotlin", version.ref = "protobuf" }
 grpc-spring-boot-starter = { group = "net.devh", name = "grpc-spring-boot-starter", version.ref = "grpc-spring-boot" }
-spring-boot-admin-starter-server = { group = "de.codecentric", name = "spring-boot-admin-starter-server", version.ref = "spring-boot-admin" }
+spring-boot-admin-starter-server = { group = "de.codecentric", name = "spring-boot-admin-starter-server", version.ref = "spring-boot" }
 spring-security-oauth2 = { group = "org.springframework.security.oauth", name = "spring-security-oauth2", version.ref = "spring-security-oauth2" }
 spring-cloud-starter-oauth2 = { group = "org.springframework.cloud", name = "spring-cloud-starter-oauth2", version.ref = "spring-cloud-oauth2" }
 spring-security-oauth2-authorization-server = { group = "org.springframework.security", name = "spring-security-oauth2-authorization-server", version.ref = "spring-authorization-server" }
@@ -109,17 +110,17 @@ nimbus-jose-jwt = { group = "com.nimbusds", name = "nimbus-jose-jwt", version.re
 pagehelper-spring-boot-starter = { group = "com.github.pagehelper", name = "pagehelper-spring-boot-starter", version.ref = "pagehelper" }
 pagehelper = { group = "com.github.pagehelper", name = "pagehelper", version.ref = "pagehelper" }
 mybatis-plus-boot-starter = { group = "com.baomidou", name = "mybatis-plus-boot-starter", version.ref = "mybatis-plus" }
-mybatis-plus-join-boot-starter = { group = "com.github.yulichang", name = "mybatis-plus-join-boot-starter", version.ref = "mybatis-plus-join" }
-mybatis-plus-generator = { group = "com.baomidou", name = "mybatis-plus-generator", version.ref = "mybatis-plus-generator" }
+mybatis-plus-generator = { group = "com.baomidou", name = "mybatis-plus-generator", version.ref = "mybatis-plus" }
 freemarker = { group = "org.freemarker", name = "freemarker", version.ref = "freemarker" }
+mybatis-plus-join-boot-starter = { group = "com.github.yulichang", name = "mybatis-plus-join-boot-starter", version.ref = "mybatis-plus-join" }
 druid-spring-boot-starter = { group = "com.alibaba", name = "druid-spring-boot-starter", version.ref = "druid" }
-mysql-connector-java = { group = "mysql", name = "mysql-connector-java", version.ref = "mysql-connector" }
+mysql-connector-java = { group = "com.mysql", name = "mysql-connector-j", version.ref = "mysql-connector" }
 shardingsphere-jdbc-core-spring-boot-starter = { group = "org.apache.shardingsphere", name = "shardingsphere-jdbc-core-spring-boot-starter", version.ref = "shardingsphere" }
 hutool = { group = "cn.hutool", name = "hutool-all", version.ref = "hutool" }
 springdoc-openapi-ui = { group = "org.springdoc", name = "springdoc-openapi-ui", version.ref = "springdoc" }
 knife4j-springdoc-ui = { group = "com.github.xiaoymin", name = "knife4j-springdoc-ui", version.ref = "knife4j" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
-fastjson = { group = "com.alibaba", name = "fastjson", version.ref = "fastjson" }
+#fastjson = { group = "com.alibaba", name = "fastjson", version.ref = "fastjson" }
 guava = { group = "com.google.guava", name = "guava", version.ref = "guava" }
 commons-lang3 = { group = "org.apache.commons", name = "commons-lang3", version.ref = "commons-lang3" }
 commons-io = { group = "commons-io", name = "commons-io", version.ref = "commons-io" }
@@ -137,7 +138,7 @@ feign-core = { group = "io.github.openfeign", name = "feign-core", version.ref =
 feign-okhttp = { group = "io.github.openfeign", name = "feign-okhttp", version.ref = "feign" }
 aliyun-sdk-oss = { group = "com.aliyun.oss", name = "aliyun-sdk-oss", version.ref = "aliyun-sdk-oss" }
 micrometer-registry-prometheus = { group = "io.micrometer", name = "micrometer-registry-prometheus", version.ref = "micrometer-registry-prometheus" }
-sa-token-spring-boot-starter = { group = "cn.dev33", name = "sa-token-spring-boot-starter", version.ref = "sa-token" }
+#sa-token-spring-boot-starter = { group = "cn.dev33", name = "sa-token-spring-boot-starter", version.ref = "sa-token" }
 wechatpay-java = { group = "com.github.wechatpay-apiv3", name = "wechatpay-java", version.ref = "wechatpay" }
 alipay-sdk-java = { group = "com.alipay.sdk", name = "alipay-sdk-java", version.ref = "alipay" }
 querydsl-core = { group = "com.querydsl", name = "querydsl-core", version.ref = "querydsl" }

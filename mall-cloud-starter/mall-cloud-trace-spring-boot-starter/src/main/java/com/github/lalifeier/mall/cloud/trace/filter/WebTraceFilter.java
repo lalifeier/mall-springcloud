@@ -3,6 +3,10 @@ package com.github.lalifeier.mall.cloud.trace.filter;
 import com.github.lalifeier.mall.cloud.common.constant.HeaderConstants;
 import com.github.lalifeier.mall.cloud.common.utils.MDCTraceUtil;
 import com.github.lalifeier.mall.cloud.trace.properties.TraceProperties;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -10,10 +14,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**

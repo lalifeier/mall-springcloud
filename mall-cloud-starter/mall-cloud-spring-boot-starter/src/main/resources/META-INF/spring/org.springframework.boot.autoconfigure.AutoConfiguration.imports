@@ -1,0 +1,3 @@
+com.github.lalifeier.mall.cloud.common.handler.RestResponseHandler
+com.github.lalifeier.mall.cloud.common.handler.RestExceptionHandler
+com.github.lalifeier.mall.cloud.common.config.WebMvcConfig

@@ -11,10 +11,9 @@ import com.github.lalifeier.mall.cloud.account.domain.account.repository.Account
 import com.github.lalifeier.mall.cloud.account.infrastructure.persistence.mybatis.converter.AccountConverter;
 import com.github.lalifeier.mall.cloud.account.infrastructure.persistence.mybatis.mapper.AccountUserMapper;
 import com.github.lalifeier.mall.cloud.account.infrastructure.persistence.mybatis.po.AccountUserPO;
+import jakarta.annotation.Resource;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Repository;
-
-import javax.annotation.Resource;
 
 @Repository
 public class AccountRepositoryImpl implements AccountRepository {

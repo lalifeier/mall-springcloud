@@ -1,9 +1,8 @@
 package com.github.lalifeier.mall.cloud.account.domain.account.model.valueobject;
 
 import com.github.lalifeier.mall.cloud.common.model.marker.Identifier;
+import jakarta.validation.ValidationException;
 import lombok.Getter;
-
-import javax.validation.ValidationException;
 
 @Getter
 public class AccountId implements Identifier<Long> {

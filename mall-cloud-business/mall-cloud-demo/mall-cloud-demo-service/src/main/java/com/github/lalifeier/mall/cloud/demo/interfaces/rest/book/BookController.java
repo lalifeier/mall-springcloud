@@ -13,12 +13,12 @@ import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.B
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.CreateBookRequest;
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.UpdateBookRequest;
 import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.response.BookResponse;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.Positive;
 import java.util.List;
 
 @Slf4j

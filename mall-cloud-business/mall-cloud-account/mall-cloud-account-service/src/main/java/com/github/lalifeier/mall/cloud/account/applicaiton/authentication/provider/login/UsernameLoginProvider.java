@@ -9,8 +9,7 @@ import com.github.lalifeier.mall.cloud.account.domain.account.repository.Account
 import com.github.lalifeier.mall.cloud.account.infrastructure.enums.LoginType;
 import com.github.lalifeier.mall.cloud.account.infrastructure.exception.code.LoginErrorCode;
 import com.github.lalifeier.mall.cloud.common.exception.BusinessException;
-
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 public class UsernameLoginProvider extends AbstractLoginProvider {
 

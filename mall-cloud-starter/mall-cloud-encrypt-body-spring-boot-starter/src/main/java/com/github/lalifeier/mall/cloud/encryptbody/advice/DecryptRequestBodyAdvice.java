@@ -6,6 +6,7 @@ import com.github.lalifeier.mall.cloud.common.utils.EncryptBodyUtil;
 import com.github.lalifeier.mall.cloud.encryptbody.annotation.EncryptRequest;
 import com.github.lalifeier.mall.cloud.encryptbody.config.EncryptBodyConfig;
 import com.github.lalifeier.mall.cloud.encryptbody.http.DecryptHttpInputMessage;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
@@ -17,7 +18,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdvice;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.lang.reflect.Type;

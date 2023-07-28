@@ -3,7 +3,7 @@ dependencies {
   implementation(project(":mall-cloud-starter:mall-cloud-mybatis-plus-spring-boot-starter"))
   implementation(project(":mall-cloud-starter:mall-cloud-xxl-job-spring-boot-starter"))
   implementation(project(":mall-cloud-business:mall-cloud-demo:mall-cloud-demo-api"))
-  implementation(project(":mall-cloud-business:mall-cloud-demo:mall-cloud-demo-grpc"))
+//  implementation(project(":mall-cloud-business:mall-cloud-demo:mall-cloud-demo-grpc"))
 //  implementation(project(":mall-cloud-business:mall-cloud-demo:mall-cloud-demo-dubbo"))
 //  implementation(project(":mall-cloud-starter:mall-cloud-encrypt-body-spring-boot-starter"))
   implementation(project(":mall-cloud-starter:mall-cloud-redis-spring-boot-starter"))

@@ -14,9 +14,9 @@ public class Result<T> {
   private final String status;
   private final String description;
   private final String message;
-  private Optional<T> data;
+  private T data;
 
-  Result(int code, String status, String description, String message, Optional<T> data) {
+  Result(int code, String status, String description, String message, T data) {
     this.code = code;
     this.status = status;
     this.description = description;
@@ -29,7 +29,7 @@ public class Result<T> {
   }
 
   public static <T> Result<T> success(T data) {
-    return new Result<>(ErrorCodeEnum.SUCCESS.getCode(), ErrorCodeEnum.SUCCESS.getStatus(), null, null, Optional.ofNullable(data));
+    return new Result<>(ErrorCodeEnum.SUCCESS.getCode(), ErrorCodeEnum.SUCCESS.getStatus(), null, null, data);
   }
 
   public static Result<Object> failure(int code, String message) {
@@ -64,11 +64,11 @@ public class Result<T> {
     return message;
   }
 
-  public Optional<T> getData() {
+  public T getData() {
     return data;
   }
 
-  public void setData(Optional<T> data) {
+  public void setData(T data) {
     this.data = data;
   }
 }

@@ -9,5 +9,4 @@ dependencies {
   implementation(libs.druid.spring.boot.starter)
   implementation(libs.mapstruct)
   annotationProcessor(libs.mapstruct.processor)
-//  implementation(projects)
 }

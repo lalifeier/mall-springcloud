@@ -2,6 +2,7 @@ package com.github.lalifeier.mall.cloud.common.aspect;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.lalifeier.mall.cloud.common.utils.WebUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -9,7 +10,6 @@ import org.aspectj.lang.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;

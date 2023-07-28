@@ -67,7 +67,7 @@ public class AccessLogFilter implements GlobalFilter, Ordered {
 
     GatewayLog gatewayLog = new GatewayLog();
     gatewayLog.setSchema(request.getURI().getScheme());
-    gatewayLog.setRequestMethod(request.getMethodValue());
+    gatewayLog.setRequestMethod(request.getMethod().name());
     gatewayLog.setRequestPath(requestPath);
     gatewayLog.setTargetServer(route.getId());
     gatewayLog.setRequestTime(new Date());

@@ -1,11 +1,10 @@
 package com.github.lalifeier.mall.cloud.account.domain.account.model.valueobject;
 
 import com.github.lalifeier.mall.cloud.common.model.marker.ValueObject;
+import jakarta.validation.ValidationException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import javax.validation.ValidationException;
 
 public class AccountPassword implements ValueObject<AccountPassword> {
   private final EncryptPassword encryptPassword;

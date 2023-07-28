@@ -9,7 +9,7 @@ dependencies {
   implementation(libs.commons.lang3)
   implementation(libs.commons.collections4)
   annotationProcessor(libs.annotation.api)
-  annotationProcessor("javax.validation:validation-api:2.0.1.Final")
+  annotationProcessor(libs.validation.api)
   annotationProcessor(libs.jackson.annotations)
   annotationProcessor(libs.jackson.databind)
 }

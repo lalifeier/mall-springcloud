@@ -2,10 +2,9 @@ package com.github.lalifeier.mall.cloud.auth.infrastructure.repository.persisten
 
 
 import com.github.lalifeier.mall.cloud.jpa.po.BasePO;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.*;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
 @Data
 @Builder
@@ -16,7 +15,7 @@ import javax.persistence.Table;
 @Table(name = "user_role")
 public class UserRolePO extends BasePO {
 
-    private Long userId;
+  private Long userId;
 
-    private Long roleId;
+  private Long roleId;
 }

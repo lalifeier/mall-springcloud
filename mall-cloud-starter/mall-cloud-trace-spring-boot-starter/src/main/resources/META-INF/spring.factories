@@ -1,4 +1,4 @@
 #org.springframework.context.ApplicationContextInitializer=\
 #com.github.lalifeier.mall.cloud.trace.initializer.TtlMDCAdapterInitializer
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.github.lalifeier.mall.cloud.trace.config.TraceAutoConfiguration
+#org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+#com.github.lalifeier.mall.cloud.trace.config.TraceAutoConfiguration

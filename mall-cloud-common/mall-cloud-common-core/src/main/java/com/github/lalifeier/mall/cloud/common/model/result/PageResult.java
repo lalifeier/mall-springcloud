@@ -5,14 +5,13 @@ import com.github.lalifeier.mall.cloud.common.model.query.PageInfo;
 import com.github.lalifeier.mall.cloud.common.model.query.Pagination;
 
 import java.util.List;
-import java.util.Optional;
 
 
 public class PageResult<T> extends Result<List<T>> {
   private PageInfo pageInfo;
 
   public PageResult(List<T> data, PageInfo pageInfo) {
-    super(ErrorCodeEnum.SUCCESS.getCode(), ErrorCodeEnum.SUCCESS.getStatus(), null, null, Optional.ofNullable(data));
+    super(ErrorCodeEnum.SUCCESS.getCode(), ErrorCodeEnum.SUCCESS.getStatus(), null, null, data);
     this.pageInfo = pageInfo;
   }
 
