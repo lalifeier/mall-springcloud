@@ -5,7 +5,7 @@ import com.github.lalifeier.mall.cloud.account.model.response.LoginResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "META-INF.spring")
 public interface AuthenticationConverter {
   AuthenticationConverter INSTANCE = Mappers.getMapper(AuthenticationConverter.class);
 

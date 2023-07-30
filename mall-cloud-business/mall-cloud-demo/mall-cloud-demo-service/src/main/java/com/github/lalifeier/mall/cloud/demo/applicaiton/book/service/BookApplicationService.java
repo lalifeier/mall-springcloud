@@ -1,8 +1,9 @@
 package com.github.lalifeier.mall.cloud.demo.applicaiton.book.service;
 
 import com.github.lalifeier.mall.cloud.common.model.marker.ApplicationService;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.command.CreateBookCommand;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.command.UpdateBookCommand;
+import com.github.lalifeier.mall.cloud.demo.book.dto.command.CreateBookCommand;
+import com.github.lalifeier.mall.cloud.demo.book.dto.command.UpdateBookCommand;
+
 
 public interface BookApplicationService extends ApplicationService {
   void create(CreateBookCommand command);

@@ -2,3 +2,14 @@
 #com.github.lalifeier.mall.cloud.trace.initializer.TtlMDCAdapterInitializer
 #org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 #com.github.lalifeier.mall.cloud.trace.config.TraceAutoConfiguration
+# Initializers
+org.springframework.context.ApplicationContextInitializer=
+# Application Listeners
+org.springframework.context.ApplicationListener=
+# Environment Post Processors
+org.springframework.boot.env.EnvironmentPostProcessor=
+# Auto Configuration Import Listeners
+org.springframework.boot.autoconfigure.AutoConfigurationImportListener=
+# Auto Configuration Import Filters
+org.springframework.boot.autoconfigure.AutoConfigurationImportFilter=
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=

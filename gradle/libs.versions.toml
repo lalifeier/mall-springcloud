@@ -1,5 +1,5 @@
 [versions]
-kotlin = "1.6.21"
+kotlin = "1.8.20"
 slf4j = "2.0.7"
 cglib = "3.3.0"
 servlet = "6.0.0"
@@ -85,6 +85,7 @@ spring-web = { group = "org.springframework.boot", name = "spring-web", version.
 spring-webmvc = { group = "org.springframework.boot", name = "spring-webmvc", version.ref = "spring" }
 spring-boot-starter = { group = "org.springframework.boot", name = "spring-boot-starter", version.ref = "spring-boot" }
 spring-boot-starter-web = { group = "org.springframework.boot", name = "spring-boot-starter-web", version.ref = "spring-boot" }
+spring-boot-starter-actuator = { group = "org.springframework.boot", name = "spring-boot-starter-actuator", version.ref = "spring-boot" }
 spring-retry = { group = "org.springframework.retry", name = "spring-retry", version.ref = "spring-retry" }
 aspectjweaver = { group = "org.aspectj", name = "aspectjweaver", version.ref = "aspectjweaver" }
 spring-boot-dependencies = { group = "org.springframework.boot", name = "spring-boot-dependencies", version.ref = "spring-boot" }

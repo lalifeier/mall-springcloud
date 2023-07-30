@@ -5,8 +5,6 @@ import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
 import com.github.lalifeier.mall.cloud.common.constant.ErrorCodeEnum;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Optional;
-
 
 public class Result<T> {
   private boolean success;
@@ -25,7 +23,7 @@ public class Result<T> {
   }
 
   public static Result<Object> success() {
-    return new Result<>(ErrorCodeEnum.SUCCESS.getCode(), ErrorCodeEnum.SUCCESS.getStatus(), null, null, Optional.empty());
+    return new Result<>(ErrorCodeEnum.SUCCESS.getCode(), ErrorCodeEnum.SUCCESS.getStatus(), null, null, null);
   }
 
   public static <T> Result<T> success(T data) {
@@ -33,15 +31,15 @@ public class Result<T> {
   }
 
   public static Result<Object> failure(int code, String message) {
-    return new Result<>(code, ErrorCodeEnum.UNKNOWN_ERROR.getStatus(), null, message, Optional.empty());
+    return new Result<>(code, ErrorCodeEnum.UNKNOWN_ERROR.getStatus(), null, message, null);
   }
 
   public static Result<Object> failure(ErrorCode errorCode) {
-    return new Result<>(errorCode.getCode(), errorCode.getStatus(), errorCode.getDescription(), errorCode.getMessage(), Optional.empty());
+    return new Result<>(errorCode.getCode(), errorCode.getStatus(), errorCode.getDescription(), errorCode.getMessage(), null);
   }
 
   public static Result<Object> failure(ErrorCode errorCode, String message) {
-    return new Result<>(errorCode.getCode(), errorCode.getStatus(), errorCode.getDescription(), message, Optional.empty());
+    return new Result<>(errorCode.getCode(), errorCode.getStatus(), errorCode.getDescription(), message, null);
   }
 
   public boolean isSuccess() {

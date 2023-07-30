@@ -61,11 +61,10 @@ public class RateLimiterAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public RedisSerializer<Object> redisSerializer() {
-    Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(Object.class);
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
     objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
-    serializer.setObjectMapper(objectMapper);
+    Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(objectMapper, Object.class);
     return serializer;
   }
 }

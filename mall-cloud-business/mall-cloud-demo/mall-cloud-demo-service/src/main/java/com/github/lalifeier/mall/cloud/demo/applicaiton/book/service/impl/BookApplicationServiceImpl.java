@@ -1,9 +1,9 @@
 package com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.impl;
 
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.converter.BookConverter;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.command.CreateBookCommand;
-import com.github.lalifeier.mall.cloud.demo.applicaiton.book.model.command.UpdateBookCommand;
+import com.github.lalifeier.mall.cloud.demo.applicaiton.book.assembler.BookAssembler;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.BookApplicationService;
+import com.github.lalifeier.mall.cloud.demo.book.dto.command.CreateBookCommand;
+import com.github.lalifeier.mall.cloud.demo.book.dto.command.UpdateBookCommand;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.Book;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.valueobject.BookId;
 import com.github.lalifeier.mall.cloud.demo.domain.book.repository.BookRepository;
@@ -20,17 +20,17 @@ public class BookApplicationServiceImpl implements BookApplicationService {
 
   private final BookRepository bookRepository;
 
-  private final BookConverter bookConverter = BookConverter.INSTANCE;
+  private final BookAssembler bookAssembler = BookAssembler.INSTANCE;
 
   @Override
   public void create(CreateBookCommand command) {
-    Book book = this.bookConverter.toDO(command);
+    Book book = this.bookAssembler.toEntity(command);
     bookDomainService.create(book);
   }
 
   @Override
   public void update(UpdateBookCommand command) {
-    Book book = this.bookConverter.toDO(command);
+    Book book = this.bookAssembler.toEntity(command);
     bookDomainService.update(book);
   }
 

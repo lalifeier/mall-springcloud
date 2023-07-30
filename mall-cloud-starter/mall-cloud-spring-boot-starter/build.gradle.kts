@@ -16,6 +16,4 @@ dependencies {
   implementation(libs.guava)
   implementation(libs.gson)
   implementation(libs.commons.lang3)
-  api("org.springframework.boot:spring-boot-starter-actuator")
-  api(libs.micrometer.registry.prometheus)
 }

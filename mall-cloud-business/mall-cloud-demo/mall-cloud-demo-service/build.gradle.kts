@@ -24,4 +24,6 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-validation")
   implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
   implementation("org.springframework.cloud:spring-cloud-stream")
+  implementation(libs.spring.boot.starter.actuator)
+  implementation(libs.micrometer.registry.prometheus)
 }

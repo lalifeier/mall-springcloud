@@ -5,12 +5,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.lalifeier.mall.cloud.common.model.query.Pagination;
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.repository.BookQueryRepository;
+import com.github.lalifeier.mall.cloud.demo.book.dto.query.BookPageQuery;
+import com.github.lalifeier.mall.cloud.demo.book.dto.query.BookQuery;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.Book;
 import com.github.lalifeier.mall.cloud.demo.infrastructure.persistence.mybatis.book.converter.BookConverter;
 import com.github.lalifeier.mall.cloud.demo.infrastructure.persistence.mybatis.book.mapper.BookMapper;
 import com.github.lalifeier.mall.cloud.demo.infrastructure.persistence.mybatis.book.po.BookPO;
-import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.BookPageQuery;
-import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.BookQuery;
 import com.github.lalifeier.mall.cloud.mybatisplus.converter.PageConverter;
 import com.github.lalifeier.mall.cloud.mybatisplus.utils.QueryWrapperUtils;
 import lombok.RequiredArgsConstructor;
@@ -43,5 +43,4 @@ public class BookQueryRepositoryImpl implements BookQueryRepository {
 
     return bookMapper.selectCount(queryWrapper);
   }
-
 }

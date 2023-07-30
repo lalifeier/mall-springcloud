@@ -1,6 +1,7 @@
 dependencies {
   implementation(project(":mall-cloud-common:mall-cloud-common-core"))
   implementation(project(":mall-cloud-starter:mall-cloud-log-spring-boot-starter"))
+//  implementation(project(":mall-cloud-starter:mall-cloud-signature-spring-boot-starter"))
   implementation(project(":mall-cloud-starter:mall-cloud-spring-cloud-starter")) {
     exclude(group = "com.github.lalifeier", module = "mall-cloud-spring-boot-starter")
   }
@@ -11,6 +12,6 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-configuration-processor")
   implementation(libs.commons.lang3)
   implementation(libs.gson)
-  implementation("org.springframework.boot:spring-boot-starter-actuator")
+  implementation(libs.spring.boot.starter.actuator)
   implementation(libs.micrometer.registry.prometheus)
 }

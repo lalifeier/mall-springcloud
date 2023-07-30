@@ -2,9 +2,9 @@ package com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.repository
 
 import com.github.lalifeier.mall.cloud.common.model.marker.QueryRepository;
 import com.github.lalifeier.mall.cloud.common.model.query.Pagination;
+import com.github.lalifeier.mall.cloud.demo.book.dto.query.BookPageQuery;
+import com.github.lalifeier.mall.cloud.demo.book.dto.query.BookQuery;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.Book;
-import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.BookPageQuery;
-import com.github.lalifeier.mall.cloud.demo.interfaces.rest.book.model.request.BookQuery;
 
 public interface BookQueryRepository extends QueryRepository {
   Pagination<Book> query(BookPageQuery query);
