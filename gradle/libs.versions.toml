@@ -65,6 +65,7 @@ flink-mysql-cdc = "2.4-SNAPSHOT"
 sharding-sphere-jdbc = "4.1.1"
 easy-excel = "3.3.2"
 transmittable-thread-local = "2.14.2"
+ip2region = "2.7.0"
 
 spring-dependency-management = "1.0.15.RELEASE"
 docker-plugin = "9.3.1"
@@ -160,7 +161,7 @@ flink-connector-mysql-cdc = { group = "com.ververica", name = "flink-connector-m
 sharding-jdbc-spring-boot-starter = { group = "org.apache.shardingsphere", name = "sharding-jdbc-spring-boot-starter", version.ref = "sharding-sphere-jdbc" }
 easyexcel = { group = "com.alibaba", name = "easyexcel", version.ref = "easy-excel" }
 transmittable-thread-local = { group = "com.alibaba", name = "transmittable-thread-local", version.ref = "transmittable-thread-local" }
-
+ip2region = { group = "org.lionsoul", name = "ip2region", version.ref = "ip2region" }
 
 spring-boot-gradle-plugin = { group = "org.springframework.boot", name = "spring-boot-gradle-plugin", version.ref = "spring-boot" }
 spring-dependency-management-plugin = { group = "io.spring.gradle", name = "dependency-management-plugin", version.ref = "spring-dependency-management" }
