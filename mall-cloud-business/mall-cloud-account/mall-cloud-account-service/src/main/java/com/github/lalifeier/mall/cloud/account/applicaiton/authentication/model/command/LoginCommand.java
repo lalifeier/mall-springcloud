@@ -5,5 +5,5 @@ import lombok.Data;
 
 @Data
 public abstract class LoginCommand {
-  public abstract LoginType getLoginType();
+    public abstract LoginType getLoginType();
 }

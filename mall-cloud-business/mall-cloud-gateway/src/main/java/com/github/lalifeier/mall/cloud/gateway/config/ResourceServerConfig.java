@@ -1,41 +1,44 @@
 package com.github.lalifeier.mall.cloud.gateway.config;
 
-//import cn.hutool.core.util.ArrayUtil;
-//import com.github.lalifeier.mall.cloud.common.constant.Constants;
-//import com.github.lalifeier.mall.cloud.common.model.result.Result;
-//import com.github.lalifeier.mall.cloud.common.utils.JsonUtils;
-//import com.github.lalifeier.mall.cloud.gateway.component.AuthorizationManager;
-//import com.github.lalifeier.mall.cloud.gateway.filter.IgnoreUrlsRemoveJwtFilter;
-//import com.github.lalifeier.mall.cloud.gateway.properties.GatewayAuthProperties;
-//import lombok.AllArgsConstructor;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.core.convert.converter.Converter;
-//import org.springframework.core.io.buffer.DataBuffer;
-//import org.springframework.core.io.buffer.DataBufferUtils;
-//import org.springframework.http.HttpHeaders;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.MediaType;
-//import org.springframework.security.authentication.AbstractAuthenticationToken;
-//import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
-//import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
-//import org.springframework.security.config.web.server.ServerHttpSecurity;
-//import org.springframework.security.oauth2.jwt.Jwt;
-//import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
-//import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
-//import org.springframework.security.oauth2.server.resource.authentication.ReactiveJwtAuthenticationConverterAdapter;
-//import org.springframework.security.web.server.SecurityWebFilterChain;
-//import org.springframework.security.web.server.ServerAuthenticationEntryPoint;
-//import org.springframework.security.web.server.authorization.ServerAccessDeniedHandler;
-//import reactor.core.publisher.Mono;
+// import cn.hutool.core.util.ArrayUtil;
+// import com.github.lalifeier.mall.cloud.common.constant.Constants;
+// import com.github.lalifeier.mall.cloud.common.model.result.Result;
+// import com.github.lalifeier.mall.cloud.common.utils.JsonUtils;
+// import com.github.lalifeier.mall.cloud.gateway.component.AuthorizationManager;
+// import com.github.lalifeier.mall.cloud.gateway.filter.IgnoreUrlsRemoveJwtFilter;
+// import com.github.lalifeier.mall.cloud.gateway.properties.GatewayAuthProperties;
+// import lombok.AllArgsConstructor;
+// import org.springframework.context.annotation.Bean;
+// import org.springframework.context.annotation.Configuration;
+// import org.springframework.core.convert.converter.Converter;
+// import org.springframework.core.io.buffer.DataBuffer;
+// import org.springframework.core.io.buffer.DataBufferUtils;
+// import org.springframework.http.HttpHeaders;
+// import org.springframework.http.HttpStatus;
+// import org.springframework.http.MediaType;
+// import org.springframework.security.authentication.AbstractAuthenticationToken;
+// import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+// import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
+// import org.springframework.security.config.web.server.ServerHttpSecurity;
+// import org.springframework.security.oauth2.jwt.Jwt;
+// import
+// org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+// import
+// org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
+// import
+// org.springframework.security.oauth2.server.resource.authentication.ReactiveJwtAuthenticationConverterAdapter;
+// import org.springframework.security.web.server.SecurityWebFilterChain;
+// import org.springframework.security.web.server.ServerAuthenticationEntryPoint;
+// import org.springframework.security.web.server.authorization.ServerAccessDeniedHandler;
+// import reactor.core.publisher.Mono;
 //
-//import java.nio.charset.StandardCharsets;
+// import java.nio.charset.StandardCharsets;
 //
 //
-//@AllArgsConstructor
-//@Configuration
-//@EnableWebFluxSecurity
-//public class ResourceServerConfig {
+// @AllArgsConstructor
+// @Configuration
+// @EnableWebFluxSecurity
+// public class ResourceServerConfig {
 //  private final AuthorizationManager authorizationManager;
 //  private final GatewayAuthProperties gatewayAuthProperties;
 //  private final IgnoreUrlsRemoveJwtFilter ignoreUrlsRemoveJwtFilter;
@@ -49,7 +52,8 @@ package com.github.lalifeier.mall.cloud.gateway.config;
 //    http.addFilterBefore(ignoreUrlsRemoveJwtFilter, SecurityWebFiltersOrder.AUTHENTICATION);
 //    http.authorizeExchange()
 //      //白名单配置
-//      .pathMatchers(ArrayUtil.toArray(gatewayAuthProperties.getWhiteUrls(), String.class)).permitAll()
+//      .pathMatchers(ArrayUtil.toArray(gatewayAuthProperties.getWhiteUrls(),
+// String.class)).permitAll()
 //      //鉴权管理器配置
 //      .anyExchange().access(authorizationManager)
 //      .and()
@@ -73,8 +77,10 @@ package com.github.lalifeier.mall.cloud.gateway.config;
 //          response.setStatusCode(HttpStatus.FORBIDDEN);
 //          response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 //          String body = JsonUtils.bean2Json(Result.failure(403, e.getMessage()));
-//          DataBuffer buffer = response.bufferFactory().wrap(body.getBytes(StandardCharsets.UTF_8));
-//          return response.writeWith(Mono.just(buffer)).doOnError(error -> DataBufferUtils.release(buffer));
+//          DataBuffer buffer =
+// response.bufferFactory().wrap(body.getBytes(StandardCharsets.UTF_8));
+//          return response.writeWith(Mono.just(buffer)).doOnError(error ->
+// DataBufferUtils.release(buffer));
 //        });
 //  }
 //
@@ -89,18 +95,22 @@ package com.github.lalifeier.mall.cloud.gateway.config;
 //          response.setStatusCode(HttpStatus.UNAUTHORIZED);
 //          response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 //          String body = JsonUtils.bean2Json(Result.failure(401, e.getMessage()));
-//          DataBuffer buffer = response.bufferFactory().wrap(body.getBytes(StandardCharsets.UTF_8));
-//          return response.writeWith(Mono.just(buffer)).doOnError(error -> DataBufferUtils.release(buffer));
+//          DataBuffer buffer =
+// response.bufferFactory().wrap(body.getBytes(StandardCharsets.UTF_8));
+//          return response.writeWith(Mono.just(buffer)).doOnError(error ->
+// DataBufferUtils.release(buffer));
 //        });
 //  }
 //
 //  @Bean
-//  public Converter<Jwt, ? extends Mono<? extends AbstractAuthenticationToken>> jwtAuthenticationConverter() {
-//    JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+//  public Converter<Jwt, ? extends Mono<? extends AbstractAuthenticationToken>>
+// jwtAuthenticationConverter() {
+//    JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new
+// JwtGrantedAuthoritiesConverter();
 //    jwtGrantedAuthoritiesConverter.setAuthorityPrefix(Constants.AUTHORITY_PREFIX);
 //    jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName(Constants.AUTHORITY_CLAIM_NAME);
 //    JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
 //    jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
 //    return new ReactiveJwtAuthenticationConverterAdapter(jwtAuthenticationConverter);
 //  }
-//}
+// }

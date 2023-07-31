@@ -1,8 +1,8 @@
 package com.github.lalifeier.mall.cloud.auth.domain.oauth2.service.impl;
 
-//@AllArgsConstructor
-//@Service
-//public class ResourceServiceImpl implements ResourceService {
+// @AllArgsConstructor
+// @Service
+// public class ResourceServiceImpl implements ResourceService {
 //
 //    private final RedisTemplate<String, Object> redisTemplate;
 //
@@ -13,4 +13,4 @@ package com.github.lalifeier.mall.cloud.auth.domain.oauth2.service.impl;
 //        resourceRolesMap.put("/user/currentUser", Arrays.asList("ADMIN", "USER"));
 //        redisTemplate.opsForHash().putAll(RedisConstant.RESOURCE_ROLES_MAP, resourceRolesMap);
 //    }
-//}
+// }

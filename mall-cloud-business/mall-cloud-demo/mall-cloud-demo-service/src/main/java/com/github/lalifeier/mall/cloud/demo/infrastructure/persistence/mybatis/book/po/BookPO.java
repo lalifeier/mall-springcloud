@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @TableName(value = "t_book")
 public class BookPO extends BasePO<BookPO> {
-  private String name;
-  //private String author;
-  //private String publisher;
+    private String name;
+    // private String author;
+    // private String publisher;
 }

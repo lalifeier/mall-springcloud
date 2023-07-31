@@ -11,14 +11,18 @@ public class IdWorker {
         // 这儿不就检查了一下，要求就是你传递进来的机房id和机器id不能超过32，不能小于0
         if (workerId > maxWorkerId || workerId < 0) {
             throw new IllegalArgumentException(
-                    String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
+                    String.format(
+                            "worker Id can't be greater than %d or less than 0", maxWorkerId));
         }
         if (datacenterId > maxDatacenterId || datacenterId < 0) {
             throw new IllegalArgumentException(
-                    String.format("datacenter Id can't be greater than %d or less than 0", maxDatacenterId));
+                    String.format(
+                            "datacenter Id can't be greater than %d or less than 0",
+                            maxDatacenterId));
         }
         System.out.printf(
-                "worker starting. timestamp left shift %d, datacenter id bits %d, worker id bits %d, sequence bits %d, workerid %d",
+                "worker starting. timestamp left shift %d, datacenter id bits %d, worker id bits"
+                        + " %d, sequence bits %d, workerid %d",
                 timestampLeftShift, datacenterIdBits, workerIdBits, sequenceBits, workerId);
 
         this.workerId = workerId;
@@ -62,9 +66,12 @@ public class IdWorker {
         long timestamp = timeGen();
 
         if (timestamp < lastTimestamp) {
-            System.err.printf("clock is moving backwards.  Rejecting requests until %d.", lastTimestamp);
-            throw new RuntimeException(String.format(
-                    "Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
+            System.err.printf(
+                    "clock is moving backwards.  Rejecting requests until %d.", lastTimestamp);
+            throw new RuntimeException(
+                    String.format(
+                            "Clock moved backwards.  Refusing to generate id for %d milliseconds",
+                            lastTimestamp - timestamp));
         }
 
         if (lastTimestamp == timestamp) {
@@ -85,8 +92,10 @@ public class IdWorker {
         // 将机房 id左移放到 5 bit那儿；
         // 将机器id左移放到5 bit那儿；将序号放最后12 bit；
         // 最后拼接起来成一个 64 bit的二进制数字，转换成 10 进制就是个 long 型
-        return ((timestamp - twepoch) << timestampLeftShift) | (datacenterId << datacenterIdShift)
-                | (workerId << workerIdShift) | sequence;
+        return ((timestamp - twepoch) << timestampLeftShift)
+                | (datacenterId << datacenterIdShift)
+                | (workerId << workerIdShift)
+                | sequence;
     }
 
     private long tilNextMillis(long lastTimestamp) {
@@ -102,11 +111,11 @@ public class IdWorker {
     }
 
     // ---------------测试---------------
-    //public static void main(String[] args) {
+    // public static void main(String[] args) {
     //    IdWorker worker = new IdWorker(1, 1, 0);
     //    for (int i = 0; i < 30; i++) {
     //        System.out.println(worker.nextId());
     //    }
-    //}
+    // }
 
 }

@@ -10,30 +10,30 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-
 @Configuration
 @EnableTransactionManagement
 public class MybatisPlusConfig {
-  @Bean
-  @ConditionalOnMissingBean
-  public MybatisPlusInterceptor mybatisPlusInterceptor() {
-    MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+    @Bean
+    @ConditionalOnMissingBean
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
 
-    // 添加分页插件
-    interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
-    // 添加乐观锁插件
-    interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
+        // 添加分页插件
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
+        // 添加乐观锁插件
+        interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
 
-    // 数据权限
-    //DataPermissionInterceptor dataPermissionInterceptor = new DataPermissionInterceptor();
-    //dataPermissionInterceptor.setDataPermissionHandler(new MybatisPlusDataPermissionHandler());
-    //interceptor.addInnerInterceptor(dataPermissionInterceptor);
+        // 数据权限
+        // DataPermissionInterceptor dataPermissionInterceptor = new DataPermissionInterceptor();
+        // dataPermissionInterceptor.setDataPermissionHandler(new
+        // MybatisPlusDataPermissionHandler());
+        // interceptor.addInnerInterceptor(dataPermissionInterceptor);
 
-    return interceptor;
-  }
+        return interceptor;
+    }
 
-  @Bean
-  public MySqlInjector mysqlInjector() {
-    return new MySqlInjector();
-  }
+    @Bean
+    public MySqlInjector mysqlInjector() {
+        return new MySqlInjector();
+    }
 }

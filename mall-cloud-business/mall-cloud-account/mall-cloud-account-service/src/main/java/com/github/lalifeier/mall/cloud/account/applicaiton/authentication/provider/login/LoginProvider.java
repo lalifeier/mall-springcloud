@@ -6,7 +6,7 @@ import com.github.lalifeier.mall.cloud.account.infrastructure.enums.LoginType;
 
 public interface LoginProvider {
 
-  LoginDTO login(LoginCommand loginCommand);
+    LoginDTO login(LoginCommand loginCommand);
 
-  boolean supports(LoginType loginType);
+    boolean supports(LoginType loginType);
 }

@@ -10,9 +10,9 @@ import org.mapstruct.factory.Mappers;
 public interface UserConverter {
     UserConverter INSTANCE = Mappers.getMapper(UserConverter.class);
 
-    //Object toDTO(RegisterReq registerReq);
+    // Object toDTO(RegisterReq registerReq);
     //
-    //Object toDTO(LoginReq loginReq);
+    // Object toDTO(LoginReq loginReq);
 
     CreateUserCommand toDTO(CreateUserReq createUserReq);
 

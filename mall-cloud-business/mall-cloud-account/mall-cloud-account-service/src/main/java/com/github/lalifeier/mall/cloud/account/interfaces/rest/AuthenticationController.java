@@ -1,6 +1,5 @@
 package com.github.lalifeier.mall.cloud.account.interfaces.rest;
 
-
 import com.github.lalifeier.mall.cloud.account.api.AuthenticationApi;
 import com.github.lalifeier.mall.cloud.account.applicaiton.authentication.model.command.LoginCommand;
 import com.github.lalifeier.mall.cloud.account.applicaiton.authentication.model.dto.LoginDTO;
@@ -18,24 +17,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1")
 public class AuthenticationController implements AuthenticationApi {
 
-  private final AuthenticationApplicationService authenticationApplicationService;
+    private final AuthenticationApplicationService authenticationApplicationService;
 
+    private final AuthenticationConverter authenticationConverter =
+            AuthenticationConverter.INSTANCE;
 
-  private final AuthenticationConverter authenticationConverter = AuthenticationConverter.INSTANCE;
+    public AuthenticationController(
+            AuthenticationApplicationService authenticationApplicationService) {
+        this.authenticationApplicationService = authenticationApplicationService;
+    }
 
-  public AuthenticationController(AuthenticationApplicationService authenticationApplicationService) {
-    this.authenticationApplicationService = authenticationApplicationService;
-  }
+    @Override
+    public LoginResponse login(LoginRequest request) {
+        LoginCommand loginCommand = LoginCommandFactory.getLoginCommand(request);
+        LoginDTO loginDTO = authenticationApplicationService.login(loginCommand);
+        return authenticationConverter.toVO(loginDTO);
+    }
 
-  @Override
-  public LoginResponse login(LoginRequest request) {
-    LoginCommand loginCommand = LoginCommandFactory.getLoginCommand(request);
-    LoginDTO loginDTO = authenticationApplicationService.login(loginCommand);
-    return authenticationConverter.toVO(loginDTO);
-  }
-
-  @Override
-  public RegisterResponse register(RegisterRequest request) {
-    return null;
-  }
+    @Override
+    public RegisterResponse register(RegisterRequest request) {
+        return null;
+    }
 }

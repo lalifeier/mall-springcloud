@@ -12,4 +12,3 @@ public class OkhttpProperties {
     private Long readTimeout;
     private Long writeTimeout;
 }
-

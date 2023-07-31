@@ -5,25 +5,24 @@ import com.github.lalifeier.mall.cloud.common.constant.HttpErrorCodeEnum;
 
 public class ValidationException extends SystemException {
 
+    public ValidationException(Throwable cause) {
+        super(cause);
+    }
 
-  public ValidationException(Throwable cause) {
-    super(cause);
-  }
+    public ValidationException(String message) {
+        super(message);
+    }
 
-  public ValidationException(String message) {
-    super(message);
-  }
+    public ValidationException(ErrorCode errorCode) {
+        super(errorCode);
+    }
 
-  public ValidationException(ErrorCode errorCode) {
-    super(errorCode);
-  }
+    public ValidationException(ErrorCode errorCode, Object... args) {
+        super(errorCode, args);
+    }
 
-  public ValidationException(ErrorCode errorCode, Object... args) {
-    super(errorCode, args);
-  }
-
-  @Override
-  public ErrorCode defaultErrorCode() {
-    return HttpErrorCodeEnum.BAD_REQUEST;
-  }
+    @Override
+    public ErrorCode defaultErrorCode() {
+        return HttpErrorCodeEnum.BAD_REQUEST;
+    }
 }

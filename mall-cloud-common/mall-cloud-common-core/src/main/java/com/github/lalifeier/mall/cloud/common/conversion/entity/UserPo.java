@@ -22,9 +22,6 @@ public class UserPo {
 
     @Override
     public String toString() {
-        return "UserPo{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return "UserPo{" + "id=" + id + ", name='" + name + '\'' + '}';
     }
 }

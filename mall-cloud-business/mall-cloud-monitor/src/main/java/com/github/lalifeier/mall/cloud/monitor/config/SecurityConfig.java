@@ -1,6 +1,5 @@
 package com.github.lalifeier.mall.cloud.monitor.config;
 
-
 import de.codecentric.boot.admin.server.config.AdminServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -21,28 +21,36 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
+        SavedRequestAwareAuthenticationSuccessHandler successHandler =
+                new SavedRequestAwareAuthenticationSuccessHandler();
         successHandler.setTargetUrlParameter("redirectTo");
         successHandler.setDefaultTargetUrl(adminContextPath + "/");
 
         return httpSecurity
-                .headers().frameOptions().disable()
-                .and().authorizeRequests()
-                .antMatchers(adminContextPath + "/assets/**"
-                        , adminContextPath + "/login"
-                        , "/actuator"
-                        , "/actuator/**"
-                ).permitAll()
-                .anyRequest().authenticated()
+                .headers()
+                .frameOptions()
+                .disable()
                 .and()
-                .formLogin().loginPage(adminContextPath + "/login")
-                .successHandler(successHandler).and()
-                .logout().logoutUrl(adminContextPath + "/logout")
+                .authorizeRequests()
+                .requestMatchers(
+                        new AntPathRequestMatcher(adminContextPath + "/assets/**"),
+                        new AntPathRequestMatcher(adminContextPath + "/login"),
+                        new AntPathRequestMatcher(adminContextPath + "/actuator/**"))
+                .permitAll()
+                .anyRequest()
+                .authenticated()
                 .and()
-                .httpBasic().and()
+                .formLogin()
+                .loginPage(adminContextPath + "/login")
+                .successHandler(successHandler)
+                .and()
+                .logout()
+                .logoutUrl(adminContextPath + "/logout")
+                .and()
+                .httpBasic()
+                .and()
                 .csrf()
                 .disable()
                 .build();
     }
 }
-

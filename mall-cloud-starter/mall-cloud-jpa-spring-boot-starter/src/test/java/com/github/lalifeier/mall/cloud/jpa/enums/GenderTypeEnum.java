@@ -1,15 +1,15 @@
 package com.github.lalifeier.mall.cloud.jpa.enums;
 
-//import com.github.lalifeier.mall.cloud.common.annotation.IEnum;
-//import com.github.lalifeier.mall.cloud.jpa.converter.EnumConverter;
-//import lombok.Getter;
-//import lombok.RequiredArgsConstructor;
+// import com.github.lalifeier.mall.cloud.common.annotation.IEnum;
+// import com.github.lalifeier.mall.cloud.jpa.converter.EnumConverter;
+// import lombok.Getter;
+// import lombok.RequiredArgsConstructor;
 //
-//import jakarta.persistence.Converter;
+// import jakarta.persistence.Converter;
 //
-//@Getter
-//@RequiredArgsConstructor
-//public enum GenderTypeEnum implements IEnum<Integer> {
+// @Getter
+// @RequiredArgsConstructor
+// public enum GenderTypeEnum implements IEnum<Integer> {
 //
 //  WOMAN(0, "女"),
 //
@@ -24,5 +24,4 @@ package com.github.lalifeier.mall.cloud.jpa.enums;
 //  @Converter(autoApply = true)
 //  public static class GenderTypeEnumConverter extends EnumConverter<GenderTypeEnum> {
 //  }
-//}
-
+// }

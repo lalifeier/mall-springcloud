@@ -14,15 +14,15 @@ import lombok.*;
 @Entity
 @Table(name = "user")
 public class UserPO extends BasePO {
-  @Column(name = "username", unique = true, nullable = false)
-  private String username;
+    @Column(name = "username", unique = true, nullable = false)
+    private String username;
 
-  @Column(name = "password", nullable = false)
-  private String password;
+    @Column(name = "password", nullable = false)
+    private String password;
 
-  @Column(name = "email", nullable = false)
-  private String email;
+    @Column(name = "email", nullable = false)
+    private String email;
 
-  @Column(name = "enabled", nullable = false, columnDefinition = "TINYINT", length = 1)
-  private boolean enabled;
+    @Column(name = "enabled", nullable = false, columnDefinition = "TINYINT", length = 1)
+    private boolean enabled;
 }

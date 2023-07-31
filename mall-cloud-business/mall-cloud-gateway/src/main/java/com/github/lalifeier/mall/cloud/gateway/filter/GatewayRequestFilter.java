@@ -1,32 +1,33 @@
 package com.github.lalifeier.mall.cloud.gateway.filter;
 
-//import com.github.lalifeier.mall.cloud.common.constant.Constants;
-//import com.github.lalifeier.mall.cloud.common.utils.JsonUtils;
-//import com.google.gson.JsonObject;
-//import com.nimbusds.jose.JWSObject;
-//import lombok.AllArgsConstructor;
-//import lombok.extern.slf4j.Slf4j;
-//import org.springframework.cloud.gateway.filter.GatewayFilterChain;
-//import org.springframework.cloud.gateway.filter.GlobalFilter;
-//import org.springframework.core.annotation.Order;
-//import org.springframework.data.redis.core.RedisTemplate;
-//import org.springframework.stereotype.Component;
-//import org.springframework.util.StringUtils;
-//import org.springframework.web.server.ServerWebExchange;
-//import reactor.core.publisher.Mono;
+// import com.github.lalifeier.mall.cloud.common.constant.Constants;
+// import com.github.lalifeier.mall.cloud.common.utils.JsonUtils;
+// import com.google.gson.JsonObject;
+// import com.nimbusds.jose.JWSObject;
+// import lombok.AllArgsConstructor;
+// import lombok.extern.slf4j.Slf4j;
+// import org.springframework.cloud.gateway.filter.GatewayFilterChain;
+// import org.springframework.cloud.gateway.filter.GlobalFilter;
+// import org.springframework.core.annotation.Order;
+// import org.springframework.data.redis.core.RedisTemplate;
+// import org.springframework.stereotype.Component;
+// import org.springframework.util.StringUtils;
+// import org.springframework.web.server.ServerWebExchange;
+// import reactor.core.publisher.Mono;
 //
-//import java.text.ParseException;
+// import java.text.ParseException;
 //
-//@Slf4j
-//@Order(0)
-//@Component
-//@AllArgsConstructor
-//public class GatewayRequestFilter implements GlobalFilter {
+// @Slf4j
+// @Order(0)
+// @Component
+// @AllArgsConstructor
+// public class GatewayRequestFilter implements GlobalFilter {
 //  private final RedisTemplate<String, String> redisTemplate;
 //
 //  @Override
 //  public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-//    //String headerToken = exchange.getRequest().getHeaders().getFirst(CommonConstant.JWT_HEADER_KEY);
+//    //String headerToken =
+// exchange.getRequest().getHeaders().getFirst(CommonConstant.JWT_HEADER_KEY);
 //    //if (StrUtil.isNotEmpty(headerToken)) {
 //    //    if (isBlack(headerToken)) {
 //    //        throw new HttpServerErrorException(HttpStatus.FORBIDDEN, "该令牌已过期，请重新获取令牌");
@@ -63,4 +64,4 @@ package com.github.lalifeier.mall.cloud.gateway.filter;
 //    int index = requestURI.indexOf(access);
 //    return index >= 0 && StringUtils.countOccurrencesOf(requestURI.substring(0, index), "/") < 1;
 //  }
-//}
+// }

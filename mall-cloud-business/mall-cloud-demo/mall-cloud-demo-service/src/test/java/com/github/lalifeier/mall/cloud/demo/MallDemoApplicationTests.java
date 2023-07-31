@@ -7,6 +7,5 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class MallDemoApplicationTests {
 
     @Test
-    public void contextLoad() {
-    }
+    public void contextLoad() {}
 }

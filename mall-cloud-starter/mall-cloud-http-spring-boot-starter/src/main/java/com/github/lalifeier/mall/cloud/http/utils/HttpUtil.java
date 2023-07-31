@@ -1,13 +1,12 @@
 package com.github.lalifeier.mall.cloud.http.utils;
 
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Map;
 
 @Component
 public class HttpUtil {
@@ -18,8 +17,7 @@ public class HttpUtil {
         private static final RestTemplate INSTANCE = new RestTemplate();
     }
 
-    private HttpUtil() {
-    }
+    private HttpUtil() {}
 
     public static RestTemplate getInstance() {
         return SingletonRestTemplate.INSTANCE;
@@ -37,8 +35,15 @@ public class HttpUtil {
         return invoke(url, HttpMethod.POST, data, null, null, responseType);
     }
 
-    public static <T> T post(String url, MultiValueMap<String, String> data, Class<T> responseType) {
-        return invoke(url, HttpMethod.POST, data, MediaType.APPLICATION_FORM_URLENCODED, null, responseType);
+    public static <T> T post(
+            String url, MultiValueMap<String, String> data, Class<T> responseType) {
+        return invoke(
+                url,
+                HttpMethod.POST,
+                data,
+                MediaType.APPLICATION_FORM_URLENCODED,
+                null,
+                responseType);
     }
 
     public static <T> T put(String url, Class<T> responseType) {
@@ -57,7 +62,13 @@ public class HttpUtil {
         return invoke(url, HttpMethod.DELETE, data, null, null, responseType);
     }
 
-    public static <T, E> T invoke(String url, HttpMethod method, E data, MediaType contentType, Map<String, String> headerMap, Class<T> responseType) {
+    public static <T, E> T invoke(
+            String url,
+            HttpMethod method,
+            E data,
+            MediaType contentType,
+            Map<String, String> headerMap,
+            Class<T> responseType) {
         HttpHeaders headers = new HttpHeaders();
         contentType = contentType == null ? MediaType.APPLICATION_JSON : contentType;
         headers.setContentType(contentType);
@@ -68,7 +79,8 @@ public class HttpUtil {
         }
         HttpEntity<E> httpEntity = new HttpEntity<>(data, headers);
 
-        ResponseEntity<T> responseEntity = HttpUtil.getInstance().exchange(url, method, httpEntity, responseType);
+        ResponseEntity<T> responseEntity =
+                HttpUtil.getInstance().exchange(url, method, httpEntity, responseType);
         return responseEntity.getBody();
     }
 }

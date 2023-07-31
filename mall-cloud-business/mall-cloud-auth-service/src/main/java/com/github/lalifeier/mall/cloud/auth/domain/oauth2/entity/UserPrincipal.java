@@ -1,7 +1,7 @@
 package com.github.lalifeier.mall.cloud.auth.domain.oauth2.entity;
 
-//@Data
-//public class UserPrincipal implements UserDetails {
+// @Data
+// public class UserPrincipal implements UserDetails {
 //
 //    private Long id;
 //
@@ -41,4 +41,4 @@ package com.github.lalifeier.mall.cloud.auth.domain.oauth2.entity;
 //    public boolean isEnabled() {
 //        return this.enabled;
 //    }
-//}
+// }

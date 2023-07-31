@@ -1,8 +1,8 @@
 package com.github.lalifeier.mall.cloud.mybatisplus.enums;
 
-//@Getter
-//@RequiredArgsConstructor
-//public enum GenderTypeEnum implements IEnum<Integer> {
+// @Getter
+// @RequiredArgsConstructor
+// public enum GenderTypeEnum implements IEnum<Integer> {
 //
 //  WOMAN(0, "女"),
 //
@@ -13,5 +13,4 @@ package com.github.lalifeier.mall.cloud.mybatisplus.enums;
 //  private final Integer value;
 //
 //  private final String label;
-//}
-
+// }

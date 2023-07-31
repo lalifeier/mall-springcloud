@@ -7,23 +7,17 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ProjectModuleCode implements ProjectModule {
-  /**
-   * 登录模块
-   */
-  LOGIN(1, 1, "帐号服务", "登录模块"),
+    /** 登录模块 */
+    LOGIN(1, 1, "帐号服务", "登录模块"),
 
-  /**
-   * 注册模块
-   */
-  REGISTER(1, 2, "帐号服务", "注册模块"),
+    /** 注册模块 */
+    REGISTER(1, 2, "帐号服务", "注册模块"),
 
-  /**
-   * 帐号模块
-   */
-  Account(1, 3, "帐号服务", "帐号模块");
+    /** 帐号模块 */
+    Account(1, 3, "帐号服务", "帐号模块");
 
-  private final int projectCode;
-  private final int moduleCode;
-  private final String projectName;
-  private final String moduleName;
+    private final int projectCode;
+    private final int moduleCode;
+    private final String projectName;
+    private final String moduleName;
 }

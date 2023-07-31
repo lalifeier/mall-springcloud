@@ -1,18 +1,19 @@
-//package com.github.lalifeier.utils;
+// package com.github.lalifeier.utils;
 //
-//import lombok.extern.slf4j.Slf4j;
-//import org.apache.commons.lang3.StringUtils;
+// import lombok.extern.slf4j.Slf4j;
+// import org.apache.commons.lang3.StringUtils;
 //
-//import jakarta.servlet.http.HttpServletRequest;
-//import java.io.IOException;
-//import java.net.*;
-//import java.util.*;
-//import java.util.regex.Pattern;
+// import jakarta.servlet.http.HttpServletRequest;
+// import java.io.IOException;
+// import java.net.*;
+// import java.util.*;
+// import java.util.regex.Pattern;
 //
-//@Slf4j
-//public class IPUtils {
+// @Slf4j
+// public class IPUtils {
 //
-//    public static final Pattern IP_PATTERN = Pattern.compile("((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
+//    public static final Pattern IP_PATTERN =
+// Pattern.compile("((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
 //
 //    public static boolean isIp(String in) {
 //        return in != null && IP_PATTERN.matcher(in).matches();
@@ -92,7 +93,8 @@
 //    public static int randomAvailablePort() {
 //        int port;
 //        do {
-//            port = (int) ((MAX_USER_PORT_NUMBER - MIN_USER_PORT_NUMBER) * Math.random()) + MIN_USER_PORT_NUMBER;
+//            port = (int) ((MAX_USER_PORT_NUMBER - MIN_USER_PORT_NUMBER) * Math.random()) +
+// MIN_USER_PORT_NUMBER;
 //        } while (!availablePort(port));
 //        return port;
 //    }
@@ -231,4 +233,4 @@
 //    public static int ipToInt(final String addr) {
 //        return ipToInt(addr, false);
 //    }
-//}
+// }

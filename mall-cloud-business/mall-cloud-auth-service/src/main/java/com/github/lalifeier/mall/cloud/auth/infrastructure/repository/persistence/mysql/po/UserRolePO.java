@@ -1,6 +1,5 @@
 package com.github.lalifeier.mall.cloud.auth.infrastructure.repository.persistence.mysql.po;
 
-
 import com.github.lalifeier.mall.cloud.jpa.po.BasePO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -15,7 +14,7 @@ import lombok.*;
 @Table(name = "user_role")
 public class UserRolePO extends BasePO {
 
-  private Long userId;
+    private Long userId;
 
-  private Long roleId;
+    private Long roleId;
 }

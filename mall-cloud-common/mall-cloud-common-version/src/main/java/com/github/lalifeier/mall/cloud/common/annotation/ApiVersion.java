@@ -1,8 +1,7 @@
 package com.github.lalifeier.mall.cloud.common.annotation;
 
-import org.springframework.web.bind.annotation.Mapping;
-
 import java.lang.annotation.*;
+import org.springframework.web.bind.annotation.Mapping;
 
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

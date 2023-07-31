@@ -8,19 +8,18 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface AuthenticationAssembler {
-  AuthenticationAssembler INSTANCE = Mappers.getMapper(AuthenticationAssembler.class);
+    AuthenticationAssembler INSTANCE = Mappers.getMapper(AuthenticationAssembler.class);
 
-//  @Mapping(target = "id", ignore = true)
-//  @Mapping(source = "username", target = "username.value")
-//  @Mapping(source = "password", target = "password.value")
-//  @Mapping(source = "email", target = "email.value")
-//  @Mapping(source = "phone", target = "phone.value")
-//  Account convert(RegisterDTO registerBO);
+    //  @Mapping(target = "id", ignore = true)
+    //  @Mapping(source = "username", target = "username.value")
+    //  @Mapping(source = "password", target = "password.value")
+    //  @Mapping(source = "email", target = "email.value")
+    //  @Mapping(source = "phone", target = "phone.value")
+    //  Account convert(RegisterDTO registerBO);
 
-  @Mapping(source = "id.value", target = "userId")
-  @Mapping(source = "username.value", target = "username")
-  LoginDTO convert(Account account);
+    @Mapping(source = "id.value", target = "userId")
+    @Mapping(source = "username.value", target = "username")
+    LoginDTO convert(Account account);
 
-
-//  toEntity()
+    //  toEntity()
 }

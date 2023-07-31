@@ -1,6 +1,5 @@
 package com.github.lalifeier.mall.cloud.common.system;
 
-
 import com.github.lalifeier.mall.cloud.common.api.ProjectModule;
 
 public class SystemProjectModule implements ProjectModule {

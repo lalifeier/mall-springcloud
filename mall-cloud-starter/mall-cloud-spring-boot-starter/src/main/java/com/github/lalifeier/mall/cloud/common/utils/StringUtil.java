@@ -1,8 +1,7 @@
 package com.github.lalifeier.mall.cloud.common.utils;
 
-import org.springframework.util.StringUtils;
-
 import java.util.Collection;
+import org.springframework.util.StringUtils;
 
 public class StringUtil extends StringUtils {
 
@@ -17,9 +16,9 @@ public class StringUtil extends StringUtils {
     /**
      * 替换指定字符串的指定区间内字符为"*"
      *
-     * @param str          字符串
+     * @param str 字符串
      * @param startInclude 开始位置（包含）
-     * @param endExclude   结束位置（不包含）
+     * @param endExclude 结束位置（不包含）
      * @return 替换后的字符串
      * @since 1.3.8
      */
@@ -30,14 +29,15 @@ public class StringUtil extends StringUtils {
     /**
      * 替换指定字符串的指定区间内字符为固定字符
      *
-     * @param str          字符串
+     * @param str 字符串
      * @param startInclude 开始位置（包含）
-     * @param endExclude   结束位置（不包含）
+     * @param endExclude 结束位置（不包含）
      * @param replacedChar 被替换的字符
      * @return 替换后的字符串
      * @since 1.3.8
      */
-    public static String replace(CharSequence str, int startInclude, int endExclude, char replacedChar) {
+    public static String replace(
+            CharSequence str, int startInclude, int endExclude, char replacedChar) {
         if (isEmpty(str)) {
             return str(str);
         }
@@ -76,6 +76,7 @@ public class StringUtil extends StringUtils {
 
     /**
      * Convert a {@code Collection} into a delimited {@code String} (e.g., CSV).
+     *
      * <p>Useful for {@code toString()} implementations.
      *
      * @param coll the {@code Collection} to convert
@@ -87,9 +88,10 @@ public class StringUtil extends StringUtils {
 
     /**
      * Convert a {@code Collection} into a delimited {@code String} (e.g. CSV).
+     *
      * <p>Useful for {@code toString()} implementations.
      *
-     * @param coll  the {@code Collection} to convert
+     * @param coll the {@code Collection} to convert
      * @param delim the delimiter to use (typically a ",")
      * @return the delimited {@code String}
      */
@@ -98,8 +100,8 @@ public class StringUtil extends StringUtils {
     }
 
     /**
-     * Convert a {@code String} array into a comma delimited {@code String}
-     * (i.e., CSV).
+     * Convert a {@code String} array into a comma delimited {@code String} (i.e., CSV).
+     *
      * <p>Useful for {@code toString()} implementations.
      *
      * @param arr the array to display
@@ -111,9 +113,10 @@ public class StringUtil extends StringUtils {
 
     /**
      * Convert a {@code String} array into a delimited {@code String} (e.g. CSV).
+     *
      * <p>Useful for {@code toString()} implementations.
      *
-     * @param arr   the array to display
+     * @param arr the array to display
      * @param delim the delimiter to use (typically a ",")
      * @return the delimited {@code String}
      */
@@ -133,5 +136,4 @@ public class StringUtil extends StringUtils {
         str = str.substring(0, 1).toLowerCase() + str.substring(1);
         return str.replaceAll("[A-Z]", "_$0").toLowerCase();
     }
-
 }

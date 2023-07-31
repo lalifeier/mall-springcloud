@@ -6,18 +6,16 @@ import com.github.lalifeier.mall.cloud.account.infrastructure.enums.LoginType;
 
 public class EmailLoginProvider extends AbstractLoginProvider {
 
-  @Override
-  protected void preAuthenticationCheck(LoginCommand loginCommand) {
+    @Override
+    protected void preAuthenticationCheck(LoginCommand loginCommand) {}
 
-  }
+    @Override
+    protected Account authenticate(LoginCommand loginCommand) {
+        return null;
+    }
 
-  @Override
-  protected Account authenticate(LoginCommand loginCommand) {
-    return null;
-  }
-
-  @Override
-  public boolean supports(LoginType loginType) {
-    return loginType.equals(LoginType.EMAIL);
-  }
+    @Override
+    public boolean supports(LoginType loginType) {
+        return loginType.equals(LoginType.EMAIL);
+    }
 }

@@ -22,9 +22,6 @@ public class UserDo {
 
     @Override
     public String toString() {
-        return "UserDo{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return "UserDo{" + "id=" + id + ", name='" + name + '\'' + '}';
     }
 }

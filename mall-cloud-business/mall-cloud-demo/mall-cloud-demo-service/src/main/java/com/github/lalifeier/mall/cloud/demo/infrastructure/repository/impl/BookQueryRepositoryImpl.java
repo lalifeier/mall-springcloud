@@ -21,26 +21,27 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RequiredArgsConstructor
 public class BookQueryRepositoryImpl implements BookQueryRepository {
-  private final BookMapper bookMapper;
+    private final BookMapper bookMapper;
 
-  private final BookConverter bookConverter = BookConverter.INSTANCE;
+    private final BookConverter bookConverter = BookConverter.INSTANCE;
 
+    @Override
+    public Pagination<Book> query(BookPageQuery query) {
+        Page<BookPO> page = new Page<>(query.getPageNum(), query.getPageSize());
 
-  @Override
-  public Pagination<Book> query(BookPageQuery query) {
-    Page<BookPO> page = new Page<>(query.getPageNum(), query.getPageSize());
+        QueryWrapper<BookPO> queryWrapper =
+                QueryWrapperUtils.buildQueryWrapper(BookPO.class, query);
 
-    QueryWrapper<BookPO> queryWrapper = QueryWrapperUtils.buildQueryWrapper(BookPO.class, query);
+        IPage<BookPO> bookPage = bookMapper.selectPage(page, queryWrapper);
 
-    IPage<BookPO> bookPage = bookMapper.selectPage(page, queryWrapper);
+        return PageConverter.convert(bookPage, bookConverter::fromData);
+    }
 
-    return PageConverter.convert(bookPage, bookConverter::fromData);
-  }
+    @Override
+    public Long count(BookQuery query) {
+        QueryWrapper<BookPO> queryWrapper =
+                QueryWrapperUtils.buildQueryWrapper(BookPO.class, query);
 
-  @Override
-  public Long count(BookQuery query) {
-    QueryWrapper<BookPO> queryWrapper = QueryWrapperUtils.buildQueryWrapper(BookPO.class, query);
-
-    return bookMapper.selectCount(queryWrapper);
-  }
+        return bookMapper.selectCount(queryWrapper);
+    }
 }

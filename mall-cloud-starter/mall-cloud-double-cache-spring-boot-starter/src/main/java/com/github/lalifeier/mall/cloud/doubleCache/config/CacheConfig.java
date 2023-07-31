@@ -10,13 +10,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 @EnableCaching
 @Configuration
 public class CacheConfig {
-    @Autowired
-    DoubleCacheConfig doubleCacheConfig;
+    @Autowired DoubleCacheConfig doubleCacheConfig;
 
     @Bean
-    public DoubleCacheManager cacheManager(RedisTemplate<Object, Object> redisTemplate,
-                                           DoubleCacheConfig doubleCacheConfig) {
+    public DoubleCacheManager cacheManager(
+            RedisTemplate<Object, Object> redisTemplate, DoubleCacheConfig doubleCacheConfig) {
         return new DoubleCacheManager(redisTemplate, doubleCacheConfig);
     }
 }
-

@@ -7,26 +7,25 @@ import com.github.lalifeier.mall.cloud.account.domain.account.model.entity.Accou
 import com.github.lalifeier.mall.cloud.account.infrastructure.enums.LoginType;
 import org.springframework.stereotype.Component;
 
-
 @Component
 public abstract class AbstractLoginProvider implements LoginProvider {
 
-  private final AuthenticationAssembler authenticationAssembler = AuthenticationAssembler.INSTANCE;
+    private final AuthenticationAssembler authenticationAssembler =
+            AuthenticationAssembler.INSTANCE;
 
+    protected abstract void preAuthenticationCheck(LoginCommand loginCommand);
 
-  protected abstract void preAuthenticationCheck(LoginCommand loginCommand);
+    protected abstract Account authenticate(LoginCommand loginCommand);
 
-  protected abstract Account authenticate(LoginCommand loginCommand);
+    @Override
+    public LoginDTO login(LoginCommand loginCommand) {
+        preAuthenticationCheck(loginCommand);
 
-  @Override
-  public LoginDTO login(LoginCommand loginCommand) {
-    preAuthenticationCheck(loginCommand);
+        Account account = authenticate(loginCommand);
 
-    Account account = authenticate(loginCommand);
+        return authenticationAssembler.convert(account);
+    }
 
-    return authenticationAssembler.convert(account);
-  }
-
-  @Override
-  public abstract boolean supports(LoginType loginType);
+    @Override
+    public abstract boolean supports(LoginType loginType);
 }

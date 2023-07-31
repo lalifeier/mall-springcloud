@@ -10,15 +10,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/user")
 public class UserController {
 
-    //private UserConverter userConverter;
+    // private UserConverter userConverter;
     private final UserCommandApplicationService userCommandApplicationService;
     private final UserQueryApplicationService userQueryApplicationService;
 
-    public UserController(UserCommandApplicationService userCommandApplicationService, UserQueryApplicationService userQueryApplicationService) {
+    public UserController(
+            UserCommandApplicationService userCommandApplicationService,
+            UserQueryApplicationService userQueryApplicationService) {
         this.userCommandApplicationService = userCommandApplicationService;
         this.userQueryApplicationService = userQueryApplicationService;
     }
-
 
     @PostMapping("/register")
     public Result<Object> register(@RequestBody RegisterReq registerReq) {
@@ -46,14 +47,10 @@ public class UserController {
     }
 
     @GetMapping("/list")
-    public void list(@RequestParam ListUserReq listUserReq) {
-
-    }
+    public void list(@RequestParam ListUserReq listUserReq) {}
 
     @GetMapping("/")
-    public void pageList(@RequestParam PageListUserReq pageListUserReq) {
-
-    }
+    public void pageList(@RequestParam PageListUserReq pageListUserReq) {}
 
     @GetMapping("/{id}")
     public Result<Object> get(@PathVariable("id") Long id) {

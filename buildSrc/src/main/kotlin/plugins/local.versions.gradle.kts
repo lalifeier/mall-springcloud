@@ -12,7 +12,7 @@ fun String.isNonStable(): Boolean {
 }
 
 tasks.withType<DependencyUpdatesTask> {
-  
+
   rejectVersionIf {
     candidate.version.isNonStable() && !currentVersion.isNonStable()
   }

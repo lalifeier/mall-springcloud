@@ -13,35 +13,34 @@ import jakarta.annotation.Resource;
 
 public class UsernameLoginProvider extends AbstractLoginProvider {
 
-  @Resource
-  private AccountRepository accountRepository;
+    @Resource private AccountRepository accountRepository;
 
-  @Override
-  protected void preAuthenticationCheck(LoginCommand loginCommand) {
-    UsernameLoginCommand usernameLoginDTO = (UsernameLoginCommand) loginCommand;
-    String username = usernameLoginDTO.getUsername();
-    String password = usernameLoginDTO.getPassword();
-  }
-
-  @Override
-  protected Account authenticate(LoginCommand loginCommand) {
-    UsernameLoginCommand usernameLoginDTO = (UsernameLoginCommand) loginCommand;
-    String username = usernameLoginDTO.getUsername();
-    String password = usernameLoginDTO.getPassword();
-
-    Account account = accountRepository.findByUsername(new AccountName(username));
-    if (account == null) {
-      throw new BusinessException(LoginErrorCode.B_USER_NOT_EXIST);
-    }
-    if (!account.getPassword().sameValueAs(new AccountPassword(password))) {
-      throw new BusinessException(LoginErrorCode.B_USER_PASSWORD_ERROR);
+    @Override
+    protected void preAuthenticationCheck(LoginCommand loginCommand) {
+        UsernameLoginCommand usernameLoginDTO = (UsernameLoginCommand) loginCommand;
+        String username = usernameLoginDTO.getUsername();
+        String password = usernameLoginDTO.getPassword();
     }
 
-    return account;
-  }
+    @Override
+    protected Account authenticate(LoginCommand loginCommand) {
+        UsernameLoginCommand usernameLoginDTO = (UsernameLoginCommand) loginCommand;
+        String username = usernameLoginDTO.getUsername();
+        String password = usernameLoginDTO.getPassword();
 
-  @Override
-  public boolean supports(LoginType loginType) {
-    return loginType.equals(LoginType.USERNAME);
-  }
+        Account account = accountRepository.findByUsername(new AccountName(username));
+        if (account == null) {
+            throw new BusinessException(LoginErrorCode.B_USER_NOT_EXIST);
+        }
+        if (!account.getPassword().sameValueAs(new AccountPassword(password))) {
+            throw new BusinessException(LoginErrorCode.B_USER_PASSWORD_ERROR);
+        }
+
+        return account;
+    }
+
+    @Override
+    public boolean supports(LoginType loginType) {
+        return loginType.equals(LoginType.USERNAME);
+    }
 }

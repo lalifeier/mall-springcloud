@@ -1,11 +1,15 @@
 package com.github.lalifeier.mall.cloud.auth.infrastructure.config;
 
-
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,23 +28,18 @@ import org.springframework.security.oauth2.server.authorization.config.ProviderS
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.interfaces.RSAPrivateKey;
-import java.security.interfaces.RSAPublicKey;
-import java.util.UUID;
-
 @Configuration(proxyBeanMethods = false)
 public class AuthorizationServerConfig {
 
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
-    public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http)
+            throws Exception {
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
-        http
-                .exceptionHandling((exceptions) ->
-                        exceptions.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
-                );
+        http.exceptionHandling(
+                (exceptions) ->
+                        exceptions.authenticationEntryPoint(
+                                new LoginUrlAuthenticationEntryPoint("/login")));
 
         return http.build();
     }
@@ -51,20 +50,20 @@ public class AuthorizationServerConfig {
     }
 
     @Bean
-    public OAuth2AuthorizationService authorizationService(JdbcTemplate jdbcTemplate, RegisteredClientRepository registeredClientRepository) {
+    public OAuth2AuthorizationService authorizationService(
+            JdbcTemplate jdbcTemplate, RegisteredClientRepository registeredClientRepository) {
         return new JdbcOAuth2AuthorizationService(jdbcTemplate, registeredClientRepository);
     }
 
     @Bean
-    public OAuth2AuthorizationConsentService authorizationConsentService(JdbcTemplate jdbcTemplate, RegisteredClientRepository registeredClientRepository) {
+    public OAuth2AuthorizationConsentService authorizationConsentService(
+            JdbcTemplate jdbcTemplate, RegisteredClientRepository registeredClientRepository) {
         return new JdbcOAuth2AuthorizationConsentService(jdbcTemplate, registeredClientRepository);
     }
 
     @Bean
     public ProviderSettings providerSettings(@Value("${server.port}") Integer port) {
-        return ProviderSettings.builder()
-                .issuer("http://localhost:" + port)
-                .build();
+        return ProviderSettings.builder().issuer("http://localhost:" + port).build();
     }
 
     @Bean
@@ -72,10 +71,11 @@ public class AuthorizationServerConfig {
         KeyPair keyPair = generateRsaKey();
         RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
         RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
-        RSAKey rsaKey = new RSAKey.Builder(publicKey)
-                .privateKey(privateKey)
-                .keyID(UUID.randomUUID().toString())
-                .build();
+        RSAKey rsaKey =
+                new RSAKey.Builder(publicKey)
+                        .privateKey(privateKey)
+                        .keyID(UUID.randomUUID().toString())
+                        .build();
         JWKSet jwkSet = new JWKSet(rsaKey);
         return new ImmutableJWKSet<>(jwkSet);
     }
@@ -92,21 +92,24 @@ public class AuthorizationServerConfig {
         return keyPair;
     }
 
-    //@Bean
-    //public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
+    // @Bean
+    // public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
     //    return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
-    //}
+    // }
 
-    //@Bean
-    //public EmbeddedDatabase embeddedDatabase() {
+    // @Bean
+    // public EmbeddedDatabase embeddedDatabase() {
     //    return new EmbeddedDatabaseBuilder()
     //            .generateUniqueName(true)
     //            .setType(EmbeddedDatabaseType.H2)
     //            .setScriptEncoding("UTF-8")
-    //            .addScript("org/springframework/security/oauth2/server/authorization/oauth2-authorization-schema.sql")
-    //            .addScript("org/springframework/security/oauth2/server/authorization/oauth2-authorization-consent-schema.sql")
-    //            .addScript("org/springframework/security/oauth2/server/authorization/client/oauth2-registered-client-schema.sql")
+    //
+    // .addScript("org/springframework/security/oauth2/server/authorization/oauth2-authorization-schema.sql")
+    //
+    // .addScript("org/springframework/security/oauth2/server/authorization/oauth2-authorization-consent-schema.sql")
+    //
+    // .addScript("org/springframework/security/oauth2/server/authorization/client/oauth2-registered-client-schema.sql")
     //            .build();
-    //}
+    // }
 
 }

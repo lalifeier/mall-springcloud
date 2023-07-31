@@ -7,7 +7,7 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "META-INF.spring")
 public interface AuthenticationConverter {
-  AuthenticationConverter INSTANCE = Mappers.getMapper(AuthenticationConverter.class);
+    AuthenticationConverter INSTANCE = Mappers.getMapper(AuthenticationConverter.class);
 
-  LoginResponse toVO(LoginDTO loginDTO);
+    LoginResponse toVO(LoginDTO loginDTO);
 }

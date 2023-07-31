@@ -4,5 +4,4 @@ import com.github.lalifeier.mall.cloud.auth.applicaiton.service.query.RoleQueryA
 import org.springframework.stereotype.Service;
 
 @Service
-public class RoleQueryApplicationServiceImpl implements RoleQueryApplicationService {
-}
+public class RoleQueryApplicationServiceImpl implements RoleQueryApplicationService {}

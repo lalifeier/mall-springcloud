@@ -1,6 +1,6 @@
 package com.github.lalifeier.mall.cloud.common.repository.diff;
 
-//public class DbContext<T extends Aggregate<ID>, ID extends Identifier> {
+// public class DbContext<T extends Aggregate<ID>, ID extends Identifier> {
 //  private Class<? extends T> targetClass;
 //  private Map<ID, T> aggregateMap = new HashMap<>();
 //
@@ -54,4 +54,4 @@ package com.github.lalifeier.mall.cloud.common.repository.diff;
 //  public void setId(T aggregate, ID id) {
 //    ReflectionUtils.writeField("id", aggregate, id);
 //  }
-//}
+// }

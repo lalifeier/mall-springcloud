@@ -10,11 +10,10 @@ import reactor.core.publisher.Mono;
 @AllArgsConstructor
 @Service
 public class AccessLogServiceImpl implements AccessLogService {
-  private AccessLogRepository accessLogRepository;
+    private AccessLogRepository accessLogRepository;
 
-  @Override
-  public Mono<GatewayLog> saveAccessLog(GatewayLog gatewayLog) {
-    return accessLogRepository.insert(gatewayLog);
-  }
+    @Override
+    public Mono<GatewayLog> saveAccessLog(GatewayLog gatewayLog) {
+        return accessLogRepository.insert(gatewayLog);
+    }
 }
-

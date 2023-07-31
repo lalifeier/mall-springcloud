@@ -11,14 +11,14 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 public class JpaAuditingConfiguration {
 
-  @Bean
-  @ConditionalOnMissingBean
-  public AuditorAware<String> auditorProvider() {
+    @Bean
+    @ConditionalOnMissingBean
+    public AuditorAware<String> auditorProvider() {
 
-    /*
-      if you are using spring security, you can get the currently logged username with following code segment.
-      SecurityContextHolder.getContext().getAuthentication().getName()
-     */
-    return new AuditorAwareImpl();
-  }
+        /*
+         if you are using spring security, you can get the currently logged username with following code segment.
+         SecurityContextHolder.getContext().getAuthentication().getName()
+        */
+        return new AuditorAwareImpl();
+    }
 }

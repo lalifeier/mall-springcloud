@@ -6,6 +6,6 @@ import lombok.Data;
 
 @Data
 public class Book implements Aggregate<BookId> {
-  private BookId id;
-  private String name;
+    private BookId id;
+    private String name;
 }

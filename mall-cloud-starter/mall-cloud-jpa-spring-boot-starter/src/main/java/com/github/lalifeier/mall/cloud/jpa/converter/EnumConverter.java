@@ -1,12 +1,13 @@
 package com.github.lalifeier.mall.cloud.jpa.converter;
 
-//public abstract class EnumConverter<E extends Enum<E>, T> implements AttributeConverter<E, T> {
+// public abstract class EnumConverter<E extends Enum<E>, T> implements AttributeConverter<E, T> {
 //
 //  private final Class<E> clazz;
 //
 //  @SuppressWarnings("unchecked")
 //  public EnumConverter() {
-//    this.clazz = (Class<E>) (((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments())[0];
+//    this.clazz = (Class<E>) (((ParameterizedType)
+// this.getClass().getGenericSuperclass()).getActualTypeArguments())[0];
 //  }
 //
 //  @Override
@@ -23,5 +24,5 @@ package com.github.lalifeier.mall.cloud.jpa.converter;
 //      .findFirst()
 //      .orElse(null);
 //  }
-//}
+// }
 //

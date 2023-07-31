@@ -1,6 +1,6 @@
 package com.github.lalifeier.mall.cloud.common.repository.diff;
 
-//public interface AggregateManager<T, ID> {
+// public interface AggregateManager<T, ID> {
 //
 //
 //  void attach(T aggregate);
@@ -14,4 +14,4 @@ package com.github.lalifeier.mall.cloud.common.repository.diff;
 //  void merge(T aggregate);
 //
 //  T find(ID id);
-//}
+// }

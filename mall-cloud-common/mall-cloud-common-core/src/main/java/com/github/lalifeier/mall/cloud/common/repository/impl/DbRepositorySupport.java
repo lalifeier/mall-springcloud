@@ -1,9 +1,7 @@
 package com.github.lalifeier.mall.cloud.common.repository.impl;
 
-/**
- * 这个类是一个通用的支撑类，为了减少开发者的重复劳动。在用的时候需要继承这个类, 属于基础设施层（模板方法）
- */
-//public abstract class DbRepositorySupport<T extends Aggregate<ID>, ID extends Identifier>
+/** 这个类是一个通用的支撑类，为了减少开发者的重复劳动。在用的时候需要继承这个类, 属于基础设施层（模板方法） */
+// public abstract class DbRepositorySupport<T extends Aggregate<ID>, ID extends Identifier>
 //  implements Repository<T, ID> {
 //  private final Class<T> targetClass;
 //
@@ -98,4 +96,4 @@ package com.github.lalifeier.mall.cloud.common.repository.impl;
 //  public void setAggregateManager(AggregateManager<T, ID> aggregateManager) {
 //    this.aggregateManager = aggregateManager;
 //  }
-//}
+// }

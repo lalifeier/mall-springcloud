@@ -5,5 +5,4 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class UserRoleDTO {
-}
+public class UserRoleDTO {}

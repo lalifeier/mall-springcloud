@@ -13,16 +13,15 @@ import org.springframework.data.annotation.Id;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class BasePO extends Auditable<String> {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "id", nullable = false)
-  private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Long id;
 
-  @Column(name = "is_deleted")
-  private Boolean isDeleted;
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
 
-  @Nullable
-  public BooleanBuilder booleanBuilder() {
-    return null;
-  }
+    @Nullable public BooleanBuilder booleanBuilder() {
+        return null;
+    }
 }

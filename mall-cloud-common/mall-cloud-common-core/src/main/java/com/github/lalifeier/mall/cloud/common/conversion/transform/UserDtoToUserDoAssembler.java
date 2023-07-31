@@ -12,5 +12,4 @@ public class UserDtoToUserDoAssembler implements Assembler<UserDto, UserDo> {
         userDo.setName(userDto.getName());
         return userDo;
     }
-
 }

@@ -5,9 +5,8 @@ import com.github.lalifeier.mall.cloud.common.model.result.PageResult;
 import com.github.lalifeier.mall.cloud.demo.book.dto.BookDTO;
 import com.github.lalifeier.mall.cloud.demo.book.dto.query.BookPageQuery;
 
-
 public interface BookQueryApplicationService extends QueryApplicationService {
-  BookDTO get(Long id);
+    BookDTO get(Long id);
 
-  PageResult<BookDTO> query(BookPageQuery query);
+    PageResult<BookDTO> query(BookPageQuery query);
 }

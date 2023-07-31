@@ -5,8 +5,8 @@ import com.github.lalifeier.mall.cloud.account.applicaiton.authentication.model.
 
 public interface AuthenticationApplicationService {
 
-  //  void register();
-  LoginDTO login(LoginCommand loginCommand);
+    //  void register();
+    LoginDTO login(LoginCommand loginCommand);
 
-  //  void logout();
+    //  void logout();
 }

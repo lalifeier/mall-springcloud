@@ -7,11 +7,11 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class UsernameLoginCommand extends LoginCommand {
-  private final String username;
-  private final String password;
+    private final String username;
+    private final String password;
 
-  @Override
-  public LoginType getLoginType() {
-    return LoginType.USERNAME;
-  }
+    @Override
+    public LoginType getLoginType() {
+        return LoginType.USERNAME;
+    }
 }

@@ -9,15 +9,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class JpaAutoConfiguration {
 
-  @PersistenceContext
-  private final EntityManager entityManager;
+    @PersistenceContext private final EntityManager entityManager;
 
-  public JpaAutoConfiguration(EntityManager entityManager) {
-    this.entityManager = entityManager;
-  }
+    public JpaAutoConfiguration(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
-  @Bean
-  public JPAQueryFactory jpaQueryFactory() {
-    return new JPAQueryFactory(entityManager);
-  }
+    @Bean
+    public JPAQueryFactory jpaQueryFactory() {
+        return new JPAQueryFactory(entityManager);
+    }
 }

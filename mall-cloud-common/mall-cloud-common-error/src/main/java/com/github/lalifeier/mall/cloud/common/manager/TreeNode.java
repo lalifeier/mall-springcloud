@@ -1,10 +1,10 @@
 package com.github.lalifeier.mall.cloud.common.manager;
 
+import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.List;
 @Getter
 @ToString
 @EqualsAndHashCode(of = "code")

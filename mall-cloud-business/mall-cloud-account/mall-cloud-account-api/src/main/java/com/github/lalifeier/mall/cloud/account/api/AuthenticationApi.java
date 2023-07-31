@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 public interface AuthenticationApi {
 
-  @PostMapping("/login")
-  LoginResponse login(@Validated @RequestBody LoginRequest request);
+    @PostMapping("/login")
+    LoginResponse login(@Validated @RequestBody LoginRequest request);
 
-  @PostMapping("/register")
-  RegisterResponse register(@Validated @RequestBody RegisterRequest request);
+    @PostMapping("/register")
+    RegisterResponse register(@Validated @RequestBody RegisterRequest request);
 }

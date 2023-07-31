@@ -7,11 +7,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
 @EnableJpaRepositories(basePackages = {"com.github.lalifeier.mall"})
 @EntityScan(basePackages = {"com.github.lalifeier.mall"})
-//@EnableJpaAuditing(auditorAwareRef = "auditorProvider")
+// @EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 public class JPAConfig {
 
-//    @Bean
-//    AuditorAware<String> auditorProvider() {
-//        return new UsernameAuditorAware();
-//    }
+    //    @Bean
+    //    AuditorAware<String> auditorProvider() {
+    //        return new UsernameAuditorAware();
+    //    }
 }

@@ -1,25 +1,23 @@
 package com.github.lalifeier.mall.cloud.common.utils;
 
+import java.util.concurrent.Callable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.Callable;
-
 @Component
 @EnableCaching
 public class LocalCacheUtil {
 
-    @Autowired
-    private CacheManager cacheManager;
+    @Autowired private CacheManager cacheManager;
 
     /**
      * 加入缓存
      *
-     * @param key       键值
-     * @param value     缓存值
+     * @param key 键值
+     * @param value 缓存值
      * @param cacheName 缓存名称
      */
     public void put(Object key, Object value, String cacheName) {
@@ -29,7 +27,7 @@ public class LocalCacheUtil {
     /**
      * 获取缓存
      *
-     * @param key       键值
+     * @param key 键值
      * @param cacheName 缓存名称
      * @return
      */
@@ -41,8 +39,8 @@ public class LocalCacheUtil {
     /**
      * 获取缓存
      *
-     * @param key       键值
-     * @param type      缓存值的类型
+     * @param key 键值
+     * @param type 缓存值的类型
      * @param cacheName 缓存名称
      * @param <T>
      * @return
@@ -54,9 +52,9 @@ public class LocalCacheUtil {
     /**
      * 获取缓存
      *
-     * @param key         键值
+     * @param key 键值
      * @param valueLoader 缓存值的类型
-     * @param cacheName   缓存名称
+     * @param cacheName 缓存名称
      * @param <T>
      * @return
      */
@@ -67,7 +65,7 @@ public class LocalCacheUtil {
     /**
      * 删除缓存
      *
-     * @param key       键值
+     * @param key 键值
      * @param cacheName 缓存名称
      * @return
      */

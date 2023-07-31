@@ -1,6 +1,6 @@
 package com.github.lalifeier.mall.cloud.common.repository.diff;
 
-//public class ThreadLocalAggregateManager<T extends Aggregate<ID>, ID extends Identifier>
+// public class ThreadLocalAggregateManager<T extends Aggregate<ID>, ID extends Identifier>
 //  implements AggregateManager<T, ID> {
 //
 //  private ThreadLocal<DbContext<T, ID>> context;
@@ -41,4 +41,4 @@ package com.github.lalifeier.mall.cloud.common.repository.diff;
 //  public void merge(T aggregate) {
 //    context.get().merge(aggregate);
 //  }
-//}
+// }

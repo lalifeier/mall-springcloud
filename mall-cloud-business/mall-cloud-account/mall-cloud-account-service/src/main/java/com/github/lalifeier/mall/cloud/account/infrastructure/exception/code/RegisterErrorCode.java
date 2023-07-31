@@ -6,24 +6,23 @@ import lombok.Getter;
 
 @Getter
 public enum RegisterErrorCode implements ErrorCode {
+    B_USER_EXIST(1, "用户已存在");
 
-  B_USER_EXIST(1, "用户已存在");
+    private final int nodeNum;
+    private final String description;
+    private final String message;
 
-  private final int nodeNum;
-  private final String description;
-  private final String message;
+    RegisterErrorCode(int nodeNum, String description) {
+        this.nodeNum = nodeNum;
+        this.description = description;
+        this.message = description;
+        ErrorManager.register(ProjectModuleCode.REGISTER, this);
+    }
 
-  RegisterErrorCode(int nodeNum, String description) {
-    this.nodeNum = nodeNum;
-    this.description = description;
-    this.message = description;
-    ErrorManager.register(ProjectModuleCode.REGISTER, this);
-  }
-
-  RegisterErrorCode(int nodeNum, String description, String message) {
-    this.nodeNum = nodeNum;
-    this.description = description;
-    this.message = message;
-    ErrorManager.register(ProjectModuleCode.REGISTER, this);
-  }
+    RegisterErrorCode(int nodeNum, String description, String message) {
+        this.nodeNum = nodeNum;
+        this.description = description;
+        this.message = message;
+        ErrorManager.register(ProjectModuleCode.REGISTER, this);
+    }
 }

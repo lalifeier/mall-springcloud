@@ -7,7 +7,7 @@ import org.mapstruct.factory.Mappers;
 public interface UserApplicationConverter {
     UserApplicationConverter INSTANCE = Mappers.getMapper(UserApplicationConverter.class);
 
-    //toDTO();
+    // toDTO();
 
-    //User toEntity(UserDTO userDTO);
+    // User toEntity(UserDTO userDTO);
 }

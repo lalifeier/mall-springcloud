@@ -1,19 +1,20 @@
 package org.slf4j;
 
-//import ch.qos.logback.classic.util.LogbackMDCAdapter;
-//import com.alibaba.ttl.TransmittableThreadLocal;
-//import org.slf4j.spi.MDCAdapter;
+// import ch.qos.logback.classic.util.LogbackMDCAdapter;
+// import com.alibaba.ttl.TransmittableThreadLocal;
+// import org.slf4j.spi.MDCAdapter;
 //
-//import java.util.Collections;
-//import java.util.HashMap;
-//import java.util.Map;
-//import java.util.Set;
+// import java.util.Collections;
+// import java.util.HashMap;
+// import java.util.Map;
+// import java.util.Set;
 //
-///**
+/// **
 // * 重构{@link LogbackMDCAdapter}类，搭配TransmittableThreadLocal实现父子线程之间的数据传递
 // */
-//public class TtlMDCAdapter implements MDCAdapter {
-//  private final ThreadLocal<Map<String, String>> copyOnInheritThreadLocal = new TransmittableThreadLocal<>();
+// public class TtlMDCAdapter implements MDCAdapter {
+//  private final ThreadLocal<Map<String, String>> copyOnInheritThreadLocal = new
+// TransmittableThreadLocal<>();
 //
 //  private static final int WRITE_OPERATION = 1;
 //  private static final int MAP_COPY_OPERATION = 2;
@@ -182,4 +183,4 @@ package org.slf4j;
 //    // the newMap replaces the old one for serialisation's sake
 //    copyOnInheritThreadLocal.set(newMap);
 //  }
-//}
+// }

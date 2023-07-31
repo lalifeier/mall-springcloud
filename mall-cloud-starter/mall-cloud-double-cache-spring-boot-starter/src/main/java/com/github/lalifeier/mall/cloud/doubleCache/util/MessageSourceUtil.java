@@ -1,9 +1,8 @@
 package com.github.lalifeier.mall.cloud.doubleCache.util;
 
-import org.springframework.core.env.Environment;
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import org.springframework.core.env.Environment;
 
 public class MessageSourceUtil {
     public static String getMsgSource() throws UnknownHostException {

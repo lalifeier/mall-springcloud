@@ -1,18 +1,18 @@
 package com.github.lalifeier.mall.cloud.common.utils;
 
-//import lombok.extern.slf4j.Slf4j;
-//import org.apache.commons.beanutils.BeanUtilsBean;
-//import org.apache.commons.beanutils.ConvertUtilsBean;
-//import org.apache.commons.beanutils.Converter;
+// import lombok.extern.slf4j.Slf4j;
+// import org.apache.commons.beanutils.BeanUtilsBean;
+// import org.apache.commons.beanutils.ConvertUtilsBean;
+// import org.apache.commons.beanutils.Converter;
 //
-//import java.util.List;
-//import java.util.stream.Collectors;
+// import java.util.List;
+// import java.util.stream.Collectors;
 //
-///**
+/// **
 // * 用于将一个对象的属性复制到另一个对象中。
 // */
-//@Slf4j
-//public class BeanUtil {
+// @Slf4j
+// public class BeanUtil {
 //
 //  private static ConvertUtilsBean convertUtils = BeanUtilsBean.getInstance().getConvertUtils();
 //
@@ -75,7 +75,8 @@ package com.github.lalifeier.mall.cloud.common.utils;
 //    try {
 //      target = targetClass.getDeclaredConstructor().newInstance();
 //    } catch (Exception e) {
-//      throw new RuntimeException("Failed to create an instance of the target class: " + targetClass.getName(), e);
+//      throw new RuntimeException("Failed to create an instance of the target class: " +
+// targetClass.getName(), e);
 //    }
 //    copyProperties(source, target, converter);
 //    return target;
@@ -100,9 +101,10 @@ package com.github.lalifeier.mall.cloud.common.utils;
 //   * @param converter   自定义转换器
 //   * @return 复制后的目标对象列表
 //   */
-//  public static <T> List<T> copyBeanList(List<?> sourceList, Class<T> targetClass, Converter converter) {
+//  public static <T> List<T> copyBeanList(List<?> sourceList, Class<T> targetClass, Converter
+// converter) {
 //    return sourceList.stream()
 //      .map(source -> copyBean(source, targetClass, converter))
 //      .collect(Collectors.toList());
 //  }
-//}
+// }

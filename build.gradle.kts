@@ -11,8 +11,8 @@ plugins {
   id("local.protobuf") apply false
   id("local.maven") apply false
   id("local.docker") apply false
-  id("local.spotless") apply false
   id("local.sonarqube") apply false
+  id("local.spotless") apply false
   id("local.versions")
 }
 
@@ -40,6 +40,7 @@ configure(javaProjects) {
   apply(plugin = "local.kotlin")
   apply(plugin = "local.spring")
   apply(plugin = "local.maven")
+  apply(plugin = "local.spotless")
 
   configurations {
     all {

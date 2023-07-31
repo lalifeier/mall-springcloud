@@ -2,9 +2,8 @@ package com.github.lalifeier.mall.cloud.auth.domain.user.model.entity;
 
 import com.github.lalifeier.mall.cloud.auth.domain.user.model.valueobject.Role;
 import com.github.lalifeier.mall.cloud.auth.domain.user.model.valueobject.UserId;
-import lombok.Data;
-
 import java.util.List;
+import lombok.Data;
 
 @Data
 public class UserDO {

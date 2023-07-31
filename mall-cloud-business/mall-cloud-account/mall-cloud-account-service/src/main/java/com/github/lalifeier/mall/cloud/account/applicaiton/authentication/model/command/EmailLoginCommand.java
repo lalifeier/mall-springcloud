@@ -7,11 +7,11 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class EmailLoginCommand extends LoginCommand {
-  private final String email;
-  private final String password;
+    private final String email;
+    private final String password;
 
-  @Override
-  public LoginType getLoginType() {
-    return LoginType.EMAIL;
-  }
+    @Override
+    public LoginType getLoginType() {
+        return LoginType.EMAIL;
+    }
 }

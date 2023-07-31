@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 public class CreateBookCommand implements Command {
 
-  private String name;
+    private String name;
 }

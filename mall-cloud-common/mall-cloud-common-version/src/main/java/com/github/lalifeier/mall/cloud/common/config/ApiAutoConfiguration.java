@@ -12,9 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 public class ApiAutoConfiguration implements WebMvcRegistrations {
 
     @Override
-    @NonNull
-    public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
+    @NonNull public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
         return new ApiHandlerMapping();
     }
 }
-

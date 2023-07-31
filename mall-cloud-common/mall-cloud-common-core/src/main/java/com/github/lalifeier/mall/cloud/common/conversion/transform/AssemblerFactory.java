@@ -1,8 +1,8 @@
-//package com.github.lalifeier.conversion.transform;
+// package com.github.lalifeier.conversion.transform;
 //
-//import org.springframework.util.ReflectionUtils;
+// import org.springframework.util.ReflectionUtils;
 //
-//public class AssemblerFactory {
+// public class AssemblerFactory {
 //    private static AssemblerFactory INSTANCE = new AssemblerFactory();
 //
 //    private AssemblerFactory() {
@@ -15,7 +15,8 @@
 //    private Assembler getAssembler(Class type) {
 //        Assembler assembler = null;
 //        try {
-//            assembler = (Assembler) ReflectionUtils.accessibleConstructor(type, new Class[0]).newInstance(new Object[0]);
+//            assembler = (Assembler) ReflectionUtils.accessibleConstructor(type, new
+// Class[0]).newInstance(new Object[0]);
 //        } catch (Throwable e) {
 //            e.printStackTrace();
 //        }
@@ -27,4 +28,4 @@
 //        T target = (T) assembler.convert(original, targetType);
 //        return target;
 //    }
-//}
+// }

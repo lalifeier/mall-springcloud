@@ -18,8 +18,8 @@ import org.springframework.context.annotation.Configuration;
 @AutoConfigureBefore(FeignAutoConfiguration.class)
 public class FeignConfig {
     //
-    //@Bean
-    //public OkHttpClient okHttpClient(OkhttpProperties okhttpProperties) {
+    // @Bean
+    // public OkHttpClient okHttpClient(OkhttpProperties okhttpProperties) {
     //    return new OkHttpClient.Builder()
     //            .connectTimeout(okhttpProperties.getConnectTimeout(), TimeUnit.MILLISECONDS)
     //            .readTimeout(okhttpProperties.getReadTimeout(), TimeUnit.MILLISECONDS)
@@ -27,14 +27,11 @@ public class FeignConfig {
     //            .retryOnConnectionFailure(true)
     //            .connectionPool(new ConnectionPool())
     //            .build();
-    //}
-
+    // }
 
     @Bean
     public OkHttpClient okHttpClient() {
-        return new OkHttpClient.Builder()
-                .connectionPool(new ConnectionPool())
-                .build();
+        return new OkHttpClient.Builder().connectionPool(new ConnectionPool()).build();
     }
 
     @Bean

@@ -1,4 +1,3 @@
 package com.github.lalifeier.mall.cloud.auth.applicaiton.model.command;
 
-public class UpdateUserCommand {
-}
+public class UpdateUserCommand {}

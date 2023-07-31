@@ -15,34 +15,41 @@ import reactor.core.publisher.Mono;
 @Component
 public class CacheBodyGlobalFilter implements Ordered, GlobalFilter {
 
-  //public static final String CACHE_REQUEST_BODY_OBJECT_KEY = "cachedRequestBodyObject";
+    // public static final String CACHE_REQUEST_BODY_OBJECT_KEY = "cachedRequestBodyObject";
 
-  @Override
-  public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-    if (exchange.getRequest().getHeaders().getContentType() == null) {
-      return chain.filter(exchange);
+    @Override
+    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        if (exchange.getRequest().getHeaders().getContentType() == null) {
+            return chain.filter(exchange);
+        }
+
+        return DataBufferUtils.join(exchange.getRequest().getBody())
+                .flatMap(
+                        dataBuffer -> {
+                            DataBufferUtils.retain(dataBuffer);
+                            Flux<DataBuffer> cachedFlux =
+                                    Flux.defer(
+                                            () ->
+                                                    Flux.just(
+                                                            dataBuffer.slice(
+                                                                    0,
+                                                                    dataBuffer
+                                                                            .readableByteCount())));
+                            ServerHttpRequest mutatedRequest =
+                                    new ServerHttpRequestDecorator(exchange.getRequest()) {
+                                        @Override
+                                        public Flux<DataBuffer> getBody() {
+                                            return cachedFlux;
+                                        }
+                                    };
+                            // exchange.getAttributes().put(CACHE_REQUEST_BODY_OBJECT_KEY,
+                            // cachedFlux);
+                            return chain.filter(exchange.mutate().request(mutatedRequest).build());
+                        });
     }
-    
-    return DataBufferUtils.join(exchange.getRequest().getBody())
-      .flatMap(dataBuffer -> {
-        DataBufferUtils.retain(dataBuffer);
-        Flux<DataBuffer> cachedFlux = Flux
-          .defer(() -> Flux.just(dataBuffer.slice(0, dataBuffer.readableByteCount())));
-        ServerHttpRequest mutatedRequest = new ServerHttpRequestDecorator(exchange.getRequest()) {
-          @Override
-          public Flux<DataBuffer> getBody() {
-            return cachedFlux;
-          }
-        };
-        //exchange.getAttributes().put(CACHE_REQUEST_BODY_OBJECT_KEY, cachedFlux);
-        return chain.filter(exchange.mutate().request(mutatedRequest).build());
-      });
-  }
 
-  @Override
-  public int getOrder() {
-    return Ordered.HIGHEST_PRECEDENCE;
-  }
+    @Override
+    public int getOrder() {
+        return Ordered.HIGHEST_PRECEDENCE;
+    }
 }
-
-

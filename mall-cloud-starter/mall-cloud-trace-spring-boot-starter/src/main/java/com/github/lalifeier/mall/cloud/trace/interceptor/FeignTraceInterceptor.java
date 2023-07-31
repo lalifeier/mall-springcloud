@@ -8,26 +8,23 @@ import feign.RequestTemplate;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.stereotype.Component;
 
-/**
- * feign拦截器，传递traceId
- */
+/** feign拦截器，传递traceId */
 @Component
 @ConditionalOnClass(value = {RequestInterceptor.class})
 public class FeignTraceInterceptor implements RequestInterceptor {
-  private final TraceProperties traceProperties;
+    private final TraceProperties traceProperties;
 
-  public FeignTraceInterceptor(TraceProperties traceProperties) {
-    this.traceProperties = traceProperties;
-  }
-
-  @Override
-  public void apply(RequestTemplate requestTemplate) {
-    if (!traceProperties.getEnable()) {
-      return;
+    public FeignTraceInterceptor(TraceProperties traceProperties) {
+        this.traceProperties = traceProperties;
     }
 
-    String traceId = MDCTraceUtil.getTraceId();
-    requestTemplate.header(HeaderConstants.TRACE_ID, traceId);
-  }
-}
+    @Override
+    public void apply(RequestTemplate requestTemplate) {
+        if (!traceProperties.getEnable()) {
+            return;
+        }
 
+        String traceId = MDCTraceUtil.getTraceId();
+        requestTemplate.header(HeaderConstants.TRACE_ID, traceId);
+    }
+}
