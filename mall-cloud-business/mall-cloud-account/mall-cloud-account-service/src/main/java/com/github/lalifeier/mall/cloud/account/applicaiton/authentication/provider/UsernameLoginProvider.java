@@ -42,7 +42,7 @@ public class UsernameLoginProvider extends AbstractLoginProvider {
       throw new LoginException(LoginErrorCodeEnum.B_USER_NOT_EXIST);
     }
 
-    if (!account.getPassword().verifyPassword(((UsernameLoginCommand) loginCommand).getPassword())) {
+    if (!account.getPassword().verifyPassword(password)) {
       throw new LoginException(LoginErrorCodeEnum.B_USER_PASSWORD_ERROR);
     }
 
