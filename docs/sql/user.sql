@@ -9,13 +9,11 @@ CREATE TABLE IF NOT EXISTS `account_user` (
   `created_by` int(11) NOT NULL DEFAULT '0' COMMENT '创建人',
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `updated_by` int(11) NOT NULL DEFAULT '0' COMMENT '更新人',
-  `deleted_at` datetime DEFAULT NULL COMMENT '删除时间',
-  `deleted_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '删除人',
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`id`),
   KEY `idx_username` (`username`),
   KEY `idx_phone` (`phone`),
-  KEY `idx_email` (`email`),
+  KEY `idx_email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='帐号表';
 
 CREATE TABLE IF NOT EXISTS `account_platform` (
@@ -30,8 +28,6 @@ CREATE TABLE IF NOT EXISTS `account_platform` (
   `created_by` int(11) NOT NULL DEFAULT '0' COMMENT '创建人',
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `updated_by` int(11) NOT NULL DEFAULT '0' COMMENT '更新人',
-  `deleted_at` datetime DEFAULT NULL COMMENT '删除时间',
-  `deleted_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '删除人',
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`id`),
   KEY `idx_account_id` (`account_id`),
@@ -54,8 +50,6 @@ CREATE TABLE IF NOT EXISTS `account_device` (
   `created_by` int(11) NOT NULL DEFAULT '0' COMMENT '创建人',
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `updated_by` int(11) NOT NULL DEFAULT '0' COMMENT '更新人',
-  `deleted_at` datetime DEFAULT NULL COMMENT '删除时间',
-  `deleted_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '删除人',
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (id),
   KEY `idx_account_id` (`account_id`),
@@ -74,8 +68,6 @@ CREATE TABLE IF NOT EXISTS `xxx_app_user` (
   `created_by` int(11) NOT NULL DEFAULT '0' COMMENT '创建人',
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `updated_by` int(11) NOT NULL DEFAULT '0' COMMENT '更新人',
-  `deleted_at` datetime DEFAULT NULL COMMENT '删除时间',
-  `deleted_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '删除人',
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (id),
   KEY `idx_account_id` (`account_id`),

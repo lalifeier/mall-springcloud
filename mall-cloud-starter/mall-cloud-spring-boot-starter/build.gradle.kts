@@ -16,4 +16,5 @@ dependencies {
   implementation(libs.guava)
   implementation(libs.gson)
   implementation(libs.commons.lang3)
+  implementation(libs.transmittable.thread.local)
 }

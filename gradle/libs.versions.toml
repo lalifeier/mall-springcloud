@@ -4,6 +4,7 @@ slf4j = "2.0.7"
 cglib = "3.3.0"
 servlet = "6.0.0"
 validation = "3.0.2"
+hibernate-validator = "8.0.1.Final"
 persistence = "3.1.0"
 annotation = "2.1.1"
 jackson = "2.15.2"
@@ -81,6 +82,7 @@ lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" 
 servlet-api = { group = "jakarta.servlet", name = "jakarta.servlet-api", version.ref = "servlet" }
 annotation-api = { group = "jakarta.annotation", name = "jakarta.annotation-api", version.ref = "annotation" }
 validation-api = { group = "jakarta.validation", name = "jakarta.validation-api", version.ref = "validation" }
+hibernate-validator = { group = "org.hibernate", name = "hibernate-validator", version.ref = "hibernate-validator" }
 persistence-api = { group = "jakarta.persistence", name = "jakarta.persistence-api", version.ref = "persistence" }
 jackson-databind = { group = "com.fasterxml.jackson.core", name = "jackson-databind", version.ref = "jackson" }
 jackson-annotations = { group = "com.fasterxml.jackson.core", name = "jackson-annotations", version.ref = "jackson" }

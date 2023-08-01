@@ -1,1 +1,2 @@
 com.github.lalifeier.mall.cloud.mybatisplus.config.MybatisPlusConfig
+com.github.lalifeier.mall.cloud.mybatisplus.handler.MybatisPlusAuditHandler
