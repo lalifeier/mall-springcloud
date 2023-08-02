@@ -42,47 +42,44 @@ spring:
             - Path=/account/**
           filters:
             - StripPrefix=1
+            #        - id: login
+            #          uri: lb://account-service
+            #          predicates:
+            #            - Path=/login
+            #          filters:
+            #            - PreserveHostHeader
+            #        - id: register
+            #          uri: lb://account-service
+            #          predicates:
+            #            - Path=/register
+            #          filters:
+            #            - PreserveHostHeader
 
-
-        - id: login
-          uri: lb://account-service
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=1
+        - id: auth-service-login
+          uri: lb://auth-service
           predicates:
             - Path=/login
           filters:
             - PreserveHostHeader
-
-        - id: register
-          uri: lb://account-service
+        - id: auth-service-token
+          uri: lb://auth-service
           predicates:
-            - Path=/register
+            - Path=/oauth2/token
+          filters:
+            - PreserveHostHeader
+        - id: auth-service-authorize
+          uri: lb://auth-service
+          predicates:
+            - Path=/oauth2/authorize
           filters:
             - PreserveHostHeader
 
-      #        - id: mall-auth
-      #          uri: lb://mall-auth
-      #          predicates:
-      #            - Path=/auth/**
-      #          filters:
-      #            - StripPrefix=1
-      #            -
-      #        - id: mall-auth-login
-      #          uri: lb://mall-auth
-      #          predicates:
-      #            - Path=/login
-      #          filters:
-      #            - PreserveHostHeader
-      #        - id: mall-auth-token
-      #          uri: lb://mall-auth
-      #          predicates:
-      #            - Path=/oauth2/token
-      #          filters:
-      #            - PreserveHostHeader
-      #        - id: mall-auth-authorize
-      #          uri: lb://mall-auth
-      #          predicates:
-      #            - Path=/oauth2/authorize
-      #          filters:
-      #            - PreserveHostHeader
       #        - id: mall-account
       #          uri: lb://mall-account
       #          predicates:

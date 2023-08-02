@@ -7,6 +7,12 @@ spring:
   #  autoconfigure:
   #    exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
 
+  sql:
+    init:
+      mode: always
+  #      schema-locations: classpath:schema/schema.sql
+  #      data-locations: classpath:schema/data.sql
+
   #  h2:
   #    console:
   #      enabled: true
@@ -44,7 +50,7 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
-      
+
 logging:
   level:
     root: debug
