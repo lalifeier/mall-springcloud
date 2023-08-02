@@ -8,5 +8,6 @@ dependencies {
   implementation(libs.druid.spring.boot.starter)
   implementation(libs.spring.security.oauth2.authorization.server)
   implementation(libs.mapstruct)
+  annotationProcessor(libs.mapstruct.processor)
   implementation(libs.commons.lang3)
 }

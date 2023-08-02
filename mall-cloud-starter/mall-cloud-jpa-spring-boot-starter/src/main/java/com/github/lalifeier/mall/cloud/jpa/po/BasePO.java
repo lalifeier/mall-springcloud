@@ -1,27 +1,49 @@
 package com.github.lalifeier.mall.cloud.jpa.po;
 
-import com.github.lalifeier.mall.cloud.jpa.audit.Auditable;
+
 import com.querydsl.core.BooleanBuilder;
 import jakarta.annotation.Nullable;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
-public class BasePO extends Auditable<String> {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
+@MappedSuperclass
+@EntityListeners({AuditingEntityListener.class})
+public class BasePO implements Serializable {
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "id", nullable = false)
+  private Long id;
 
-    @Column(name = "is_deleted")
-    private Boolean isDeleted;
+  @CreatedDate
+  @Column(name = "created_at", columnDefinition = "datetime")
+  private LocalDateTime createdAt;
 
-    @Nullable public BooleanBuilder booleanBuilder() {
-        return null;
-    }
+  @CreatedBy
+  @Column(name = "created_by")
+  private Long createdBy;
+
+  @LastModifiedDate
+  @Column(name = "updated_at", columnDefinition = "datetime")
+  private LocalDateTime updatedAt;
+
+  @LastModifiedBy
+  @Column(name = "updated_by")
+  private Long updatedBy;
+
+  @Column(name = "is_deleted")
+  private Boolean isDeleted;
+
+  @Nullable
+  public BooleanBuilder booleanBuilder() {
+    return null;
+  }
 }
