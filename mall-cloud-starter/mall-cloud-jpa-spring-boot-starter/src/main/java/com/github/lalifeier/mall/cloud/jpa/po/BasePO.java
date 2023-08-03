@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @EntityListeners({AuditingEntityListener.class})
 public class BasePO implements Serializable {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
   private Long id;
 

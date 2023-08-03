@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.auth.domain.user.model.entity;
+package com.github.lalifeier.mall.cloud.auth.domain.oauth2.entity;
 
 import lombok.Data;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 @Data
-public class User implements UserDetails {
+public class UserPrincipal implements UserDetails {
   private Long id;
   private String username;
   private String password;

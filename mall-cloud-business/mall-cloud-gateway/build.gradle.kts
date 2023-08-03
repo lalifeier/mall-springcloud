@@ -6,12 +6,14 @@ dependencies {
     exclude(group = "com.github.lalifeier", module = "mall-cloud-spring-boot-starter")
   }
   implementation("org.springframework.cloud:spring-cloud-starter-gateway")
-//  implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+  implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
   implementation("org.springframework.boot:spring-boot-starter-data-redis")
   implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
   implementation("org.springframework.boot:spring-boot-configuration-processor")
   implementation(libs.commons.lang3)
   implementation(libs.gson)
+  implementation(libs.commons.beanutils)
+  implementation(libs.hutool)
   implementation(libs.spring.boot.starter.actuator)
   implementation(libs.micrometer.registry.prometheus)
 }

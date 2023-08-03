@@ -134,7 +134,7 @@ guava = { group = "com.google.guava", name = "guava", version.ref = "guava" }
 commons-lang3 = { group = "org.apache.commons", name = "commons-lang3", version.ref = "commons-lang3" }
 commons-io = { group = "commons-io", name = "commons-io", version.ref = "commons-io" }
 commons-codec = { group = "commons-codec", name = "commons-codec", version.ref = "commons-codec" }
-# commons-beanutils = { group = "commons-beanutils", name = "commons-beanutils", version.ref = "commonsBeanutils" }
+commons-beanutils = { group = "commons-beanutils", name = "commons-beanutils", version.ref = "commons-beanutils" }
 commons-collections4 = { group = "org.apache.commons", name = "commons-collections4", version.ref = "commons-collections4" }
 logstash-logback-encoder = { group = "net.logstash.logback", name = "logstash-logback-encoder", version.ref = "logstash" }
 apm-toolkit-logback = { group = "org.apache.skywalking", name = "apm-toolkit-logback-1.x", version.ref = "skywalking" }

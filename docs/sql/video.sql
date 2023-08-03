@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `user` (
+CREATE TABLE IF NOT EXISTS `userPrincipal` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
   `account_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '账号id',
   `nickname` varchar(30) NOT NULL DEFAULT '' COMMENT '昵称',

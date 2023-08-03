@@ -1,7 +1,7 @@
 package com.github.lalifeier.mall.cloud.auth.infrastructure.repository;
 
-import com.github.lalifeier.mall.cloud.auth.domain.user.model.entity.User;
-import com.github.lalifeier.mall.cloud.auth.domain.user.repository.UserRepository;
+import com.github.lalifeier.mall.cloud.auth.domain.oauth2.entity.UserPrincipal;
+import com.github.lalifeier.mall.cloud.auth.domain.oauth2.repository.UserRepository;
 import com.github.lalifeier.mall.cloud.auth.infrastructure.persistence.jpa.converter.UserConverter;
 import com.github.lalifeier.mall.cloud.auth.infrastructure.persistence.jpa.mapper.RoleDao;
 import com.github.lalifeier.mall.cloud.auth.infrastructure.persistence.jpa.mapper.UserDao;
@@ -25,7 +25,7 @@ public class UserRepositoryImpl implements UserRepository {
   private final UserConverter userConverter = UserConverter.INSTANCE;
 
   @Override
-  public User findUserByUsername(String username) {
+  public UserPrincipal findUserByUsername(String username) {
     UserPO user = userDao.findUserByUsername(username);
     return userConverter.toData(user);
   }

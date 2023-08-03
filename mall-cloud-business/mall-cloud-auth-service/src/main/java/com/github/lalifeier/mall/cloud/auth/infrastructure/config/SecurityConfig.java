@@ -22,7 +22,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class SecurityConfig {
 
-  // private final UserService userService;
+//  private final UserService userService;
 
   private final DataSource dataSource;
 
@@ -50,19 +50,21 @@ public class SecurityConfig {
   }
 
   @Bean
-  public UserDetailsService users() {
+  public UserDetailsService userDetailsService() {
     return new JdbcUserDetailsManager(dataSource);
+//    return username -> userService.loadUserByUsername(username);
   }
 
-
-  // @Bean
-  // public AuthenticationManager authenticationManagerBean() throws Exception {
-  //    return super.authenticationManagerBean();
-  // }
-
-  //    @Override
-  //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-  //        auth.userDetailsService(userDetailsServiceBean())
-  //                .passwordEncoder(passwordEncoder());
-  //    }
+//  @Bean
+//  public AuthenticationProvider authenticationProvider() {
+//    DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+//    authProvider.setUserDetailsService(userDetailsService());
+//    authProvider.setPasswordEncoder(passwordEncoder());
+//    return authProvider;
+//  }
+//
+//  @Bean
+//  public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+//    return config.getAuthenticationManager();
+//  }
 }
