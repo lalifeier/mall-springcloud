@@ -69,6 +69,7 @@ transmittable-thread-local = "2.14.2"
 ip2region = "2.7.0"
 elasticsearch = "7.14.0"
 easy-es = "2.0.0-beta3"
+jjwt = "0.9.1"
 
 spring-dependency-management = "1.0.15.RELEASE"
 docker-plugin = "9.3.1"
@@ -170,6 +171,10 @@ ip2region = { group = "org.lionsoul", name = "ip2region", version.ref = "ip2regi
 easy-es-boot-starter = { group = "org.dromara.easy-es", name = "easy-es-boot-starter", version.ref = "easy-es" }
 elasticsearch-rest-high-level-client = { group = "org.elasticsearch.client", name = "elasticsearch-rest-high-level-client", version.ref = "elasticsearch" }
 elasticsearch = { group = "org.elasticsearch.client", name = "elasticsearch", version.ref = "elasticsearch" }
+jjwt = { group = "io.jsonwebtoken", name = "jjwt", version.ref = "jjwt" }
+jjwt-api = { group = "io.jsonwebtoken", name = "jjwt-api", version.ref = "jjwt" }
+jjwt-impl = { group = "io.jsonwebtoken", name = "jjwt-impl", version.ref = "jjwt" }
+jjwt-jackson = { group = "io.jsonwebtoken", name = "jjwt-jackson", version.ref = "jjwt" }
 
 spring-boot-gradle-plugin = { group = "org.springframework.boot", name = "spring-boot-gradle-plugin", version.ref = "spring-boot" }
 spring-dependency-management-plugin = { group = "io.spring.gradle", name = "dependency-management-plugin", version.ref = "spring-dependency-management" }

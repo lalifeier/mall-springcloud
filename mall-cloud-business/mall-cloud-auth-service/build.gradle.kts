@@ -10,6 +10,7 @@ dependencies {
   implementation(libs.mapstruct)
   annotationProcessor(libs.mapstruct.processor)
   implementation(libs.commons.lang3)
+  implementation(libs.nimbus.jose.jwt)
   implementation(libs.spring.boot.starter.actuator)
   implementation(libs.micrometer.registry.prometheus)
 }
