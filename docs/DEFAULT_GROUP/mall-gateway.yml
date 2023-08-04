@@ -85,7 +85,7 @@ spring:
               #          uri: lb://mall-account
               #          predicates:
               #            - Path=/account/**
-              #          filters:
+            #          filters:
             #            - StripPrefix=1
             #        - id: mall-admin
             #          uri: lb://mall-admin
@@ -141,9 +141,7 @@ gateway:
   white-urls:
     - "/actuator/**"
     - "/login"
-    - "/oauth2/token"
-    - "/oauth2/authorize"
-    - "/oauth2/jwks"
+    - "/oauth2/**"
     - "/doc.html"
     - "/swagger-resources/**"
     - "/swagger/**"

@@ -6,7 +6,6 @@ import com.github.lalifeier.mall.cloud.common.constant.HttpErrorCodeEnum;
 import com.github.lalifeier.mall.cloud.common.model.result.Result;
 import com.github.lalifeier.mall.cloud.common.utils.JSONUtil;
 import com.github.lalifeier.mall.cloud.gateway.component.AuthorizationManager;
-import com.github.lalifeier.mall.cloud.gateway.filter.IgnoreUrlsRemoveJwtFilter;
 import com.github.lalifeier.mall.cloud.gateway.properties.GatewayAuthProperties;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +18,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
-import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
@@ -39,7 +37,7 @@ import java.nio.charset.StandardCharsets;
 public class ResourceServerConfig {
   private final AuthorizationManager authorizationManager;
   private final GatewayAuthProperties gatewayAuthProperties;
-  private final IgnoreUrlsRemoveJwtFilter ignoreUrlsRemoveJwtFilter;
+//  private final IgnoreUrlsRemoveJwtFilter ignoreUrlsRemoveJwtFilter;
 
   @Bean
   public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
@@ -47,7 +45,7 @@ public class ResourceServerConfig {
     //自定义处理JWT请求头过期或签名错误的结果
     http.oauth2ResourceServer().authenticationEntryPoint(authenticationEntryPoint());
     //对白名单路径，直接移除JWT请求头
-    http.addFilterBefore(ignoreUrlsRemoveJwtFilter, SecurityWebFiltersOrder.AUTHENTICATION);
+//    http.addFilterBefore(ignoreUrlsRemoveJwtFilter, SecurityWebFiltersOrder.AUTHENTICATION);
     http.authorizeExchange()
       //白名单配置
       .pathMatchers(ArrayUtil.toArray(gatewayAuthProperties.getWhiteUrls(), String.class)).permitAll()
