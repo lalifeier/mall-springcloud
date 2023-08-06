@@ -10,6 +10,8 @@ import java.util.Collection;
 public class UserPrincipal implements UserDetails {
   private Long id;
   private String username;
+  private String email;
+  private String phone;
   private String password;
   private Collection<SimpleGrantedAuthority> authorities;
 

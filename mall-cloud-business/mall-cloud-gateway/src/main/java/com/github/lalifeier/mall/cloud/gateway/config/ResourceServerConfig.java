@@ -1,8 +1,8 @@
 package com.github.lalifeier.mall.cloud.gateway.config;
 
 import cn.hutool.core.util.ArrayUtil;
-import com.github.lalifeier.mall.cloud.common.constant.Constants;
-import com.github.lalifeier.mall.cloud.common.constant.HttpErrorCodeEnum;
+import com.github.lalifeier.mall.cloud.common.constant.SecurityConstants;
+import com.github.lalifeier.mall.cloud.common.enums.HttpErrorCodeEnum;
 import com.github.lalifeier.mall.cloud.common.model.result.Result;
 import com.github.lalifeier.mall.cloud.common.utils.JSONUtil;
 import com.github.lalifeier.mall.cloud.gateway.component.AuthorizationManager;
@@ -103,8 +103,8 @@ public class ResourceServerConfig {
   jwtAuthenticationConverter() {
     JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new
       JwtGrantedAuthoritiesConverter();
-    jwtGrantedAuthoritiesConverter.setAuthorityPrefix(Constants.AUTHORITY_PREFIX);
-    jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName(Constants.AUTHORITY_CLAIM_NAME);
+    jwtGrantedAuthoritiesConverter.setAuthorityPrefix(SecurityConstants.AUTHORITY_PREFIX);
+    jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName(SecurityConstants.AUTHORITY_CLAIM_NAME);
     JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
     jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
     return new ReactiveJwtAuthenticationConverterAdapter(jwtAuthenticationConverter);

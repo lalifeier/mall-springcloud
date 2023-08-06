@@ -1,5 +1,5 @@
 -- 系统管理
-CREATE TABLE `system` (
+CREATE TABLE IF NOT EXISTS `system` (
   `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
   `name` varchar(255) NOT NULL DEFAULT '' COMMENT '系统名称',
   `description` varchar(255) NOT NULL DEFAULT '' COMMENT '系统描述',
@@ -17,7 +17,7 @@ CREATE TABLE `system` (
 
 -- 字典管理
 DROP TABLE IF EXISTS `sys_dict_type`;
-CREATE TABLE `sys_dict_type` (
+CREATE TABLE IF NOT EXISTS `sys_dict_type` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '字典类型id',
   `system_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '系统ID',
   `name` varchar(100) NOT NULL DEFAULT '' COMMENT '字典名称',
@@ -36,7 +36,7 @@ CREATE TABLE `sys_dict_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='字典类型表';
 
 DROP TABLE IF EXISTS `sys_dict_data`;
-CREATE TABLE `sys_dict_data` (
+CREATE TABLE IF NOT EXISTS `sys_dict_data` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '字典数据id',
   `dict_type_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '字典类型id',
   `label` varchar(100) NOT NULL DEFAULT '' COMMENT '字典标签',

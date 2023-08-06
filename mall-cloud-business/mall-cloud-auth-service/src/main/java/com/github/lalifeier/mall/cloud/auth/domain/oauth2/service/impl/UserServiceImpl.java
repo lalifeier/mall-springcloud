@@ -17,27 +17,9 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    // List<User> findUserList = userList.stream().filter(item ->
-    // item.getUsername().equals(username)).collect(Collectors.toList());
-    // if (CollectionUtils.isEmpty(findUserList)) {
-    //    throw new UsernameNotFoundException(MessageConstant.USERNAME_PASSWORD_ERROR);
-    // }
-    //
-    // UserPrincipal userPrincipal = new UserPrincipal(findUserList.get(0));
-    // if (!userPrincipal.isEnabled()) {
-    //    throw new DisabledException(MessageConstant.ACCOUNT_DISABLED);
-    // } else if (!userPrincipal.isAccountNonLocked()) {
-    //    throw new LockedException(MessageConstant.ACCOUNT_LOCKED);
-    // } else if (!userPrincipal.isAccountNonExpired()) {
-    //    throw new AccountExpiredException(MessageConstant.ACCOUNT_EXPIRED);
-    // } else if (!userPrincipal.isCredentialsNonExpired()) {
-    //    throw new CredentialsExpiredException(MessageConstant.CREDENTIALS_EXPIRED);
-    // }
-    // return userPrincipal;
-
-    UserPrincipal userPrincipal = userRepository.findUserByUsername(username);
+    UserPrincipal userPrincipal = userRepository.findByUsername(username);
     if (userPrincipal == null) {
-      throw new UsernameNotFoundException("用户名或密码为空");
+      throw new UsernameNotFoundException("用户名或密码错误");
     }
 
     return userPrincipal;

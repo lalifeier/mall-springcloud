@@ -4,15 +4,19 @@ import com.github.lalifeier.mall.cloud.jpa.po.BasePO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
 @Entity
+@Data
 @Table(name = "user_role")
 public class UserRolePO extends BasePO {
 
-  private Long userId;
+  /**
+   * 用户id
+   */
+  private Integer userId;
 
-  private Long roleId;
+  /**
+   * 角色id
+   */
+  private Integer roleId;
 }

@@ -83,8 +83,8 @@ spring:
 
               #        - id: mall-account
               #          uri: lb://mall-account
-              #          predicates:
-              #            - Path=/account/**
+            #          predicates:
+            #            - Path=/account/**
             #          filters:
             #            - StripPrefix=1
             #        - id: mall-admin
@@ -102,8 +102,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          #          issuer-uri: http://127.0.0.1:18000
-          jwk-set-uri: http://localhost:32917/oauth2/jwks
+          issuer-uri: http://127.0.0.1:18000
   #      client:
   #        registration:
   #          messaging-gateway-oidc:

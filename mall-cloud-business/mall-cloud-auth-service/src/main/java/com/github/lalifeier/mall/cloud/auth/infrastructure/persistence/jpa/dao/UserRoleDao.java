@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.auth.infrastructure.persistence.jpa.mapper;
+package com.github.lalifeier.mall.cloud.auth.infrastructure.persistence.jpa.dao;
 
 import com.github.lalifeier.mall.cloud.auth.infrastructure.persistence.jpa.po.UserRolePO;
 import org.springframework.data.jpa.repository.JpaRepository;

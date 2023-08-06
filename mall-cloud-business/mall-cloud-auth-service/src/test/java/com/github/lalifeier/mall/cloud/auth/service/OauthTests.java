@@ -42,14 +42,17 @@ public class OauthTests {
   void testSaveClient() {
     RegisteredClient registeredClient =
       RegisteredClient.withId(UUID.randomUUID().toString())
-        .clientId("gateway_client1111")
+        .clientId("gateway_client")
         .clientSecret(new BCryptPasswordEncoder().encode("123456"))
         .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
         .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
         .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
         .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+
+
+//        .authorizationGrantType(new AuthorizationGrantType(SecurityConstants.GRANT_TYPE_SMS_CODE))
 //        .authorizationGrantType(AuthorizationGrantType.PASSWORD)
-        // .authorizationGrantType(AuthorizationGrantType.IMPLICIT)
+//         .authorizationGrantType(AuthorizationGrantType.IMPLICIT)
         .redirectUri("https://www.baidu.com")
         .scope(OidcScopes.OPENID)
         .scope(OidcScopes.PROFILE)

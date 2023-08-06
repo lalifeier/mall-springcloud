@@ -1,27 +1,32 @@
 package com.github.lalifeier.mall.cloud.auth.infrastructure.persistence.jpa.po;
 
 import com.github.lalifeier.mall.cloud.jpa.po.BasePO;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
 @Entity
+@Data
 @Table(name = "role")
 public class RolePO extends BasePO {
 
-  @Column(name = "name", unique = true, nullable = false)
+  /**
+   * 角色名称
+   */
   private String name;
 
-  @Column(name = "sort", nullable = false, columnDefinition = "TINYINT", length = 1)
-  private boolean sort;
+  /**
+   * 排序
+   */
+  private Integer sort;
 
-  @Column(name = "status", nullable = false, columnDefinition = "TINYINT", length = 1)
-  private boolean status;
+  /**
+   * 状态 0:禁用 1:启用
+   */
+  private Integer status;
 
-  @Column(name = "remark")
+  /**
+   * 备注
+   */
   private String remark;
 }

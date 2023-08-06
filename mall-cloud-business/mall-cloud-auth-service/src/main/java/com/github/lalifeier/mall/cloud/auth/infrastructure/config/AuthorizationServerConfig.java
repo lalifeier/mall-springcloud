@@ -1,5 +1,7 @@
 package com.github.lalifeier.mall.cloud.auth.infrastructure.config;
 
+import com.github.lalifeier.mall.cloud.auth.infrastructure.security.filter.SmsAuthenticationFilter;
+import com.github.lalifeier.mall.cloud.auth.infrastructure.security.provider.SmsAuthenticationProvider;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
@@ -11,6 +13,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -25,6 +28,7 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 
 import java.security.KeyPair;
@@ -36,25 +40,43 @@ import java.util.UUID;
 @Configuration(proxyBeanMethods = false)
 public class AuthorizationServerConfig {
 
+
+  private AuthenticationProvider smsAuthenticationProvider;
+
+  private AuthenticationProvider passwordAuthenticationProvider;
+
   @Bean
   @Order(Ordered.HIGHEST_PRECEDENCE)
   public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http)
     throws Exception {
+    // 对授权服务器进行一些默认的配置
     OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
-    http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
-      .oidc(Customizer.withDefaults());  // Enable OpenID Connect 1.0
+
+    OAuth2AuthorizationServerConfigurer authorizationServerConfigurer = http
+      .getConfigurer(OAuth2AuthorizationServerConfigurer.class);
+
+
+    SmsAuthenticationProvider smsAuthenticationProvider = new SmsAuthenticationProvider();
+    SmsAuthenticationFilter smsAuthenticationFilter = new SmsAuthenticationFilter();
+    http.authenticationProvider(smsAuthenticationProvider)
+      .addFilterAfter(smsAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+
+//    authorizationServerConfigurer.authorizationServerMetadataEndpoint(metadata -> metadata.authorizationServerMetadataCustomizer(customizer -> customizer.grantType(SecurityConstants.GRANT_TYPE_SMS_CODE)))
+//      .tokenEndpoint(tokenEndpoint -> tokenEndpoint
+//        .accessTokenRequestConverter(new SmsAuthenticationToken())
+//        .authenticationProvider(new SmsAuthenticationProvider()));
+
+    //    支持OpenID Connect 1.0, scope如果有openid的话,需要配置这个
+    authorizationServerConfigurer.oidc(Customizer.withDefaults());
+
     http
-      // Redirect to the login page when not authenticated from the
-      // authorization endpoint
       .exceptionHandling((exceptions) -> exceptions
         .defaultAuthenticationEntryPointFor(
           new LoginUrlAuthenticationEntryPoint("/login"),
           new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
         )
-      )
-      // Accept access tokens for User Info and/or Client Registration
-      .oauth2ResourceServer((resourceServer) -> resourceServer
-        .jwt(Customizer.withDefaults()));
+      );
 
     return http.build();
   }
@@ -76,6 +98,35 @@ public class AuthorizationServerConfig {
     return new JdbcOAuth2AuthorizationConsentService(jdbcTemplate, registeredClientRepository);
   }
 
+  /**
+   * 自定义jwt，将权限信息放至jwt中
+   *
+   * @return
+   */
+//  @Bean
+//  public OAuth2TokenCustomizer<JwtEncodingContext> oAuth2TokenCustomizer() {
+//    return context -> {
+//      if (context.getPrincipal().getPrincipal() instanceof UserDetails user) {
+//        // 获取申请的scopes
+//        Set<String> scopes = context.getAuthorizedScopes();
+//        // 获取用户的权限
+//        Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
+//        // 提取权限并转为字符串
+//        Set<String> authoritySet = Optional.ofNullable(authorities).orElse(Collections.emptyList()).stream()
+//          // 获取权限字符串
+//          .map(GrantedAuthority::getAuthority)
+//          // 去重
+//          .collect(Collectors.toSet());
+//
+//        // 合并scope与用户信息
+//        authoritySet.addAll(scopes);
+//
+//        JwtClaimsSet.Builder claims = context.getClaims();
+//        // 将权限信息放入jwt的claims中（也可以生成一个以指定字符分割的字符串放入）
+//        claims.claim("authorities", authoritySet);
+//      }
+//    };
+//  }
   @Bean
   public JWKSource<SecurityContext> jwkSource() {
     KeyPair keyPair = generateRsaKey();
