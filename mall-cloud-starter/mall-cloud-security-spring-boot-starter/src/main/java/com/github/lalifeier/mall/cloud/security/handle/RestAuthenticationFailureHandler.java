@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.auth.infrastructure.security.handler;
+package com.github.lalifeier.mall.cloud.security.handle;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.lalifeier.mall.cloud.common.enums.HttpErrorCodeEnum;

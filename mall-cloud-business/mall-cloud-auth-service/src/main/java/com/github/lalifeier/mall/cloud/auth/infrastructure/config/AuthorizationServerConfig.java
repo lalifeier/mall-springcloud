@@ -46,17 +46,6 @@ public class AuthorizationServerConfig {
     OAuth2AuthorizationServerConfigurer authorizationServerConfigurer = http
       .getConfigurer(OAuth2AuthorizationServerConfigurer.class);
 
-//    SmsAuthenticationProvider smsAuthenticationProvider = new SmsAuthenticationProvider();
-//    SmsAuthenticationFilter smsAuthenticationFilter = new SmsAuthenticationFilter();
-//    http.authenticationProvider(smsAuthenticationProvider)
-//      .addFilterAfter(smsAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-//
-
-//    authorizationServerConfigurer.authorizationServerMetadataEndpoint(metadata -> metadata.authorizationServerMetadataCustomizer(customizer -> customizer.grantType(SecurityConstants.GRANT_TYPE_SMS_CODE)))
-//      .tokenEndpoint(tokenEndpoint -> tokenEndpoint
-//        .accessTokenRequestConverter(new SmsAuthenticationToken())
-//        .authenticationProvider(new SmsAuthenticationProvider()));
-
     //    支持OpenID Connect 1.0, scope如果有openid的话,需要配置这个
     authorizationServerConfigurer.oidc(Customizer.withDefaults());
 

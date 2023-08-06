@@ -1,5 +1,5 @@
 -- 用户管理
-CREATE TABLE IF NOT EXISTS `user`
+CREATE TABLE IF NOT EXISTS `userPrincipal`
 (
   `id`         int(11) unsigned    NOT NULL AUTO_INCREMENT COMMENT '自增id',
   `username`   varchar(30)         NOT NULL DEFAULT '' COMMENT '姓名',

@@ -82,7 +82,7 @@ spring:
 
 
               #        - id: mall-account
-              #          uri: lb://mall-account
+            #          uri: lb://mall-account
             #          predicates:
             #            - Path=/account/**
             #          filters:
@@ -102,6 +102,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
+          jwk-set-uri: http://127.0.0.1:18000/oauth2/jwks
           issuer-uri: http://127.0.0.1:18000
   #      client:
   #        registration:

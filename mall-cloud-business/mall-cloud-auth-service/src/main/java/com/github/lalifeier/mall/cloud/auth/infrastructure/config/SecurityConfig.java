@@ -1,6 +1,9 @@
 package com.github.lalifeier.mall.cloud.auth.infrastructure.config;
 
 import com.github.lalifeier.mall.cloud.auth.domain.oauth2.service.UserService;
+import com.github.lalifeier.mall.cloud.auth.infrastructure.security.config.PasswordAuthenticationSecurityConfig;
+import com.github.lalifeier.mall.cloud.auth.infrastructure.security.handler.RestAuthenticationFailureHandler;
+import com.github.lalifeier.mall.cloud.auth.infrastructure.security.handler.RestAuthenticationSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,22 +39,22 @@ public class SecurityConfig {
 
   @Bean
   SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+
+
     http
-      .authorizeHttpRequests((authorize) -> authorize
-        .anyRequest().authenticated()
-      )
-//      .csrf().disable()
-//      .cors()
-//      .and()
-//      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//      .and()
-      .formLogin(withDefaults());
+      .authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated())
+      .formLogin(withDefaults())
 //      .formLogin(formLogin -> {
 //        formLogin.loginPage("/login");
 ////        formLogin.successHandler(authenticationSuccessHandler());
 ////        formLogin.failureHandler(authenticationFailureHandler());
 //      })
+      .csrf(csrf -> csrf.disable());
+//      .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 //      .apply(passwordAuthenticationSecurityConfig());
+
+
+//    http.addFilterBefore()
 
     return http.build();
   }
@@ -75,30 +78,28 @@ public class SecurityConfig {
     return authProvider;
   }
 
-//  @Bean
-//  public PasswordAuthenticationSecurityConfig passwordAuthenticationSecurityConfig() {
-//    PasswordAuthenticationSecurityConfig passwordAuthenticationSecurityConfig = new PasswordAuthenticationSecurityConfig();
-//    passwordAuthenticationSecurityConfig.setUserService(userService);
-//    passwordAuthenticationSecurityConfig.setAuthenticationSuccessHandler(authenticationSuccessHandler());
-//    passwordAuthenticationSecurityConfig.setAuthenticationFailureHandler(authenticationFailureHandler());
-//    return passwordAuthenticationSecurityConfig;
-//  }
-
-
-//  @Bean
-//  RestAuthenticationSuccessHandler authenticationSuccessHandler() {
-//    return new RestAuthenticationSuccessHandler();
-//  }
-//
-//
-//  @Bean
-//  RestAuthenticationFailureHandler authenticationFailureHandler() {
-//    return new RestAuthenticationFailureHandler();
-//  }
-
   @Bean
   @SneakyThrows
   public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) {
     return authenticationConfiguration.getAuthenticationManager();
+  }
+
+  @Bean
+  public PasswordAuthenticationSecurityConfig passwordAuthenticationSecurityConfig() {
+    PasswordAuthenticationSecurityConfig passwordAuthenticationSecurityConfig = new PasswordAuthenticationSecurityConfig();
+    passwordAuthenticationSecurityConfig.setUserService(userService);
+    passwordAuthenticationSecurityConfig.setAuthenticationSuccessHandler(authenticationSuccessHandler());
+    passwordAuthenticationSecurityConfig.setAuthenticationFailureHandler(authenticationFailureHandler());
+    return passwordAuthenticationSecurityConfig;
+  }
+
+  @Bean
+  RestAuthenticationSuccessHandler authenticationSuccessHandler() {
+    return new RestAuthenticationSuccessHandler();
+  }
+
+  @Bean
+  RestAuthenticationFailureHandler authenticationFailureHandler() {
+    return new RestAuthenticationFailureHandler();
   }
 }

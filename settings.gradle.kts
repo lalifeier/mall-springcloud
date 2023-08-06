@@ -47,6 +47,8 @@ include("mall-cloud-starter:mall-cloud-encrypt-body-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-repeat-submit-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-rate-limiter-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-trace-spring-boot-starter")
+include("mall-cloud-starter:mall-cloud-security-spring-boot-starter")
+
 
 //demo
 include("mall-cloud-business:mall-cloud-demo:mall-cloud-demo-api")

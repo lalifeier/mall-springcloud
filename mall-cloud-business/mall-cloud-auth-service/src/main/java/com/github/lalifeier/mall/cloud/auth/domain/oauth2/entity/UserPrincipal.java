@@ -1,5 +1,6 @@
 package com.github.lalifeier.mall.cloud.auth.domain.oauth2.entity;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 @Data
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
 public class UserPrincipal implements UserDetails {
   private Long id;
   private String username;
@@ -14,17 +16,6 @@ public class UserPrincipal implements UserDetails {
   private String phone;
   private String password;
   private Collection<SimpleGrantedAuthority> authorities;
-
-//  public UserPrincipal(User user) {
-//    //this.setId(user.getId());
-//    this.setUsername(user.getUsername());
-//    this.setPassword(user.getPassword());
-//    this.setEnabled(user.getEnabled());
-//    if (user.getRoles() != null) {
-//      authorities = new ArrayList<>();
-//      user.getRoles().forEach(item -> authorities.add(new SimpleGrantedAuthority(item)));
-//    }
-//  }
 
   @Override
   public boolean isAccountNonExpired() {

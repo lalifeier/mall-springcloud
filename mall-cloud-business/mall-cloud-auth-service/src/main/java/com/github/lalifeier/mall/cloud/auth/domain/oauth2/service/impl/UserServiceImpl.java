@@ -5,9 +5,14 @@ import com.github.lalifeier.mall.cloud.auth.domain.oauth2.repository.UserReposit
 import com.github.lalifeier.mall.cloud.auth.domain.oauth2.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -22,6 +27,8 @@ public class UserServiceImpl implements UserService {
       throw new UsernameNotFoundException("用户名或密码错误");
     }
 
-    return userPrincipal;
+    List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
+
+    return new User(userPrincipal.getUsername(), userPrincipal.getPassword(), true, true, true, true, authorityList);
   }
 }

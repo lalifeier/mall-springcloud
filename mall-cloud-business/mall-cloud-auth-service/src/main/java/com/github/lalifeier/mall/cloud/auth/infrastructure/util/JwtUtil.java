@@ -1,9 +1,6 @@
 package com.github.lalifeier.mall.cloud.auth.infrastructure.util;
 
-import com.nimbusds.jose.JWSAlgorithm;
-import com.nimbusds.jose.JWSHeader;
-import com.nimbusds.jose.JWSSigner;
-import com.nimbusds.jose.JWSVerifier;
+import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.RSASSASigner;
 import com.nimbusds.jose.crypto.RSASSAVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
@@ -13,7 +10,10 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.text.ParseException;
+import java.time.Instant;
 import java.util.Date;
+import java.util.function.Function;
 
 public class JwtUtil {
 
@@ -68,7 +68,6 @@ public class JwtUtil {
   public static boolean verifyToken(String token) {
     try {
       SignedJWT signedJWT = SignedJWT.parse(token);
-
       JWSVerifier verifier = new RSASSAVerifier(publicKey);
 
       return signedJWT.verify(verifier);
@@ -78,22 +77,27 @@ public class JwtUtil {
     }
   }
 
+  public static boolean isTokenExpired(String token) {
+    Date expiration = extractExpiration(token);
+    return expiration != null && expiration.before(Date.from(Instant.now()));
+  }
 
-//  private boolean isTokenExpired(String token) {
-//    return extractExpiration(token).before(new Date());
-//  }
-//  public String extractUsername(String token) {
-//    return extractClaim(token, Claims::getSubject);
-//  }
-//  public Date extractExpiration(String token) {
-//    return extractClaim(token, Claims::getExpiration);
-//  }
-//  private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-//    final Claims claims = extractAllClaims(token);
-//    return claimsResolver.apply(claims);
-//  }
-//  private Claims extractAllClaims(String token) {
-//    return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
-//  }
+  public static String extractUsername(String token) {
+    return extractClaim(token, jwsObject -> jwsObject.getPayload().toJSONObject().get("sub").toString());
+  }
+
+  public static Date extractExpiration(String token) {
+    return extractClaim(token, jwsObject -> (Date) jwsObject.getPayload().toJSONObject().get("exp"));
+  }
+
+  private static <T> T extractClaim(String token, Function<JWSObject, T> claimsResolver) {
+    try {
+      JWSObject jwsObject = JWSObject.parse(token);
+      return claimsResolver.apply(jwsObject);
+    } catch (ParseException e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
 }
 

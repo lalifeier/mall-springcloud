@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
+import org.springframework.security.provisioning.UserDetailsManager;
 
 import java.time.Duration;
 import java.util.UUID;
@@ -22,8 +23,8 @@ import java.util.UUID;
 @SpringBootTest
 public class OauthTests {
 
-//  @Autowired
-//  private UserDetailsManager userDetailsManager;
+  @Autowired
+  private UserDetailsManager userDetailsManager;
 
   @Autowired
   private RegisteredClientRepository registeredClientRepository;
@@ -37,7 +38,7 @@ public class OauthTests {
         .password("123456")
         .roles("ADMIN")
         .build();
-//    userDetailsManager.createUser(userDetails);
+    userDetailsManager.createUser(userDetails);
   }
 
   @Test
@@ -50,16 +51,18 @@ public class OauthTests {
         .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
         .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
         .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-
-
-//        .authorizationGrantType(new AuthorizationGrantType(SecurityConstants.GRANT_TYPE_SMS_CODE))
-//        .authorizationGrantType(AuthorizationGrantType.PASSWORD)
-//         .authorizationGrantType(AuthorizationGrantType.IMPLICIT)
+        // .authorizationGrantType(AuthorizationGrantType.PASSWORD)
+        // .authorizationGrantType(AuthorizationGrantType.IMPLICIT)
+        .redirectUri(
+          "http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc")
+        .redirectUri("http://127.0.0.1:8080/authorized")
+        .scope(OidcScopes.OPENID)
+        .scope("message.read")
         .redirectUri("https://www.baidu.com")
         .scope(OidcScopes.OPENID)
         .scope(OidcScopes.PROFILE)
-//        .scope("user.userInfo")
-//        .scope("all")
+        .scope("user.userInfo")
+        .scope("all")
         .tokenSettings(
           TokenSettings.builder()
             .accessTokenTimeToLive(Duration.ofHours(12))
