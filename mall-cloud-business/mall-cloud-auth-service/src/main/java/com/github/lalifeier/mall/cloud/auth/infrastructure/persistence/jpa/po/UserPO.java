@@ -16,6 +16,11 @@ public class UserPO extends BasePO {
   private String username;
 
   /**
+   * 密码
+   */
+  private String password;
+
+  /**
    * 手机号
    */
   private String phone;

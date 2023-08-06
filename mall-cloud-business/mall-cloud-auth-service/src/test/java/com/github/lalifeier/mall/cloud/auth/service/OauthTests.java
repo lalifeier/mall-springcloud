@@ -4,6 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
@@ -26,17 +28,17 @@ public class OauthTests {
   @Autowired
   private RegisteredClientRepository registeredClientRepository;
 
-//  @Test
-//  void testSaveUser() {
-//    UserDetails userDetails =
-//      User.builder()
-//        .passwordEncoder(s -> new BCryptPasswordEncoder().encode(s))
-//        .username("user")
-//        .password("123456")
-//        .roles("ADMIN")
-//        .build();
+  @Test
+  void testSaveUser() {
+    UserDetails userDetails =
+      User.builder()
+        .passwordEncoder(s -> new BCryptPasswordEncoder().encode(s))
+        .username("user")
+        .password("123456")
+        .roles("ADMIN")
+        .build();
 //    userDetailsManager.createUser(userDetails);
-//  }
+  }
 
   @Test
   void testSaveClient() {

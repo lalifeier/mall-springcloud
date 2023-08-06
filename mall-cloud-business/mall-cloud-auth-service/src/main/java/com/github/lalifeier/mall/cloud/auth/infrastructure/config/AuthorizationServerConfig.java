@@ -1,7 +1,5 @@
 package com.github.lalifeier.mall.cloud.auth.infrastructure.config;
 
-import com.github.lalifeier.mall.cloud.auth.infrastructure.security.filter.SmsAuthenticationFilter;
-import com.github.lalifeier.mall.cloud.auth.infrastructure.security.provider.SmsAuthenticationProvider;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
@@ -13,7 +11,6 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -28,7 +25,6 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 
 import java.security.KeyPair;
@@ -40,11 +36,6 @@ import java.util.UUID;
 @Configuration(proxyBeanMethods = false)
 public class AuthorizationServerConfig {
 
-
-  private AuthenticationProvider smsAuthenticationProvider;
-
-  private AuthenticationProvider passwordAuthenticationProvider;
-
   @Bean
   @Order(Ordered.HIGHEST_PRECEDENCE)
   public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http)
@@ -55,12 +46,11 @@ public class AuthorizationServerConfig {
     OAuth2AuthorizationServerConfigurer authorizationServerConfigurer = http
       .getConfigurer(OAuth2AuthorizationServerConfigurer.class);
 
-
-    SmsAuthenticationProvider smsAuthenticationProvider = new SmsAuthenticationProvider();
-    SmsAuthenticationFilter smsAuthenticationFilter = new SmsAuthenticationFilter();
-    http.authenticationProvider(smsAuthenticationProvider)
-      .addFilterAfter(smsAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
+//    SmsAuthenticationProvider smsAuthenticationProvider = new SmsAuthenticationProvider();
+//    SmsAuthenticationFilter smsAuthenticationFilter = new SmsAuthenticationFilter();
+//    http.authenticationProvider(smsAuthenticationProvider)
+//      .addFilterAfter(smsAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+//
 
 //    authorizationServerConfigurer.authorizationServerMetadataEndpoint(metadata -> metadata.authorizationServerMetadataCustomizer(customizer -> customizer.grantType(SecurityConstants.GRANT_TYPE_SMS_CODE)))
 //      .tokenEndpoint(tokenEndpoint -> tokenEndpoint
@@ -70,13 +60,12 @@ public class AuthorizationServerConfig {
     //    支持OpenID Connect 1.0, scope如果有openid的话,需要配置这个
     authorizationServerConfigurer.oidc(Customizer.withDefaults());
 
-    http
-      .exceptionHandling((exceptions) -> exceptions
-        .defaultAuthenticationEntryPointFor(
-          new LoginUrlAuthenticationEntryPoint("/login"),
-          new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
-        )
-      );
+    http.exceptionHandling((exceptions) -> exceptions
+      .defaultAuthenticationEntryPointFor(
+        new LoginUrlAuthenticationEntryPoint("/login"),
+        new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
+      )
+    );
 
     return http.build();
   }

@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS `user`
 (
   `id`         int(11) unsigned    NOT NULL AUTO_INCREMENT COMMENT '自增id',
   `username`   varchar(30)         NOT NULL DEFAULT '' COMMENT '姓名',
+  `password`   varchar(60)         NOT NULL DEFAULT '' COMMENT '密码',
   `phone`      varchar(15)         NOT NULL DEFAULT '' COMMENT '手机号',
   `email`      varchar(30)         NOT NULL DEFAULT '' COMMENT '邮箱',
   `nickname`   varchar(30)         NOT NULL DEFAULT '' COMMENT '昵称',
