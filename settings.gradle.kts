@@ -39,7 +39,7 @@ include("mall-cloud-starter:mall-cloud-redis-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-feign-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-log-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-signature-spring-boot-starter")
-include("mall-cloud-starter:mall-cloud-double-cache-spring-boot-starter")
+include("mall-cloud-starter:mall-cloud-multilevel-cache-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-http-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-xxl-job-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-local-cache-spring-boot-starter")
@@ -48,7 +48,6 @@ include("mall-cloud-starter:mall-cloud-repeat-submit-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-rate-limiter-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-trace-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-security-spring-boot-starter")
-
 include("mall-cloud-starter:mall-cloud-distributed-lock-spring-boot-starter")
 
 
