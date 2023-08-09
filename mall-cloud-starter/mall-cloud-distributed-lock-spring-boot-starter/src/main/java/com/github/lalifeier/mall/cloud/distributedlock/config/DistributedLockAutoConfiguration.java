@@ -31,7 +31,7 @@ public class DistributedLockAutoConfiguration {
 
   @Bean
   @ConditionalOnBean(RedissonClient.class)
-  public DistributedLockAspect distributedLockAspect() {
-    return new DistributedLockAspect();
+  public DistributedLockAspect distributedLockAspect(RedissonClient redissonClient) {
+    return new DistributedLockAspect(redissonClient);
   }
 }

@@ -8,6 +8,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class MultilevelCacheProperties {
 
   /**
+   * 一级缓存开关
+   */
+  private Boolean enableFirstCache = true;
+
+  /**
    * 一级本地缓存最大比例
    */
   private Double maxCapacityRate = 0.2;
@@ -46,11 +51,4 @@ public class MultilevelCacheProperties {
    * 二级缓存过期时间
    */
   private Integer redisExpireTime = 600;
-
-
-  /**
-   * 一级缓存开关
-   */
-  private Boolean caffeineSwitch = true;
-
 }

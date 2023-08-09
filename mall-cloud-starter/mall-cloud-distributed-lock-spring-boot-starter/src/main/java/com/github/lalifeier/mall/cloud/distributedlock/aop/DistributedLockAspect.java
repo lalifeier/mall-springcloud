@@ -3,7 +3,7 @@ package com.github.lalifeier.mall.cloud.distributedlock.aop;
 import com.github.lalifeier.mall.cloud.distributedlock.annotation.DistributedLock;
 import com.github.lalifeier.mall.cloud.distributedlock.enums.LockTypeEnum;
 import com.github.lalifeier.mall.cloud.distributedlock.exception.LockTimeoutException;
-import jakarta.annotation.Resource;
+import com.github.lalifeier.mall.cloud.distributedlock.factory.LockFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -11,7 +11,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.redisson.api.RLock;
-import org.redisson.api.RReadWriteLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
@@ -31,8 +30,15 @@ public class DistributedLockAspect {
   private ExpressionParser parser = new SpelExpressionParser();
   private ParameterNameDiscoverer discoverer = new DefaultParameterNameDiscoverer();
 
-  @Resource
+
   private RedissonClient redissonClient;
+
+  private LockFactory lockFactory;
+
+  public DistributedLockAspect(RedissonClient redissonClient) {
+    this.redissonClient = redissonClient;
+    this.lockFactory = new LockFactory(redissonClient);
+  }
 
   @Pointcut("@annotation(distributedLock)")
   public void distributedLockPointcut(DistributedLock distributedLock) {
@@ -50,7 +56,7 @@ public class DistributedLockAspect {
     long leaseTime = distributedLock.leaseTime();
     TimeUnit unit = distributedLock.unit();
 
-    RLock rLock = getLock(lockType, lockKey);
+    RLock rLock = lockFactory.getLock(lockType, lockKey);
 
     boolean lockAcquired = false;
 
@@ -117,28 +123,5 @@ public class DistributedLockAspect {
     }
 
     return prefix + parser.parseExpression(keyExpression).getValue(context, String.class);
-  }
-
-  RLock getLock(LockTypeEnum lockType, String lockKey) {
-    RLock rLock = null;
-    switch (lockType) {
-      case FAIR_LOCK:
-        rLock = redissonClient.getFairLock(lockKey);
-        break;
-      case REENTRANT_LOCK:
-        rLock = redissonClient.getLock(lockKey);
-        break;
-      case READ_LOCK:
-        RReadWriteLock readWriteLock = redissonClient.getReadWriteLock(lockKey);
-        rLock = readWriteLock.readLock();
-        break;
-      case WRITE_LOCK:
-        RReadWriteLock rwLock = redissonClient.getReadWriteLock(lockKey);
-        rLock = rwLock.writeLock();
-        break;
-      default:
-        rLock = redissonClient.getLock(lockKey);
-    }
-    return rLock;
   }
 }

@@ -1,15 +1,14 @@
 package com.github.lalifeier.mall.cloud.cache.manager;
 
 
-import com.github.lalifeier.mall.cloud.cache.listener.CacheMessage;
-import com.github.lalifeier.mall.cloud.cache.properties.MultilevelCacheProperties;
-import jakarta.annotation.Resource;
+import com.github.lalifeier.mall.cloud.cache.event.CacheMessage;
+import com.github.lalifeier.mall.cloud.cache.publisher.MessagePublisher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.cache.support.AbstractValueAdaptingCache;
 import org.springframework.data.redis.cache.RedisCache;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.lang.NonNull;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.util.Assert;
 
 import java.util.Objects;
@@ -17,33 +16,58 @@ import java.util.concurrent.Callable;
 
 @Slf4j
 public class MultilevelCache extends AbstractValueAdaptingCache {
-  @Resource
-  private MultilevelCacheProperties multilevelCacheProperties;
 
-  @Resource
-  private RedisTemplate redisTemplate;
+  /**
+   * 缓存名称
+   */
+  private String cacheName;
 
 
-//  ExecutorService cacheExecutor = new plasticeneThreadExecutor(
-//    Runtime.getRuntime().availableProcessors() * 2,
-//    Runtime.getRuntime().availableProcessors() * 20,
-//    Runtime.getRuntime().availableProcessors() * 200,
-//    "cache-pool"
-//  );
+  /**
+   * 默认开启一级缓存
+   */
+  private final boolean enableFirstCache;
 
-  private RedisCache redisCache;
-  private CaffeineCache caffeineCache;
+  /**
+   * 一级缓存
+   */
+  private final CaffeineCache caffeineCache;
 
-  public MultilevelCache(boolean allowNullValues, RedisCache redisCache, CaffeineCache caffeineCache) {
+  /**
+   * 二级缓存
+   */
+  private final RedisCache redisCache;
+
+
+  private final MessagePublisher redisMessagePublisher;
+
+  private ThreadPoolTaskExecutor executor;
+
+
+  public MultilevelCache(boolean allowNullValues, boolean enableFirstCache, String cacheName, RedisCache redisCache, CaffeineCache caffeineCache, MessagePublisher redisMessagePublisher) {
     super(allowNullValues);
+    this.cacheName = cacheName;
+    this.enableFirstCache = enableFirstCache;
     this.redisCache = redisCache;
     this.caffeineCache = caffeineCache;
+    this.redisMessagePublisher = redisMessagePublisher;
+    this.executor = createThreadPoolTaskExecutor();
+  }
+
+  private ThreadPoolTaskExecutor createThreadPoolTaskExecutor() {
+    ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+    executor.setCorePoolSize(10);
+    executor.setMaxPoolSize(100);
+    executor.setQueueCapacity(100);
+    executor.setThreadNamePrefix("MultilevelCache-");
+    executor.setDaemon(true);
+    executor.initialize();
+    return executor;
   }
 
   @Override
   public String getName() {
-    return multilevelCacheProperties.getName();
-
+    return cacheName;
   }
 
   @Override
@@ -57,35 +81,18 @@ public class MultilevelCache extends AbstractValueAdaptingCache {
     return (T) value;
   }
 
-  /**
-   * 注意：redis缓存的对象object必须序列化 implements Serializable, 不然缓存对象不成功。
-   * 注意：这里asyncPublish()方法是异步发布消息，然后让分布式其他节点清除本地缓存,防止当前节点因更新覆盖数据而其他节点本地缓存保存是脏数据
-   * 这样本地缓存数据才能成功存入
-   *
-   * @param key
-   * @param value
-   */
   @Override
   public void put(@NonNull Object key, Object value) {
     redisCache.put(key, value);
-    // 异步清除本地缓存
-    if (multilevelCacheProperties.getCaffeineSwitch()) {
+    if (enableFirstCache) {
       asyncPublish(key, value);
     }
   }
 
-  /**
-   * key不存在时，再保存，存在返回当前值不覆盖
-   *
-   * @param key
-   * @param value
-   * @return
-   */
   @Override
   public ValueWrapper putIfAbsent(@NonNull Object key, Object value) {
     ValueWrapper valueWrapper = redisCache.putIfAbsent(key, value);
-    // 异步清除本地缓存
-    if (multilevelCacheProperties.getCaffeineSwitch()) {
+    if (enableFirstCache) {
       asyncPublish(key, value);
     }
     return valueWrapper;
@@ -94,11 +101,8 @@ public class MultilevelCache extends AbstractValueAdaptingCache {
 
   @Override
   public void evict(Object key) {
-    // 先清除redis中缓存数据，然后通过消息推送清除所有节点caffeine中的缓存，
-    // 避免短时间内如果先清除caffeine缓存后其他请求会再从redis里加载到caffeine中
     redisCache.evict(key);
-    // 异步清除本地缓存
-    if (multilevelCacheProperties.getCaffeineSwitch()) {
+    if (enableFirstCache) {
       asyncPublish(key, null);
     }
   }
@@ -111,8 +115,7 @@ public class MultilevelCache extends AbstractValueAdaptingCache {
   @Override
   public void clear() {
     redisCache.clear();
-    // 异步清除本地缓存
-    if (multilevelCacheProperties.getCaffeineSwitch()) {
+    if (enableFirstCache) {
       asyncPublish(null, null);
     }
   }
@@ -122,23 +125,23 @@ public class MultilevelCache extends AbstractValueAdaptingCache {
   protected Object lookup(Object key) {
     Assert.notNull(key, "key不可为空");
     ValueWrapper value;
-    if (multilevelCacheProperties.getCaffeineSwitch()) {
-      // 开启一级缓存，先从一级缓存缓存数据
+    if (enableFirstCache) {
+      // 尝试从一级缓存中获取值
       value = caffeineCache.get(key);
       if (Objects.nonNull(value)) {
         log.info("查询caffeine 一级缓存 key:{}, 返回值是:{}", key, value.get());
         return value.get();
       }
     }
+
+    // 从二级缓存中获取值
     value = redisCache.get(key);
     if (Objects.nonNull(value)) {
       log.info("查询redis 二级缓存 key:{}, 返回值是:{}", key, value.get());
-      // 异步将二级缓存redis写到一级缓存caffeine
-      if (multilevelCacheProperties.getCaffeineSwitch()) {
+      // 异步将二级缓存redis写入一级缓存caffeine
+      if (enableFirstCache) {
         ValueWrapper finalValue = value;
-        cacheExecutor.execute(() -> {
-          caffeineCache.put(key, finalValue.get());
-        });
+        caffeineCache.put(key, finalValue.get());
       }
       return value.get();
     }
@@ -146,17 +149,18 @@ public class MultilevelCache extends AbstractValueAdaptingCache {
   }
 
   /**
-   * 缓存变更时通知其他节点清理本地缓存
-   * 异步通过发布订阅主题消息，其他节点监听到之后进行相关本地缓存操作，防止本地缓存脏数据
+   * 异步发布缓存变更消息，通知其他节点清理本地缓存
+   * 这样可以防止本地缓存中存储脏数据
+   *
+   * @param key   缓存键
+   * @param value 缓存值
    */
   void asyncPublish(Object key, Object value) {
-    cacheExecutor.execute(() -> {
-      CacheMessage cacheMessage = new CacheMessage();
-      cacheMessage.setCacheName(multilevelCacheProperties.getName());
-      cacheMessage.setKey(key);
-      cacheMessage.setValue(value);
-      redisTemplate.convertAndSend(multilevelCacheProperties.getTopic(), cacheMessage);
-    });
+    CacheMessage cacheMessage = new CacheMessage();
+    cacheMessage.setCacheName(cacheName);
+    cacheMessage.setKey(key);
+    cacheMessage.setValue(value);
+    redisMessagePublisher.publish(cacheMessage);
   }
 }
 
