@@ -98,6 +98,6 @@ configure(bootProjects) {
 
   dependencies {
     runtimeOnly("org.springframework.boot:spring-boot-devtools")
-    runtimeOnly("org.springframework.boot:spring-boot-properties-migrator")
+//    runtimeOnly("org.springframework.boot:spring-boot-properties-migrator")
   }
 }
