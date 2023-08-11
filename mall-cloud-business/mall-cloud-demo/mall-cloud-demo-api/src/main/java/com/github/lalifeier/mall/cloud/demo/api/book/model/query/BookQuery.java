@@ -1,10 +1,9 @@
 package com.github.lalifeier.mall.cloud.demo.api.book.model.query;
 
 import com.github.lalifeier.mall.cloud.common.model.query.AbstractQuery;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class BookQuery extends AbstractQuery {
-}
+@Getter
+@Setter
+public class BookQuery extends AbstractQuery {}

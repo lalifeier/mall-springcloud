@@ -170,7 +170,6 @@
     <!-- 引用其他 appender -->
     <appender-ref ref="FILE"/>
     <appender-ref ref="FILE_ERROR"/>
-    <appender-ref ref="LOG_STASH"/>
   </appender>
 
   <!-- 日志级别配置 -->
@@ -187,6 +186,7 @@
     <!-- 引用其他 appender -->
     <appender-ref ref="CONSOLE"/>
     <appender-ref ref="ASYNC"/>
+    <appender-ref ref="LOG_STASH"/>
   </root>
 
   <logger name="com.github.lalifeier.mall.cloud.common.aspect.WebLogAspect" level="DEBUG">

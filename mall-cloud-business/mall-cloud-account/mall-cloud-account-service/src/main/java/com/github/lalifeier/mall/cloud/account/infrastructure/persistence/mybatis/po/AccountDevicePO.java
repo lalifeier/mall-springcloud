@@ -3,11 +3,11 @@ package com.github.lalifeier.mall.cloud.account.infrastructure.persistence.mybat
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.github.lalifeier.mall.cloud.mybatisplus.po.BasePO;
 import java.time.LocalDateTime;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 @TableName(value = "account_device")
 public class AccountDevicePO extends BasePO<AccountDevicePO> {
 

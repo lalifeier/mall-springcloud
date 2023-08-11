@@ -1,23 +1,24 @@
 package com.github.lalifeier.mall.cloud.auth.infrastructure.security.filter;
 
-//import com.github.lalifeier.mall.cloud.auth.infrastructure.security.token.SmsAuthenticationToken;
-//import jakarta.servlet.http.HttpServletRequest;
-//import jakarta.servlet.http.HttpServletResponse;
-//import org.springframework.lang.Nullable;
-//import org.springframework.security.authentication.AuthenticationManager;
-//import org.springframework.security.authentication.AuthenticationServiceException;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.AuthenticationException;
-//import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
-//import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+// import com.github.lalifeier.mall.cloud.auth.infrastructure.security.token.SmsAuthenticationToken;
+// import jakarta.servlet.http.HttpServletRequest;
+// import jakarta.servlet.http.HttpServletResponse;
+// import org.springframework.lang.Nullable;
+// import org.springframework.security.authentication.AuthenticationManager;
+// import org.springframework.security.authentication.AuthenticationServiceException;
+// import org.springframework.security.core.Authentication;
+// import org.springframework.security.core.AuthenticationException;
+// import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+// import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 //
-//public class SmsAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
+// public class SmsAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 //
 //  public static final String SPRING_SECURITY_FORM_USERNAME_KEY = "phone";
 //
 //  public static final String SPRING_SECURITY_FORM_PASSWORD_KEY = "code";
 //
-//  private static final AntPathRequestMatcher DEFAULT_ANT_PATH_REQUEST_MATCHER = new AntPathRequestMatcher("/login",
+//  private static final AntPathRequestMatcher DEFAULT_ANT_PATH_REQUEST_MATCHER = new
+// AntPathRequestMatcher("/login",
 //    "POST");
 //
 //  private String usernameParameter = SPRING_SECURITY_FORM_USERNAME_KEY;
@@ -35,9 +36,11 @@ package com.github.lalifeier.mall.cloud.auth.infrastructure.security.filter;
 //  }
 //
 //  @Override
-//  public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+//  public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse
+// response) throws AuthenticationException {
 //    if (this.postOnly && !request.getMethod().equals("POST")) {
-//      throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
+//      throw new AuthenticationServiceException("Authentication method not supported: " +
+// request.getMethod());
 //    }
 //
 //    String phone = obtainPhone(request);
@@ -63,4 +66,4 @@ package com.github.lalifeier.mall.cloud.auth.infrastructure.security.filter;
 //  protected void setDetails(HttpServletRequest request, SmsAuthenticationToken authRequest) {
 //    authRequest.setDetails(this.authenticationDetailsSource.buildDetails(request));
 //  }
-//}
+// }

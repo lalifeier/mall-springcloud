@@ -2,11 +2,11 @@ package com.github.lalifeier.mall.cloud.account.infrastructure.persistence.mybat
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.github.lalifeier.mall.cloud.mybatisplus.po.BasePO;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 @TableName(value = "account_user")
 public class AccountUserPO extends BasePO<AccountUserPO> {
     /** 用户名 */

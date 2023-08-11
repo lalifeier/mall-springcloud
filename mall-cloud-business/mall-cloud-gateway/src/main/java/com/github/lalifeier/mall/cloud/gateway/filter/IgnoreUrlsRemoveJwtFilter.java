@@ -1,23 +1,23 @@
 package com.github.lalifeier.mall.cloud.gateway.filter;
 
-//import com.github.lalifeier.mall.cloud.gateway.properties.GatewayAuthProperties;
-//import lombok.RequiredArgsConstructor;
-//import lombok.extern.slf4j.Slf4j;
-//import org.springframework.http.server.reactive.ServerHttpRequest;
-//import org.springframework.stereotype.Component;
-//import org.springframework.util.AntPathMatcher;
-//import org.springframework.util.PathMatcher;
-//import org.springframework.web.server.ServerWebExchange;
-//import org.springframework.web.server.WebFilter;
-//import org.springframework.web.server.WebFilterChain;
-//import reactor.core.publisher.Mono;
+// import com.github.lalifeier.mall.cloud.gateway.properties.GatewayAuthProperties;
+// import lombok.RequiredArgsConstructor;
+// import lombok.extern.slf4j.Slf4j;
+// import org.springframework.http.server.reactive.ServerHttpRequest;
+// import org.springframework.stereotype.Component;
+// import org.springframework.util.AntPathMatcher;
+// import org.springframework.util.PathMatcher;
+// import org.springframework.web.server.ServerWebExchange;
+// import org.springframework.web.server.WebFilter;
+// import org.springframework.web.server.WebFilterChain;
+// import reactor.core.publisher.Mono;
 //
-//import java.util.List;
+// import java.util.List;
 //
-//@RequiredArgsConstructor
-//@Slf4j
-//@Component
-//public class IgnoreUrlsRemoveJwtFilter implements WebFilter {
+// @RequiredArgsConstructor
+// @Slf4j
+// @Component
+// public class IgnoreUrlsRemoveJwtFilter implements WebFilter {
 //
 //  private final GatewayAuthProperties gatewayAuthProperties;
 //
@@ -37,4 +37,4 @@ package com.github.lalifeier.mall.cloud.gateway.filter;
 //    }
 //    return chain.filter(exchange);
 //  }
-//}
+// }

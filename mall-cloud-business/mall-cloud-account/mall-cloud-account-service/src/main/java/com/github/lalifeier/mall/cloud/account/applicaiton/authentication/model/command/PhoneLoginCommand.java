@@ -1,18 +1,19 @@
 package com.github.lalifeier.mall.cloud.account.applicaiton.authentication.model.command;
 
-
 import com.github.lalifeier.mall.cloud.account.infrastructure.enums.LoginTypeEnum;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
+@AllArgsConstructor
 public class PhoneLoginCommand extends LoginCommand {
-  private final String phone;
-  private final String code;
+    private final String phone;
+    private final String code;
 
-  @Override
-  public LoginTypeEnum getLoginType() {
-    return LoginTypeEnum.PHONE;
-  }
+    @Override
+    public LoginTypeEnum getLoginType() {
+        return LoginTypeEnum.PHONE;
+    }
 }

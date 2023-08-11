@@ -1,19 +1,24 @@
 package com.github.lalifeier.mall.cloud.auth.infrastructure.security.config;
 
-//import com.github.lalifeier.mall.cloud.auth.domain.oauth2.service.UserService;
-//import com.github.lalifeier.mall.cloud.auth.infrastructure.security.filter.SmsAuthenticationFilter;
-//import com.github.lalifeier.mall.cloud.auth.infrastructure.security.handler.RestAuthenticationFailureHandler;
-//import com.github.lalifeier.mall.cloud.auth.infrastructure.security.handler.RestAuthenticationSuccessHandler;
-//import com.github.lalifeier.mall.cloud.auth.infrastructure.security.provider.SmsAuthenticationProvider;
-//import org.springframework.security.authentication.AuthenticationManager;
-//import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-//import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.security.web.DefaultSecurityFilterChain;
-//import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+// import com.github.lalifeier.mall.cloud.auth.domain.oauth2.service.UserService;
+// import
+// com.github.lalifeier.mall.cloud.auth.infrastructure.security.filter.SmsAuthenticationFilter;
+// import
+// com.github.lalifeier.mall.cloud.auth.infrastructure.security.handler.RestAuthenticationFailureHandler;
+// import
+// com.github.lalifeier.mall.cloud.auth.infrastructure.security.handler.RestAuthenticationSuccessHandler;
+// import
+// com.github.lalifeier.mall.cloud.auth.infrastructure.security.provider.SmsAuthenticationProvider;
+// import org.springframework.security.authentication.AuthenticationManager;
+// import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
+// import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+// import org.springframework.security.crypto.password.PasswordEncoder;
+// import org.springframework.security.web.DefaultSecurityFilterChain;
+// import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 //
-////@Component
-//public class SmsAuthenticationSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
+//// @Component
+// public class SmsAuthenticationSecurityConfig extends
+// SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 //
 //  private UserService userService;
 //  private PasswordEncoder passwordEncoder;
@@ -23,7 +28,8 @@ package com.github.lalifeier.mall.cloud.auth.infrastructure.security.config;
 //  @Override
 //  public void configure(HttpSecurity http) {
 //    SmsAuthenticationFilter smsAuthenticationFilter = new SmsAuthenticationFilter();
-//    smsAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
+//
+// smsAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
 //    smsAuthenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
 //    smsAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
 //
@@ -54,7 +60,8 @@ package com.github.lalifeier.mall.cloud.auth.infrastructure.security.config;
 //    return authenticationSuccessHandler;
 //  }
 //
-//  public void setAuthenticationSuccessHandler(RestAuthenticationSuccessHandler authenticationSuccessHandler) {
+//  public void setAuthenticationSuccessHandler(RestAuthenticationSuccessHandler
+// authenticationSuccessHandler) {
 //    this.authenticationSuccessHandler = authenticationSuccessHandler;
 //  }
 //
@@ -62,7 +69,8 @@ package com.github.lalifeier.mall.cloud.auth.infrastructure.security.config;
 //    return authenticationFailureHandler;
 //  }
 //
-//  public void setAuthenticationFailureHandler(RestAuthenticationFailureHandler authenticationFailureHandler) {
+//  public void setAuthenticationFailureHandler(RestAuthenticationFailureHandler
+// authenticationFailureHandler) {
 //    this.authenticationFailureHandler = authenticationFailureHandler;
 //  }
-//}
+// }

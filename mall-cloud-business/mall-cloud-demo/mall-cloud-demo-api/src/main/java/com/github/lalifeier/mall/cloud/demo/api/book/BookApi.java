@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.*;
 
 @Validated
 public interface BookApi {
-  @PostMapping("")
-  void create(@Validated @RequestBody CreateBookCommand command);
+    @PostMapping("")
+    void create(@Validated @RequestBody CreateBookCommand command);
 
-  @PutMapping("/{id}")
-  void update(
-    @PathVariable @Positive(message = "bookId必须为正整数") Long id,
-    @Validated @RequestBody UpdateBookCommand command);
+    @PutMapping("/{id}")
+    void update(
+            @PathVariable @Positive(message = "bookId必须为正整数") Long id,
+            @Validated @RequestBody UpdateBookCommand command);
 
-  @DeleteMapping("/{id}")
-  void delete(@PathVariable @Positive(message = "bookId必须为正整数") Long id);
+    @DeleteMapping("/{id}")
+    void delete(@PathVariable @Positive(message = "bookId必须为正整数") Long id);
 
-  @GetMapping("/{id}")
-  BookDTO get(@PathVariable @Positive(message = "bookId必须为正整数") Long id);
+    @GetMapping("/{id}")
+    BookDTO get(@PathVariable @Positive(message = "bookId必须为正整数") Long id);
 
-  @GetMapping("")
-  PageResult<BookDTO> query(@Valid @ModelAttribute BookPageQuery query);
+    @GetMapping("")
+    PageResult<BookDTO> query(@Valid @ModelAttribute BookPageQuery query);
 }

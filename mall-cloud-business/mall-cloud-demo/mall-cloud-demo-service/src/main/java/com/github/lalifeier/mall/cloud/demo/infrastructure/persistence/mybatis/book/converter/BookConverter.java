@@ -8,17 +8,17 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface BookConverter {
-  BookConverter INSTANCE = Mappers.getMapper(BookConverter.class);
+    BookConverter INSTANCE = Mappers.getMapper(BookConverter.class);
 
-  @Mapping(source = "id", target = "id.value")
-  Book fromData(BookPO bookPO);
+    @Mapping(source = "id", target = "id.value")
+    Book fromData(BookPO bookPO);
 
-  // @Mapping(target = "id", ignore = true)
-  @Mapping(source = "id.value", target = "id")
-  @Mapping(target = "createdAt", ignore = true)
-  @Mapping(target = "createdBy", ignore = true)
-  @Mapping(target = "updatedAt", ignore = true)
-  @Mapping(target = "updatedBy", ignore = true)
-  @Mapping(target = "isDeleted", ignore = true)
-  BookPO toData(Book book);
+    // @Mapping(target = "id", ignore = true)
+    @Mapping(source = "id.value", target = "id")
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "createdBy", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "updatedBy", ignore = true)
+    @Mapping(target = "isDeleted", ignore = true)
+    BookPO toData(Book book);
 }

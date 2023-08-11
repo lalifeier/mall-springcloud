@@ -6,7 +6,8 @@ import org.springframework.data.redis.cache.RedisCacheWriter;
 
 public class CustomizedRedisCache extends RedisCache {
 
-  public CustomizedRedisCache(String name, RedisCacheWriter cacheWriter, RedisCacheConfiguration cacheConfig) {
-    super(name, cacheWriter, cacheConfig);
-  }
+    public CustomizedRedisCache(
+            String name, RedisCacheWriter cacheWriter, RedisCacheConfiguration cacheConfig) {
+        super(name, cacheWriter, cacheConfig);
+    }
 }

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class UpdateBookCommand implements Command {
-  private Long id;
+    private Long id;
 
-  private String name;
+    private String name;
 }

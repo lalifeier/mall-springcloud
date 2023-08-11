@@ -16,8 +16,9 @@ spring-cloud = "2022.0.0"
 spring-cloud-alibaba = "2022.0.0.0"
 lombok = "1.18.24"
 dubbo = "3.2.0"
-grpc = "1.55.1"
-protobuf = "3.22.2"
+grpc = "1.57.1"
+annotations-api = "6.0.53"
+protobuf = "3.22.3"
 grpc-kotlin = "1.3.0"
 grpc-spring-boot = "2.13.1.RELEASE"
 spring-cloud-oauth2 = "2.2.5.RELEASE"
@@ -74,7 +75,7 @@ redisson = "3.23.2"
 
 spring-dependency-management = "1.0.15.RELEASE"
 docker-plugin = "9.3.1"
-protobuf-plugin = "0.9.3"
+protobuf-plugin = "0.9.4"
 spotless = "6.13.0"
 sonarqube = "4.1.0.3113"
 versions = "0.47.0"
@@ -108,6 +109,7 @@ grpc-netty-shaded = { group = "io.grpc", name = "grpc-netty-shaded", version.ref
 grpc-protobuf = { group = "io.grpc", name = "grpc-protobuf", version.ref = "grpc" }
 grpc-stub = { group = "io.grpc", name = "grpc-stub", version.ref = "grpc" }
 grpc-kotlin-stub = { group = "io.grpc", name = "grpc-kotlin-stub", version.ref = "grpc-kotlin" }
+annotations-api = { group = "org.apache.tomcat", name = "annotations-api", version.ref = "annotations-api" }
 protobuf-kotlin = { group = "com.google.protobuf", name = "protobuf-kotlin", version.ref = "protobuf" }
 grpc-spring-boot-starter = { group = "net.devh", name = "grpc-spring-boot-starter", version.ref = "grpc-spring-boot" }
 spring-boot-admin-starter-server = { group = "de.codecentric", name = "spring-boot-admin-starter-server", version.ref = "spring-boot" }

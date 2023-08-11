@@ -11,39 +11,38 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-
 @Repository
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserRepositoryImpl implements UserRepository {
 
-  private final UserDao userDao;
+    private final UserDao userDao;
 
-  private final RoleDao roleDao;
+    private final RoleDao roleDao;
 
-  private final UserRoleDao userRoleDao;
-  private final UserConverter userConverter = UserConverter.INSTANCE;
+    private final UserRoleDao userRoleDao;
+    private final UserConverter userConverter = UserConverter.INSTANCE;
 
-  @Override
-  public UserPrincipal findByUsername(String username) {
-    UserPO user = userDao.findUserByUsername(username);
-    return userConverter.toData(user);
-  }
+    @Override
+    public UserPrincipal findByUsername(String username) {
+        UserPO user = userDao.findUserByUsername(username);
+        return userConverter.toData(user);
+    }
 
-  @Override
-  public UserPrincipal findByEmail(String email) {
-    UserPO user = userDao.findUserByEmail(email);
-    return userConverter.toData(user);
-  }
+    @Override
+    public UserPrincipal findByEmail(String email) {
+        UserPO user = userDao.findUserByEmail(email);
+        return userConverter.toData(user);
+    }
 
-  @Override
-  public UserPrincipal findByPhone(String phone) {
-    UserPO user = userDao.findUserByPhone(phone);
-    return userConverter.toData(user);
-  }
+    @Override
+    public UserPrincipal findByPhone(String phone) {
+        UserPO user = userDao.findUserByPhone(phone);
+        return userConverter.toData(user);
+    }
 
-  @Override
-  public UserPrincipal findByUsernameOrPhoneOrEmail(String usernameOrPhoneOrEmail) {
-    UserPO user = userDao.findUserByUsernameOrPhoneOrEmail(usernameOrPhoneOrEmail);
-    return userConverter.toData(user);
-  }
+    @Override
+    public UserPrincipal findByUsernameOrPhoneOrEmail(String usernameOrPhoneOrEmail) {
+        UserPO user = userDao.findUserByUsernameOrPhoneOrEmail(usernameOrPhoneOrEmail);
+        return userConverter.toData(user);
+    }
 }

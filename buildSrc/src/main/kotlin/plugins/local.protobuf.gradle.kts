@@ -2,9 +2,9 @@ plugins {
   id("com.google.protobuf")
 }
 
-val protocVersion = "3.22.2"
+val protocVersion = "3.22.3"
 val protocKotlinVersion = "1.3.0"
-val grpcVersion = "1.55.1"
+val grpcVersion = "1.57.1"
 
 protobuf {
   protoc {

@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 public interface AuthenticationApi {
-  @PostMapping("/login")
-  LoginDTO login(@Validated @RequestBody LoginRequest request);
+    @PostMapping("/login")
+    LoginDTO login(@Validated @RequestBody LoginRequest request);
 
-  @PostMapping("/register")
-  RegisterDTO register(@Validated @RequestBody RegisterCommand command);
+    @PostMapping("/register")
+    RegisterDTO register(@Validated @RequestBody RegisterCommand command);
 }

@@ -18,33 +18,33 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RequestMapping("/api/v1/books")
 public class BookController implements BookApi {
-  private final BookApplicationService bookApplicationService;
+    private final BookApplicationService bookApplicationService;
 
-  private final BookQueryApplicationService bookQueryApplicationService;
+    private final BookQueryApplicationService bookQueryApplicationService;
 
-  @Override
-  public void create(CreateBookCommand command) {
-    bookApplicationService.create(command);
-  }
+    @Override
+    public void create(CreateBookCommand command) {
+        bookApplicationService.create(command);
+    }
 
-  @Override
-  public void update(Long id, UpdateBookCommand command) {
-    command.setId(id);
-    bookApplicationService.update(command);
-  }
+    @Override
+    public void update(Long id, UpdateBookCommand command) {
+        command.setId(id);
+        bookApplicationService.update(command);
+    }
 
-  @Override
-  public void delete(Long id) {
-    bookApplicationService.delete(id);
-  }
+    @Override
+    public void delete(Long id) {
+        bookApplicationService.delete(id);
+    }
 
-  @Override
-  public BookDTO get(Long id) {
-    return bookQueryApplicationService.get(id);
-  }
+    @Override
+    public BookDTO get(Long id) {
+        return bookQueryApplicationService.get(id);
+    }
 
-  @Override
-  public PageResult<BookDTO> query(BookPageQuery query) {
-    return bookQueryApplicationService.query(query);
-  }
+    @Override
+    public PageResult<BookDTO> query(BookPageQuery query) {
+        return bookQueryApplicationService.query(query);
+    }
 }

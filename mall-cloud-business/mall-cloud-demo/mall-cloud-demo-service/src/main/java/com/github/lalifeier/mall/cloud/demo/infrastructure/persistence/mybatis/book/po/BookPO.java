@@ -2,11 +2,11 @@ package com.github.lalifeier.mall.cloud.demo.infrastructure.persistence.mybatis.
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.github.lalifeier.mall.cloud.mybatisplus.po.BasePO;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 @TableName(value = "t_book")
 public class BookPO extends BasePO<BookPO> {
     private String name;

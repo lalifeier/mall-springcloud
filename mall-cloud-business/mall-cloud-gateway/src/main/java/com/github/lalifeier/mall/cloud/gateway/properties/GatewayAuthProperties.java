@@ -2,12 +2,10 @@ package com.github.lalifeier.mall.cloud.gateway.properties;
 
 import java.util.List;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
 @Component
 @ConfigurationProperties(prefix = "gateway")
 public class GatewayAuthProperties {

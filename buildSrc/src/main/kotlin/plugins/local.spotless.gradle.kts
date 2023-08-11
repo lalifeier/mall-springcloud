@@ -4,6 +4,7 @@ plugins {
 
 spotless {
   java {
+    targetExclude("build/**")
     // apply a specific flavor of google-java-format
     googleJavaFormat().aosp().reflowLongStrings()
     // fix formatting of type annotations

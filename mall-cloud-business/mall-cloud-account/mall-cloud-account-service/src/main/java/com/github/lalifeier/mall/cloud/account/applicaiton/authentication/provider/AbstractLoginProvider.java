@@ -10,22 +10,22 @@ import org.springframework.stereotype.Component;
 @Component
 public abstract class AbstractLoginProvider implements LoginProvider {
 
-  private final AuthenticationAssembler authenticationAssembler =
-    AuthenticationAssembler.INSTANCE;
+    private final AuthenticationAssembler authenticationAssembler =
+            AuthenticationAssembler.INSTANCE;
 
-  protected abstract void preAuthenticationCheck(LoginCommand loginCommand);
+    protected abstract void preAuthenticationCheck(LoginCommand loginCommand);
 
-  protected abstract Account authenticate(LoginCommand loginCommand);
+    protected abstract Account authenticate(LoginCommand loginCommand);
 
-  @Override
-  public LoginDTO login(LoginCommand loginCommand) {
-    preAuthenticationCheck(loginCommand);
+    @Override
+    public LoginDTO login(LoginCommand loginCommand) {
+        preAuthenticationCheck(loginCommand);
 
-    Account account = authenticate(loginCommand);
+        Account account = authenticate(loginCommand);
 
-    return authenticationAssembler.toLoginDTO(account);
-  }
+        return authenticationAssembler.toLoginDTO(account);
+    }
 
-  @Override
-  public abstract boolean supports(LoginTypeEnum loginTypeEnum);
+    @Override
+    public abstract boolean supports(LoginTypeEnum loginTypeEnum);
 }
