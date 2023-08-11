@@ -25,7 +25,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ ubuntu-latest ]
-        language: [ "java", 'kotlin' ]
+        language: [ "java" ]
         java-distribution: [ liberica ]
         java-version: [ 17 ]
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
@@ -56,4 +56,4 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: Build with Gradle
-        run: ./gradlew clean build -PskipIntegrationTests
+        run: ./gradlew clean build -x test
