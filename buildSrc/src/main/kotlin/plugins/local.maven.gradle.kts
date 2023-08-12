@@ -2,6 +2,8 @@ plugins {
   `maven-publish`
 }
 
+val isSnapshot = project.version.toString().contains("SNAPSHOT")
+
 publishing {
   publications {
     create<MavenPublication>("mavenJava") {

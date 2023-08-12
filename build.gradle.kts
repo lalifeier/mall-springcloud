@@ -16,9 +16,15 @@ plugins {
   id("local.versions")
 }
 
+fun isReleaseBuild(): Boolean {
+  return hasProperty("release")
+}
+
+val version = project.findProperty("version") as String
+
 allprojects {
   group = "com.github.lalifeier"
-  version = project.findProperty("version") as String
+  version = if (isReleaseBuild()) version else "$version-SNAPSHOT"
 }
 
 val javaProjects = subprojects.filter { it.file("build.gradle.kts").exists() }

@@ -16,6 +16,7 @@ public class WebLog {
     private String refer;
     private String sessionId;
     private String url;
+    private String uri;
     private Map<String, String> header;
     private Map<String, String> query;
     private String payload;

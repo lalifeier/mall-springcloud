@@ -5,20 +5,22 @@ import com.github.lalifeier.mall.cloud.common.model.WebLog;
 import com.github.lalifeier.mall.cloud.common.utils.WebUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Slf4j
 @Aspect
 @Component
 public class WebLogAspect {
 
     @Autowired private ObjectMapper objectMapper;
+
+    private final Logger log = LoggerFactory.getLogger("apiLog");
 
     //  private final ThreadLocal<WebLog> THREAD_LOCAL = new ThreadLocal<>();
 
@@ -39,6 +41,7 @@ public class WebLogAspect {
             webLog.setUserAgent(request.getHeader("User-Agent"));
             webLog.setRefer(request.getHeader("Referer"));
             webLog.setSessionId(request.getSession().getId());
+            webLog.setUri(request.getRequestURI());
             webLog.setUrl(request.getRequestURL().toString());
             webLog.setHttpMethod(request.getMethod());
             webLog.setClassMethod(

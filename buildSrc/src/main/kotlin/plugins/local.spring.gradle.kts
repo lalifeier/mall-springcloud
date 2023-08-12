@@ -7,6 +7,7 @@ plugins {
 
 tasks.named<Jar>("jar") {
   enabled = true
+  archiveClassifier.set("")
 }
 
 

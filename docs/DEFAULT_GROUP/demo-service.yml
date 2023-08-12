@@ -3,6 +3,12 @@ server:
   servlet:
     context-path: /
 
+#  undertow:
+#    accesslog:
+#      enabled: true
+#      pattern: "%t %a "%r" %s (%D ms)"
+#      directory: /tmp/logs
+
 grpc:
   server:
     port: 0
