@@ -17,8 +17,8 @@ if [ -z "$(ls -A "$AGENT_DIR")" ]; then
     tar -zxvf skywalking-agent.tgz
     cp skywalking-agent/optional-plugins/apm-spring-webflux-5.x-plugin-${SKYWALKING_AGENT_VERSION}.jar skywalking-agent/plugins/
     cp skywalking-agent/optional-plugins/apm-spring-cloud-gateway-3.x-plugin-${SKYWALKING_AGENT_VERSION}.jar skywalking-agent/plugins/
-    mv skywalking-agent "$AGENT_DIR"
-#    rm -rf skywalking-agent.tgz
+    mv skywalking-agent/* "$AGENT_DIR"
+    rm -rf skywalking-agent.tgz
     echo "SkyWalking Agent has been initialized."
 else
     echo "SkyWalking Agent already exists. Skipping initialization."
