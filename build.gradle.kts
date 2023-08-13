@@ -13,6 +13,7 @@ plugins {
   id("local.docker") apply false
   id("local.sonarqube") apply false
   id("local.spotless") apply false
+  id("local.shadow") apply false
   id("local.versions")
 }
 
@@ -86,13 +87,14 @@ configure(grpcProjects) {
 //docker
 configure(bootProjects) {
   apply(plugin = "local.docker")
+  apply(plugin = "local.shadow")
+
+  tasks.named<Jar>("jar") {
+    enabled = false
+  }
 
   tasks.named<BootJar>("bootJar") {
     enabled = true
-  }
-
-  tasks.named<Jar>("jar") {
-    from(sourceSets.main.get().output)
   }
 
 //  val developmentOnly1 by configurations.creating

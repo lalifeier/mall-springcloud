@@ -13,4 +13,5 @@ dependencies {
   implementation(libs.spotless.gradle.plugin)
   implementation(libs.sonarqube.gradle.plugin)
   implementation(libs.gradle.versions.plugin)
+  implementation(libs.shadow.gradle.plugin)
 }

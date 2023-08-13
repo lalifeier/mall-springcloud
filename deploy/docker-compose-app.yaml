@@ -16,6 +16,7 @@ services:
     restart: always
     environment:
       - TZ=Asia/Shanghai
+  #      - JAVA_TOOL_OPTIONS="-javaagent:/skywalking/agent/skywalking-agent.jar"
 
   mall-auth:
     image: mall/mall-auth:1.0-SNAPSHOT

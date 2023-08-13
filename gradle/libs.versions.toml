@@ -79,6 +79,7 @@ protobuf-plugin = "0.9.4"
 spotless = "6.13.0"
 sonarqube = "4.1.0.3113"
 versions = "0.47.0"
+shadow = "8.1.1"
 
 [libraries]
 cglib-nodep = { group = "cglib", name = "cglib-nodep", version.ref = "cglib" }
@@ -180,7 +181,6 @@ jjwt-impl = { group = "io.jsonwebtoken", name = "jjwt-impl", version.ref = "jjwt
 jjwt-jackson = { group = "io.jsonwebtoken", name = "jjwt-jackson", version.ref = "jjwt" }
 redisson = { group = "org.redisson", name = "redisson", version.ref = "redisson" }
 
-
 spring-boot-gradle-plugin = { group = "org.springframework.boot", name = "spring-boot-gradle-plugin", version.ref = "spring-boot" }
 spring-dependency-management-plugin = { group = "io.spring.gradle", name = "dependency-management-plugin", version.ref = "spring-dependency-management" }
 kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -191,7 +191,7 @@ docker-gradle-plugin = { group = "com.bmuschko", name = "gradle-docker-plugin", 
 spotless-gradle-plugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "spotless" }
 sonarqube-gradle-plugin = { group = "org.sonarsource.scanner.gradle", name = "sonarqube-gradle-plugin", version.ref = "sonarqube" }
 gradle-versions-plugin = { group = "com.github.ben-manes", name = "gradle-versions-plugin", version.ref = "versions" }
-
+shadow-gradle-plugin = { group = "com.github.johnrengelman", name = "shadow", version.ref = "shadow" }
 
 [bundles]
 #groovy = ["groovy-core", "groovy-json", "groovy-nio"]
