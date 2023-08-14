@@ -1,7 +1,6 @@
-package com.github.lalifeier.mall.cloud.auth.infrastructure.security.provider;
+package com.github.lalifeier.mall.cloud.auth.infrastructure.security.login.password;
 
 import com.github.lalifeier.mall.cloud.auth.domain.oauth2.service.UserService;
-import com.github.lalifeier.mall.cloud.auth.infrastructure.security.token.PasswordAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;

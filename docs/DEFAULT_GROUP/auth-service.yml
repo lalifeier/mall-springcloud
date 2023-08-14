@@ -1,11 +1,18 @@
 server:
   port: 0
+#  servlet:
+#    session:
+#      cookie:
+#        name: JSESSIONID
 
 spring:
   profiles:
     active: dev
   #  autoconfigure:
   #    exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
+
+  #  session:
+  #    store-type: redis
 
   sql:
     init:

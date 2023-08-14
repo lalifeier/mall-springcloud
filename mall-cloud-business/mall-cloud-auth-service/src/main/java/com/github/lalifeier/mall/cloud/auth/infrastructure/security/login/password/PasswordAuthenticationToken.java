@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.auth.infrastructure.security.token;
+package com.github.lalifeier.mall.cloud.auth.infrastructure.security.login.password;
 
 import java.util.Collection;
 import lombok.Getter;
@@ -29,9 +29,18 @@ public class PasswordAuthenticationToken extends AbstractAuthenticationToken {
         super.setAuthenticated(true);
     }
 
+    public static PasswordAuthenticationToken unauthenticated(String principal, String password) {
+        return new PasswordAuthenticationToken(principal, password);
+    }
+
+    public static PasswordAuthenticationToken authenticated(
+            String principal, String password, Collection<? extends GrantedAuthority> authorities) {
+        return new PasswordAuthenticationToken(principal, password, authorities);
+    }
+
     @Override
     public Object getCredentials() {
-        throw new UnsupportedOperationException();
+        return password;
     }
 
     @Override

@@ -1,6 +1,11 @@
 package com.github.lalifeier.mall.cloud.auth.infrastructure.util;
 
-import com.nimbusds.jose.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.lalifeier.mall.cloud.auth.domain.oauth2.entity.UserPrincipal;
+import com.nimbusds.jose.JWSAlgorithm;
+import com.nimbusds.jose.JWSHeader;
+import com.nimbusds.jose.JWSSigner;
+import com.nimbusds.jose.JWSVerifier;
 import com.nimbusds.jose.crypto.RSASSASigner;
 import com.nimbusds.jose.crypto.RSASSAVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
@@ -9,22 +14,15 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
-import java.text.ParseException;
-import java.time.Instant;
 import java.util.Date;
-import java.util.function.Function;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class JwtUtil {
-
-    private static final String BEARER = "Bearer ";
-
-    private static final String ISSUER = "your_issuer";
-    private static final String AUDIENCE = "your_audience";
-    private static final String SUBJECT = "your_subject";
-    private static final long EXPIRATION_TIME = 3600000; // 1 hour
-
     private static RSAPrivateKey privateKey;
     private static RSAPublicKey publicKey;
+
+    private static final String JWT_PAYLOAD_USER_KEY = "user";
 
     static {
         generateKeyPair();
@@ -42,66 +40,58 @@ public class JwtUtil {
         }
     }
 
-    public static String generateToken() {
+    public static String generateToken(UserPrincipal userPrincipal, int expire) {
+        String token = null;
         try {
             JWSSigner signer = new RSASSASigner(privateKey);
 
             JWTClaimsSet claimsSet =
                     new JWTClaimsSet.Builder()
-                            .issuer(ISSUER)
-                            .subject(SUBJECT)
-                            .audience(AUDIENCE)
-                            .expirationTime(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                            .claim(JWT_PAYLOAD_USER_KEY, userPrincipal)
+                            .expirationTime(new Date(System.currentTimeMillis() + expire))
                             .build();
 
-            SignedJWT signedJWT =
-                    new SignedJWT(
-                            new JWSHeader.Builder(JWSAlgorithm.RS256).keyID("1").build(),
-                            claimsSet);
-
+            SignedJWT signedJWT = new SignedJWT(new JWSHeader(JWSAlgorithm.RS256), claimsSet);
             signedJWT.sign(signer);
-
-            return signedJWT.serialize();
+            token = signedJWT.serialize();
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            log.error(e.getMessage());
         }
+
+        return token;
     }
 
-    public static boolean verifyToken(String token) {
+    public static JWTClaimsSet parserToken(String token) {
+        JWTClaimsSet claims = null;
         try {
             SignedJWT signedJWT = SignedJWT.parse(token);
             JWSVerifier verifier = new RSASSAVerifier(publicKey);
 
-            return signedJWT.verify(verifier);
+            if (signedJWT.verify(verifier)) {
+                claims = signedJWT.getJWTClaimsSet();
+            }
         } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            log.error(e.getMessage());
         }
+        return claims;
     }
 
     public static boolean isTokenExpired(String token) {
-        Date expiration = extractExpiration(token);
-        return expiration != null && expiration.before(Date.from(Instant.now()));
+        JWTClaimsSet claims = parserToken(token);
+        return claims != null && claims.getExpirationTime().after(new Date());
     }
 
-    public static String extractUsername(String token) {
-        return extractClaim(
-                token, jwsObject -> jwsObject.getPayload().toJSONObject().get("sub").toString());
-    }
-
-    public static Date extractExpiration(String token) {
-        return extractClaim(
-                token, jwsObject -> (Date) jwsObject.getPayload().toJSONObject().get("exp"));
-    }
-
-    private static <T> T extractClaim(String token, Function<JWSObject, T> claimsResolver) {
+    public static UserPrincipal getUserInfo(String token) {
+        UserPrincipal user = null;
         try {
-            JWSObject jwsObject = JWSObject.parse(token);
-            return claimsResolver.apply(jwsObject);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return null;
+            JWTClaimsSet claims = parserToken(token);
+            if (claims != null && claims.getExpirationTime().after(new Date())) {
+                Object jsonObject = claims.getClaim(JWT_PAYLOAD_USER_KEY);
+                user = new ObjectMapper().readValue(jsonObject.toString(), UserPrincipal.class);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage());
         }
+        return user;
     }
 }
