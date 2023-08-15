@@ -102,12 +102,24 @@ public class EncryptResponseFilterFactory
         public Mono<Void> writeWith(Publisher<? extends DataBuffer> body) {
             Flux<DataBuffer> bufferFlux = Flux.from(body);
             Mono<byte[]> data =
-                    DataBufferUtils.join(bufferFlux)
+                    bufferFlux
+                            .collectList()
                             .map(
-                                    bytes -> {
-                                        byte[] array = new byte[bytes.readableByteCount()];
-                                        bytes.read(array);
-                                        DataBufferUtils.release(bytes);
+                                    dataBuffers -> {
+                                        byte[] array =
+                                                new byte
+                                                        [dataBuffers.stream()
+                                                                .mapToInt(
+                                                                        DataBuffer
+                                                                                ::readableByteCount)
+                                                                .sum()];
+                                        int position = 0;
+                                        for (DataBuffer dataBuffer : dataBuffers) {
+                                            int length = dataBuffer.readableByteCount();
+                                            dataBuffer.read(array, position, length);
+                                            position += length;
+                                            DataBufferUtils.release(dataBuffer);
+                                        }
                                         return array;
                                     });
 

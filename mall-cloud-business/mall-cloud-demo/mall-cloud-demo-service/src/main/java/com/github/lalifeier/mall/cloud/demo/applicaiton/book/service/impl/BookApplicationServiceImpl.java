@@ -8,13 +8,13 @@ import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.Book;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.valueobject.BookId;
 import com.github.lalifeier.mall.cloud.demo.domain.book.repository.BookRepository;
 import com.github.lalifeier.mall.cloud.demo.domain.book.service.BookDomainService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BookApplicationServiceImpl implements BookApplicationService {
     private final BookDomainService bookDomainService;
 

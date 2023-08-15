@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,6 +29,8 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 
 @Configuration(proxyBeanMethods = false)
 public class AuthorizationServerConfig {
@@ -45,11 +48,11 @@ public class AuthorizationServerConfig {
         //    支持OpenID Connect 1.0, scope如果有openid的话,需要配置这个
         authorizationServerConfigurer.oidc(Customizer.withDefaults());
 
-        //    http.exceptionHandling(
-        //      (exceptions) ->
-        //        exceptions.defaultAuthenticationEntryPointFor(
-        //          new LoginUrlAuthenticationEntryPoint("/login"),
-        //          new MediaTypeRequestMatcher(MediaType.TEXT_HTML)));
+        http.exceptionHandling(
+                (exceptions) ->
+                        exceptions.defaultAuthenticationEntryPointFor(
+                                new LoginUrlAuthenticationEntryPoint("/login"),
+                                new MediaTypeRequestMatcher(MediaType.TEXT_HTML)));
 
         return http.build();
     }

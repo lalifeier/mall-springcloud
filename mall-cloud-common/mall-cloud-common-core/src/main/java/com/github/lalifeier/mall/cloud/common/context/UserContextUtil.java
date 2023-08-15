@@ -5,7 +5,7 @@ public class UserContextUtil {
     private static final UserContext userContext = UserContextHolder.getUserContext();
 
     public static Long getUserId() {
-        return (userContext != null) ? userContext.getUserId() : null;
+        return (userContext != null) ? userContext.getUserId() : 0L;
     }
 
     public static String getUserName() {

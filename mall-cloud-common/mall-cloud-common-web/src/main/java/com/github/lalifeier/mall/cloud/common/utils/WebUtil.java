@@ -3,19 +3,22 @@ package com.github.lalifeier.mall.cloud.common.utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.util.ContentCachingRequestWrapper;
+import org.springframework.web.util.ContentCachingResponseWrapper;
 
 @Slf4j
 public class WebUtil {
@@ -94,21 +97,29 @@ public class WebUtil {
         return request.getSession().getId();
     }
 
-    public static Map<String, String> getRequestHeaders(HttpServletRequest request) {
-        Map<String, String> headerMap = new HashMap<>();
+    public static String getCookies(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null || cookies.length == 0) {
+            return "";
+        }
 
+        StringJoiner cookieJoiner = new StringJoiner("; ");
+        for (Cookie cookie : cookies) {
+            cookieJoiner.add(cookie.getName() + "=" + cookie.getValue());
+        }
+
+        return cookieJoiner.toString();
+    }
+
+    public static Map<String, String> getRequestHeaders(HttpServletRequest request) {
+        Map<String, String> headers = new HashMap<>();
         Enumeration<String> headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {
             String headerName = headerNames.nextElement();
             String headerValue = request.getHeader(headerName);
-
-            if (!org.springframework.util.StringUtils.isEmpty(headerName)
-                    && !org.springframework.util.StringUtils.isEmpty(headerValue)) {
-                headerMap.put(headerName, headerValue);
-            }
+            headers.put(headerName, headerValue);
         }
-
-        return headerMap;
+        return headers;
     }
 
     public static Map<String, String> getRequestQuery(HttpServletRequest request) {
@@ -122,17 +133,61 @@ public class WebUtil {
         return queryMap;
     }
 
-    public static String getRequestPayload(HttpServletRequest request) {
-        StringBuilder payload = new StringBuilder();
-        try (BufferedReader reader = request.getReader()) {
+    public static String getRequestBody(HttpServletRequest request) throws IOException {
+        if (request instanceof ContentCachingRequestWrapper) {
+            ContentCachingRequestWrapper wrapper = (ContentCachingRequestWrapper) request;
+            byte[] content = wrapper.getContentAsByteArray();
+            if (content.length > 0) {
+                return new String(content, StandardCharsets.UTF_8);
+            }
+        } else {
+            BufferedReader reader =
+                    new BufferedReader(
+                            new InputStreamReader(
+                                    request.getInputStream(), StandardCharsets.UTF_8));
+            StringBuilder payloadBuilder = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
-                payload.append(line);
+                payloadBuilder.append(line);
             }
-        } catch (IOException e) {
-            // 处理异常
-            e.printStackTrace();
+            return payloadBuilder.toString();
         }
-        return payload.toString();
+
+        return "";
+    }
+
+    public static String getResponseBody(HttpServletResponse response) throws IOException {
+        StringBuilder responseBodyBuilder = new StringBuilder();
+
+        if (response instanceof ContentCachingResponseWrapper) {
+            ContentCachingResponseWrapper wrapper = (ContentCachingResponseWrapper) response;
+            byte[] content = wrapper.getContentAsByteArray();
+            if (content.length > 0) {
+                return new String(content, StandardCharsets.UTF_8);
+            }
+        } else {
+            //      StringBuilder responseBody = new StringBuilder();
+            //      try (BufferedReader reader = response.getReader()) {
+            //        String line;
+            //        while ((line = reader.readLine()) != null) {
+            //          responseBody.append(line);
+            //        }
+            //      }
+            //      return responseBody.toString();
+        }
+
+        return responseBodyBuilder.toString();
+    }
+
+    public static Map<String, String> getResponseHeaders(HttpServletResponse response) {
+        Map<String, String> headers = new HashMap<>();
+        Collection<String> headerNames = response.getHeaderNames();
+
+        for (String headerName : headerNames) {
+            String headerValue = response.getHeader(headerName);
+            headers.put(headerName, headerValue);
+        }
+
+        return headers;
     }
 }

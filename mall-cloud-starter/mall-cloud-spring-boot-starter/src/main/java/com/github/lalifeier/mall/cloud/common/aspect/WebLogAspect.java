@@ -2,8 +2,10 @@ package com.github.lalifeier.mall.cloud.common.aspect;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.lalifeier.mall.cloud.common.model.WebLog;
+import com.github.lalifeier.mall.cloud.common.utils.MDCTraceUtil;
 import com.github.lalifeier.mall.cloud.common.utils.WebUtil;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -17,12 +19,9 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class WebLogAspect {
-
     @Autowired private ObjectMapper objectMapper;
 
     private final Logger log = LoggerFactory.getLogger("apiLog");
-
-    //  private final ThreadLocal<WebLog> THREAD_LOCAL = new ThreadLocal<>();
 
     @Pointcut("@within(org.springframework.web.bind.annotation.RestController)")
     public void webLog() {}
@@ -35,12 +34,14 @@ public class WebLogAspect {
         HttpServletRequest request = WebUtil.getRequest();
         try {
             webLog.setRequestTime(LocalDateTime.now());
+            webLog.setRequestId(MDCTraceUtil.getTraceId());
             webLog.setProtocol(request.getProtocol());
             webLog.setSchema(request.getScheme());
             webLog.setIp(request.getRemoteAddr());
             webLog.setUserAgent(request.getHeader("User-Agent"));
             webLog.setRefer(request.getHeader("Referer"));
             webLog.setSessionId(request.getSession().getId());
+            webLog.setCookies(WebUtil.getCookies(request));
             webLog.setUri(request.getRequestURI());
             webLog.setUrl(request.getRequestURL().toString());
             webLog.setHttpMethod(request.getMethod());
@@ -49,76 +50,30 @@ public class WebLogAspect {
                             "%s.%s",
                             pjp.getSignature().getDeclaringTypeName(),
                             pjp.getSignature().getName()));
-            webLog.setHeader(WebUtil.getRequestHeaders(request));
-            webLog.setQuery(WebUtil.getRequestQuery(request));
-            //      webLog.setPayload(WebUtil.getRequestPayload(request));
+            webLog.setRequestHeaders(WebUtil.getRequestHeaders(request));
+            webLog.setQuery(request.getQueryString());
+
+            webLog.setRequestBody(WebUtil.getRequestBody(request));
+            webLog.setRequestSize(request.getContentLength());
 
             Object returnValue = pjp.proceed();
 
-            webLog.setResponse(objectMapper.writeValueAsString(returnValue));
+            HttpServletResponse response = WebUtil.getResponse();
+
+            webLog.setStatusCode(response.getStatus());
+            webLog.setResponseHeaders(WebUtil.getResponseHeaders(response));
+
+            webLog.setResponseBody(objectMapper.writeValueAsString(returnValue));
 
             return returnValue;
-
         } catch (Exception e) {
             webLog.setException(e.getMessage());
 
             throw e;
         } finally {
-            webLog.setTimeCost(System.currentTimeMillis() - beginTime);
+            webLog.setSpendTime(System.currentTimeMillis() - beginTime);
 
             log.info(objectMapper.writeValueAsString(webLog));
         }
     }
-
-    //  @Before("webLog()")
-    //  public void doBefore(JoinPoint joinPoint) {
-    //    HttpServletRequest request = WebUtil.getRequest();
-    //    WebLog webLog = new WebLog();
-    //    webLog.setRequestTime(LocalDateTime.now());
-    //    webLog.setProtocol(request.getProtocol());
-    //    webLog.setSchema(request.getScheme());
-    //    webLog.setIp(request.getRemoteAddr());
-    //    webLog.setUserAgent(request.getHeader("User-Agent"));
-    //    webLog.setSessionId(request.getSession().getId());
-    //    webLog.setUrl(request.getRequestURL().toString());
-    //    webLog.setHttpMethod(request.getMethod());
-    //    webLog.setClassMethod(
-    //      String.format(
-    //        "%s.%s",
-    //        joinPoint.getSignature().getDeclaringTypeName(),
-    //        joinPoint.getSignature().getName()));
-    //    webLog.setHeader(WebUtil.getRequestHeaders(request));
-    //    webLog.setQuery(WebUtil.getRequestQuery(request));
-    //    webLog.setPayload(WebUtil.getRequestPayload(request));
-    //    THREAD_LOCAL.set(webLog);
-    //  }
-    //
-    //  @AfterReturning(value = "webLog()", returning = "ret")
-    //  public void doAfterReturning(Object ret) throws Throwable {
-    //    WebLog webLog = THREAD_LOCAL.get();
-    //    webLog.setTimeCost(
-    //      System.currentTimeMillis()
-    //        - webLog
-    //        .getRequestTime()
-    //        .atZone(ZoneId.systemDefault())
-    //        .toInstant()
-    //        .toEpochMilli());
-    //    webLog.setResponse(objectMapper.writeValueAsString(ret));
-    //    log.info(objectMapper.writeValueAsString(webLog));
-    //  }
-    //
-    //  @AfterThrowing(pointcut = "webLog()", throwing = "e")
-    //  public void doAfterThrow(JoinPoint joinPoint, Throwable e) throws Throwable {
-    //    WebLog webLog = THREAD_LOCAL.get();
-    //    webLog.setTimeCost(
-    //      System.currentTimeMillis()
-    //        - webLog
-    //        .getRequestTime()
-    //        .atZone(ZoneId.systemDefault())
-    //        .toInstant()
-    //        .toEpochMilli());
-    //    webLog.setException(e.getMessage());
-    //    log.info(objectMapper.writeValueAsString(webLog));
-    //  }
-
 }
