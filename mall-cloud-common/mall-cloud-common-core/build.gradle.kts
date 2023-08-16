@@ -11,4 +11,5 @@ dependencies {
   implementation(libs.slf4j.api)
   implementation(libs.cglib.nodep)
   implementation(libs.validation.api)
+  implementation(libs.easyexcel)
 }
