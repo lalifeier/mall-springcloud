@@ -2,6 +2,7 @@ dependencies {
   implementation(project(":mall-cloud-starter:mall-cloud-spring-cloud-starter"))
   implementation(project(":mall-cloud-starter:mall-cloud-mybatis-plus-spring-boot-starter"))
   implementation(project(":mall-cloud-starter:mall-cloud-xxl-job-spring-boot-starter"))
+  implementation(project(":mall-cloud-starter:mall-cloud-prometheus-spring-boot-starter"))
   implementation(project(":mall-cloud-business:mall-cloud-demo:mall-cloud-demo-api"))
 //  implementation(project(":mall-cloud-business:mall-cloud-demo:mall-cloud-demo-grpc"))
 //  implementation(project(":mall-cloud-business:mall-cloud-demo:mall-cloud-demo-dubbo"))
@@ -24,8 +25,6 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-validation")
   implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
   implementation("org.springframework.cloud:spring-cloud-stream")
-  implementation(libs.spring.boot.starter.actuator)
-  implementation(libs.micrometer.registry.prometheus)
 }
 
 

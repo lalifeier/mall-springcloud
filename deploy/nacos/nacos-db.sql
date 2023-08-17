@@ -18,7 +18,7 @@
 /*   数据库全名 = nacos_config   */
 /*   表名称 = config_info   */
 /******************************************/
-CREATE TABLE IF NOT EXISTS `config_info` (
+CREATE TABLE `config_info` (
                              `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
                              `data_id` varchar(255) NOT NULL COMMENT 'data_id',
                              `group_id` varchar(255) DEFAULT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `config_info` (
                              `md5` varchar(32) DEFAULT NULL COMMENT 'md5',
                              `gmt_create` datetime NOT NULL DEFAULT '2010-05-05 00:00:00' COMMENT '创建时间',
                              `gmt_modified` datetime NOT NULL DEFAULT '2010-05-05 00:00:00' COMMENT '修改时间',
-                             `src_user` text COMMENT 'source userPrincipal',
+                             `src_user` text COMMENT 'source user',
                              `src_ip` varchar(20) DEFAULT NULL COMMENT 'source ip',
                              `app_name` varchar(128) DEFAULT NULL,
                              `tenant_id` varchar(128) DEFAULT '' COMMENT '租户字段',
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `config_info` (
 /*   数据库全名 = nacos_config   */
 /*   表名称 = config_info_aggr   */
 /******************************************/
-CREATE TABLE IF NOT EXISTS `config_info_aggr` (
+CREATE TABLE `config_info_aggr` (
                                   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
                                   `data_id` varchar(255) NOT NULL COMMENT 'data_id',
                                   `group_id` varchar(255) NOT NULL COMMENT 'group_id',
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `config_info_aggr` (
 /*   数据库全名 = nacos_config   */
 /*   表名称 = config_info_beta   */
 /******************************************/
-CREATE TABLE IF NOT EXISTS `config_info_beta` (
+CREATE TABLE `config_info_beta` (
                                   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
                                   `data_id` varchar(255) NOT NULL COMMENT 'data_id',
                                   `group_id` varchar(128) NOT NULL COMMENT 'group_id',
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `config_info_beta` (
                                   `md5` varchar(32) DEFAULT NULL COMMENT 'md5',
                                   `gmt_create` datetime NOT NULL DEFAULT '2010-05-05 00:00:00' COMMENT '创建时间',
                                   `gmt_modified` datetime NOT NULL DEFAULT '2010-05-05 00:00:00' COMMENT '修改时间',
-                                  `src_user` text COMMENT 'source userPrincipal',
+                                  `src_user` text COMMENT 'source user',
                                   `src_ip` varchar(20) DEFAULT NULL COMMENT 'source ip',
                                   `tenant_id` varchar(128) DEFAULT '' COMMENT '租户字段',
                                   `encrypted_data_key` text NOT NULL COMMENT '秘钥',
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `config_info_beta` (
 /*   数据库全名 = nacos_config   */
 /*   表名称 = config_info_tag   */
 /******************************************/
-CREATE TABLE IF NOT EXISTS `config_info_tag` (
+CREATE TABLE `config_info_tag` (
                                  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
                                  `data_id` varchar(255) NOT NULL COMMENT 'data_id',
                                  `group_id` varchar(128) NOT NULL COMMENT 'group_id',
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `config_info_tag` (
                                  `md5` varchar(32) DEFAULT NULL COMMENT 'md5',
                                  `gmt_create` datetime NOT NULL DEFAULT '2010-05-05 00:00:00' COMMENT '创建时间',
                                  `gmt_modified` datetime NOT NULL DEFAULT '2010-05-05 00:00:00' COMMENT '修改时间',
-                                 `src_user` text COMMENT 'source userPrincipal',
+                                 `src_user` text COMMENT 'source user',
                                  `src_ip` varchar(20) DEFAULT NULL COMMENT 'source ip',
                                  PRIMARY KEY (`id`),
                                  UNIQUE KEY `uk_configinfotag_datagrouptenanttag` (`data_id`,`group_id`,`tenant_id`,`tag_id`)
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `config_info_tag` (
 /*   数据库全名 = nacos_config   */
 /*   表名称 = config_tags_relation   */
 /******************************************/
-CREATE TABLE IF NOT EXISTS `config_tags_relation` (
+CREATE TABLE `config_tags_relation` (
                                       `id` bigint(20) NOT NULL COMMENT 'id',
                                       `tag_name` varchar(128) NOT NULL COMMENT 'tag_name',
                                       `tag_type` varchar(64) DEFAULT NULL COMMENT 'tag_type',
@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `config_tags_relation` (
 /*   数据库全名 = nacos_config   */
 /*   表名称 = group_capacity   */
 /******************************************/
-CREATE TABLE IF NOT EXISTS `group_capacity` (
+CREATE TABLE `group_capacity` (
                                 `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
                                 `group_id` varchar(128) NOT NULL DEFAULT '' COMMENT 'Group ID，空字符表示整个集群',
                                 `quota` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '配额，0表示使用默认值',
@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `group_capacity` (
 /*   数据库全名 = nacos_config   */
 /*   表名称 = his_config_info   */
 /******************************************/
-CREATE TABLE IF NOT EXISTS `his_config_info` (
+CREATE TABLE `his_config_info` (
                                  `id` bigint(64) unsigned NOT NULL,
                                  `nid` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
                                  `data_id` varchar(255) NOT NULL,
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `his_config_info` (
 /*   数据库全名 = nacos_config   */
 /*   表名称 = tenant_capacity   */
 /******************************************/
-CREATE TABLE IF NOT EXISTS `tenant_capacity` (
+CREATE TABLE `tenant_capacity` (
                                  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
                                  `tenant_id` varchar(128) NOT NULL DEFAULT '' COMMENT 'Tenant ID',
                                  `quota` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '配额，0表示使用默认值',
@@ -183,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `tenant_capacity` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='租户容量信息表';
 
 
-CREATE TABLE IF NOT EXISTS `tenant_info` (
+CREATE TABLE `tenant_info` (
                              `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
                              `kp` varchar(128) NOT NULL COMMENT 'kp',
                              `tenant_id` varchar(128) default '' COMMENT 'tenant_id',

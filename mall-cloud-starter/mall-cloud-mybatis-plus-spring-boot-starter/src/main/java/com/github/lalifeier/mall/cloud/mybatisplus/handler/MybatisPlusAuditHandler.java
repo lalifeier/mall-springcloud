@@ -2,52 +2,59 @@ package com.github.lalifeier.mall.cloud.mybatisplus.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.github.lalifeier.mall.cloud.common.context.UserContextUtil;
-import com.github.lalifeier.mall.cloud.mybatisplus.po.BasePO;
-import java.time.LocalDateTime;
+import com.github.lalifeier.mall.cloud.common.exception.ServiceException;
+import com.github.lalifeier.mall.cloud.mybatisplus.entity.BaseEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
 
 @Slf4j
 @Component
 public class MybatisPlusAuditHandler implements MetaObjectHandler {
 
-    @Override
-    public void insertFill(MetaObject metaObject) {
-        log.info("start insert fill ....");
-
-        if (!shouldFill(metaObject)) {
-            return;
-        }
-
-        LocalDateTime now = LocalDateTime.now();
-        Long userId = getUserId();
-
-        this.strictInsertFill(metaObject, "createdAt", LocalDateTime.class, now);
-        this.strictInsertFill(metaObject, "createdBy", Long.class, userId);
-        this.strictInsertFill(metaObject, "updatedAt", LocalDateTime.class, now);
-        this.strictInsertFill(metaObject, "updatedBy", Long.class, userId);
+  @Override
+  public void insertFill(MetaObject metaObject) {
+    if (!shouldFill(metaObject)) {
+      return;
     }
 
-    @Override
-    public void updateFill(MetaObject metaObject) {
-        log.info("start update fill ....");
+    try {
+      BaseEntity baseEntity = (BaseEntity) metaObject.getOriginalObject();
+      LocalDateTime now = LocalDateTime.now();
+      Long userId = getUserId();
+      baseEntity.setCreatedTime(now);
+      baseEntity.setUpdatedTime(now);
+      baseEntity.setCreatedBy(userId);
+      baseEntity.setUpdatedBy(userId);
+    } catch (Exception e) {
+      throw new ServiceException("自动注入异常 => " + e.getMessage());
+    }
+  }
 
-        if (!shouldFill(metaObject)) {
-            return;
-        }
-
-        Long userId = getUserId();
-
-        this.strictUpdateFill(metaObject, "updatedAt", LocalDateTime.class, LocalDateTime.now());
-        this.strictInsertFill(metaObject, "updatedBy", Long.class, userId);
+  @Override
+  public void updateFill(MetaObject metaObject) {
+    if (!shouldFill(metaObject)) {
+      return;
     }
 
-    private boolean shouldFill(MetaObject metaObject) {
-        return metaObject.getOriginalObject() instanceof BasePO;
+    try {
+      BaseEntity baseEntity = (BaseEntity) metaObject.getOriginalObject();
+      LocalDateTime now = LocalDateTime.now();
+      Long userId = getUserId();
+      baseEntity.setUpdatedTime(now);
+      baseEntity.setUpdatedBy(userId);
+    } catch (Exception e) {
+      throw new ServiceException("自动注入异常 => " + e.getMessage());
     }
+  }
 
-    public Long getUserId() {
-        return UserContextUtil.getUserId();
-    }
+  private boolean shouldFill(MetaObject metaObject) {
+    return metaObject.getOriginalObject() instanceof BaseEntity;
+  }
+
+  public Long getUserId() {
+    return UserContextUtil.getUserId();
+  }
 }

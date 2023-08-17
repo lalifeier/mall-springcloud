@@ -1,18 +1,18 @@
 -- 用户管理
-CREATE TABLE IF NOT EXISTS `userPrincipal`
+CREATE TABLE IF NOT EXISTS `user`
 (
-  `id`         int(11) unsigned    NOT NULL AUTO_INCREMENT COMMENT '自增id',
-  `username`   varchar(30)         NOT NULL DEFAULT '' COMMENT '姓名',
-  `phone`      varchar(15)         NOT NULL DEFAULT '' COMMENT '手机号',
-  `email`      varchar(30)         NOT NULL DEFAULT '' COMMENT '邮箱',
-  `nickname`   varchar(30)         NOT NULL DEFAULT '' COMMENT '昵称',
-  `avatar`     varchar(255)        NOT NULL DEFAULT '' COMMENT '头像',
-  `gender`     tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '性别 1:男性 2:女性',
-  `created_at` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `created_by` int(11)             NOT NULL DEFAULT '0' COMMENT '创建人',
-  `updated_at` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `updated_by` int(11)             NOT NULL DEFAULT '0' COMMENT '更新人',
-  `is_deleted` tinyint(1)          NOT NULL DEFAULT '0' COMMENT '是否删除',
+  `id`           int(11) unsigned    NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `username`     varchar(30)         NOT NULL DEFAULT '' COMMENT '姓名',
+  `phone`        varchar(15)         NOT NULL DEFAULT '' COMMENT '手机号',
+  `email`        varchar(30)         NOT NULL DEFAULT '' COMMENT '邮箱',
+  `nickname`     varchar(30)         NOT NULL DEFAULT '' COMMENT '昵称',
+  `avatar`       varchar(255)        NOT NULL DEFAULT '' COMMENT '头像',
+  `gender`       tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '性别 1:男性 2:女性',
+  `created_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `created_by`   int(11)             NOT NULL DEFAULT '0' COMMENT '创建人',
+  `updated_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `updated_by`   int(11)             NOT NULL DEFAULT '0' COMMENT '更新人',
+  `is_deleted`   tinyint(1)          NOT NULL DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`id`),
   KEY `idx_username` (`username`),
   KEY `idx_phone` (`phone`),
@@ -22,28 +22,28 @@ CREATE TABLE IF NOT EXISTS `userPrincipal`
 
 CREATE TABLE IF NOT EXISTS `user_group`
 (
-  `user_id`    int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `group_id`   int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '用户组ID',
-  `created_at` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `created_by` int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '创建人',
-  `updated_at` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `updated_by` int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '修改人',
-  `deleted_at` datetime                     DEFAULT NULL COMMENT '删除时间',
-  `deleted_by` int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '删除人',
-  `is_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
+  `user_id`      int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `group_id`     int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '用户组ID',
+  `created_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `created_by`   int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '创建人',
+  `updated_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `updated_by`   int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '更新人',
+
+
+  `is_deleted`   tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
   PRIMARY KEY (`user_id`, `group_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户用户组关联表';
 
 CREATE TABLE IF NOT EXISTS `user_role`
 (
-  `user_id`    int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `role_id`    int(11) unsigned NOT NULL DEFAULT '0' COMMENT '角色ID',
-  `created_at` datetime         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `created_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建人',
-  `updated_at` datetime         NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `updated_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改人',
-  `deleted_at` datetime                  DEFAULT NULL COMMENT '删除时间',
+  `user_id`      int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `role_id`      int(11) unsigned NOT NULL DEFAULT '0' COMMENT '角色ID',
+  `created_time` datetime         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `created_by`   int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建人',
+  `updated_time` datetime         NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `updated_by`   int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新人',
+  `deleted_at`   datetime                  DEFAULT NULL COMMENT '删除时间',
   PRIMARY KEY (`user_id`, `role_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户角色关联表';
@@ -51,17 +51,17 @@ CREATE TABLE IF NOT EXISTS `user_role`
 -- 用户组管理
 CREATE TABLE IF NOT EXISTS `group`
 (
-  `id`         int(11) unsigned    NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `parent_id`  int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '父级ID',
-  `name`       varchar(30)         NOT NULL DEFAULT '' COMMENT '用户组名称',
-  `sort`       tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
-  `status`     tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态 0:禁用 1:启用',
-  `remark`     varchar(255)        NOT NULL DEFAULT '' COMMENT '备注',
-  `created_at` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `created_by` int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '创建人',
-  `updated_at` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `updated_by` int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '修改人',
-  `is_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
+  `id`           int(11) unsigned    NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `parent_id`    int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '父级ID',
+  `name`         varchar(30)         NOT NULL DEFAULT '' COMMENT '用户组名称',
+  `sort`         tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `status`       tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态 0:禁用 1:启用',
+  `remark`       varchar(255)        NOT NULL DEFAULT '' COMMENT '备注',
+  `created_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `created_by`   int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '创建人',
+  `updated_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `updated_by`   int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '更新人',
+  `is_deleted`   tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
   PRIMARY KEY (`id`),
   INDEX idx_parent_id (`parent_id`)
 ) ENGINE = InnoDB
@@ -69,13 +69,13 @@ CREATE TABLE IF NOT EXISTS `group`
 
 CREATE TABLE IF NOT EXISTS `group_role`
 (
-  `group_id`   int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '用户组ID',
-  `role_id`    int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '角色ID',
-  `created_at` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `created_by` int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '创建人',
-  `updated_at` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `updated_by` int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '修改人',
-  `is_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
+  `group_id`     int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '用户组ID',
+  `role_id`      int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '角色ID',
+  `created_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `created_by`   int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '创建人',
+  `updated_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `updated_by`   int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '更新人',
+  `is_deleted`   tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
   PRIMARY KEY (`group_id`, `role_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户组角色关联表';
@@ -83,16 +83,16 @@ CREATE TABLE IF NOT EXISTS `group_role`
 -- 角色管理
 CREATE TABLE IF NOT EXISTS `role`
 (
-  `id`         int(11) unsigned     NOT NULL AUTO_INCREMENT COMMENT '角色id',
-  `name`       varchar(30)          NOT NULL DEFAULT '' COMMENT '角色名称',
-  `sort`       tinyint(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
-  `status`     tinyint(1) unsigned  NOT NULL DEFAULT '0' COMMENT '状态 0:禁用 1:启用',
-  `remark`     varchar(255)         NOT NULL DEFAULT '' COMMENT '备注',
-  `created_at` datetime             NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `created_by` int(11) unsigned     NOT NULL DEFAULT '0' COMMENT '创建人',
-  `updated_at` datetime             NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `updated_by` int(11) unsigned     NOT NULL DEFAULT '0' COMMENT '修改人',
-  `is_deleted` tinyint(1) unsigned  NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
+  `id`           int(11) unsigned     NOT NULL AUTO_INCREMENT COMMENT '角色id',
+  `name`         varchar(30)          NOT NULL DEFAULT '' COMMENT '角色名称',
+  `sort`         tinyint(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `status`       tinyint(1) unsigned  NOT NULL DEFAULT '0' COMMENT '状态 0:禁用 1:启用',
+  `remark`       varchar(255)         NOT NULL DEFAULT '' COMMENT '备注',
+  `created_time` datetime             NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `created_by`   int(11) unsigned     NOT NULL DEFAULT '0' COMMENT '创建人',
+  `updated_time` datetime             NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `updated_by`   int(11) unsigned     NOT NULL DEFAULT '0' COMMENT '更新人',
+  `is_deleted`   tinyint(1) unsigned  NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='角色表';
@@ -101,17 +101,17 @@ CREATE TABLE IF NOT EXISTS `role`
 -- 部门管理
 CREATE TABLE IF NOT EXISTS `department`
 (
-  `id`         int(11) unsigned    NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `parent_id`  int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '父级ID',
-  `name`       varchar(30)         NOT NULL DEFAULT '' COMMENT '部门名称',
-  `sort`       tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
-  `status`     tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态 0:禁用 1:启用',
-  `remark`     varchar(500)        NOT NULL DEFAULT '' COMMENT '备注',
-  `created_at` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `created_by` int(11)             NOT NULL DEFAULT '0' COMMENT '创建人',
-  `updated_at` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `updated_by` int(11)             NOT NULL DEFAULT '0' COMMENT '更新人',
-  `is_deleted` tinyint(1)          NOT NULL DEFAULT '0' COMMENT '是否删除',
+  `id`           int(11) unsigned    NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `parent_id`    int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '父级ID',
+  `name`         varchar(30)         NOT NULL DEFAULT '' COMMENT '部门名称',
+  `sort`         tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `status`       tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态 0:禁用 1:启用',
+  `remark`       varchar(500)        NOT NULL DEFAULT '' COMMENT '备注',
+  `created_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `created_by`   int(11)             NOT NULL DEFAULT '0' COMMENT '创建人',
+  `updated_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `updated_by`   int(11)             NOT NULL DEFAULT '0' COMMENT '更新人',
+  `is_deleted`   tinyint(1)          NOT NULL DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='部门表';
@@ -120,9 +120,9 @@ CREATE TABLE IF NOT EXISTS `user_department`
 (
   `user_id`       int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
   `department_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '部门ID',
-  `created_at`    datetime         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `created_time`  datetime         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `created_by`    int(11)          NOT NULL DEFAULT '0' COMMENT '创建人',
-  `updated_at`    datetime         NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `updated_time`  datetime         NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `updated_by`    int(11)          NOT NULL DEFAULT '0' COMMENT '更新人',
   `is_deleted`    tinyint(1)       NOT NULL DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`user_id`, `department_id`)
@@ -132,30 +132,30 @@ CREATE TABLE IF NOT EXISTS `user_department`
 -- 岗位管理
 CREATE TABLE IF NOT EXISTS `position`
 (
-  `id`         int(11) unsigned    NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `dept_id`    int(11)             NOT NULL COMMENT '所属部门ID',
-  `name`       varchar(30)         NOT NULL DEFAULT '' COMMENT '岗位名称',
-  `sort`       tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
-  `status`     tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态 0:禁用 1:启用',
-  `remark`     varchar(500)        NOT NULL DEFAULT '' COMMENT '备注',
-  `created_at` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `created_by` int(11)             NOT NULL DEFAULT '0' COMMENT '创建人',
-  `updated_at` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `updated_by` int(11)             NOT NULL DEFAULT '0' COMMENT '更新人',
-  `is_deleted` tinyint(1)          NOT NULL DEFAULT '0' COMMENT '是否删除',
+  `id`           int(11) unsigned    NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `dept_id`      int(11)             NOT NULL COMMENT '所属部门ID',
+  `name`         varchar(30)         NOT NULL DEFAULT '' COMMENT '岗位名称',
+  `sort`         tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `status`       tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态 0:禁用 1:启用',
+  `remark`       varchar(500)        NOT NULL DEFAULT '' COMMENT '备注',
+  `created_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `created_by`   int(11)             NOT NULL DEFAULT '0' COMMENT '创建人',
+  `updated_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `updated_by`   int(11)             NOT NULL DEFAULT '0' COMMENT '更新人',
+  `is_deleted`   tinyint(1)          NOT NULL DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='岗位表';
 
 CREATE TABLE IF NOT EXISTS `user_position`
 (
-  `user_id`     int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `position_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '岗位ID',
-  `created_at`  datetime         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `created_by`  int(11)          NOT NULL DEFAULT '0' COMMENT '创建人',
-  `updated_at`  datetime         NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `updated_by`  int(11)          NOT NULL DEFAULT '0' COMMENT '更新人',
-  `is_deleted`  tinyint(1)       NOT NULL DEFAULT '0' COMMENT '是否删除',
+  `user_id`      int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `position_id`  int(11) unsigned NOT NULL DEFAULT '0' COMMENT '岗位ID',
+  `created_time` datetime         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `created_by`   int(11)          NOT NULL DEFAULT '0' COMMENT '创建人',
+  `updated_time` datetime         NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `updated_by`   int(11)          NOT NULL DEFAULT '0' COMMENT '更新人',
+  `is_deleted`   tinyint(1)       NOT NULL DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`user_id`, `position_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户岗位关联表';
@@ -180,10 +180,10 @@ CREATE TABLE IF NOT EXISTS `menu`
   `description`   varchar(255)        NOT NULL DEFAULT '' COMMENT '描述',
   `sort`          tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `status`        tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态 0:禁用 1:启用',
-  `created_at`    datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `created_time`  datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `created_by`    int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '创建人',
-  `updated_at`    datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `updated_by`    int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '修改人',
+  `updated_time`  datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `updated_by`    int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '更新人',
   `is_deleted`    tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
@@ -192,16 +192,16 @@ CREATE TABLE IF NOT EXISTS `menu`
 -- 按钮管理
 CREATE TABLE IF NOT EXISTS `button`
 (
-  `id`         int(11) unsigned    NOT NULL AUTO_INCREMENT COMMENT '自增id',
-  `menu_id`    int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '菜单ID',
-  `name`       varchar(128)        NOT NULL DEFAULT '' COMMENT '按钮名称',
-  `sort`       tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
-  `status`     tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态 0:禁用 1:启用',
-  `created_at` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `created_by` int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '创建人',
-  `updated_at` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `updated_by` int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '修改人',
-  `is_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
+  `id`           int(11) unsigned    NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `menu_id`      int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '菜单ID',
+  `name`         varchar(128)        NOT NULL DEFAULT '' COMMENT '按钮名称',
+  `sort`         tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `status`       tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态 0:禁用 1:启用',
+  `created_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `created_by`   int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '创建人',
+  `updated_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `updated_by`   int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '更新人',
+  `is_deleted`   tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='按钮表';
@@ -209,31 +209,29 @@ CREATE TABLE IF NOT EXISTS `button`
 -- 权限管理
 CREATE TABLE IF NOT EXISTS `menu_permission`
 (
-  `id`         int unsigned        NOT NULL AUTO_INCREMENT COMMENT '自增id',
-  `role_id`    int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '角色ID',
-  `menu_id`    int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '菜单ID',
-  `created_at` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `created_by` int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '创建人',
-  `updated_at` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `updated_by` int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '修改人',
-  `deleted_at` datetime                     DEFAULT NULL COMMENT '删除时间',
-  `deleted_by` int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '删除人',
-  `is_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
+  `id`           int unsigned        NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `role_id`      int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '角色ID',
+  `menu_id`      int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '菜单ID',
+  `created_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `created_by`   int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '创建人',
+  `updated_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `updated_by`   int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '更新人',
+  `is_deleted`   tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='菜单权限表';
 
 CREATE TABLE IF NOT EXISTS `button_permission`
 (
-  `id`         int unsigned        NOT NULL AUTO_INCREMENT COMMENT '自增id',
-  `role_id`    int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '角色ID',
-  `menu_id`    int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '菜单ID',
-  `button_id`  int(11) unsigned             DEFAULT NULL COMMENT '按钮ID',
-  `created_at` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `created_by` int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '创建人',
-  `updated_at` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `updated_by` int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '修改人',
-  `is_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
+  `id`           int unsigned        NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `role_id`      int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '角色ID',
+  `menu_id`      int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '菜单ID',
+  `button_id`    int(11) unsigned             DEFAULT NULL COMMENT '按钮ID',
+  `created_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `created_by`   int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '创建人',
+  `updated_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `updated_by`   int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '更新人',
+  `is_deleted`   tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='按钮权限表';
@@ -241,32 +239,32 @@ CREATE TABLE IF NOT EXISTS `button_permission`
 -- 接口管理
 CREATE TABLE IF NOT EXISTS `api`
 (
-  `id`          int(11) unsigned    NOT NULL AUTO_INCREMENT COMMENT '自增id',
-  `group`       varchar(32)         NOT NULL DEFAULT '' COMMENT '接口分组',
-  `name`        varchar(32)         NOT NULL DEFAULT '' COMMENT '接口名称',
-  `path`        varchar(255)        NOT NULL DEFAULT '' COMMENT '接口路径',
-  `method`      varchar(16)         NOT NULL DEFAULT '' COMMENT '接口请求方式',
-  `description` varchar(255)        NOT NULL DEFAULT '' COMMENT '接口描述',
-  `status`      tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态 0:禁用 1:启用',
-  `created_at`  datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `created_by`  int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '创建人',
-  `updated_at`  datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `updated_by`  int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '修改人',
-  `is_deleted`  tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
+  `id`           int(11) unsigned    NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `group`        varchar(32)         NOT NULL DEFAULT '' COMMENT '接口分组',
+  `name`         varchar(32)         NOT NULL DEFAULT '' COMMENT '接口名称',
+  `path`         varchar(255)        NOT NULL DEFAULT '' COMMENT '接口路径',
+  `method`       varchar(16)         NOT NULL DEFAULT '' COMMENT '接口请求方式',
+  `description`  varchar(255)        NOT NULL DEFAULT '' COMMENT '接口描述',
+  `status`       tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态 0:禁用 1:启用',
+  `created_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `created_by`   int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '创建人',
+  `updated_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `updated_by`   int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '更新人',
+  `is_deleted`   tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='接口表';
 
 CREATE TABLE IF NOT EXISTS `api_permission`
 (
-  `id`         int unsigned        NOT NULL AUTO_INCREMENT COMMENT '自增id',
-  `role_id`    int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '角色ID',
-  `api_id`     int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '接口ID',
-  `created_at` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `created_by` int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '创建人',
-  `updated_at` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `updated_by` int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '修改人',
-  `is_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
+  `id`           int unsigned        NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `role_id`      int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '角色ID',
+  `api_id`       int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '接口ID',
+  `created_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `created_by`   int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '创建人',
+  `updated_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `updated_by`   int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '更新人',
+  `is_deleted`   tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='接口权限表';

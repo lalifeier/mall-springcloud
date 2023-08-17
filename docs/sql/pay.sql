@@ -5,12 +5,10 @@ CREATE TABLE IF NOT EXISTS `pay_channel` (
   `description` VARCHAR(255) DEFAULT NULL COMMENT '支付渠道描述',
   `logo` VARCHAR(255) DEFAULT NULL COMMENT '支付渠道LOGO',
   `status` TINYINT(1) NOT NULL DEFAULT '1' COMMENT '支付渠道状态，1表示启用，0表示禁用',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `created_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建人',
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `updated_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改人',
-  `deleted_at` datetime DEFAULT NULL COMMENT '删除时间',
-  `deleted_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '删除人',
+  `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `updated_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新人',
   `is_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='支付渠道表';
@@ -20,13 +18,11 @@ CREATE TABLE IF NOT EXISTS `pay_channel` (
 --   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '应用ID',
 --   `name` int(11) NOT NULL COMMENT '应用名称',
 --   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态：0未激活，1已激活',
---   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+--   `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
 --   `created_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建人',
---   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
---   `updated_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改人',
---   `deleted_at` datetime DEFAULT NULL COMMENT '删除时间',
---   `deleted_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '删除人',
---   `is_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
+--   `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+--   `updated_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新人',
+-- --   `is_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
 --   PRIMARY KEY (`id`)
 -- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='支付应用表';
 
@@ -35,13 +31,11 @@ CREATE TABLE IF NOT EXISTS `pay_channel` (
 --   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '应用支付渠道ID',
 --   `app_id` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '应用ID',
 --   `channel_id` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '渠道ID',
---   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+--   `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
 --   `created_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建人',
---   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
---   `updated_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改人',
---   `deleted_at` datetime DEFAULT NULL COMMENT '删除时间',
---   `deleted_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '删除人',
---   `is_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
+--   `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+--   `updated_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新人',
+-- --   `is_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
 --   PRIMARY KEY (`id`)
 -- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='应用支付渠道表';
 
@@ -118,17 +112,15 @@ CREATE TABLE IF NOT EXISTS `pay_transaction` (
   -- `transaction_code` VARCHAR(64) NOT NULL COMMENT '真实给第三方的交易code，异步通知的时候更新',
 
 
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `created_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建人',
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `updated_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改人',
-  `deleted_at` datetime DEFAULT NULL COMMENT '删除时间',
-  `deleted_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '删除人',
+  `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `updated_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新人',
   `is_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
   PRIMARY KEY (`id`),
   UNIQUE INDEX `unq_transaction_id` (`transaction_id`),
   INDEX `idx_trade_no` (`trade_no`),
-  INDEX `idx_created_at` (`created_at`)
+  INDEX `idx_created_time` (`created_time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='支付流水表';
 
 CREATE TABLE IF NOT EXISTS `pay_transaction_extension` (

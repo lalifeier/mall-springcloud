@@ -1,2 +1,2 @@
-com.github.lalifeier.mall.cloud.mybatisplus.config.MybatisPlusConfig
-com.github.lalifeier.mall.cloud.mybatisplus.handler.MybatisPlusAuditHandler
+com.github.lalifeier.mall.cloud.mybatisplus.config.MybatisPlusAutoConfiguration
+com.github.lalifeier.mall.cloud.mybatisplus.handler.MybatisExceptionHandler

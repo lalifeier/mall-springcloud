@@ -1,6 +1,7 @@
 dependencies {
   implementation(project(":mall-cloud-starter:mall-cloud-spring-cloud-starter"))
   implementation(project(":mall-cloud-starter:mall-cloud-jpa-spring-boot-starter"))
+  implementation(project(":mall-cloud-starter:mall-cloud-prometheus-spring-boot-starter"))
   implementation("org.springframework.boot:spring-boot-starter-security")
   implementation("org.springframework.boot:spring-boot-starter-data-redis")
   testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -11,6 +12,4 @@ dependencies {
   annotationProcessor(libs.mapstruct.processor)
   implementation(libs.commons.lang3)
   implementation(libs.nimbus.jose.jwt)
-  implementation(libs.spring.boot.starter.actuator)
-  implementation(libs.micrometer.registry.prometheus)
 }
