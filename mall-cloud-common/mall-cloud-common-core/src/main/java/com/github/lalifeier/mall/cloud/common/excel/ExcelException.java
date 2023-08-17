@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.common.utils.excel;
+package com.github.lalifeier.mall.cloud.common.excel;
 
 public class ExcelException extends RuntimeException {
   public ExcelException(String message) {

@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.common.utils.excel;
+package com.github.lalifeier.mall.cloud.common.excel;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;

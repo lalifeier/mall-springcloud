@@ -15,7 +15,7 @@ public class LogRecord {
   /**
    * 操作日志的类型
    */
-  private String Type;
+  private String type;
 
   /**
    * 操作日志日志的子类型

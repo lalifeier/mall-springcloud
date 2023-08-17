@@ -1,14 +1,14 @@
 package com.github.lalifeier.mall.cloud.log.parse;
 
 import com.github.lalifeier.mall.cloud.log.annotation.OperationLog;
-import com.github.lalifeier.mall.cloud.log.model.MethodExecuteResult;
+import com.github.lalifeier.mall.cloud.log.model.ExecuteResult;
+import com.github.lalifeier.mall.cloud.log.model.MethodInfo;
 import com.github.lalifeier.mall.cloud.log.service.FunctionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 
-import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -30,12 +30,12 @@ public class LogRecordValueParser implements BeanFactoryAware {
     this.beanFactory = beanFactory;
   }
 
-  public Map<String, String> processTemplate(Collection<String> templates, MethodExecuteResult methodExecuteResult,
+  public Map<String, String> processTemplate(Collection<String> templates, ExecuteResult executeResult,
                                              Map<String, String> beforeFunctionNameAndReturnMap) {
     return null;
   }
 
-  public Map<String, String> processBeforeExecuteFunctionTemplate(Collection<String> templates, Class<?> targetClass, Method method, Object[] args) {
+  public Map<String, String> processBeforeExecuteFunctionTemplate(Collection<String> templates, MethodInfo methodInfo) {
     return null;
   }
 }

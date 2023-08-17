@@ -12,4 +12,5 @@ dependencies {
   implementation(libs.cglib.nodep)
   implementation(libs.validation.api)
   implementation(libs.easyexcel)
+  implementation(libs.servlet.api)
 }
