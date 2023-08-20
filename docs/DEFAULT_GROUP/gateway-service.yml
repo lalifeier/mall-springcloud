@@ -79,9 +79,7 @@ spring:
             - Path=/userinfo
           filters:
             - PreserveHostHeader
-
-
-              #        - id: mall-account
+            #        - id: mall-account
             #          uri: lb://mall-account
             #          predicates:
             #            - Path=/account/**
@@ -121,8 +119,6 @@ spring:
   #          gateway-client-provider:
   #            issuer-uri: http://localhost:8101
 
-
-
   data:
     redis:
       host: localhost
@@ -143,9 +139,15 @@ gateway:
     - "/login"
     - "/oauth2/**"
     - "/doc.html"
-    - "/swagger-resources/**"
-    - "/swagger/**"
-    - "/*/v3/api-docs"
+    - "/v3/api-docs"
+    - "/v3/api-docs/swagger-config"
+    - "/v3/api-docs/**"
+    - "/swagger-ui/index.html"
+    - "/*.html",
+    - "/favicon.ico"
+    - "/**/*.html",
+    - "/**/*.css",
+    - "/**/*.js",
     - "/*/*.js"
     - "/*/*.css"
     - "/*/*.png"
@@ -158,17 +160,40 @@ gateway:
     white-urls:
       - "/actuator/**"
       - "/login"
-      - "/oauth2/token"
-      - "/oauth2/authorize"
+      - "/oauth2/**"
       - "/doc.html"
-      - "/swagger-resources/**"
-      - "/swagger/**"
-      - "/*/v3/api-docs"
+      - "/v3/api-docs"
+      - "/v3/api-docs/swagger-config"
+      - "/v3/api-docs/**"
+      - "/swagger-ui/index.html"
+      - "/*.html",
+      - "/favicon.ico"
+      - "/**/*.html",
+      - "/**/*.css",
+      - "/**/*.js",
       - "/*/*.js"
       - "/*/*.css"
       - "/*/*.png"
       - "/*/*.ico"
       - "/webjars/**"
+      - "/demo/**"
+
+knife4j:
+  gateway:
+    enabled: true
+    tags-sorter: order
+    operations-sorter: order
+    strategy: discover
+    discover:
+      enabled: true
+      version: openapi3
+      excluded-services:
+        - gateway-service
+      service-config:
+        demo-service:
+          order: 1
+          group-name: Demo服务
+
 
 management:
   endpoints:

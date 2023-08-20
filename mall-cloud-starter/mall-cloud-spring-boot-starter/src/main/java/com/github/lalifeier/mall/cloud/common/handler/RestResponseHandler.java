@@ -31,6 +31,9 @@ public class RestResponseHandler implements ResponseBodyAdvice<Object> {
     @Override
     public boolean supports(
             MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
+        //    if (returnType.getDeclaringClass().getName().contains("springdoc")) {
+        //      return false;
+        //    }
         if (returnType.getDeclaringClass().isAnnotationPresent(IgnoreResponseAdvice.class)) {
             return false;
         }

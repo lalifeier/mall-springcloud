@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.openapi.configure;
+package com.github.lalifeier.mall.cloud.doc.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -8,8 +8,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConditionalOnProperty(name = "springdoc.api-docs.enabled", havingValue = "true")
-public class SpringDocAutoConfiguration {
+@ConditionalOnProperty(
+        prefix = "springdoc.api-docs",
+        name = "enabled",
+        havingValue = "true",
+        matchIfMissing = true)
+public class DocAutoConfiguration {
     @Bean
     @ConfigurationProperties(prefix = "springdoc.api-docs.info")
     public Info springDocInfo() {
@@ -17,7 +21,7 @@ public class SpringDocAutoConfiguration {
     }
 
     @Bean
-    public OpenAPI openAPI(Info info) {
-        return new OpenAPI().info(info);
+    public OpenAPI openAPI(Info apiInfo) {
+        return new OpenAPI().info(apiInfo);
     }
 }

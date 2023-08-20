@@ -1,18 +1,18 @@
 package com.github.lalifeier.mall.cloud.common.utils;
 
-//import jakarta.validation.ConstraintViolation;
-//import jakarta.validation.ConstraintViolationException;
-//import lombok.AccessLevel;
-//import lombok.NoArgsConstructor;
+// import jakarta.validation.ConstraintViolation;
+// import jakarta.validation.ConstraintViolationException;
+// import lombok.AccessLevel;
+// import lombok.NoArgsConstructor;
 //
-//import javax.xml.validation.Validator;
-//import java.util.Set;
+// import javax.xml.validation.Validator;
+// import java.util.Set;
 //
-///**
+/// **
 // * Validator 校验框架工具
 // */
-//@NoArgsConstructor(access = AccessLevel.PRIVATE)
-//public class ValidatorUtils {
+// @NoArgsConstructor(access = AccessLevel.PRIVATE)
+// public class ValidatorUtils {
 //
 //  private static final Validator VALID = SpringUtils.getBean(Validator.class);
 //
@@ -23,4 +23,4 @@ package com.github.lalifeier.mall.cloud.common.utils;
 //    }
 //  }
 
-//}
+// }

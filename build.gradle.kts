@@ -15,6 +15,7 @@ plugins {
   id("local.spotless") apply false
   id("local.shadow") apply false
   id("local.versions")
+  id("local.git-hooks")
 }
 
 fun isReleaseBuild(): Boolean {
@@ -109,3 +110,6 @@ configure(bootProjects) {
 //    runtimeOnly("org.springframework.boot:spring-boot-properties-migrator")
   }
 }
+
+
+

@@ -1,23 +1,24 @@
 package com.github.lalifeier.mall.cloud.common.excel;
 
-//import com.alibaba.excel.context.AnalysisContext;
-//import com.alibaba.excel.event.AnalysisEventListener;
-//import com.alibaba.excel.exception.ExcelAnalysisException;
-//import com.alibaba.excel.exception.ExcelDataConvertException;
-//import jakarta.validation.ConstraintViolation;
-//import jakarta.validation.ConstraintViolationException;
-//import lombok.NoArgsConstructor;
-//import lombok.extern.slf4j.Slf4j;
+// import com.alibaba.excel.context.AnalysisContext;
+// import com.alibaba.excel.event.AnalysisEventListener;
+// import com.alibaba.excel.exception.ExcelAnalysisException;
+// import com.alibaba.excel.exception.ExcelDataConvertException;
+// import jakarta.validation.ConstraintViolation;
+// import jakarta.validation.ConstraintViolationException;
+// import lombok.NoArgsConstructor;
+// import lombok.extern.slf4j.Slf4j;
 //
-//import java.util.Map;
-//import java.util.Set;
+// import java.util.Map;
+// import java.util.Set;
 //
-///**
+/// **
 // * Excel 导入监听
 // */
-//@Slf4j
-//@NoArgsConstructor
-//public class DefaultExcelListener<T> extends AnalysisEventListener<T> implements ExcelListener<T> {
+// @Slf4j
+// @NoArgsConstructor
+// public class DefaultExcelListener<T> extends AnalysisEventListener<T> implements ExcelListener<T>
+// {
 //
 //  /**
 //   * 是否Validator检验，默认为是
@@ -60,10 +61,14 @@ package com.github.lalifeier.mall.cloud.common.excel;
 //      }
 //    }
 //    if (exception instanceof ConstraintViolationException) {
-//      ConstraintViolationException constraintViolationException = (ConstraintViolationException) exception;
-//      Set<ConstraintViolation<?>> constraintViolations = constraintViolationException.getConstraintViolations();
-//      String constraintViolationsMsg = StreamUtils.join(constraintViolations, ConstraintViolation::getMessage, ", ");
-//      errMsg = String.format("第{}行数据校验异常: {}", context.readRowHolder().getRowIndex() + 1, constraintViolationsMsg);
+//      ConstraintViolationException constraintViolationException = (ConstraintViolationException)
+// exception;
+//      Set<ConstraintViolation<?>> constraintViolations =
+// constraintViolationException.getConstraintViolations();
+//      String constraintViolationsMsg = StreamUtils.join(constraintViolations,
+// ConstraintViolation::getMessage, ", ");
+//      errMsg = String.format("第{}行数据校验异常: {}", context.readRowHolder().getRowIndex() + 1,
+// constraintViolationsMsg);
 //      if (log.isDebugEnabled()) {
 //        log.error(errMsg);
 //      }
@@ -95,4 +100,4 @@ package com.github.lalifeier.mall.cloud.common.excel;
 //  public ExcelResult<T> getExcelResult() {
 //    return excelResult;
 //  }
-//}
+// }

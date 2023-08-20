@@ -14,4 +14,6 @@ dependencies {
   implementation(libs.sonarqube.gradle.plugin)
   implementation(libs.gradle.versions.plugin)
   implementation(libs.shadow.gradle.plugin)
+  implementation(libs.githook.gradle.plugin)
+  implementation(libs.commitlint.gradle.plugin)
 }

@@ -1,26 +1,26 @@
 package com.github.lalifeier.mall.cloud.common.utils;
 
-//import com.alibaba.excel.EasyExcel;
-//import com.github.lalifeier.mall.cloud.common.excel.DefaultExcelListener;
-//import com.github.lalifeier.mall.cloud.common.excel.ExcelListener;
-//import com.github.lalifeier.mall.cloud.common.excel.ExcelResult;
-//import jakarta.servlet.ServletOutputStream;
-//import jakarta.servlet.http.HttpServletResponse;
-//import lombok.AccessLevel;
-//import lombok.NoArgsConstructor;
-//import org.apache.commons.lang3.StringUtils;
+// import com.alibaba.excel.EasyExcel;
+// import com.github.lalifeier.mall.cloud.common.excel.DefaultExcelListener;
+// import com.github.lalifeier.mall.cloud.common.excel.ExcelListener;
+// import com.github.lalifeier.mall.cloud.common.excel.ExcelResult;
+// import jakarta.servlet.ServletOutputStream;
+// import jakarta.servlet.http.HttpServletResponse;
+// import lombok.AccessLevel;
+// import lombok.NoArgsConstructor;
+// import org.apache.commons.lang3.StringUtils;
 //
-//import java.io.IOException;
-//import java.io.InputStream;
-//import java.io.OutputStream;
-//import java.util.List;
-//import java.util.Map;
+// import java.io.IOException;
+// import java.io.InputStream;
+// import java.io.OutputStream;
+// import java.util.List;
+// import java.util.Map;
 //
-///**
+/// **
 // * Excel工具类
 // */
-//@NoArgsConstructor(access = AccessLevel.PRIVATE)
-//public class ExcelUtil {
+// @NoArgsConstructor(access = AccessLevel.PRIVATE)
+// public class ExcelUtil {
 //  /**
 //   * 同步导入(适用于小数据量)
 //   *
@@ -40,7 +40,8 @@ package com.github.lalifeier.mall.cloud.common.utils;
 //   * @param isValidate 是否 Validator 检验 默认为是
 //   * @return 转换后集合
 //   */
-//  public static <T> ExcelResult<T> importExcel(InputStream is, Class<T> clazz, boolean isValidate) {
+//  public static <T> ExcelResult<T> importExcel(InputStream is, Class<T> clazz, boolean isValidate)
+// {
 //    DefaultExcelListener<T> listener = new DefaultExcelListener<>(isValidate);
 //    EasyExcel.read(is, clazz, listener).sheet().doRead();
 //    return listener.getExcelResult();
@@ -54,7 +55,8 @@ package com.github.lalifeier.mall.cloud.common.utils;
 //   * @param listener 自定义监听器
 //   * @return 转换后集合
 //   */
-//  public static <T> ExcelResult<T> importExcel(InputStream is, Class<T> clazz, ExcelListener<T> listener) {
+//  public static <T> ExcelResult<T> importExcel(InputStream is, Class<T> clazz, ExcelListener<T>
+// listener) {
 //    EasyExcel.read(is, clazz, listener).sheet().doRead();
 //    return listener.getExcelResult();
 //  }
@@ -67,7 +69,8 @@ package com.github.lalifeier.mall.cloud.common.utils;
 //   * @param clazz     实体类
 //   * @param response  响应体
 //   */
-//  public static <T> void exportExcel(List<T> list, String sheetName, Class<T> clazz, HttpServletResponse response) {
+//  public static <T> void exportExcel(List<T> list, String sheetName, Class<T> clazz,
+// HttpServletResponse response) {
 //    try {
 //      resetResponse(sheetName, response);
 //      ServletOutputStream os = response.getOutputStream();
@@ -86,7 +89,8 @@ package com.github.lalifeier.mall.cloud.common.utils;
 ////   * @param response  响应体
 ////   * @param options   级联下拉选
 ////   */
-////  public static <T> void exportExcel(List<T> list, String sheetName, Class<T> clazz, HttpServletResponse response, List<DropDownOptions> options) {
+////  public static <T> void exportExcel(List<T> list, String sheetName, Class<T> clazz,
+// HttpServletResponse response, List<DropDownOptions> options) {
 ////    try {
 ////      resetResponse(sheetName, response);
 ////      ServletOutputStream os = response.getOutputStream();
@@ -105,7 +109,8 @@ package com.github.lalifeier.mall.cloud.common.utils;
 //   * @param merge     是否合并单元格
 //   * @param response  响应体
 //   */
-//  public static <T> void exportExcel(List<T> list, String sheetName, Class<T> clazz, boolean merge, HttpServletResponse response) {
+//  public static <T> void exportExcel(List<T> list, String sheetName, Class<T> clazz, boolean
+// merge, HttpServletResponse response) {
 //    try {
 //      resetResponse(sheetName, response);
 //      ServletOutputStream os = response.getOutputStream();
@@ -125,7 +130,8 @@ package com.github.lalifeier.mall.cloud.common.utils;
 ////   * @param response  响应体
 ////   * @param options   级联下拉选
 ////   */
-////  public static <T> void exportExcel(List<T> list, String sheetName, Class<T> clazz, boolean merge, HttpServletResponse response, List<DropDownOptions> options) {
+////  public static <T> void exportExcel(List<T> list, String sheetName, Class<T> clazz, boolean
+// merge, HttpServletResponse response, List<DropDownOptions> options) {
 ////    try {
 ////      resetResponse(sheetName, response);
 ////      ServletOutputStream os = response.getOutputStream();
@@ -143,7 +149,8 @@ package com.github.lalifeier.mall.cloud.common.utils;
 //   * @param clazz     实体类
 //   * @param os        输出流
 //   */
-//  public static <T> void exportExcel(List<T> list, String sheetName, Class<T> clazz, OutputStream os) {
+//  public static <T> void exportExcel(List<T> list, String sheetName, Class<T> clazz, OutputStream
+// os) {
 //    exportExcel(list, sheetName, clazz, false, os, null);
 //  }
 //
@@ -156,7 +163,8 @@ package com.github.lalifeier.mall.cloud.common.utils;
 ////   * @param os        输出流
 ////   * @param options   级联下拉选内容
 ////   */
-////  public static <T> void exportExcel(List<T> list, String sheetName, Class<T> clazz, OutputStream os, List<DropDownOptions> options) {
+////  public static <T> void exportExcel(List<T> list, String sheetName, Class<T> clazz,
+// OutputStream os, List<DropDownOptions> options) {
 ////    exportExcel(list, sheetName, clazz, false, os, options);
 ////  }
 //
@@ -169,7 +177,8 @@ package com.github.lalifeier.mall.cloud.common.utils;
 ////   * @param merge     是否合并单元格
 ////   * @param os        输出流
 ////   */
-////  public static <T> void exportExcel(List<T> list, String sheetName, Class<T> clazz, boolean merge,
+////  public static <T> void exportExcel(List<T> list, String sheetName, Class<T> clazz, boolean
+// merge,
 ////                                     OutputStream os, List<DropDownOptions> options) {
 ////    ExcelWriterSheetBuilder builder = EasyExcel.write(os, clazz)
 ////      .autoCloseStream(false)
@@ -199,7 +208,8 @@ package com.github.lalifeier.mall.cloud.common.utils;
 //   * @param data         模板需要的数据
 //   * @param response     响应体
 //   */
-//  public static void exportTemplate(List<Object> data, String filename, String templatePath, HttpServletResponse response) {
+//  public static void exportTemplate(List<Object> data, String filename, String templatePath,
+// HttpServletResponse response) {
 //    try {
 //      resetResponse(filename, response);
 //      ServletOutputStream os = response.getOutputStream();
@@ -247,7 +257,8 @@ package com.github.lalifeier.mall.cloud.common.utils;
 //   * @param data         模板需要的数据
 //   * @param response     响应体
 //   */
-//  public static void exportTemplateMultiList(Map<String, Object> data, String filename, String templatePath, HttpServletResponse response) {
+//  public static void exportTemplateMultiList(Map<String, Object> data, String filename, String
+// templatePath, HttpServletResponse response) {
 //    try {
 //      resetResponse(filename, response);
 //      ServletOutputStream os = response.getOutputStream();
@@ -266,7 +277,8 @@ package com.github.lalifeier.mall.cloud.common.utils;
 ////   * @param data         模板需要的数据
 ////   * @param os           输出流
 ////   */
-////  public static void exportTemplateMultiList(Map<String, Object> data, String templatePath, OutputStream os) {
+////  public static void exportTemplateMultiList(Map<String, Object> data, String templatePath,
+// OutputStream os) {
 ////    ClassPathResource templateResource = new ClassPathResource(templatePath);
 ////    ExcelWriter excelWriter = EasyExcel.write(os)
 ////      .withTemplate(templateResource.getStream())
@@ -283,7 +295,8 @@ package com.github.lalifeier.mall.cloud.common.utils;
 ////      FillConfig fillConfig = FillConfig.builder().forceNewRow(Boolean.TRUE).build();
 ////      if (map.getValue() instanceof Collection) {
 ////        // 多表导出必须使用 FillWrapper
-////        excelWriter.fill(new FillWrapper(map.getKey(), (Collection<?>) map.getValue()), fillConfig, writeSheet);
+////        excelWriter.fill(new FillWrapper(map.getKey(), (Collection<?>) map.getValue()),
+// fillConfig, writeSheet);
 ////      } else {
 ////        excelWriter.fill(map.getValue(), writeSheet);
 ////      }
@@ -294,10 +307,12 @@ package com.github.lalifeier.mall.cloud.common.utils;
 ////  /**
 ////   * 重置响应体
 ////   */
-////  private static void resetResponse(String sheetName, HttpServletResponse response) throws UnsupportedEncodingException {
+////  private static void resetResponse(String sheetName, HttpServletResponse response) throws
+// UnsupportedEncodingException {
 ////    String filename = encodingFilename(sheetName);
 ////    FileUtils.setAttachmentResponseHeader(response, filename);
-////    response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8");
+////
+// response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8");
 ////  }
 //
 //  /**
@@ -337,7 +352,8 @@ package com.github.lalifeier.mall.cloud.common.utils;
 ////   * @param separator     分隔符
 ////   * @return 解析后值
 ////   */
-////  public static String reverseByExp(String propertyValue, String converterExp, String separator) {
+////  public static String reverseByExp(String propertyValue, String converterExp, String separator)
+// {
 ////    StringBuilder propertyString = new StringBuilder();
 ////    String[] convertSource = converterExp.split(StringUtils.SEPARATOR);
 ////    for (String item : convertSource) {
@@ -364,4 +380,4 @@ package com.github.lalifeier.mall.cloud.common.utils;
 ////  public static String encodingFilename(String filename) {
 ////    return IdUtil.fastSimpleUUID() + "_" + filename + ".xlsx";
 ////  }
-//}
+// }

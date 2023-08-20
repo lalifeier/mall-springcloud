@@ -15,10 +15,10 @@ public interface BookConverter {
 
     // @Mapping(target = "id", ignore = true)
     @Mapping(source = "id.value", target = "id")
-    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "createdTime", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "updatedTime", ignore = true)
     @Mapping(target = "updatedBy", ignore = true)
-    @Mapping(target = "isDeleted", ignore = true)
+    @Mapping(target = "deleted", ignore = true)
     BookPO toData(Book book);
 }

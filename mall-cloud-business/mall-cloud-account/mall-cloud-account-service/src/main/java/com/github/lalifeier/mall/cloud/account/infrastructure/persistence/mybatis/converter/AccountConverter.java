@@ -35,10 +35,10 @@ public interface AccountConverter {
     @Mapping(source = "email.value", target = "email")
     @Mapping(source = "phone.value", target = "phone")
     @Mapping(target = "status", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "createdTime", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "updatedTime", ignore = true)
     @Mapping(target = "updatedBy", ignore = true)
-    @Mapping(target = "isDeleted", ignore = true)
+    @Mapping(target = "deleted", ignore = true)
     AccountUserPO fromData(Account account);
 }

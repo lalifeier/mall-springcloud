@@ -1,6 +1,5 @@
 package com.github.lalifeier.mall.cloud.gateway.config;
 
-import cn.hutool.core.util.ArrayUtil;
 import com.github.lalifeier.mall.cloud.common.constant.SecurityConstants;
 import com.github.lalifeier.mall.cloud.common.enums.HttpErrorCodeEnum;
 import com.github.lalifeier.mall.cloud.common.model.result.Result;
@@ -43,14 +42,12 @@ public class ResourceServerConfig {
         // 自定义处理JWT请求头过期或签名错误的结果
         http.oauth2ResourceServer().authenticationEntryPoint(authenticationEntryPoint());
         // 对白名单路径，直接移除JWT请求头
-        //    http.addFilterBefore(ignoreUrlsRemoveJwtFilter,
-        // SecurityWebFiltersOrder.AUTHENTICATION);
+        //        http.addFilterBefore(ignoreUrlsRemoveJwtFilter,
+        //     SecurityWebFiltersOrder.AUTHENTICATION);
         http.authorizeExchange()
                 // 白名单配置
-                .pathMatchers(ArrayUtil.toArray(gatewayAuthProperties.getWhiteUrls(), String.class))
+                .pathMatchers(gatewayAuthProperties.getWhiteUrls().stream().toArray(String[]::new))
                 .permitAll()
-                //
-                // .pathMatchers(Arrays.stream(gatewayAuthProperties.getWhiteUrls()).collect(Collectors.toList())).permitAll()
                 // 鉴权管理器配置
                 .anyExchange()
                 .access(authorizationManager)

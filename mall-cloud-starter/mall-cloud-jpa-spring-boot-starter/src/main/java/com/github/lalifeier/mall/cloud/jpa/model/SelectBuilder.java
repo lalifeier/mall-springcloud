@@ -10,52 +10,47 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Pageable;
 
-/**
- * 查询条件构造器.
- */
+/** 查询条件构造器. */
 public abstract class SelectBuilder<T extends Predicate> {
 
-  @NotNull
-  public static SelectBooleanBuilder booleanBuilder() {
-    return new SelectBooleanBuilder();
-  }
-
-  @NotNull
-  public static SelectBooleanBuilder booleanBuilder(BaseEntity entity) {
-    BooleanBuilder builder = null;
-    if (entity != null) {
-      builder = entity.booleanBuilder();
+    @NotNull public static SelectBooleanBuilder booleanBuilder() {
+        return new SelectBooleanBuilder();
     }
-    return new SelectBooleanBuilder(builder);
-  }
 
-  /**
-   * 获取查询条件
-   *
-   * @return 查询条件
-   */
-  @NotNull
-  public abstract T getPredicate();
+    @NotNull public static SelectBooleanBuilder booleanBuilder(BaseEntity entity) {
+        BooleanBuilder builder = null;
+        if (entity != null) {
+            builder = entity.booleanBuilder();
+        }
+        return new SelectBooleanBuilder(builder);
+    }
 
-  public <E> QueryResults<E> from(
-    @NotNull JPAQueryFactory jpaQueryFactory, @NotNull EntityPath<E> from, Pageable page) {
-    Predicate predicate = getPredicate();
-    if (predicate == null) {
-      throw new IllegalStateException("SelectBuilder 子类实现的方法不能返回 null");
-    }
-    JPAQuery<E> selectFrom = jpaQueryFactory.selectFrom(from).where(predicate);
-    if (page != null) {
-      selectFrom.offset(page.getOffset()).limit(page.getPageSize());
-    }
-    return selectFrom.fetchResults();
-  }
+    /**
+     * 获取查询条件
+     *
+     * @return 查询条件
+     */
+    @NotNull public abstract T getPredicate();
 
-  public <E> JPAQuery<E> from(
-    @NotNull JPAQueryFactory jpaQueryFactory, @NotNull EntityPath<E> from) {
-    Predicate predicate = getPredicate();
-    if (predicate == null) {
-      throw new IllegalStateException("SelectBuilder 子类实现的方法不能返回 null");
+    public <E> QueryResults<E> from(
+            @NotNull JPAQueryFactory jpaQueryFactory, @NotNull EntityPath<E> from, Pageable page) {
+        Predicate predicate = getPredicate();
+        if (predicate == null) {
+            throw new IllegalStateException("SelectBuilder 子类实现的方法不能返回 null");
+        }
+        JPAQuery<E> selectFrom = jpaQueryFactory.selectFrom(from).where(predicate);
+        if (page != null) {
+            selectFrom.offset(page.getOffset()).limit(page.getPageSize());
+        }
+        return selectFrom.fetchResults();
     }
-    return jpaQueryFactory.selectFrom(from).where(predicate);
-  }
+
+    public <E> JPAQuery<E> from(
+            @NotNull JPAQueryFactory jpaQueryFactory, @NotNull EntityPath<E> from) {
+        Predicate predicate = getPredicate();
+        if (predicate == null) {
+            throw new IllegalStateException("SelectBuilder 子类实现的方法不能返回 null");
+        }
+        return jpaQueryFactory.selectFrom(from).where(predicate);
+    }
 }

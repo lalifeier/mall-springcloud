@@ -10,15 +10,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "user_role")
-public class UserRolePO extends BaseEntity {
+public class UserRolePO extends BaseEntity<Long> {
 
-  /**
-   * 用户id
-   */
-  private Integer userId;
+    /** 用户id */
+    private Integer userId;
 
-  /**
-   * 角色id
-   */
-  private Integer roleId;
+    /** 角色id */
+    private Integer roleId;
 }

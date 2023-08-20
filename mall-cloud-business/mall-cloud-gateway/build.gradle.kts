@@ -13,6 +13,5 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-configuration-processor")
   implementation(libs.commons.lang3)
   implementation(libs.gson)
-  implementation(libs.commons.beanutils)
-  implementation(libs.hutool)
+  implementation(libs.knife4j.gateway.spring.boot.starter)
 }
