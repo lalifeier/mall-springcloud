@@ -26,5 +26,7 @@ public abstract class BaseEntity<T extends Serializable> implements Serializable
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updatedTime;
 
-    @TableLogic private Boolean deleted;
+    @TableLogic
+    @TableField(value = "is_deleted")
+    private Boolean deleted;
 }
