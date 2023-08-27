@@ -15,10 +15,16 @@ docker {
   }
 
   springBootApplication {
-    baseImage.set("apache/skywalking-java-agent:8.16.0-java17")
+    baseImage.set("eclipse-temurin:17-jre")
+//    baseImage.set("apache/skywalking-java-agent:8.16.0-java17")
     maintainer.set("lalifeier")
     ports.set(listOf(9090, 8080))
-    images.set(setOf("${project.group}/${project.name}:${project.version}", "${project.group}/${project.name}:latest"))
+    images.set(
+      setOf(
+        "${project.group}/${project.name}:${project.version}",
+        "${project.group}/${project.name}:latest"
+      )
+    )
 //    jvmArgs.set(listOf("-Dspring.profiles.active=prod"))
   }
 }

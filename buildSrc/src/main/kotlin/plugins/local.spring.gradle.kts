@@ -14,3 +14,13 @@ tasks.named<Jar>("jar") {
 tasks.named<BootJar>("bootJar") {
   enabled = false
 }
+
+
+//tasks.register<Copy>("copyJar") {
+//  from("${buildDir}/libs")
+//  into(dockerBuild)
+//  dependsOn("bootJar")
+//}
+//
+//tasks.register<Delete>("clearJar") {
+//}

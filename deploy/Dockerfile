@@ -31,8 +31,6 @@ ENV JAVA_OPTS="-Xms4g -Xmx4g -XX:NewRatio=1 -XX:MetaspaceSize=128m -XX:MaxMetasp
 #2C 4G
 #ENV JAVA_MEM_OPTS="-server -Xmx2g -Xms2g -XX:MaxMetaspaceSize=256m -XX:MetaspaceSize=256m -XX:MaxDirectMemorySize=2048m -XX:ParallelGCThreads=2 -XX:CICompilerCount=2 -XX:+UseZGC -XX:ZAllocationSpikeTolerance=2 -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/logs -XX:ErrorFile=/tmp/logs/hs_error_pid%p.log"
 
-
-
 ENV SW_AGENT_NAME=""
 ENV SW_AGENT_COLLECTOR_BACKEND_SERVICES="localhost:11800"
 ENV NACOS_SERVER_ADDR="localhost:8848"
