@@ -19,7 +19,7 @@ RUN --mount=type=cache,id=gradle,target=~/.gradle gradle clean build -x test --n
 FROM builder AS demo-service-builder
 WORKDIR /workspace/app
 
-COPY --from=builder mall-cloud-business/mall-cloud-demo/mall-cloud-demo-service/build/libs/*.jar app.jar
+COPY --from=builder /workspace/app/mall-cloud-business/mall-cloud-demo/mall-cloud-demo-service/build/libs/*.jar app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
 
 FROM base AS demo-service
