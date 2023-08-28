@@ -14,8 +14,7 @@ WORKDIR /workspace/app
 
 COPY . .
 
-RUN --mount=type=cache,id=gradle,target=~/.gradle gradle dependencies --no-daemon
-RUN gradle clean build -x test --no-daemon
+RUN --mount=type=cache,id=gradle,target=~/.gradle gradle clean build -x test --no-daemon
 
 FROM builder AS demo-service-builder
 WORKDIR /workspace/app
@@ -30,5 +29,3 @@ COPY --from=demo-service-builder /workspace/app/dependencies/ ./
 COPY --from=demo-service-builder /workspace/app/spring-boot-loader/ ./
 COPY --from=demo-service-builder /workspace/app/snapshot-dependencies/ ./
 COPY --from=demo-service-builder /workspace/app/application/ ./
-
-
