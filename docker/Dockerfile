@@ -12,14 +12,20 @@ CMD ["/bin/sh"]
 FROM gradle:8.1.1-jdk17-focal AS builder
 WORKDIR /workspace/app
 
-COPY gradle/ ./gradle/
-COPY buildSrc/ ./buildSrc/
-COPY *.gradle.kts gradle.properties gradlew ./
+# COPY gradle/ ./gradle/
+# COPY buildSrc/ ./buildSrc/
+# COPY *.gradle.kts gradle.properties gradlew ./
+# COPY **/build.gradle ./
 
-RUN --mount=type=cache,id=gradle-cache,target=~/.gradle gradle clean build -x test --no-daemon --info
-# RUN gradle clean build -x test --no-daemon --info
+# COPY mall-cloud-business/mall-cloud-admin/build.gradle.kts ./mall-cloud-business/mall-cloud-admin/build.gradle
+
+
+# RUN --mount=type=cache,id=gradle-cache,target=~/.gradle,sharing=locked gradle dependencies --no-daemon --info --stacktrace
 
 COPY . .
+
+# RUN gradle clean build -x test --no-daemon --info
+RUN --mount=type=cache,id=gradle-cache,target=~/.gradle,sharing=locked gradle clean build -x test --no-daemon --info
 
 FROM builder AS demo-service-layers-builder
 WORKDIR /workspace/app
