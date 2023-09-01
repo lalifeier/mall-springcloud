@@ -2,61 +2,10 @@
   "configurations": [
     {
       "type": "java",
-      "name": "AppCredentialsGenerator",
+      "name": "MallDemoApplication",
       "request": "launch",
-      "mainClass": "com.github.lalifeier.mall.sign.utils.AppCredentialsGenerator",
-      "projectName": "mall-sign-spring-boot-starter"
-    },
-    {
-      "type": "java",
-      "name": "MallAccountApplication",
-      "request": "launch",
-      "mainClass": "com.github.lalifeier.mall.account.MallAccountApplication",
-      "projectName": "account-service"
-    },
-    {
-      "type": "java",
-      "name": "MallMonitorApplication",
-      "request": "launch",
-      "mainClass": "com.github.lalifeier.mall.monitor.MallMonitorApplication",
-      "projectName": "mall-monitor"
-    },
-    {
-      "type": "java",
-      "name": "MallAuthApplication",
-      "request": "launch",
-      "mainClass": "com.github.lalifeier.mall.auth.MallAuthApplication",
-      "projectName": "auth-service"
-    },
-    {
-      "type": "java",
-      "name": "Spring Boot-MallGatewayApplication<mall-gateway>",
-      "request": "launch",
-      "cwd": "${workspaceFolder}",
-      "mainClass": "com.github.lalifeier.mall.gateway.MallGatewayApplication",
-      "projectName": "mall-gateway",
-      "args": "",
-      "envFile": "${workspaceFolder}/.env"
-    },
-    {
-      "type": "java",
-      "name": "Spring Boot-MallDemoApplication<mall-demo>",
-      "request": "launch",
-      "cwd": "${workspaceFolder}",
-      "mainClass": "com.github.lalifeier.mall.demo.MallDemoApplication",
-      "projectName": "mall-demo",
-      "args": "",
-      "envFile": "${workspaceFolder}/.env"
-    },
-    {
-      "type": "java",
-      "name": "Spring Boot-MallDemoApplication<demo-service>",
-      "request": "launch",
-      "cwd": "${workspaceFolder}",
-      "mainClass": "com.github.lalifeier.mall.demo.MallDemoApplication",
-      "projectName": "demo-service",
-      "args": "",
-      "envFile": "${workspaceFolder}/.env"
+      "mainClass": "com.github.lalifeier.mall.cloud.demo.MallDemoApplication",
+      "projectName": "mall-cloud-demo-service"
     }
   ]
 }

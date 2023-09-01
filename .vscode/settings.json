@@ -33,8 +33,10 @@
   ],
   "java.debug.settings.onBuildFailureProceed": true,
   "java.import.gradle.java.home": "~/.sdkman/candidates/java/17.0.6-librca",
-  "java.import.gradle.home": "~/.sdkman/candidates/gradle/current",
+  "java.import.gradle.home": "~/.sdkman/candidates/gradle/8.1.1",
   "java.import.gradle.wrapper.enabled": true,
-  "java.import.gradle.version": "",
-  "java.saveActions.organizeImports": true
+  // "java.import.gradle.version": "",
+  "java.saveActions.organizeImports": true,
+  "gradle.nestedProjects": true
+  // "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx2G -Xms100m -Xlog:disable"
 }
