@@ -26,5 +26,3 @@ dependencies {
   implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
   implementation("org.springframework.cloud:spring-cloud-stream")
 }
-
-

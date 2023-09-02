@@ -10,33 +10,32 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 public class CollectionUtil {
-    public static final Joiner.MapJoiner MAP_JOINER = Joiner.on(',').withKeyValueSeparator("=");
-    public static final Joiner ARGS_JOINER = Joiner.on('_');
-    public static final Joiner ARGS_JOINER_2 = Joiner.on(',');
-    public static final Splitter LIST_SPLITTER = Splitter.on(',').trimResults().omitEmptyStrings();
-    public static final Splitter LINE_SPLITTER =
-            Splitter.onPattern("\r?\n").trimResults().omitEmptyStrings();
+  public static final Joiner.MapJoiner MAP_JOINER = Joiner.on(',').withKeyValueSeparator("=");
+  public static final Joiner ARGS_JOINER = Joiner.on('_');
+  public static final Joiner ARGS_JOINER_2 = Joiner.on(',');
+  public static final Splitter LIST_SPLITTER = Splitter.on(',').trimResults().omitEmptyStrings();
+  public static final Splitter LINE_SPLITTER =
+      Splitter.onPattern("\r?\n").trimResults().omitEmptyStrings();
 
-    public static List<String> strListSplitter(String str) {
-        if (StringUtils.isEmpty(str)) {
-            return Collections.emptyList();
-        }
-        return Lists.newArrayList(LIST_SPLITTER.split(str));
+  public static List<String> strListSplitter(String str) {
+    if (StringUtils.isEmpty(str)) {
+      return Collections.emptyList();
     }
+    return Lists.newArrayList(LIST_SPLITTER.split(str));
+  }
 
-    public static List<Long> longListSplitter(String str) {
-        return Lists.newArrayList(
-                Collections2.transform(strListSplitter(str), NumberUtils::toLong));
-    }
+  public static List<Long> longListSplitter(String str) {
+    return Lists.newArrayList(Collections2.transform(strListSplitter(str), NumberUtils::toLong));
+  }
 
-    public static List<Integer> intListSplitter(String str) {
-        return Lists.newArrayList(Collections2.transform(strListSplitter(str), NumberUtils::toInt));
-    }
+  public static List<Integer> intListSplitter(String str) {
+    return Lists.newArrayList(Collections2.transform(strListSplitter(str), NumberUtils::toInt));
+  }
 
-    public static List<String> strLineSplitter(String str) {
-        if (StringUtils.isEmpty(str)) {
-            return Collections.emptyList();
-        }
-        return Lists.newArrayList(LINE_SPLITTER.split(str));
+  public static List<String> strLineSplitter(String str) {
+    if (StringUtils.isEmpty(str)) {
+      return Collections.emptyList();
     }
+    return Lists.newArrayList(LINE_SPLITTER.split(str));
+  }
 }

@@ -13,27 +13,27 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(TraceProperties.class)
 public class TraceAutoConfiguration {
 
-    private final TraceProperties properties;
+  private final TraceProperties properties;
 
-    public TraceAutoConfiguration(TraceProperties properties) {
-        this.properties = properties;
-    }
+  public TraceAutoConfiguration(TraceProperties properties) {
+    this.properties = properties;
+  }
 
-    @Bean
-    public FilterRegistrationBean webTraceFilterRegistration() {
-        FilterRegistrationBean registration = new FilterRegistrationBean<>();
-        registration.setFilter(new WebTraceFilter(properties));
-        registration.addUrlPatterns("/*");
-        return registration;
-    }
+  @Bean
+  public FilterRegistrationBean webTraceFilterRegistration() {
+    FilterRegistrationBean registration = new FilterRegistrationBean<>();
+    registration.setFilter(new WebTraceFilter(properties));
+    registration.addUrlPatterns("/*");
+    return registration;
+  }
 
-    @Bean
-    public FeignTraceInterceptor feignTraceInterceptor() {
-        return new FeignTraceInterceptor(properties);
-    }
+  @Bean
+  public FeignTraceInterceptor feignTraceInterceptor() {
+    return new FeignTraceInterceptor(properties);
+  }
 
-    @Bean
-    public TraceResponseHandler traceResponseHandler() {
-        return new TraceResponseHandler(properties);
-    }
+  @Bean
+  public TraceResponseHandler traceResponseHandler() {
+    return new TraceResponseHandler(properties);
+  }
 }

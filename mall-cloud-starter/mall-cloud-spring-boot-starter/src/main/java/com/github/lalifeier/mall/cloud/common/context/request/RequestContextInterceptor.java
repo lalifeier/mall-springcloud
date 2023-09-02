@@ -9,11 +9,11 @@ package com.github.lalifeier.mall.cloud.common.context.request;
 // import java.io.IOException;
 //
 // public class RequestContextInterceptor implements ClientHttpRequestInterceptor {
-//  @Override
-//  public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution
+// @Override
+// public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution
 // execution) throws IOException {
-//    HttpHeaders headers = request.getHeaders();
+// HttpHeaders headers = request.getHeaders();
 //
-//    return execution.execute(request, body);
-//  }
+// return execution.execute(request, body);
+// }
 // }

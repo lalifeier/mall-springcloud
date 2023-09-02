@@ -12,14 +12,14 @@ package com.github.lalifeier.mall.cloud.auth.infrastructure.component;
 //
 // @Component
 // public class JwtTokenEnhancer implements TokenEnhancer {
-//    @Override
-//    public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication
+// @Override
+// public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication
 // authentication) {
-//        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-//        Map<String, Object> info = new HashMap<>();
-//        // 把用户ID设置到JWT中
-//        info.put("id", userPrincipal.getId());
-//        ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(info);
-//        return accessToken;
-//    }
+// UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+// Map<String, Object> info = new HashMap<>();
+// // 把用户ID设置到JWT中
+// info.put("id", userPrincipal.getId());
+// ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(info);
+// return accessToken;
+// }
 // }

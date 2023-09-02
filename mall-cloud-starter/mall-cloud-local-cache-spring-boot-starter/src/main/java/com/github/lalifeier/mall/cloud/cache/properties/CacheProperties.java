@@ -6,6 +6,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 @ConfigurationProperties(prefix = "local.cache")
 public class CacheProperties {
-    private Integer expireAfterWrite = 300;
-    private Integer maximumSize = 1024;
+  private Integer expireAfterWrite = 300;
+  private Integer maximumSize = 1024;
 }

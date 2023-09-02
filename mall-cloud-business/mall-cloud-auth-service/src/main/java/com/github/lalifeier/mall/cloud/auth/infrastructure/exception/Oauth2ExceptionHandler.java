@@ -8,9 +8,9 @@
 //
 // @ControllerAdvice
 // public class Oauth2ExceptionHandler {
-//    @ResponseBody
-//    @ExceptionHandler(value = OAuth2Exception.class)
-//    public Response<String> handleOauth2(OAuth2Exception e) {
-//        return Response.failure(e.getMessage());
-//    }
+// @ResponseBody
+// @ExceptionHandler(value = OAuth2Exception.class)
+// public Response<String> handleOauth2(OAuth2Exception e) {
+// return Response.failure(e.getMessage());
+// }
 // }

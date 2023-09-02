@@ -11,8 +11,8 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 @RequiredArgsConstructor
 public class ApiAutoConfiguration implements WebMvcRegistrations {
 
-    @Override
-    @NonNull public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
-        return new ApiHandlerMapping();
-    }
+  @Override
+  @NonNull public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
+    return new ApiHandlerMapping();
+  }
 }

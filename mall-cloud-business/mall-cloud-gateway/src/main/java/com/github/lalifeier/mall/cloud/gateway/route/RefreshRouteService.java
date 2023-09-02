@@ -11,16 +11,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class RefreshRouteService implements ApplicationEventPublisherAware {
 
-    private ApplicationEventPublisher publisher;
+  private ApplicationEventPublisher publisher;
 
-    @Override
-    public void setApplicationEventPublisher(
-            @NotNull ApplicationEventPublisher applicationEventPublisher) {
-        this.publisher = applicationEventPublisher;
-    }
+  @Override
+  public void setApplicationEventPublisher(
+      @NotNull ApplicationEventPublisher applicationEventPublisher) {
+    this.publisher = applicationEventPublisher;
+  }
 
-    /** 刷新路由表 */
-    public void refreshRoutes() {
-        publisher.publishEvent(new RefreshRoutesEvent(this));
-    }
+  /** 刷新路由表 */
+  public void refreshRoutes() {
+    publisher.publishEvent(new RefreshRoutesEvent(this));
+  }
 }

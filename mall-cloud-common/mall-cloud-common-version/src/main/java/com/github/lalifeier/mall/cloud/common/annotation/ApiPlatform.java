@@ -1,12 +1,12 @@
 package com.github.lalifeier.mall.cloud.common.annotation;
 
 public interface ApiPlatform {
-    /** 默认 */
-    public static int DEFAULT = 0;
+  /** 默认 */
+  public static int DEFAULT = 0;
 
-    /** web端 */
-    public static int WEB = 1;
+  /** web端 */
+  public static int WEB = 1;
 
-    /** 移动端 */
-    public static int MOBILE = 2;
+  /** 移动端 */
+  public static int MOBILE = 2;
 }

@@ -7,9 +7,9 @@ import com.github.lalifeier.mall.cloud.account.applicaiton.authentication.model.
 
 public interface AuthenticationApplicationService {
 
-    RegisterDTO register(RegisterCommand command);
+  RegisterDTO register(RegisterCommand command);
 
-    LoginDTO login(LoginCommand command);
+  LoginDTO login(LoginCommand command);
 
-    //  void logout();
+  // void logout();
 }

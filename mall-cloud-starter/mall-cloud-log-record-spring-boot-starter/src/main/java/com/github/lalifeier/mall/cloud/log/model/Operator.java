@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @Builder
 public class Operator {
-    private String operatorId;
-    private String operatorName;
+  private String operatorId;
+  private String operatorName;
 }

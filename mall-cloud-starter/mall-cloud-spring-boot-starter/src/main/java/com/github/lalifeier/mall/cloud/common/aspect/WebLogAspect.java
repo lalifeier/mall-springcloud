@@ -19,63 +19,60 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class WebLogAspect {
-    @Autowired private ObjectMapper objectMapper;
+  @Autowired
+  private ObjectMapper objectMapper;
 
-    private final Logger log = LoggerFactory.getLogger("apiLog");
+  private final Logger log = LoggerFactory.getLogger("apiLog");
 
-    @Pointcut(
-            "@within(org.springframework.web.bind.annotation.RestController) &&"
-                    + " within(com.github.lalifeier.*)")
-    public void webLog() {}
+  @Pointcut("@within(org.springframework.web.bind.annotation.RestController) &&"
+      + " within(com.github.lalifeier.*)")
+  public void webLog() {}
 
-    @Around("webLog()")
-    public Object around(ProceedingJoinPoint pjp) throws Throwable {
+  @Around("webLog()")
+  public Object around(ProceedingJoinPoint pjp) throws Throwable {
 
-        WebLog webLog = new WebLog();
-        long beginTime = System.currentTimeMillis();
-        HttpServletRequest request = WebUtil.getRequest();
-        try {
-            webLog.setRequestTime(LocalDateTime.now());
-            webLog.setRequestId(MDCTraceUtil.getTraceId());
-            webLog.setProtocol(request.getProtocol());
-            webLog.setSchema(request.getScheme());
-            webLog.setIp(request.getRemoteAddr());
-            webLog.setUserAgent(request.getHeader("User-Agent"));
-            webLog.setRefer(request.getHeader("Referer"));
-            webLog.setSessionId(request.getSession().getId());
-            webLog.setCookies(WebUtil.getCookies(request));
-            webLog.setUri(request.getRequestURI());
-            webLog.setUrl(request.getRequestURL().toString());
-            webLog.setHttpMethod(request.getMethod());
-            webLog.setClassMethod(
-                    String.format(
-                            "%s.%s",
-                            pjp.getSignature().getDeclaringTypeName(),
-                            pjp.getSignature().getName()));
-            webLog.setRequestHeaders(WebUtil.getRequestHeaders(request));
-            webLog.setQuery(request.getQueryString());
+    WebLog webLog = new WebLog();
+    long beginTime = System.currentTimeMillis();
+    HttpServletRequest request = WebUtil.getRequest();
+    try {
+      webLog.setRequestTime(LocalDateTime.now());
+      webLog.setRequestId(MDCTraceUtil.getTraceId());
+      webLog.setProtocol(request.getProtocol());
+      webLog.setSchema(request.getScheme());
+      webLog.setIp(request.getRemoteAddr());
+      webLog.setUserAgent(request.getHeader("User-Agent"));
+      webLog.setRefer(request.getHeader("Referer"));
+      webLog.setSessionId(request.getSession().getId());
+      webLog.setCookies(WebUtil.getCookies(request));
+      webLog.setUri(request.getRequestURI());
+      webLog.setUrl(request.getRequestURL().toString());
+      webLog.setHttpMethod(request.getMethod());
+      webLog.setClassMethod(String.format("%s.%s", pjp.getSignature().getDeclaringTypeName(),
+          pjp.getSignature().getName()));
+      webLog.setRequestHeaders(WebUtil.getRequestHeaders(request));
+      webLog.setQuery(request.getQueryString());
 
-            webLog.setRequestBody(WebUtil.getRequestBody(request));
-            webLog.setRequestSize(request.getContentLength());
+      webLog.setRequestBody(WebUtil.getRequestBody(request));
+      webLog.setRequestSize(request.getContentLength());
 
-            Object returnValue = pjp.proceed();
+      Object returnValue = pjp.proceed();
 
-            HttpServletResponse response = WebUtil.getResponse();
+      HttpServletResponse response = WebUtil.getResponse();
 
-            webLog.setStatusCode(response.getStatus());
-            webLog.setResponseHeaders(WebUtil.getResponseHeaders(response));
+      webLog.setStatusCode(response.getStatus());
+      webLog.setResponseHeaders(WebUtil.getResponseHeaders(response));
 
-            webLog.setResponseBody(objectMapper.writeValueAsString(returnValue));
+      webLog.setResponseBody(objectMapper.writeValueAsString(returnValue));
 
-            return returnValue;
-        } catch (Exception e) {
-            webLog.setException(e.getMessage());
+      return returnValue;
+    } catch (Exception e) {
+      webLog.setException(e.getMessage());
 
-            throw e;
-        } finally {
-            webLog.setSpendTime(System.currentTimeMillis() - beginTime);
+      throw e;
+    } finally {
+      webLog.setSpendTime(System.currentTimeMillis() - beginTime);
 
-            log.info(objectMapper.writeValueAsString(webLog));
-        }
+      log.info(objectMapper.writeValueAsString(webLog));
     }
+  }
 }

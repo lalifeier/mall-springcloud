@@ -9,48 +9,47 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class PasswordAuthenticationProvider implements AuthenticationProvider {
-    private PasswordEncoder passwordEncoder;
-    private UserService userService;
+  private PasswordEncoder passwordEncoder;
+  private UserService userService;
 
-    @Override
-    public Authentication authenticate(Authentication authentication)
-            throws AuthenticationException {
-        PasswordAuthenticationToken passwordAuthenticationToken =
-                (PasswordAuthenticationToken) authentication;
-        String principal = (String) passwordAuthenticationToken.getPrincipal();
-        String password = passwordAuthenticationToken.getPassword();
+  @Override
+  public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    PasswordAuthenticationToken passwordAuthenticationToken =
+        (PasswordAuthenticationToken) authentication;
+    String principal = (String) passwordAuthenticationToken.getPrincipal();
+    String password = passwordAuthenticationToken.getPassword();
 
-        UserDetails userDetails = userService.loadUserByUsername(principal);
+    UserDetails userDetails = userService.loadUserByUsername(principal);
 
-        if (userDetails == null) {
-            throw new UsernameNotFoundException("用户不存在");
-        }
-
-        PasswordAuthenticationToken authenticationToken =
-                new PasswordAuthenticationToken(principal, null, userDetails.getAuthorities());
-        authenticationToken.setDetails(authenticationToken.getDetails());
-
-        return authenticationToken;
+    if (userDetails == null) {
+      throw new UsernameNotFoundException("用户不存在");
     }
 
-    @Override
-    public boolean supports(Class<?> authentication) {
-        return PasswordAuthenticationToken.class.isAssignableFrom(authentication);
-    }
+    PasswordAuthenticationToken authenticationToken =
+        new PasswordAuthenticationToken(principal, null, userDetails.getAuthorities());
+    authenticationToken.setDetails(authenticationToken.getDetails());
 
-    public PasswordEncoder getPasswordEncoder() {
-        return passwordEncoder;
-    }
+    return authenticationToken;
+  }
 
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+  @Override
+  public boolean supports(Class<?> authentication) {
+    return PasswordAuthenticationToken.class.isAssignableFrom(authentication);
+  }
 
-    public UserService getUserService() {
-        return userService;
-    }
+  public PasswordEncoder getPasswordEncoder() {
+    return passwordEncoder;
+  }
 
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+  public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+    this.passwordEncoder = passwordEncoder;
+  }
+
+  public UserService getUserService() {
+    return userService;
+  }
+
+  public void setUserService(UserService userService) {
+    this.userService = userService;
+  }
 }

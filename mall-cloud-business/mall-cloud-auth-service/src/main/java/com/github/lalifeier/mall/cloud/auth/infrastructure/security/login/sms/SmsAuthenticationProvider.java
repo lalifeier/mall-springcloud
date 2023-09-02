@@ -8,38 +8,37 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 public class SmsAuthenticationProvider implements AuthenticationProvider {
-    private UserService userService;
+  private UserService userService;
 
-    @Override
-    public Authentication authenticate(Authentication authentication)
-            throws AuthenticationException {
-        SmsAuthenticationToken smsAuthenticationToken = (SmsAuthenticationToken) authentication;
-        String phone = smsAuthenticationToken.getPhone();
-        String code = smsAuthenticationToken.getCode();
+  @Override
+  public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    SmsAuthenticationToken smsAuthenticationToken = (SmsAuthenticationToken) authentication;
+    String phone = smsAuthenticationToken.getPhone();
+    String code = smsAuthenticationToken.getCode();
 
-        UserDetails userDetails = userService.loadUserByUsername(phone);
+    UserDetails userDetails = userService.loadUserByUsername(phone);
 
-        if (userDetails == null) {
-            throw new UsernameNotFoundException("手机号不存在");
-        }
-
-        SmsAuthenticationToken authenticationToken =
-                new SmsAuthenticationToken(phone, null, userDetails.getAuthorities());
-        authenticationToken.setDetails(smsAuthenticationToken.getDetails());
-
-        return authenticationToken;
+    if (userDetails == null) {
+      throw new UsernameNotFoundException("手机号不存在");
     }
 
-    @Override
-    public boolean supports(Class<?> authentication) {
-        return SmsAuthenticationToken.class.isAssignableFrom(authentication);
-    }
+    SmsAuthenticationToken authenticationToken =
+        new SmsAuthenticationToken(phone, null, userDetails.getAuthorities());
+    authenticationToken.setDetails(smsAuthenticationToken.getDetails());
 
-    public UserService getUserService() {
-        return userService;
-    }
+    return authenticationToken;
+  }
 
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+  @Override
+  public boolean supports(Class<?> authentication) {
+    return SmsAuthenticationToken.class.isAssignableFrom(authentication);
+  }
+
+  public UserService getUserService() {
+    return userService;
+  }
+
+  public void setUserService(UserService userService) {
+    this.userService = userService;
+  }
 }

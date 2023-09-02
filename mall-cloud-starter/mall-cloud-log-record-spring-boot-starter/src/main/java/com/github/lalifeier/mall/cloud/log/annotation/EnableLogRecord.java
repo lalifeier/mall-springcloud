@@ -11,7 +11,7 @@ package com.github.lalifeier.mall.cloud.log.annotation;
 // @Import(LogRecordConfigureSelector.class)
 // public @interface EnableLogRecord {
 //
-//  String tenant();
+// String tenant();
 //
-//  AdviceMode mode() default AdviceMode.PROXY;
+// AdviceMode mode() default AdviceMode.PROXY;
 // }

@@ -6,7 +6,7 @@ import com.github.lalifeier.mall.cloud.account.infrastructure.enums.LoginTypeEnu
 
 public interface LoginProvider {
 
-    LoginDTO login(LoginCommand loginCommand);
+  LoginDTO login(LoginCommand loginCommand);
 
-    boolean supports(LoginTypeEnum loginTypeEnum);
+  boolean supports(LoginTypeEnum loginTypeEnum);
 }

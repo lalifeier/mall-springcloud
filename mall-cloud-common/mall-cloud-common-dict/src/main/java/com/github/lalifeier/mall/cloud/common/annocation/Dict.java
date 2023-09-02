@@ -15,9 +15,9 @@ import java.lang.annotation.Target;
 @JacksonAnnotationsInside
 public @interface Dict {
 
-    /** 字典类型 */
-    String type();
+  /** 字典类型 */
+  String type();
 
-    /** 字典目标 */
-    String target();
+  /** 字典目标 */
+  String target();
 }

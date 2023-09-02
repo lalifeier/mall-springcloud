@@ -18,43 +18,43 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class BookRepositoryImpl implements BookRepository {
 
-    private final BookMapper bookMapper;
+  private final BookMapper bookMapper;
 
-    private final BookConverter bookConverter = BookConverter.INSTANCE;
+  private final BookConverter bookConverter = BookConverter.INSTANCE;
 
-    @Override
-    public void attach(@NotNull Book aggregate) {}
+  @Override
+  public void attach(@NotNull Book aggregate) {}
 
-    @Override
-    public void detach(@NotNull Book aggregate) {}
+  @Override
+  public void detach(@NotNull Book aggregate) {}
 
-    @Override
-    public Book find(@NotNull BookId bookId) {
-        Long id = bookId.getValue();
-        BookPO bookPO = bookMapper.selectById(id);
-        return bookConverter.fromData(bookPO);
+  @Override
+  public Book find(@NotNull BookId bookId) {
+    Long id = bookId.getValue();
+    BookPO bookPO = bookMapper.selectById(id);
+    return bookConverter.fromData(bookPO);
+  }
+
+  @Override
+  public List<Book> find(Set<BookId> bookIds) {
+    // bookMapper.selectByMap();
+    return null;
+  }
+
+  @Override
+  public void remove(@NotNull Book aggregate) {
+    BookPO bookPO = bookConverter.toData(aggregate);
+    bookMapper.deleteById(bookPO);
+  }
+
+  @Override
+  public void save(@NotNull Book aggregate) {
+    BookPO bookPO = bookConverter.toData(aggregate);
+    if (aggregate.getId() != null && aggregate.getId().getValue() > 0) {
+      bookMapper.updateById(bookPO);
+    } else {
+      bookMapper.insert(bookPO);
+      aggregate.setId(bookConverter.fromData(bookPO).getId());
     }
-
-    @Override
-    public List<Book> find(Set<BookId> bookIds) {
-        //    bookMapper.selectByMap();
-        return null;
-    }
-
-    @Override
-    public void remove(@NotNull Book aggregate) {
-        BookPO bookPO = bookConverter.toData(aggregate);
-        bookMapper.deleteById(bookPO);
-    }
-
-    @Override
-    public void save(@NotNull Book aggregate) {
-        BookPO bookPO = bookConverter.toData(aggregate);
-        if (aggregate.getId() != null && aggregate.getId().getValue() > 0) {
-            bookMapper.updateById(bookPO);
-        } else {
-            bookMapper.insert(bookPO);
-            aggregate.setId(bookConverter.fromData(bookPO).getId());
-        }
-    }
+  }
 }

@@ -13,47 +13,47 @@ import org.springframework.stereotype.Component;
 @Component
 public class DefaultMetaObjectHandler implements MetaObjectHandler {
 
-    @Override
-    public void insertFill(MetaObject metaObject) {
-        if (!shouldFill(metaObject)) {
-            return;
-        }
-
-        try {
-            BaseEntity baseEntity = (BaseEntity) metaObject.getOriginalObject();
-            LocalDateTime now = LocalDateTime.now();
-            Long userId = getUserId();
-            baseEntity.setCreatedTime(now);
-            baseEntity.setUpdatedTime(now);
-            baseEntity.setCreatedBy(userId);
-            baseEntity.setUpdatedBy(userId);
-        } catch (Exception e) {
-            throw new ServiceException("自动注入异常 => " + e.getMessage());
-        }
+  @Override
+  public void insertFill(MetaObject metaObject) {
+    if (!shouldFill(metaObject)) {
+      return;
     }
 
-    @Override
-    public void updateFill(MetaObject metaObject) {
-        if (!shouldFill(metaObject)) {
-            return;
-        }
+    try {
+      BaseEntity baseEntity = (BaseEntity) metaObject.getOriginalObject();
+      LocalDateTime now = LocalDateTime.now();
+      Long userId = getUserId();
+      baseEntity.setCreatedTime(now);
+      baseEntity.setUpdatedTime(now);
+      baseEntity.setCreatedBy(userId);
+      baseEntity.setUpdatedBy(userId);
+    } catch (Exception e) {
+      throw new ServiceException("自动注入异常 => " + e.getMessage());
+    }
+  }
 
-        try {
-            BaseEntity baseEntity = (BaseEntity) metaObject.getOriginalObject();
-            LocalDateTime now = LocalDateTime.now();
-            Long userId = getUserId();
-            baseEntity.setUpdatedTime(now);
-            baseEntity.setUpdatedBy(userId);
-        } catch (Exception e) {
-            throw new ServiceException("自动注入异常 => " + e.getMessage());
-        }
+  @Override
+  public void updateFill(MetaObject metaObject) {
+    if (!shouldFill(metaObject)) {
+      return;
     }
 
-    private boolean shouldFill(MetaObject metaObject) {
-        return metaObject.getOriginalObject() instanceof BaseEntity;
+    try {
+      BaseEntity baseEntity = (BaseEntity) metaObject.getOriginalObject();
+      LocalDateTime now = LocalDateTime.now();
+      Long userId = getUserId();
+      baseEntity.setUpdatedTime(now);
+      baseEntity.setUpdatedBy(userId);
+    } catch (Exception e) {
+      throw new ServiceException("自动注入异常 => " + e.getMessage());
     }
+  }
 
-    public Long getUserId() {
-        return UserContextUtil.getUserId();
-    }
+  private boolean shouldFill(MetaObject metaObject) {
+    return metaObject.getOriginalObject() instanceof BaseEntity;
+  }
+
+  public Long getUserId() {
+    return UserContextUtil.getUserId();
+  }
 }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.Mapping;
 @Documented
 @Mapping
 public @interface ApiVersion {
-    String value() default "1.0.0";
+  String value() default "1.0.0";
 
-    int platform() default 0;
+  int platform() default 0;
 }

@@ -6,10 +6,10 @@ import lombok.Data;
 @Data
 public class CacheMessage implements Serializable {
 
-    private static final long serialVersionUID = 7587021626678201246L;
+  private static final long serialVersionUID = 7587021626678201246L;
 
-    private String cacheName;
-    private Object key;
-    private Object value;
-    private Integer type;
+  private String cacheName;
+  private Object key;
+  private Object value;
+  private Integer type;
 }

@@ -20,31 +20,31 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @MappedSuperclass
 @EntityListeners({AuditingEntityListener.class})
 public abstract class BaseEntity<T extends Serializable> implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private T id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
+  private T id;
 
-    @CreatedDate
-    @Column(name = "created_time", columnDefinition = "datetime")
-    private LocalDateTime createdTime;
+  @CreatedDate
+  @Column(name = "created_time", columnDefinition = "datetime")
+  private LocalDateTime createdTime;
 
-    @CreatedBy
-    @Column(name = "created_by")
-    private Long createdBy;
+  @CreatedBy
+  @Column(name = "created_by")
+  private Long createdBy;
 
-    @LastModifiedDate
-    @Column(name = "updated_time", columnDefinition = "datetime")
-    private LocalDateTime updatedTime;
+  @LastModifiedDate
+  @Column(name = "updated_time", columnDefinition = "datetime")
+  private LocalDateTime updatedTime;
 
-    @LastModifiedBy
-    @Column(name = "updated_by")
-    private Long updatedBy;
+  @LastModifiedBy
+  @Column(name = "updated_by")
+  private Long updatedBy;
 
-    @Column(name = "is_deleted")
-    private Boolean deleted;
+  @Column(name = "is_deleted")
+  private Boolean deleted;
 
-    @Nullable public BooleanBuilder booleanBuilder() {
-        return null;
-    }
+  @Nullable public BooleanBuilder booleanBuilder() {
+    return null;
+  }
 }

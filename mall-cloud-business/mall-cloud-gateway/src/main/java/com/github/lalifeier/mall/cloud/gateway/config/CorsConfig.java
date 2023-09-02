@@ -10,18 +10,18 @@ import org.springframework.web.util.pattern.PathPatternParser;
 @Configuration
 public class CorsConfig {
 
-    @Bean
-    public CorsWebFilter corsFilter() {
-        CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOriginPattern("*");
-        config.setAllowCredentials(true);
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
+  @Bean
+  public CorsWebFilter corsFilter() {
+    CorsConfiguration config = new CorsConfiguration();
+    config.addAllowedOriginPattern("*");
+    config.setAllowCredentials(true);
+    config.addAllowedHeader("*");
+    config.addAllowedMethod("*");
 
-        UrlBasedCorsConfigurationSource source =
-                new UrlBasedCorsConfigurationSource(new PathPatternParser());
-        source.registerCorsConfiguration("/**", config);
+    UrlBasedCorsConfigurationSource source =
+        new UrlBasedCorsConfigurationSource(new PathPatternParser());
+    source.registerCorsConfiguration("/**", config);
 
-        return new CorsWebFilter(source);
-    }
+    return new CorsWebFilter(source);
+  }
 }

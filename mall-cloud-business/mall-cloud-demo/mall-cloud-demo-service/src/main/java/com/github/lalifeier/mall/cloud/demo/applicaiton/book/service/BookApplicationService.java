@@ -5,9 +5,9 @@ import com.github.lalifeier.mall.cloud.demo.api.book.model.command.CreateBookCom
 import com.github.lalifeier.mall.cloud.demo.api.book.model.command.UpdateBookCommand;
 
 public interface BookApplicationService extends ApplicationService {
-    void create(CreateBookCommand command);
+  void create(CreateBookCommand command);
 
-    void update(UpdateBookCommand command);
+  void update(UpdateBookCommand command);
 
-    void delete(Long id);
+  void delete(Long id);
 }

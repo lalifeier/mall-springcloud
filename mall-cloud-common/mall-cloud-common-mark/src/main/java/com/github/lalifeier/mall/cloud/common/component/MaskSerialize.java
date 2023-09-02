@@ -14,94 +14,82 @@ import java.util.Objects;
 
 public class MaskSerialize extends JsonSerializer<String> implements ContextualSerializer {
 
-    /** 脱敏类型 */
-    private final MaskEnum type;
+  /** 脱敏类型 */
+  private final MaskEnum type;
 
-    public MaskSerialize() {
-        this.type = null;
+  public MaskSerialize() {
+    this.type = null;
+  }
+
+  public MaskSerialize(final MaskEnum type) {
+    this.type = type;
+  }
+
+  @Override
+  public void serialize(final String s, final JsonGenerator jsonGenerator,
+      final SerializerProvider serializerProvider) throws IOException {
+    switch (this.type) {
+      case CHINESE_NAME: {
+        jsonGenerator.writeString(MaskUtils.chineseName(s));
+        break;
+      }
+      case ID_CARD: {
+        jsonGenerator.writeString(MaskUtils.idCardNum(s));
+        break;
+      }
+      case FIXED_PHONE: {
+        jsonGenerator.writeString(MaskUtils.fixedPhone(s));
+        break;
+      }
+      case MOBILE_PHONE: {
+        jsonGenerator.writeString(MaskUtils.mobilePhone(s));
+        break;
+      }
+      case ADDRESS: {
+        jsonGenerator.writeString(MaskUtils.address(s, 4));
+        break;
+      }
+      case EMAIL: {
+        jsonGenerator.writeString(MaskUtils.email(s));
+        break;
+      }
+      case BANK_CARD: {
+        jsonGenerator.writeString(MaskUtils.bankCard(s));
+        break;
+      }
+      case API_SECRET: {
+        jsonGenerator.writeString(MaskUtils.apiSecret(s));
+        break;
+      }
+      default:
+        jsonGenerator.writeString(s);
+        break;
+    }
+  }
+
+  @Override
+  public JsonSerializer<?> createContextual(SerializerProvider serializerProvider,
+      BeanProperty beanProperty) throws JsonMappingException {
+    // 非String类直接跳过
+    if (!Objects.equals(beanProperty.getType().getRawClass(), String.class)) {
+      return serializerProvider.findValueSerializer(beanProperty.getType(), beanProperty);
     }
 
-    public MaskSerialize(final MaskEnum type) {
-        this.type = type;
+    // 为空直接跳过
+    if (beanProperty == null) {
+      return serializerProvider.findNullValueSerializer(beanProperty);
     }
 
-    @Override
-    public void serialize(
-            final String s,
-            final JsonGenerator jsonGenerator,
-            final SerializerProvider serializerProvider)
-            throws IOException {
-        switch (this.type) {
-            case CHINESE_NAME:
-                {
-                    jsonGenerator.writeString(MaskUtils.chineseName(s));
-                    break;
-                }
-            case ID_CARD:
-                {
-                    jsonGenerator.writeString(MaskUtils.idCardNum(s));
-                    break;
-                }
-            case FIXED_PHONE:
-                {
-                    jsonGenerator.writeString(MaskUtils.fixedPhone(s));
-                    break;
-                }
-            case MOBILE_PHONE:
-                {
-                    jsonGenerator.writeString(MaskUtils.mobilePhone(s));
-                    break;
-                }
-            case ADDRESS:
-                {
-                    jsonGenerator.writeString(MaskUtils.address(s, 4));
-                    break;
-                }
-            case EMAIL:
-                {
-                    jsonGenerator.writeString(MaskUtils.email(s));
-                    break;
-                }
-            case BANK_CARD:
-                {
-                    jsonGenerator.writeString(MaskUtils.bankCard(s));
-                    break;
-                }
-            case API_SECRET:
-                {
-                    jsonGenerator.writeString(MaskUtils.apiSecret(s));
-                    break;
-                }
-            default:
-                jsonGenerator.writeString(s);
-                break;
-        }
+    FieldMask fieldMask = beanProperty.getAnnotation(FieldMask.class);
+    if (fieldMask == null) {
+      fieldMask = beanProperty.getContextAnnotation(FieldMask.class);
     }
 
-    @Override
-    public JsonSerializer<?> createContextual(
-            SerializerProvider serializerProvider, BeanProperty beanProperty)
-            throws JsonMappingException {
-        // 非String类直接跳过
-        if (!Objects.equals(beanProperty.getType().getRawClass(), String.class)) {
-            return serializerProvider.findValueSerializer(beanProperty.getType(), beanProperty);
-        }
-
-        // 为空直接跳过
-        if (beanProperty == null) {
-            return serializerProvider.findNullValueSerializer(beanProperty);
-        }
-
-        FieldMask fieldMask = beanProperty.getAnnotation(FieldMask.class);
-        if (fieldMask == null) {
-            fieldMask = beanProperty.getContextAnnotation(FieldMask.class);
-        }
-
-        if (fieldMask != null) {
-            // 如果能得到注解，就将注解的 value 传入 MaskSerialize
-            return new MaskSerialize(fieldMask.value());
-        }
-
-        return serializerProvider.findValueSerializer(beanProperty.getType(), beanProperty);
+    if (fieldMask != null) {
+      // 如果能得到注解，就将注解的 value 传入 MaskSerialize
+      return new MaskSerialize(fieldMask.value());
     }
+
+    return serializerProvider.findValueSerializer(beanProperty.getType(), beanProperty);
+  }
 }

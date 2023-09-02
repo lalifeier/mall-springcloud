@@ -15,37 +15,29 @@ import org.springframework.expression.Expression;
 /** 日志记录表达式解析器 */
 public class LogRecordExpressionEvaluator extends CachedExpressionEvaluator {
 
-    private final Map<AnnotatedElementKey, Method> targetMethodCache = new ConcurrentHashMap<>(64);
-    private final Map<ExpressionKey, Expression> expressionCache = new ConcurrentHashMap<>(64);
+  private final Map<AnnotatedElementKey, Method> targetMethodCache = new ConcurrentHashMap<>(64);
+  private final Map<ExpressionKey, Expression> expressionCache = new ConcurrentHashMap<>(64);
 
-    public Object parseExpression(
-            String conditionExpression,
-            AnnotatedElementKey methodKey,
-            EvaluationContext evalContext) {
-        return getExpression(this.expressionCache, methodKey, conditionExpression)
-                .getValue(evalContext, Object.class);
-    }
+  public Object parseExpression(String conditionExpression, AnnotatedElementKey methodKey,
+      EvaluationContext evalContext) {
+    return getExpression(this.expressionCache, methodKey, conditionExpression).getValue(evalContext,
+        Object.class);
+  }
 
-    public EvaluationContext createEvaluationContext(
-            Method method,
-            Object[] args,
-            Class<?> targetClass,
-            Object result,
-            String errorMsg,
-            BeanFactory beanFactory) {
-        Method targetMethod = getTargetMethod(targetClass, method);
-        LogRecordEvaluationContext evaluationContext =
-                new LogRecordEvaluationContext(
-                        null, targetMethod, args, getParameterNameDiscoverer(), result, errorMsg);
-        if (beanFactory != null) {
-            evaluationContext.setBeanResolver(new BeanFactoryResolver(beanFactory));
-        }
-        return evaluationContext;
+  public EvaluationContext createEvaluationContext(Method method, Object[] args,
+      Class<?> targetClass, Object result, String errorMsg, BeanFactory beanFactory) {
+    Method targetMethod = getTargetMethod(targetClass, method);
+    LogRecordEvaluationContext evaluationContext = new LogRecordEvaluationContext(null,
+        targetMethod, args, getParameterNameDiscoverer(), result, errorMsg);
+    if (beanFactory != null) {
+      evaluationContext.setBeanResolver(new BeanFactoryResolver(beanFactory));
     }
+    return evaluationContext;
+  }
 
-    private Method getTargetMethod(Class<?> targetClass, Method method) {
-        AnnotatedElementKey methodKey = new AnnotatedElementKey(method, targetClass);
-        return targetMethodCache.computeIfAbsent(
-                methodKey, k -> AopUtils.getMostSpecificMethod(method, targetClass));
-    }
+  private Method getTargetMethod(Class<?> targetClass, Method method) {
+    AnnotatedElementKey methodKey = new AnnotatedElementKey(method, targetClass);
+    return targetMethodCache.computeIfAbsent(methodKey,
+        k -> AopUtils.getMostSpecificMethod(method, targetClass));
+  }
 }

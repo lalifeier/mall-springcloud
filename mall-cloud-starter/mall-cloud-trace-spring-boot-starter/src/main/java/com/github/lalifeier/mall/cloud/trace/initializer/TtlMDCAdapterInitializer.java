@@ -5,9 +5,9 @@ package com.github.lalifeier.mall.cloud.trace.initializer;
 // */
 // public class TtlMDCAdapterInitializer implements
 // ApplicationContextInitializer<ConfigurableApplicationContext> {
-//  @Override
-//  public void initialize(ConfigurableApplicationContext applicationContext) {
-//    //加载TtlMDCAdapter实例
-//    TtlMDCAdapter.getInstance();
-//  }
+// @Override
+// public void initialize(ConfigurableApplicationContext applicationContext) {
+// //加载TtlMDCAdapter实例
+// TtlMDCAdapter.getInstance();
+// }
 // }

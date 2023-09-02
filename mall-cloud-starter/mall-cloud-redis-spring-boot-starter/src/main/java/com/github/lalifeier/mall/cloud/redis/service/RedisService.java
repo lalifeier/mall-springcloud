@@ -6,71 +6,71 @@ import java.util.Set;
 
 public interface RedisService {
 
-    void set(String key, Object value, long time);
+  void set(String key, Object value, long time);
 
-    void set(String key, Object value);
+  void set(String key, Object value);
 
-    Object get(String key);
+  Object get(String key);
 
-    Boolean del(String key);
+  Boolean del(String key);
 
-    Long del(List<String> keys);
+  Long del(List<String> keys);
 
-    Boolean expire(String key, long time);
+  Boolean expire(String key, long time);
 
-    Long getExpire(String key);
+  Long getExpire(String key);
 
-    Boolean hasKey(String key);
+  Boolean hasKey(String key);
 
-    Long incr(String key, long delta);
+  Long incr(String key, long delta);
 
-    Long decr(String key, long delta);
+  Long decr(String key, long delta);
 
-    Object hGet(String key, String hashKey);
+  Object hGet(String key, String hashKey);
 
-    Boolean hSet(String key, String hashKey, Object value, long time);
+  Boolean hSet(String key, String hashKey, Object value, long time);
 
-    void hSet(String key, String hashKey, Object value);
+  void hSet(String key, String hashKey, Object value);
 
-    Map<Object, Object> hGetAll(String key);
+  Map<Object, Object> hGetAll(String key);
 
-    Boolean hSetAll(String key, Map<String, Object> map, long time);
+  Boolean hSetAll(String key, Map<String, Object> map, long time);
 
-    void hSetAll(String key, Map<String, ?> map);
+  void hSetAll(String key, Map<String, ?> map);
 
-    void hDel(String key, Object... hashKey);
+  void hDel(String key, Object... hashKey);
 
-    Boolean hHasKey(String key, String hashKey);
+  Boolean hHasKey(String key, String hashKey);
 
-    Long hIncr(String key, String hashKey, Long delta);
+  Long hIncr(String key, String hashKey, Long delta);
 
-    Long hDecr(String key, String hashKey, Long delta);
+  Long hDecr(String key, String hashKey, Long delta);
 
-    Set<Object> sMembers(String key);
+  Set<Object> sMembers(String key);
 
-    Long sAdd(String key, Object... values);
+  Long sAdd(String key, Object... values);
 
-    Long sAdd(String key, long time, Object... values);
+  Long sAdd(String key, long time, Object... values);
 
-    Boolean sIsMember(String key, Object value);
+  Boolean sIsMember(String key, Object value);
 
-    Long sSize(String key);
+  Long sSize(String key);
 
-    Long sRemove(String key, Object... values);
+  Long sRemove(String key, Object... values);
 
-    List<Object> lRange(String key, long start, long end);
+  List<Object> lRange(String key, long start, long end);
 
-    Long lSize(String key);
+  Long lSize(String key);
 
-    Object lIndex(String key, long index);
+  Object lIndex(String key, long index);
 
-    Long lPush(String key, Object value);
+  Long lPush(String key, Object value);
 
-    Long lPush(String key, Object value, long time);
+  Long lPush(String key, Object value, long time);
 
-    Long lPushAll(String key, Object... values);
+  Long lPushAll(String key, Object... values);
 
-    Long lPushAll(String key, Long time, Object... values);
+  Long lPushAll(String key, Long time, Object... values);
 
-    Long lRemove(String key, long count, Object value);
+  Long lRemove(String key, long count, Object value);
 }

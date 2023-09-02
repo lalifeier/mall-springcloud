@@ -9,16 +9,16 @@ import java.util.Objects;
 
 public class EnumSerializer extends JsonSerializer<BaseEnum<String>> {
 
-    @Override
-    public void serialize(BaseEnum value, JsonGenerator gen, SerializerProvider serializers)
-            throws IOException {
-        if (Objects.isNull(value)) {
-            gen.writeNull();
-            return;
-        }
-        gen.writeStartObject();
-        gen.writeObjectField("code", value.getCode());
-        gen.writeObjectField("message", value.getMessage());
-        gen.writeEndObject();
+  @Override
+  public void serialize(BaseEnum value, JsonGenerator gen, SerializerProvider serializers)
+      throws IOException {
+    if (Objects.isNull(value)) {
+      gen.writeNull();
+      return;
     }
+    gen.writeStartObject();
+    gen.writeObjectField("code", value.getCode());
+    gen.writeObjectField("message", value.getMessage());
+    gen.writeEndObject();
+  }
 }

@@ -12,15 +12,15 @@ import lombok.Setter;
 @Table(name = "role")
 public class RolePO extends BaseEntity<Long> {
 
-    /** 角色名称 */
-    private String name;
+  /** 角色名称 */
+  private String name;
 
-    /** 排序 */
-    private Integer sort;
+  /** 排序 */
+  private Integer sort;
 
-    /** 状态 0:禁用 1:启用 */
-    private Integer status;
+  /** 状态 0:禁用 1:启用 */
+  private Integer status;
 
-    /** 备注 */
-    private String remark;
+  /** 备注 */
+  private String remark;
 }

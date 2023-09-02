@@ -13,20 +13,21 @@ import org.springframework.data.domain.AuditorAware;
 @Configuration
 public class JpaAutoConfiguration {
 
-    @PersistenceContext private final EntityManager entityManager;
+  @PersistenceContext
+  private final EntityManager entityManager;
 
-    public JpaAutoConfiguration(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
+  public JpaAutoConfiguration(EntityManager entityManager) {
+    this.entityManager = entityManager;
+  }
 
-    @Bean
-    @ConditionalOnMissingBean
-    public AuditorAware<Long> auditorAware() {
-        return () -> Optional.of(UserContextUtil.getUserId());
-    }
+  @Bean
+  @ConditionalOnMissingBean
+  public AuditorAware<Long> auditorAware() {
+    return () -> Optional.of(UserContextUtil.getUserId());
+  }
 
-    @Bean
-    public JPAQueryFactory jpaQueryFactory() {
-        return new JPAQueryFactory(entityManager);
-    }
+  @Bean
+  public JPAQueryFactory jpaQueryFactory() {
+    return new JPAQueryFactory(entityManager);
+  }
 }

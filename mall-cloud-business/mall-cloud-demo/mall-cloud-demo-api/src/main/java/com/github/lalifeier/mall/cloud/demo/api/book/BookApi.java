@@ -18,28 +18,27 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "图书管理")
 public interface BookApi {
 
-    @Operation(summary = "添加图书")
-    @PostMapping("")
-    void create(@Validated @RequestBody CreateBookCommand command);
+  @Operation(summary = "添加图书")
+  @PostMapping("")
+  void create(@Validated @RequestBody CreateBookCommand command);
 
-    @Operation(summary = "更新指定id图书")
-    @Parameter(name = "id", description = "图书id", in = ParameterIn.PATH)
-    @PutMapping("/{id}")
-    void update(
-            @PathVariable @Positive(message = "bookId必须为正整数") Long id,
-            @Validated @RequestBody UpdateBookCommand command);
+  @Operation(summary = "更新指定id图书")
+  @Parameter(name = "id", description = "图书id", in = ParameterIn.PATH)
+  @PutMapping("/{id}")
+  void update(@PathVariable @Positive(message = "bookId必须为正整数") Long id,
+      @Validated @RequestBody UpdateBookCommand command);
 
-    @Operation(summary = "删除指定id图书")
-    @Parameter(name = "id", description = "图书id", in = ParameterIn.PATH)
-    @DeleteMapping("/{id}")
-    void delete(@PathVariable @Positive(message = "bookId必须为正整数") Long id);
+  @Operation(summary = "删除指定id图书")
+  @Parameter(name = "id", description = "图书id", in = ParameterIn.PATH)
+  @DeleteMapping("/{id}")
+  void delete(@PathVariable @Positive(message = "bookId必须为正整数") Long id);
 
-    @Operation(summary = "获取指定id图书")
-    @Parameter(name = "id", description = "图书id", in = ParameterIn.PATH)
-    @GetMapping("/{id}")
-    BookDTO get(@PathVariable @Positive(message = "bookId必须为正整数") Long id);
+  @Operation(summary = "获取指定id图书")
+  @Parameter(name = "id", description = "图书id", in = ParameterIn.PATH)
+  @GetMapping("/{id}")
+  BookDTO get(@PathVariable @Positive(message = "bookId必须为正整数") Long id);
 
-    @Operation(summary = "查询图书列表")
-    @GetMapping("")
-    PageResult<BookDTO> query(@Valid @ModelAttribute BookPageQuery query);
+  @Operation(summary = "查询图书列表")
+  @GetMapping("")
+  PageResult<BookDTO> query(@Valid @ModelAttribute BookPageQuery query);
 }

@@ -8,13 +8,13 @@ import net.sf.jsqlparser.expression.Expression;
 @Slf4j
 public class MybatisPlusDataPermissionHandler implements DataPermissionHandler {
 
-    @Override
-    public Expression getSqlSegment(Expression where, String mappedStatementId) {
-        log.info("数据权限处理器===========");
-        log.info("{}", where);
-        log.info("{}", mappedStatementId);
-        log.info("是否忽略:{}", InterceptorIgnoreHelper.willIgnoreDataPermission(mappedStatementId));
+  @Override
+  public Expression getSqlSegment(Expression where, String mappedStatementId) {
+    log.info("数据权限处理器===========");
+    log.info("{}", where);
+    log.info("{}", mappedStatementId);
+    log.info("是否忽略:{}", InterceptorIgnoreHelper.willIgnoreDataPermission(mappedStatementId));
 
-        return where;
-    }
+    return where;
+  }
 }

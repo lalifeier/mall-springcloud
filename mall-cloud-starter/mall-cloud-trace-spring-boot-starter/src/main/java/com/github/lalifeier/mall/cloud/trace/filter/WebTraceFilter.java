@@ -21,32 +21,31 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Order(value = Ordered.HIGHEST_PRECEDENCE)
 public class WebTraceFilter extends OncePerRequestFilter {
 
-    private final TraceProperties traceProperties;
+  private final TraceProperties traceProperties;
 
-    public WebTraceFilter(TraceProperties traceProperties) {
-        this.traceProperties = traceProperties;
+  public WebTraceFilter(TraceProperties traceProperties) {
+    this.traceProperties = traceProperties;
+  }
+
+  @Override
+  protected boolean shouldNotFilter(HttpServletRequest request) {
+    return !traceProperties.getEnable();
+  }
+
+  @Override
+  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+      FilterChain filterChain) throws ServletException, IOException {
+    try {
+      String traceId = request.getHeader(HeaderConstants.TRACE_ID);
+      if (StringUtils.isEmpty(traceId)) {
+        MDCTraceUtil.addTrace();
+      } else {
+        MDCTraceUtil.putTrace(traceId);
+      }
+
+      filterChain.doFilter(request, response);
+    } finally {
+      MDCTraceUtil.removeTrace();
     }
-
-    @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) {
-        return !traceProperties.getEnable();
-    }
-
-    @Override
-    protected void doFilterInternal(
-            HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
-        try {
-            String traceId = request.getHeader(HeaderConstants.TRACE_ID);
-            if (StringUtils.isEmpty(traceId)) {
-                MDCTraceUtil.addTrace();
-            } else {
-                MDCTraceUtil.putTrace(traceId);
-            }
-
-            filterChain.doFilter(request, response);
-        } finally {
-            MDCTraceUtil.removeTrace();
-        }
-    }
+  }
 }

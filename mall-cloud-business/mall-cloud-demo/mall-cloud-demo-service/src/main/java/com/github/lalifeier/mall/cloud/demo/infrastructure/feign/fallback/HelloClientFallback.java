@@ -7,10 +7,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class HelloClientFallback implements HelloClient {
 
-    @Setter private Throwable cause;
+  @Setter
+  private Throwable cause;
 
-    @Override
-    public String hello(String name) {
-        return null;
-    }
+  @Override
+  public String hello(String name) {
+    return null;
+  }
 }

@@ -15,46 +15,47 @@ import reactor.core.publisher.Mono;
 @Service
 public class DynamicRouteService {
 
-    @Autowired private RouteDefinitionWriter routeDefinitionWriter;
+  @Autowired
+  private RouteDefinitionWriter routeDefinitionWriter;
 
-    @Autowired private RouteDefinitionLocator routeDefinitionLocator;
+  @Autowired
+  private RouteDefinitionLocator routeDefinitionLocator;
 
-    /**
-     * 删除路由
-     *
-     * @param id
-     * @return
-     */
-    public void delete(String id) {
-        log.info("gateway delete route id {}", id);
-        routeDefinitionWriter.delete(Mono.just(id)).subscribe();
+  /**
+   * 删除路由
+   *
+   * @param id
+   * @return
+   */
+  public void delete(String id) {
+    log.info("gateway delete route id {}", id);
+    routeDefinitionWriter.delete(Mono.just(id)).subscribe();
+  }
+
+  /**
+   * 保存路由
+   *
+   * @param definition
+   * @return
+   */
+  public void save(RouteDefinition definition) {
+    log.info("gateway save route {}", definition);
+    routeDefinitionWriter.save(Mono.just(definition)).subscribe();
+  }
+
+  public void batchSave(List<RouteDefinition> definitions) {
+    definitions.forEach(this::save);
+  }
+
+  public void fullUpdateRoute(List<RouteDefinition> definitions) {
+    List<RouteDefinition> routeDefinitionsExits =
+        routeDefinitionLocator.getRouteDefinitions().buffer().blockFirst();
+    if (!CollectionUtils.isEmpty(routeDefinitionsExits)) {
+      routeDefinitionsExits.forEach(definition -> {
+        delete(definition.getId());
+      });
     }
 
-    /**
-     * 保存路由
-     *
-     * @param definition
-     * @return
-     */
-    public void save(RouteDefinition definition) {
-        log.info("gateway save route {}", definition);
-        routeDefinitionWriter.save(Mono.just(definition)).subscribe();
-    }
-
-    public void batchSave(List<RouteDefinition> definitions) {
-        definitions.forEach(this::save);
-    }
-
-    public void fullUpdateRoute(List<RouteDefinition> definitions) {
-        List<RouteDefinition> routeDefinitionsExits =
-                routeDefinitionLocator.getRouteDefinitions().buffer().blockFirst();
-        if (!CollectionUtils.isEmpty(routeDefinitionsExits)) {
-            routeDefinitionsExits.forEach(
-                    definition -> {
-                        delete(definition.getId());
-                    });
-        }
-
-        batchSave(definitions);
-    }
+    batchSave(definitions);
+  }
 }

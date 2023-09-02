@@ -17,16 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class AuthenticationController implements AuthenticationApi {
 
-    private final AuthenticationApplicationService authenticationApplicationService;
+  private final AuthenticationApplicationService authenticationApplicationService;
 
-    @Override
-    public LoginDTO login(LoginRequest request) {
-        LoginCommand command = LoginCommandFactory.getLoginCommand(request);
-        return authenticationApplicationService.login(command);
-    }
+  @Override
+  public LoginDTO login(LoginRequest request) {
+    LoginCommand command = LoginCommandFactory.getLoginCommand(request);
+    return authenticationApplicationService.login(command);
+  }
 
-    @Override
-    public RegisterDTO register(RegisterCommand command) {
-        return authenticationApplicationService.register(command);
-    }
+  @Override
+  public RegisterDTO register(RegisterCommand command) {
+    return authenticationApplicationService.register(command);
+  }
 }

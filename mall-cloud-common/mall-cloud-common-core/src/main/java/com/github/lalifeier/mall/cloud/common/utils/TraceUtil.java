@@ -7,12 +7,12 @@ import org.apache.skywalking.apm.toolkit.trace.TraceContext;
 
 public class TraceUtil {
 
-    @Trace
-    public static String generateTraceId() {
-        String traceId = TraceContext.traceId();
-        if (StringUtils.isNotBlank(traceId)) {
-            return traceId;
-        }
-        return UUID.randomUUID().toString().replace("-", "").toLowerCase();
+  @Trace
+  public static String generateTraceId() {
+    String traceId = TraceContext.traceId();
+    if (StringUtils.isNotBlank(traceId)) {
+      return traceId;
     }
+    return UUID.randomUUID().toString().replace("-", "").toLowerCase();
+  }
 }

@@ -12,10 +12,10 @@ import java.lang.annotation.RetentionPolicy;
 @JsonSerialize(using = MaskSerialize.class)
 public @interface FieldMask {
 
-    /**
-     * 脱敏类型
-     *
-     * @return
-     */
-    MaskEnum value();
+  /**
+   * 脱敏类型
+   *
+   * @return
+   */
+  MaskEnum value();
 }

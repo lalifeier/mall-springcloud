@@ -8,19 +8,18 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class PageConverter {
-    public static <T, R> Pagination<R> convert(
-            com.baomidou.mybatisplus.extension.plugins.pagination.Page<T> page,
-            Function<T, R> mapper) {
-        List<R> records = page.getRecords().stream().map(mapper).collect(Collectors.toList());
-        PageInfo pageInfo =
-                new PageInfo((int) page.getCurrent(), (int) page.getSize(), page.getTotal());
-        return new Pagination<>(records, pageInfo);
-    }
+  public static <T, R> Pagination<R> convert(
+      com.baomidou.mybatisplus.extension.plugins.pagination.Page<T> page, Function<T, R> mapper) {
+    List<R> records = page.getRecords().stream().map(mapper).collect(Collectors.toList());
+    PageInfo pageInfo =
+        new PageInfo((int) page.getCurrent(), (int) page.getSize(), page.getTotal());
+    return new Pagination<>(records, pageInfo);
+  }
 
-    public static <T, R> Pagination<R> convert(IPage<T> page, Function<T, R> mapper) {
-        List<R> records = page.getRecords().stream().map(mapper).collect(Collectors.toList());
-        PageInfo pageInfo =
-                new PageInfo((int) page.getCurrent(), (int) page.getSize(), page.getTotal());
-        return new Pagination<>(records, pageInfo);
-    }
+  public static <T, R> Pagination<R> convert(IPage<T> page, Function<T, R> mapper) {
+    List<R> records = page.getRecords().stream().map(mapper).collect(Collectors.toList());
+    PageInfo pageInfo =
+        new PageInfo((int) page.getCurrent(), (int) page.getSize(), page.getTotal());
+    return new Pagination<>(records, pageInfo);
+  }
 }

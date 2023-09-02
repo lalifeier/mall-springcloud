@@ -8,12 +8,11 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 
 public class UserContextInterceptor implements ClientHttpRequestInterceptor {
-    @Override
-    public ClientHttpResponse intercept(
-            HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
-            throws IOException {
-        HttpHeaders headers = request.getHeaders();
+  @Override
+  public ClientHttpResponse intercept(HttpRequest request, byte[] body,
+      ClientHttpRequestExecution execution) throws IOException {
+    HttpHeaders headers = request.getHeaders();
 
-        return execution.execute(request, body);
-    }
+    return execution.execute(request, body);
+  }
 }

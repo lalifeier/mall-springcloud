@@ -11,16 +11,16 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface BookAssembler {
-    BookAssembler INSTANCE = Mappers.getMapper(BookAssembler.class);
+  BookAssembler INSTANCE = Mappers.getMapper(BookAssembler.class);
 
-    @Mapping(target = "id", ignore = true)
-    Book toEntity(CreateBookCommand createBookBO);
+  @Mapping(target = "id", ignore = true)
+  Book toEntity(CreateBookCommand createBookBO);
 
-    @Mapping(source = "id", target = "id.value")
-    Book toEntity(UpdateBookCommand UpdateBookCommand);
+  @Mapping(source = "id", target = "id.value")
+  Book toEntity(UpdateBookCommand UpdateBookCommand);
 
-    @Mapping(source = "id.value", target = "id")
-    BookDTO toDTO(Book book);
+  @Mapping(source = "id.value", target = "id")
+  BookDTO toDTO(Book book);
 
-    List<BookDTO> toDTO(List<Book> bookList);
+  List<BookDTO> toDTO(List<Book> bookList);
 }

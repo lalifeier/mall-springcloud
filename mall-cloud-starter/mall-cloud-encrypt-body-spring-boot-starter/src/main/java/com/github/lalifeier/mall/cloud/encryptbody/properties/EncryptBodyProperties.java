@@ -6,8 +6,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 @ConfigurationProperties(prefix = "encrypt.body")
 public class EncryptBodyProperties {
-    private Boolean enable = false;
-    private String publicKey;
-    private String privateKey;
-    private String encoding = "UTF-8";
+  private Boolean enable = false;
+  private String publicKey;
+  private String privateKey;
+  private String encoding = "UTF-8";
 }

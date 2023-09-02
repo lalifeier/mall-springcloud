@@ -3,11 +3,37 @@ plugins {
 }
 
 spotless {
+  format("misc") {
+    target("**/*.gradle", "**/.md", "**/.gitignore")
+    trimTrailingWhitespace()
+    indentWithTabs()
+    endWithNewline()
+  }
+
   java {
-    targetExclude("build/**")
-    // apply a specific flavor of google-java-format
-    googleJavaFormat().aosp().reflowLongStrings()
-    // fix formatting of type annotations
+    target("src/*/java/**/*.java")
+    targetExclude("**/build/")
+
+    importOrder()
+
+    removeUnusedImports()
+
+    eclipse().configFile(rootProject.file("style/eclipse-java-google-style.xml"))
+
     formatAnnotations()
+
+//    licenseHeaderFile(rootProject.file("style/spotless/license.java"))
+  }
+
+  kotlin {
+    target("**/*.kt")
+    targetExclude("**/build/")
+    ktlint()
+  }
+
+  kotlinGradle {
+    target("**/*.gradle.kts")
+    targetExclude("**/build/")
+    ktlint()
   }
 }

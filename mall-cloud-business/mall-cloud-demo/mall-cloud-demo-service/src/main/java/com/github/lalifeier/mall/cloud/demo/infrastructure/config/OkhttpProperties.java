@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "feign.okhttp")
 public class OkhttpProperties {
-    private Long connectTimeout;
-    private Long readTimeout;
-    private Long writeTimeout;
+  private Long connectTimeout;
+  private Long readTimeout;
+  private Long writeTimeout;
 }

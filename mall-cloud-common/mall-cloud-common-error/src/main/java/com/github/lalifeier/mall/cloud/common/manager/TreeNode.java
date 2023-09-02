@@ -9,16 +9,16 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(of = "code")
 public class TreeNode {
-    int code;
-    String name;
-    List<TreeNode> nodes;
+  int code;
+  String name;
+  List<TreeNode> nodes;
 
-    public TreeNode(int code, String name) {
-        this.code = code;
-        this.name = name;
-    }
+  public TreeNode(int code, String name) {
+    this.code = code;
+    this.name = name;
+  }
 
-    public void setNodes(List<TreeNode> nodes) {
-        this.nodes = nodes;
-    }
+  public void setNodes(List<TreeNode> nodes) {
+    this.nodes = nodes;
+  }
 }

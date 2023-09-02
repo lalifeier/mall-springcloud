@@ -8,16 +8,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DateUtil {
-    private static final Logger log = LoggerFactory.getLogger(DateUtil.class);
+  private static final Logger log = LoggerFactory.getLogger(DateUtil.class);
 
-    public static boolean expired(String timestamp, long nonceTimeoutSeconds) {
-        ZonedDateTime requestTime =
-                ZonedDateTime.ofInstant(
-                        Instant.ofEpochMilli(Long.parseLong(timestamp)),
-                        TimeZone.getDefault().toZoneId());
-        ZonedDateTime expiredTime = requestTime.plus(nonceTimeoutSeconds, ChronoUnit.SECONDS);
-        ZonedDateTime now = ZonedDateTime.now();
-        log.info("request time:{} expiredTime:{} now:{}", requestTime, expiredTime, now);
-        return now.isBefore(expiredTime) && now.isAfter(requestTime);
-    }
+  public static boolean expired(String timestamp, long nonceTimeoutSeconds) {
+    ZonedDateTime requestTime = ZonedDateTime.ofInstant(
+        Instant.ofEpochMilli(Long.parseLong(timestamp)), TimeZone.getDefault().toZoneId());
+    ZonedDateTime expiredTime = requestTime.plus(nonceTimeoutSeconds, ChronoUnit.SECONDS);
+    ZonedDateTime now = ZonedDateTime.now();
+    log.info("request time:{} expiredTime:{} now:{}", requestTime, expiredTime, now);
+    return now.isBefore(expiredTime) && now.isAfter(requestTime);
+  }
 }

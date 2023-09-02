@@ -22,46 +22,46 @@ package com.github.lalifeier.mall.cloud.gateway.filter;
 // @Component
 // @AllArgsConstructor
 // public class GatewayRequestFilter implements GlobalFilter {
-//  private final RedisTemplate<String, String> redisTemplate;
+// private final RedisTemplate<String, String> redisTemplate;
 //
-//  @Override
-//  public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-//    //String headerToken =
+// @Override
+// public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+// //String headerToken =
 // exchange.getRequest().getHeaders().getFirst(CommonConstant.JWT_HEADER_KEY);
-//    //if (StrUtil.isNotEmpty(headerToken)) {
-//    //    if (isBlack(headerToken)) {
-//    //        throw new HttpServerErrorException(HttpStatus.FORBIDDEN, "该令牌已过期，请重新获取令牌");
-//    //    }
-//    //}
+// //if (StrUtil.isNotEmpty(headerToken)) {
+// // if (isBlack(headerToken)) {
+// // throw new HttpServerErrorException(HttpStatus.FORBIDDEN, "该令牌已过期，请重新获取令牌");
+// // }
+// //}
 //
-//    //String rawPath = exchange.getRequest().getURI().getRawPath();
-//    //if (isPv(rawPath)) {
-//    //    throw new HttpServerErrorException(HttpStatus.FORBIDDEN, "不能访问私有接口");
-//    //}
+// //String rawPath = exchange.getRequest().getURI().getRawPath();
+// //if (isPv(rawPath)) {
+// // throw new HttpServerErrorException(HttpStatus.FORBIDDEN, "不能访问私有接口");
+// //}
 //
-//    return chain.filter(exchange);
-//  }
-//
-//
-//  private boolean isBlack(String headerToken) throws ParseException {
-//    String token = headerToken.replace(Constants.BEARER_TYPE, "").trim();
-//
-//    JWSObject jwsObject = JWSObject.parse(token);
-//    String payload = jwsObject.getPayload().toString();
+// return chain.filter(exchange);
+// }
 //
 //
-//    JsonObject jsonObject = JsonUtils.json2Bean(payload, JsonObject.class);
+// private boolean isBlack(String headerToken) throws ParseException {
+// String token = headerToken.replace(Constants.BEARER_TYPE, "").trim();
 //
-//    String jti = jsonObject.get("jti").getAsString();
-//    return redisTemplate.hasKey(Constants.TOKEN_BLACKLIST_PREFIX + jti);
-//  }
+// JWSObject jwsObject = JWSObject.parse(token);
+// String payload = jwsObject.getPayload().toString();
 //
-//  private boolean isPv(String requestUri) {
-//    return isAccess(requestUri, "/pv");
-//  }
 //
-//  private boolean isAccess(String requestURI, String access) {
-//    int index = requestURI.indexOf(access);
-//    return index >= 0 && StringUtils.countOccurrencesOf(requestURI.substring(0, index), "/") < 1;
-//  }
+// JsonObject jsonObject = JsonUtils.json2Bean(payload, JsonObject.class);
+//
+// String jti = jsonObject.get("jti").getAsString();
+// return redisTemplate.hasKey(Constants.TOKEN_BLACKLIST_PREFIX + jti);
+// }
+//
+// private boolean isPv(String requestUri) {
+// return isAccess(requestUri, "/pv");
+// }
+//
+// private boolean isAccess(String requestURI, String access) {
+// int index = requestURI.indexOf(access);
+// return index >= 0 && StringUtils.countOccurrencesOf(requestURI.substring(0, index), "/") < 1;
+// }
 // }

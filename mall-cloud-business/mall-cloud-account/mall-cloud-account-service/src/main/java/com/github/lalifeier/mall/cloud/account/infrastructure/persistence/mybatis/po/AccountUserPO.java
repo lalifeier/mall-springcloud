@@ -9,18 +9,18 @@ import lombok.Setter;
 @Setter
 @TableName(value = "account_user")
 public class AccountUserPO extends BaseEntity<Long> {
-    /** 用户名 */
-    private String username;
+  /** 用户名 */
+  private String username;
 
-    /** 密码 */
-    private String password;
+  /** 密码 */
+  private String password;
 
-    /** 邮箱 */
-    private String email;
+  /** 邮箱 */
+  private String email;
 
-    /** 手机号 */
-    private String phone;
+  /** 手机号 */
+  private String phone;
 
-    /** 帐号状态：0 - 无效，1 - 有效 */
-    private int status;
+  /** 帐号状态：0 - 无效，1 - 有效 */
+  private int status;
 }

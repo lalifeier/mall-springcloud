@@ -18,34 +18,32 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 @Slf4j
 public class RestAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
-    @Autowired private ObjectMapper objectMapper;
+  @Autowired
+  private ObjectMapper objectMapper;
 
-    @Override
-    public void onAuthenticationFailure(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            AuthenticationException exception)
-            throws IOException, ServletException {
-        Result result = null;
-        if (exception instanceof AccountExpiredException) {
-            result = Result.failure(HttpErrorCodeEnum.UNAUTHORIZED, "账号过期");
-        } else if (exception instanceof BadCredentialsException) {
-            result = Result.failure(HttpErrorCodeEnum.UNAUTHORIZED, "密码错误");
-        } else if (exception instanceof CredentialsExpiredException) {
-            result = Result.failure(HttpErrorCodeEnum.UNAUTHORIZED, "密码过期");
-        } else if (exception instanceof DisabledException) {
-            result = Result.failure(HttpErrorCodeEnum.UNAUTHORIZED, "账号不可用");
-        } else if (exception instanceof LockedException) {
-            result = Result.failure(HttpErrorCodeEnum.UNAUTHORIZED, "账号锁定");
-        } else if (exception instanceof InternalAuthenticationServiceException) {
-            result = Result.failure(HttpErrorCodeEnum.UNAUTHORIZED, "用户不存在");
-        } else {
-            result = Result.failure(HttpErrorCodeEnum.UNAUTHORIZED, exception.getMessage());
-        }
-
-        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.getWriter().write(objectMapper.writeValueAsString(result));
-        response.getWriter().flush();
+  @Override
+  public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+      AuthenticationException exception) throws IOException, ServletException {
+    Result result = null;
+    if (exception instanceof AccountExpiredException) {
+      result = Result.failure(HttpErrorCodeEnum.UNAUTHORIZED, "账号过期");
+    } else if (exception instanceof BadCredentialsException) {
+      result = Result.failure(HttpErrorCodeEnum.UNAUTHORIZED, "密码错误");
+    } else if (exception instanceof CredentialsExpiredException) {
+      result = Result.failure(HttpErrorCodeEnum.UNAUTHORIZED, "密码过期");
+    } else if (exception instanceof DisabledException) {
+      result = Result.failure(HttpErrorCodeEnum.UNAUTHORIZED, "账号不可用");
+    } else if (exception instanceof LockedException) {
+      result = Result.failure(HttpErrorCodeEnum.UNAUTHORIZED, "账号锁定");
+    } else if (exception instanceof InternalAuthenticationServiceException) {
+      result = Result.failure(HttpErrorCodeEnum.UNAUTHORIZED, "用户不存在");
+    } else {
+      result = Result.failure(HttpErrorCodeEnum.UNAUTHORIZED, exception.getMessage());
     }
+
+    response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+    response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+    response.getWriter().write(objectMapper.writeValueAsString(result));
+    response.getWriter().flush();
+  }
 }

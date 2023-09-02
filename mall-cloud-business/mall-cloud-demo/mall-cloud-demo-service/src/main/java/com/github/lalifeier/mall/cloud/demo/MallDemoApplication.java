@@ -12,7 +12,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 public class MallDemoApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(MallDemoApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(MallDemoApplication.class, args);
+  }
 }

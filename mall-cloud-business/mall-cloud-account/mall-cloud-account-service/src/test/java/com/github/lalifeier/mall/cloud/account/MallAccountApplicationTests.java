@@ -5,6 +5,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class MallAccountApplicationTests {
-    @Test
-    public void contextLoad() {}
+  @Test
+  public void contextLoad() {}
 }

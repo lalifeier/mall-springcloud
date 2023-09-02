@@ -6,18 +6,18 @@ import org.springframework.data.redis.listener.ChannelTopic;
 
 public class RedisMessagePublisher implements MessagePublisher<CacheMessage> {
 
-    private RedisTemplate<Object, Object> redisTemplate;
+  private RedisTemplate<Object, Object> redisTemplate;
 
-    private ChannelTopic channelTopic;
+  private ChannelTopic channelTopic;
 
-    public RedisMessagePublisher(
-            RedisTemplate<Object, Object> redisTemplate, ChannelTopic channelTopic) {
-        this.redisTemplate = redisTemplate;
-        this.channelTopic = channelTopic;
-    }
+  public RedisMessagePublisher(RedisTemplate<Object, Object> redisTemplate,
+      ChannelTopic channelTopic) {
+    this.redisTemplate = redisTemplate;
+    this.channelTopic = channelTopic;
+  }
 
-    @Override
-    public void publish(CacheMessage data) {
-        redisTemplate.convertAndSend(channelTopic.getTopic(), data);
-    }
+  @Override
+  public void publish(CacheMessage data) {
+    redisTemplate.convertAndSend(channelTopic.getTopic(), data);
+  }
 }

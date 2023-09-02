@@ -26,130 +26,104 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class DistributedLockAspect {
-    private ExpressionParser parser = new SpelExpressionParser();
-    private ParameterNameDiscoverer discoverer = new DefaultParameterNameDiscoverer();
+  private ExpressionParser parser = new SpelExpressionParser();
+  private ParameterNameDiscoverer discoverer = new DefaultParameterNameDiscoverer();
 
-    private RedissonClient redissonClient;
+  private RedissonClient redissonClient;
 
-    private LockFactory lockFactory;
+  private LockFactory lockFactory;
 
-    public DistributedLockAspect(RedissonClient redissonClient) {
-        this.redissonClient = redissonClient;
-        this.lockFactory = new LockFactory(redissonClient);
-    }
+  public DistributedLockAspect(RedissonClient redissonClient) {
+    this.redissonClient = redissonClient;
+    this.lockFactory = new LockFactory(redissonClient);
+  }
 
-    @Pointcut("@annotation(distributedLock)")
-    public void distributedLockPointcut(DistributedLock distributedLock) {}
+  @Pointcut("@annotation(distributedLock)")
+  public void distributedLockPointcut(DistributedLock distributedLock) {}
 
-    @Around("distributedLockPointcut(distributedLock)")
-    public Object around(ProceedingJoinPoint pjp, DistributedLock distributedLock)
-            throws Throwable {
-        Method method = ((MethodSignature) pjp.getSignature()).getMethod();
-        Object[] args = pjp.getArgs();
-        String lockKey = parse(distributedLock.field(), distributedLock.prefix(), method, args);
+  @Around("distributedLockPointcut(distributedLock)")
+  public Object around(ProceedingJoinPoint pjp, DistributedLock distributedLock) throws Throwable {
+    Method method = ((MethodSignature) pjp.getSignature()).getMethod();
+    Object[] args = pjp.getArgs();
+    String lockKey = parse(distributedLock.field(), distributedLock.prefix(), method, args);
 
-        LockTypeEnum lockType = distributedLock.lockType();
-        String methodName = method.getName();
-        long waitTime = distributedLock.waitTime();
-        long leaseTime = distributedLock.leaseTime();
-        TimeUnit unit = distributedLock.unit();
+    LockTypeEnum lockType = distributedLock.lockType();
+    String methodName = method.getName();
+    long waitTime = distributedLock.waitTime();
+    long leaseTime = distributedLock.leaseTime();
+    TimeUnit unit = distributedLock.unit();
 
-        RLock rLock = lockFactory.getLock(lockType, lockKey);
+    RLock rLock = lockFactory.getLock(lockType, lockKey);
 
-        boolean lockAcquired = false;
+    boolean lockAcquired = false;
 
-        try {
-            String waitTimeString = toDurationString(waitTime, unit);
-            String leaseTimeString = toDurationString(leaseTime, unit);
+    try {
+      String waitTimeString = toDurationString(waitTime, unit);
+      String leaseTimeString = toDurationString(leaseTime, unit);
 
-            log.info(
-                    "Attempting to acquire lock '{}' of type {} for method {}. waitTime={},"
-                            + " leaseTime={}",
-                    lockKey,
-                    lockType,
-                    methodName,
-                    waitTimeString,
-                    leaseTimeString);
-            if (waitTime > 0) {
-                lockAcquired = rLock.tryLock(waitTime, leaseTime, unit);
-                if (!lockAcquired) {
-                    log.warn(
-                            "Failed to acquire lock '{}' of type {} for method {}. waitTime={},"
-                                    + " leaseTime={}",
-                            lockKey,
-                            lockType,
-                            methodName,
-                            waitTimeString,
-                            leaseTimeString);
-                    throw new LockTimeoutException("获取锁等待超时");
-                } else {
-                    log.info(
-                            "Lock '{}' of type {} acquired for method {}. waitTime={},"
-                                    + " leaseTime={}",
-                            lockKey,
-                            lockType,
-                            methodName,
-                            waitTimeString,
-                            leaseTimeString);
-                }
-            } else {
-                rLock.lock(leaseTime, unit);
-                log.info(
-                        "Lock '{}' of type {} acquired for method {}. waitTime={}, leaseTime={}",
-                        lockKey,
-                        lockType,
-                        methodName,
-                        waitTimeString,
-                        leaseTimeString);
-            }
-
-            return pjp.proceed();
-        } catch (LockTimeoutException e) {
-            log.error("LockTimeoutException occurred while executing locked method", e);
-            throw e;
-        } catch (Exception e) {
-            log.error("Exception occurred while executing locked method", e);
-            throw new RuntimeException("获取锁异常");
-        } finally {
-            if (lockAcquired) {
-                rLock.unlock();
-                log.info(
-                        "Lock '{}' of type {} released for method {}",
-                        lockKey,
-                        lockType,
-                        methodName);
-            }
-        }
-    }
-
-    private String toDurationString(long duration, TimeUnit unit) {
-        return duration + " " + unit.toString().toLowerCase();
-    }
-
-    /**
-     * 解析spring EL表达式
-     *
-     * @param keyExpression
-     * @param method
-     * @param args
-     * @return
-     */
-    private String parse(String keyExpression, String prefix, Method method, Object[] args) {
-        String[] params = discoverer.getParameterNames(method);
-        EvaluationContext context = new StandardEvaluationContext();
-        for (int i = 0; i < params.length; i++) {
-            context.setVariable(params[i], args[i]);
-        }
-
-        if (prefix == null || prefix.isEmpty()) {
-            prefix = "";
+      log.info("Attempting to acquire lock '{}' of type {} for method {}. waitTime={},"
+          + " leaseTime={}", lockKey, lockType, methodName, waitTimeString, leaseTimeString);
+      if (waitTime > 0) {
+        lockAcquired = rLock.tryLock(waitTime, leaseTime, unit);
+        if (!lockAcquired) {
+          log.warn(
+              "Failed to acquire lock '{}' of type {} for method {}. waitTime={},"
+                  + " leaseTime={}",
+              lockKey, lockType, methodName, waitTimeString, leaseTimeString);
+          throw new LockTimeoutException("获取锁等待超时");
         } else {
-            String split = ":";
-            if (!prefix.endsWith(split)) {
-                prefix = prefix + split;
-            }
+          log.info("Lock '{}' of type {} acquired for method {}. waitTime={}," + " leaseTime={}",
+              lockKey, lockType, methodName, waitTimeString, leaseTimeString);
         }
+      } else {
+        rLock.lock(leaseTime, unit);
+        log.info("Lock '{}' of type {} acquired for method {}. waitTime={}, leaseTime={}", lockKey,
+            lockType, methodName, waitTimeString, leaseTimeString);
+      }
 
-        return prefix + parser.parseExpression(keyExpression).getValue(context, String.class);
+      return pjp.proceed();
+    } catch (LockTimeoutException e) {
+      log.error("LockTimeoutException occurred while executing locked method", e);
+      throw e;
+    } catch (Exception e) {
+      log.error("Exception occurred while executing locked method", e);
+      throw new RuntimeException("获取锁异常");
+    } finally {
+      if (lockAcquired) {
+        rLock.unlock();
+        log.info("Lock '{}' of type {} released for method {}", lockKey, lockType, methodName);
+      }
     }
+  }
+
+  private String toDurationString(long duration, TimeUnit unit) {
+    return duration + " " + unit.toString().toLowerCase();
+  }
+
+  /**
+   * 解析spring EL表达式
+   *
+   * @param keyExpression
+   * @param method
+   * @param args
+   * @return
+   */
+  private String parse(String keyExpression, String prefix, Method method, Object[] args) {
+    String[] params = discoverer.getParameterNames(method);
+    EvaluationContext context = new StandardEvaluationContext();
+    for (int i = 0; i < params.length; i++) {
+      context.setVariable(params[i], args[i]);
+    }
+
+    if (prefix == null || prefix.isEmpty()) {
+      prefix = "";
+    } else {
+      String split = ":";
+      if (!prefix.endsWith(split)) {
+        prefix = prefix + split;
+      }
+    }
+
+    return prefix + parser.parseExpression(keyExpression).getValue(context, String.class);
+  }
 }

@@ -6,11 +6,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface AccountUserMapper extends BaseMapper<AccountUserPO> {
-    //  AccountUserPO findByUsername(String username);
-    //
-    //  AccountUserPO findByEmail(String email);
-    //
-    //  AccountUserPO findByPhone(String phone);
-    //
-    //  Long countByUsernameOrEmailOrPhone(String username, String email, String phone);
+  // AccountUserPO findByUsername(String username);
+  //
+  // AccountUserPO findByEmail(String email);
+  //
+  // AccountUserPO findByPhone(String phone);
+  //
+  // Long countByUsernameOrEmailOrPhone(String username, String email, String phone);
 }

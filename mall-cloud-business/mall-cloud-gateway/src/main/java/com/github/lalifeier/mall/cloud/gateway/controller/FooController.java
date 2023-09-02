@@ -15,13 +15,13 @@
 // @RequestMapping("/foo")
 // public class FooController {
 //
-//    @GetMapping("/bar")
-//    public Map<String,Object> bar(@RegisteredOAuth2AuthorizedClient("test") OAuth2AuthorizedClient
+// @GetMapping("/bar")
+// public Map<String,Object> bar(@RegisteredOAuth2AuthorizedClient("test") OAuth2AuthorizedClient
 // client){
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("authentication",authentication);
-//        map.put("oAuth2AuthorizedClient",client);
-//        return map;
-//    }
+// Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+// Map<String, Object> map = new HashMap<>();
+// map.put("authentication",authentication);
+// map.put("oAuth2AuthorizedClient",client);
+// return map;
+// }
 // }

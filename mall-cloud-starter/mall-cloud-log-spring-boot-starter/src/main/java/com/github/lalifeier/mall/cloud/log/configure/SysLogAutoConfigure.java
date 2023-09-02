@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SysLogAutoConfigure {
 
-    @Bean
-    public SysLogAspect controllerLogAspect() {
-        return new SysLogAspect();
-    }
+  @Bean
+  public SysLogAspect controllerLogAspect() {
+    return new SysLogAspect();
+  }
 }

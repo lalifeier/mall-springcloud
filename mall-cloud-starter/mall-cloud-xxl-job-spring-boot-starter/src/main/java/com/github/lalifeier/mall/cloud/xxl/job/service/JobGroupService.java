@@ -1,3 +1,4 @@
 package com.github.lalifeier.mall.cloud.xxl.job.service;
 
-public interface JobGroupService {}
+public interface JobGroupService {
+}

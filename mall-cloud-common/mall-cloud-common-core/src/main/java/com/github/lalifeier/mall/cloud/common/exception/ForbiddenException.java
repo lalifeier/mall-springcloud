@@ -5,24 +5,24 @@ import com.github.lalifeier.mall.cloud.common.enums.HttpErrorCodeEnum;
 
 public class ForbiddenException extends SystemException {
 
-    public ForbiddenException(Throwable cause) {
-        super(cause);
-    }
+  public ForbiddenException(Throwable cause) {
+    super(cause);
+  }
 
-    public ForbiddenException(String message) {
-        super(message);
-    }
+  public ForbiddenException(String message) {
+    super(message);
+  }
 
-    public ForbiddenException(ErrorCode errorCode) {
-        super(errorCode);
-    }
+  public ForbiddenException(ErrorCode errorCode) {
+    super(errorCode);
+  }
 
-    public ForbiddenException(ErrorCode errorCode, Object... args) {
-        super(errorCode, args);
-    }
+  public ForbiddenException(ErrorCode errorCode, Object... args) {
+    super(errorCode, args);
+  }
 
-    @Override
-    public ErrorCode defaultErrorCode() {
-        return HttpErrorCodeEnum.FORBIDDEN;
-    }
+  @Override
+  public ErrorCode defaultErrorCode() {
+    return HttpErrorCodeEnum.FORBIDDEN;
+  }
 }

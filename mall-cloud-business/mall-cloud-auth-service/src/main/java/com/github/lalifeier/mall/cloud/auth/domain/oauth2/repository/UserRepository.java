@@ -4,11 +4,11 @@ import com.github.lalifeier.mall.cloud.auth.domain.oauth2.entity.UserPrincipal;
 
 public interface UserRepository {
 
-    UserPrincipal findByUsername(String username);
+  UserPrincipal findByUsername(String username);
 
-    UserPrincipal findByEmail(String email);
+  UserPrincipal findByEmail(String email);
 
-    UserPrincipal findByPhone(String phone);
+  UserPrincipal findByPhone(String phone);
 
-    UserPrincipal findByUsernameOrPhoneOrEmail(String usernameOrPhoneOrEmail);
+  UserPrincipal findByUsernameOrPhoneOrEmail(String usernameOrPhoneOrEmail);
 }

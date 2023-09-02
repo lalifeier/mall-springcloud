@@ -9,4 +9,5 @@ import org.springframework.context.annotation.Import;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Import({SignatureAutoConfiguration.class})
-public @interface EnableSignature {}
+public @interface EnableSignature {
+}

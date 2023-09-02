@@ -12,42 +12,40 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 public class PasswordAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
-    private static final AntPathRequestMatcher DEFAULT_ANT_PATH_REQUEST_MATCHER =
-            new AntPathRequestMatcher("/login", "POST");
+  private static final AntPathRequestMatcher DEFAULT_ANT_PATH_REQUEST_MATCHER =
+      new AntPathRequestMatcher("/login", "POST");
 
-    private Converter<HttpServletRequest, PasswordAuthenticationToken>
-            passwordAuthenticationConverterConverter;
+  private Converter<HttpServletRequest, PasswordAuthenticationToken> passwordAuthenticationConverterConverter;
 
-    private boolean postOnly = true;
+  private boolean postOnly = true;
 
-    public PasswordAuthenticationFilter() {
-        super(DEFAULT_ANT_PATH_REQUEST_MATCHER);
-        passwordAuthenticationConverterConverter = new PasswordAuthenticationConverter();
+  public PasswordAuthenticationFilter() {
+    super(DEFAULT_ANT_PATH_REQUEST_MATCHER);
+    passwordAuthenticationConverterConverter = new PasswordAuthenticationConverter();
+  }
+
+  public PasswordAuthenticationFilter(AuthenticationManager authenticationManager) {
+    super(DEFAULT_ANT_PATH_REQUEST_MATCHER, authenticationManager);
+    passwordAuthenticationConverterConverter = new PasswordAuthenticationConverter();
+  }
+
+  @Override
+  public Authentication attemptAuthentication(HttpServletRequest request,
+      HttpServletResponse response) throws AuthenticationException {
+    if (this.postOnly && !HttpMethod.POST.matches(request.getMethod())) {
+      throw new AuthenticationServiceException(
+          "Authentication method not supported: " + request.getMethod());
     }
 
-    public PasswordAuthenticationFilter(AuthenticationManager authenticationManager) {
-        super(DEFAULT_ANT_PATH_REQUEST_MATCHER, authenticationManager);
-        passwordAuthenticationConverterConverter = new PasswordAuthenticationConverter();
-    }
+    PasswordAuthenticationToken passwordAuthenticationToken =
+        passwordAuthenticationConverterConverter.convert(request);
 
-    @Override
-    public Authentication attemptAuthentication(
-            HttpServletRequest request, HttpServletResponse response)
-            throws AuthenticationException {
-        if (this.postOnly && !HttpMethod.POST.matches(request.getMethod())) {
-            throw new AuthenticationServiceException(
-                    "Authentication method not supported: " + request.getMethod());
-        }
+    setDetails(request, passwordAuthenticationToken);
 
-        PasswordAuthenticationToken passwordAuthenticationToken =
-                passwordAuthenticationConverterConverter.convert(request);
+    return this.getAuthenticationManager().authenticate(passwordAuthenticationToken);
+  }
 
-        setDetails(request, passwordAuthenticationToken);
-
-        return this.getAuthenticationManager().authenticate(passwordAuthenticationToken);
-    }
-
-    protected void setDetails(HttpServletRequest request, PasswordAuthenticationToken authRequest) {
-        authRequest.setDetails(this.authenticationDetailsSource.buildDetails(request));
-    }
+  protected void setDetails(HttpServletRequest request, PasswordAuthenticationToken authRequest) {
+    authRequest.setDetails(this.authenticationDetailsSource.buildDetails(request));
+  }
 }

@@ -6,6 +6,6 @@ import lombok.Data;
 
 @Data
 public class CreateBookCommand implements Command {
-    @Schema(description = "书籍名称", required = true)
-    private String name;
+  @Schema(description = "书籍名称", required = true)
+  private String name;
 }

@@ -1,21 +1,21 @@
 package com.github.lalifeier.mall.cloud.common.repository.diff;
 
 public class SingleDiff implements Diff {
-    private Object oldValue;
-    private Object newValue;
+  private Object oldValue;
+  private Object newValue;
 
-    public SingleDiff() {}
+  public SingleDiff() {}
 
-    public SingleDiff(Object oldValue, Object newValue) {
-        this.oldValue = oldValue;
-        this.newValue = newValue;
-    }
+  public SingleDiff(Object oldValue, Object newValue) {
+    this.oldValue = oldValue;
+    this.newValue = newValue;
+  }
 
-    public Object getOldValue() {
-        return oldValue;
-    }
+  public Object getOldValue() {
+    return oldValue;
+  }
 
-    public Object getNewValue() {
-        return newValue;
-    }
+  public Object getNewValue() {
+    return newValue;
+  }
 }

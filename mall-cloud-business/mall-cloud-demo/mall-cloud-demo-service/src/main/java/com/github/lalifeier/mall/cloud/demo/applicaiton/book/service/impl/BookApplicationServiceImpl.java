@@ -16,27 +16,27 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 public class BookApplicationServiceImpl implements BookApplicationService {
-    private final BookDomainService bookDomainService;
+  private final BookDomainService bookDomainService;
 
-    private final BookRepository bookRepository;
+  private final BookRepository bookRepository;
 
-    private final BookAssembler bookAssembler = BookAssembler.INSTANCE;
+  private final BookAssembler bookAssembler = BookAssembler.INSTANCE;
 
-    @Override
-    public void create(CreateBookCommand command) {
-        Book book = this.bookAssembler.toEntity(command);
-        bookDomainService.create(book);
-    }
+  @Override
+  public void create(CreateBookCommand command) {
+    Book book = this.bookAssembler.toEntity(command);
+    bookDomainService.create(book);
+  }
 
-    @Override
-    public void update(UpdateBookCommand command) {
-        Book book = this.bookAssembler.toEntity(command);
-        bookDomainService.update(book);
-    }
+  @Override
+  public void update(UpdateBookCommand command) {
+    Book book = this.bookAssembler.toEntity(command);
+    bookDomainService.update(book);
+  }
 
-    @Override
-    public void delete(Long id) {
-        BookId bookId = new BookId(id);
-        bookDomainService.delete(bookId);
-    }
+  @Override
+  public void delete(Long id) {
+    BookId bookId = new BookId(id);
+    bookDomainService.delete(bookId);
+  }
 }

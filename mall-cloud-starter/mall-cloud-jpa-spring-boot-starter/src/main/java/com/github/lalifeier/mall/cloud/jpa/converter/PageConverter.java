@@ -7,11 +7,10 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class PageConverter {
-    public static <T, R> Pagination<R> convert(
-            org.springframework.data.domain.Page<T> page, Function<T, R> mapper) {
-        List<R> records = page.getContent().stream().map(mapper).collect(Collectors.toList());
-        PageInfo pageInfo =
-                new PageInfo(page.getNumber() + 1, page.getSize(), page.getTotalElements());
-        return new Pagination<>(records, pageInfo);
-    }
+  public static <T, R> Pagination<R> convert(org.springframework.data.domain.Page<T> page,
+      Function<T, R> mapper) {
+    List<R> records = page.getContent().stream().map(mapper).collect(Collectors.toList());
+    PageInfo pageInfo = new PageInfo(page.getNumber() + 1, page.getSize(), page.getTotalElements());
+    return new Pagination<>(records, pageInfo);
+  }
 }

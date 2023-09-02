@@ -19,79 +19,76 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class JwtUtil {
-    private static RSAPrivateKey privateKey;
-    private static RSAPublicKey publicKey;
+  private static RSAPrivateKey privateKey;
+  private static RSAPublicKey publicKey;
 
-    private static final String JWT_PAYLOAD_USER_KEY = "user";
+  private static final String JWT_PAYLOAD_USER_KEY = "user";
 
-    static {
-        generateKeyPair();
+  static {
+    generateKeyPair();
+  }
+
+  private static void generateKeyPair() {
+    try {
+      KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+      keyPairGenerator.initialize(2048);
+      KeyPair keyPair = keyPairGenerator.generateKeyPair();
+      privateKey = (RSAPrivateKey) keyPair.getPrivate();
+      publicKey = (RSAPublicKey) keyPair.getPublic();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  public static String generateToken(UserPrincipal userPrincipal, int expire) {
+    String token = null;
+    try {
+      JWSSigner signer = new RSASSASigner(privateKey);
+
+      JWTClaimsSet claimsSet = new JWTClaimsSet.Builder().claim(JWT_PAYLOAD_USER_KEY, userPrincipal)
+          .expirationTime(new Date(System.currentTimeMillis() + expire)).build();
+
+      SignedJWT signedJWT = new SignedJWT(new JWSHeader(JWSAlgorithm.RS256), claimsSet);
+      signedJWT.sign(signer);
+      token = signedJWT.serialize();
+    } catch (Exception e) {
+      log.error(e.getMessage());
     }
 
-    private static void generateKeyPair() {
-        try {
-            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
-            keyPairGenerator.initialize(2048);
-            KeyPair keyPair = keyPairGenerator.generateKeyPair();
-            privateKey = (RSAPrivateKey) keyPair.getPrivate();
-            publicKey = (RSAPublicKey) keyPair.getPublic();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    return token;
+  }
+
+  public static JWTClaimsSet parserToken(String token) {
+    JWTClaimsSet claims = null;
+    try {
+      SignedJWT signedJWT = SignedJWT.parse(token);
+      JWSVerifier verifier = new RSASSAVerifier(publicKey);
+
+      if (signedJWT.verify(verifier)) {
+        claims = signedJWT.getJWTClaimsSet();
+      }
+    } catch (Exception e) {
+      log.error(e.getMessage());
     }
+    return claims;
+  }
 
-    public static String generateToken(UserPrincipal userPrincipal, int expire) {
-        String token = null;
-        try {
-            JWSSigner signer = new RSASSASigner(privateKey);
+  public static boolean isTokenExpired(String token) {
+    JWTClaimsSet claims = parserToken(token);
+    return claims != null && claims.getExpirationTime().after(new Date());
+  }
 
-            JWTClaimsSet claimsSet =
-                    new JWTClaimsSet.Builder()
-                            .claim(JWT_PAYLOAD_USER_KEY, userPrincipal)
-                            .expirationTime(new Date(System.currentTimeMillis() + expire))
-                            .build();
-
-            SignedJWT signedJWT = new SignedJWT(new JWSHeader(JWSAlgorithm.RS256), claimsSet);
-            signedJWT.sign(signer);
-            token = signedJWT.serialize();
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
-
-        return token;
+  public static UserPrincipal getUserInfo(String token) {
+    UserPrincipal user = null;
+    try {
+      JWTClaimsSet claims = parserToken(token);
+      if (claims != null && claims.getExpirationTime().after(new Date())) {
+        Object jsonObject = claims.getClaim(JWT_PAYLOAD_USER_KEY);
+        user = new ObjectMapper().readValue(jsonObject.toString(), UserPrincipal.class);
+      }
+    } catch (Exception e) {
+      log.error(e.getMessage());
     }
-
-    public static JWTClaimsSet parserToken(String token) {
-        JWTClaimsSet claims = null;
-        try {
-            SignedJWT signedJWT = SignedJWT.parse(token);
-            JWSVerifier verifier = new RSASSAVerifier(publicKey);
-
-            if (signedJWT.verify(verifier)) {
-                claims = signedJWT.getJWTClaimsSet();
-            }
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
-        return claims;
-    }
-
-    public static boolean isTokenExpired(String token) {
-        JWTClaimsSet claims = parserToken(token);
-        return claims != null && claims.getExpirationTime().after(new Date());
-    }
-
-    public static UserPrincipal getUserInfo(String token) {
-        UserPrincipal user = null;
-        try {
-            JWTClaimsSet claims = parserToken(token);
-            if (claims != null && claims.getExpirationTime().after(new Date())) {
-                Object jsonObject = claims.getClaim(JWT_PAYLOAD_USER_KEY);
-                user = new ObjectMapper().readValue(jsonObject.toString(), UserPrincipal.class);
-            }
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
-        return user;
-    }
+    return user;
+  }
 }

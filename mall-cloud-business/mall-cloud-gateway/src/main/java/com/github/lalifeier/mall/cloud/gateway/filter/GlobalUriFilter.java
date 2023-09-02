@@ -18,45 +18,44 @@ import reactor.core.publisher.Mono;
 @Component
 public class GlobalUriFilter implements GlobalFilter, Ordered {
 
-    @Override
-    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        URI incomingUri = exchange.getRequest().getURI();
-        if (isUriEncoded(incomingUri)) {
-            // Get the original Gateway route (contains the service's original host)
-            Route route = exchange.getAttribute(GATEWAY_ROUTE_ATTR);
-            if (route == null) {
-                return chain.filter(exchange);
-            }
-
-            // Save it as the outgoing URI to call the service, and override the "wrongly" double
-            // encoded URI
-            // in  ReactiveLoadBalancerClientFilter LoadBalancerUriTools::containsEncodedParts
-            // double encoded URI again
-            URI balanceUrl = exchange.getRequiredAttribute(GATEWAY_REQUEST_URL_ATTR);
-            URI mergedUri = createUri(incomingUri, balanceUrl);
-            exchange.getAttributes().put(GATEWAY_REQUEST_URL_ATTR, mergedUri);
-        }
-
+  @Override
+  public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+    URI incomingUri = exchange.getRequest().getURI();
+    if (isUriEncoded(incomingUri)) {
+      // Get the original Gateway route (contains the service's original host)
+      Route route = exchange.getAttribute(GATEWAY_ROUTE_ATTR);
+      if (route == null) {
         return chain.filter(exchange);
+      }
+
+      // Save it as the outgoing URI to call the service, and override the "wrongly" double
+      // encoded URI
+      // in ReactiveLoadBalancerClientFilter LoadBalancerUriTools::containsEncodedParts
+      // double encoded URI again
+      URI balanceUrl = exchange.getRequiredAttribute(GATEWAY_REQUEST_URL_ATTR);
+      URI mergedUri = createUri(incomingUri, balanceUrl);
+      exchange.getAttributes().put(GATEWAY_REQUEST_URL_ATTR, mergedUri);
     }
 
-    private URI createUri(URI incomingUri, URI balanceUrl) {
-        final String port = balanceUrl.getPort() != -1 ? ":" + balanceUrl.getPort() : "";
-        final String rawPath = balanceUrl.getRawPath() != null ? balanceUrl.getRawPath() : "";
-        final String query =
-                incomingUri.getRawQuery() != null ? "?" + incomingUri.getRawQuery() : "";
-        return URI.create(
-                balanceUrl.getScheme() + "://" + balanceUrl.getHost() + port + rawPath + query);
-    }
+    return chain.filter(exchange);
+  }
 
-    private static boolean isUriEncoded(URI uri) {
-        return (uri.getRawQuery() != null && uri.getRawQuery().contains("%"))
-                || (uri.getRawPath() != null && uri.getRawPath().contains("%"));
-    }
+  private URI createUri(URI incomingUri, URI balanceUrl) {
+    final String port = balanceUrl.getPort() != -1 ? ":" + balanceUrl.getPort() : "";
+    final String rawPath = balanceUrl.getRawPath() != null ? balanceUrl.getRawPath() : "";
+    final String query = incomingUri.getRawQuery() != null ? "?" + incomingUri.getRawQuery() : "";
+    return URI
+        .create(balanceUrl.getScheme() + "://" + balanceUrl.getHost() + port + rawPath + query);
+  }
 
-    // order after ReactiveLoadBalancerClientFilter
-    @Override
-    public int getOrder() {
-        return ReactiveLoadBalancerClientFilter.LOAD_BALANCER_CLIENT_FILTER_ORDER + 1;
-    }
+  private static boolean isUriEncoded(URI uri) {
+    return (uri.getRawQuery() != null && uri.getRawQuery().contains("%"))
+        || (uri.getRawPath() != null && uri.getRawPath().contains("%"));
+  }
+
+  // order after ReactiveLoadBalancerClientFilter
+  @Override
+  public int getOrder() {
+    return ReactiveLoadBalancerClientFilter.LOAD_BALANCER_CLIENT_FILTER_ORDER + 1;
+  }
 }

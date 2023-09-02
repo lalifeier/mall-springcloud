@@ -6,23 +6,23 @@ import com.github.lalifeier.mall.cloud.log.service.FunctionService;
 
 public class DefaultFunctionServiceImpl implements FunctionService {
 
-    private final ParseFunctionFactory parseFunctionFactory;
+  private final ParseFunctionFactory parseFunctionFactory;
 
-    public DefaultFunctionServiceImpl(ParseFunctionFactory parseFunctionFactory) {
-        this.parseFunctionFactory = parseFunctionFactory;
-    }
+  public DefaultFunctionServiceImpl(ParseFunctionFactory parseFunctionFactory) {
+    this.parseFunctionFactory = parseFunctionFactory;
+  }
 
-    @Override
-    public String apply(String functionName, String value) {
-        ParseFunction function = parseFunctionFactory.getFunction(functionName);
-        if (function == null) {
-            return value.toString();
-        }
-        return function.apply(value);
+  @Override
+  public String apply(String functionName, String value) {
+    ParseFunction function = parseFunctionFactory.getFunction(functionName);
+    if (function == null) {
+      return value.toString();
     }
+    return function.apply(value);
+  }
 
-    @Override
-    public boolean beforeFunction(String functionName) {
-        return parseFunctionFactory.isBeforeFunction(functionName);
-    }
+  @Override
+  public boolean beforeFunction(String functionName) {
+    return parseFunctionFactory.isBeforeFunction(functionName);
+  }
 }
