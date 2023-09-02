@@ -22,7 +22,7 @@ spotless {
 
     formatAnnotations()
 
-//    licenseHeaderFile(rootProject.file("style/spotless/license.java"))
+//    licenseHeaderFile(rootProject.file("style/spotless.license.java"), "(package|import)")
   }
 
   kotlin {

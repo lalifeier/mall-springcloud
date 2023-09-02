@@ -1,5 +1,5 @@
-// package com.github.lalifeier.mall.gateway.controller;
-//
+package com.github.lalifeier.mall.cloud.gateway.controller;
+
 // import org.springframework.security.core.Authentication;
 // import org.springframework.security.core.context.SecurityContextHolder;
 // import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;

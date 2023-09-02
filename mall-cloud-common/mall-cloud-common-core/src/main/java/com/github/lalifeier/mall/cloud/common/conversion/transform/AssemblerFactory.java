@@ -1,5 +1,5 @@
-// package com.github.lalifeier.conversion.transform;
-//
+package com.github.lalifeier.mall.cloud.common.conversion.transform;
+
 // import org.springframework.util.ReflectionUtils;
 //
 // public class AssemblerFactory {

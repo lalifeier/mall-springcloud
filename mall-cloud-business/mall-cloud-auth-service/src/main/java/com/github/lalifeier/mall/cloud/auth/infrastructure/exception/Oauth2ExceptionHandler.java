@@ -1,5 +1,5 @@
-// package com.github.lalifeier.mall.auth.exception;
-//
+package com.github.lalifeier.mall.cloud.auth.infrastructure.exception;
+
 // import com.github.lalifeier.api.Response;
 // import org.springframework.web.bind.annotation.ControllerAdvice;
 // import org.springframework.web.bind.annotation.ExceptionHandler;
