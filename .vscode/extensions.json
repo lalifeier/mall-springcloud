@@ -1,6 +1,5 @@
 {
   "recommendations": [
-    "redhat.java",
     "vscjava.vscode-java-pack",
     "vmware.vscode-boot-dev-pack",
     "vscjava.vscode-lombok",

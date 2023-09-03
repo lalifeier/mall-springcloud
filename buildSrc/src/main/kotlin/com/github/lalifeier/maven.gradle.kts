@@ -1,3 +1,7 @@
+package com.github.lalifeier
+
+import com.github.lalifeier.internal.getVariable
+
 plugins {
   `maven-publish`
 }
@@ -13,10 +17,10 @@ publishing {
 
   repositories {
     maven {
-      url = uri(project.getVariable("MAVEN_REPOSITORY_URL") as String)
+      url = uri(getVariable("MAVEN_REPOSITORY_URL") as String)
       credentials {
-        username = project.getVariable("MAVEN_REPOSITORY_USERNAME")
-        password = project.getVariable("MAVEN_REPOSITORY_PASSWORD")
+        username = getVariable("MAVEN_REPOSITORY_USERNAME")
+        password = getVariable("MAVEN_REPOSITORY_PASSWORD")
       }
     }
   }

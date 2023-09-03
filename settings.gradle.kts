@@ -3,6 +3,7 @@ rootProject.name = "mall-springcloud"
 pluginManagement {
   repositories {
     mavenLocal()
+    maven("https://mirrors.tencent.com/nexus/repository/maven-public/")
     maven("https://maven.aliyun.com/repository/public/")
     maven("https://developer.huawei.com/repo/")
     mavenCentral()
@@ -13,6 +14,7 @@ pluginManagement {
 dependencyResolutionManagement {
   repositories {
     mavenLocal()
+    maven("https://mirrors.tencent.com/nexus/repository/maven-public/")
     maven("https://maven.aliyun.com/repository/public/")
     maven("https://developer.huawei.com/repo/")
     mavenCentral()

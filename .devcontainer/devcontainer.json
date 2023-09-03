@@ -10,8 +10,9 @@
 			"version": "none",
 			"installMaven": "false",
 			"installGradle": "true"
-		}
-	}
+		},
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
+	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
@@ -20,7 +21,19 @@
 	// "postCreateCommand": "java -version",
 
 	// Configure tool-specific properties.
-	// "customizations": {},
+	"customizations": {
+    "vscode": {
+      "settings": {
+
+      },
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vmware.vscode-boot-dev-pack",
+        "vscjava.vscode-lombok",
+        "richardwillis.vscode-gradle-extension-pack"
+      ]
+    }
+  },
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"

@@ -1,3 +1,9 @@
+package com.github.lalifeier
+
+import com.github.lalifeier.internal.getVariable
+import gradle.kotlin.dsl.accessors._1fe79fa31e7f20fdaa919b468b4092f7.docker
+import gradle.kotlin.dsl.accessors._1fe79fa31e7f20fdaa919b468b4092f7.springBootApplication
+
 //import com.bmuschko.gradle.docker.tasks.image.Dockerfile
 //import org.springframework.boot.gradle.tasks.bundling.BootJar
 
@@ -9,9 +15,9 @@ plugins {
 
 docker {
   registryCredentials {
-    url.set(project.getVariable("DOCKER_REGISTRY_URL"))
-    username.set(project.getVariable("DOCKER_USERNAME"))
-    password.set(project.getVariable("DOCKER_PASSWORD"))
+    url.set(getVariable("DOCKER_REGISTRY_URL"))
+    username.set(getVariable("DOCKER_USERNAME"))
+    password.set(getVariable("DOCKER_PASSWORD"))
   }
 
   springBootApplication {

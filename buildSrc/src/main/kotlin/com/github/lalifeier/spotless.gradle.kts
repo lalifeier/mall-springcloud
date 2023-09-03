@@ -1,3 +1,5 @@
+package com.github.lalifeier
+
 plugins {
   id("com.diffplug.spotless")
 }
@@ -18,11 +20,11 @@ spotless {
 
     removeUnusedImports()
 
-    eclipse().configFile(rootProject.file("style/eclipse-java-google-style.xml"))
+    eclipse().configFile("$rootDir/style/eclipse-java-google-style.xml")
 
     formatAnnotations()
 
-//    licenseHeaderFile(rootProject.file("style/spotless.license.java"), "(package|import)")
+//    licenseHeaderFile("$rootDir/style/spotless.license.java", "(package|import)")
   }
 
   kotlin {

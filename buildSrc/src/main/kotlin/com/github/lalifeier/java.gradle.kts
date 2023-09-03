@@ -1,3 +1,8 @@
+package com.github.lalifeier
+
+import org.gradle.kotlin.dsl.java
+import org.gradle.kotlin.dsl.`java-library`
+
 plugins {
   java
   `java-library`

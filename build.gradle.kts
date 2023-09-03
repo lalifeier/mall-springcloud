@@ -5,17 +5,17 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 plugins {
   idea
   java
-  id("local.java") apply false
-  id("local.kotlin") apply false
-  id("local.spring") apply false
-  id("local.protobuf") apply false
-  id("local.maven") apply false
-  id("local.docker") apply false
-  id("local.sonarqube") apply false
-  id("local.spotless") apply false
-  id("local.shadow") apply false
-  id("local.versions")
-  id("local.git-hooks")
+  id("com.github.lalifeier.java") apply false
+  id("com.github.lalifeier.kotlin") apply false
+  id("com.github.lalifeier.spring") apply false
+  id("com.github.lalifeier.protobuf") apply false
+  id("com.github.lalifeier.maven") apply false
+  id("com.github.lalifeier.docker") apply false
+  id("com.github.lalifeier.sonarqube") apply false
+  id("com.github.lalifeier.spotless") apply false
+  id("com.github.lalifeier.shadow") apply false
+  id("com.github.lalifeier.versions")
+  id("com.github.lalifeier.git-hooks")
 }
 
 fun isReleaseBuild(): Boolean {
@@ -44,11 +44,11 @@ val dubboProjects = subprojects.filter { it.name.endsWith("-dubbo") }
 configure(javaProjects) {
   apply(plugin = "java")
   apply(plugin = "java-library")
-  apply(plugin = "local.java")
-  apply(plugin = "local.kotlin")
-  apply(plugin = "local.spring")
-  apply(plugin = "local.maven")
-  apply(plugin = "local.spotless")
+  apply(plugin = "com.github.lalifeier.java")
+  apply(plugin = "com.github.lalifeier.kotlin")
+  apply(plugin = "com.github.lalifeier.spring")
+  apply(plugin = "com.github.lalifeier.maven")
+  apply(plugin = "com.github.lalifeier.spotless")
 
   configurations {
     all {
@@ -78,7 +78,7 @@ configure(javaProjects) {
 
 //grpc
 configure(grpcProjects) {
-  apply(plugin = "local.protobuf")
+  apply(plugin = "com.github.lalifeier.protobuf")
 }
 
 //dubbo
@@ -87,8 +87,8 @@ configure(grpcProjects) {
 
 //docker
 configure(bootProjects) {
-  apply(plugin = "local.docker")
-  apply(plugin = "local.shadow")
+  apply(plugin = "com.github.lalifeier.docker")
+  apply(plugin = "com.github.lalifeier.shadow")
 
   tasks.named<Jar>("jar") {
     enabled = false

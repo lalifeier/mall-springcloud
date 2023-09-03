@@ -1,3 +1,5 @@
+package com.github.lalifeier
+
 //val osName = System.getProperty("os.name").toLowerCase()
 //val osArch = System.getProperty("os.arch").toLowerCase()
 //val osClassifier = when {
@@ -8,7 +10,7 @@
 //}
 
 
-////  apply(from = "$rootDir/gradle/local.protobuf.gradle.kts")
+////  apply(from = "$rootDir/gradle/protobuf.gradle.kts")
 //
 //  apply(plugin = "com.google.protobuf")
 //

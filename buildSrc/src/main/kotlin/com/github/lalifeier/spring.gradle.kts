@@ -1,3 +1,6 @@
+package com.github.lalifeier
+
+import org.gradle.kotlin.dsl.named
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {

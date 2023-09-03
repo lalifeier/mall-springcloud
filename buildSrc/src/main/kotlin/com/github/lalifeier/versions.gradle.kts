@@ -1,4 +1,7 @@
+package com.github.lalifeier
+
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+import org.gradle.kotlin.dsl.withType
 
 plugins {
   id("com.github.ben-manes.versions")

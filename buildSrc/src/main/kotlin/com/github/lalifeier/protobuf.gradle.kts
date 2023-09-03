@@ -1,6 +1,14 @@
+package com.github.lalifeier
+
+//import com.github.lalifeier.internal.libs
+
 plugins {
   id("com.google.protobuf")
 }
+
+//val protocVersion = libs.findVersion("protobuf").get()
+//val protocKotlinVersion = libs.findVersion("grpc-kotlin").get()
+//val grpcVersion = libs.findVersion("grpc").get()
 
 val protocVersion = "3.22.3"
 val protocKotlinVersion = "1.3.0"
