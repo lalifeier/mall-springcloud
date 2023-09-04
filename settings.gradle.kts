@@ -53,6 +53,7 @@ include("mall-cloud-starter:mall-cloud-trace-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-security-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-distributed-lock-spring-boot-starter")
 include("mall-cloud-starter:mall-cloud-prometheus-spring-boot-starter")
+include("mall-cloud-starter:mall-cloud-enums-spring-boot-starter")
 
 //demo
 include("mall-cloud-business:mall-cloud-demo:mall-cloud-demo-api")
