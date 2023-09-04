@@ -1,14 +1,16 @@
 package com.github.lalifeier.mall.cloud.enums.context;
 
-import com.github.lalifeier.mall.cloud.enums.annocation.EnumScanner;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+
+import com.github.lalifeier.mall.cloud.enums.scanner.EnumScanner;
 
 public class EnumContextFactory {
   private static EnumContext enumContext;
 
   public static EnumContext getEnumContext() {
     if (enumContext == null) {
-      throw new IllegalStateException("EnumContext has not been created. Please call createEnumContext() first.");
+      throw new IllegalStateException(
+          "EnumContext has not been created. Please call createEnumContext() first.");
     }
     return enumContext;
   }
