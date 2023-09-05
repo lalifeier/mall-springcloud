@@ -37,7 +37,7 @@ public class SecurityConfig {
 
     return httpSecurity.headers()
         .frameOptions(frameOptionsCustomizer -> frameOptionsCustomizer.disable()).and()
-        .authorizeRequests(authorizeHttpRequestsCustomizer -> {
+        .authorizeHttpRequests(authorizeHttpRequestsCustomizer -> {
           authorizeHttpRequestsCustomizer.requestMatchers(toRequestMatchers(this.patterns))
               .permitAll().anyRequest().authenticated();
         })

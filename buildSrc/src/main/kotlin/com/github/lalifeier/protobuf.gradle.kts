@@ -1,18 +1,12 @@
 package com.github.lalifeier
 
-//import com.github.lalifeier.internal.libs
-
 plugins {
   id("com.google.protobuf")
 }
 
-//val protocVersion = libs.findVersion("protobuf").get()
-//val protocKotlinVersion = libs.findVersion("grpc-kotlin").get()
-//val grpcVersion = libs.findVersion("grpc").get()
-
 val protocVersion = "3.22.3"
-val protocKotlinVersion = "1.3.0"
-val grpcVersion = "1.57.1"
+val grpcVersion = "1.57.2"
+val grpcKotlinVersion = "1.3.0"
 
 protobuf {
   protoc {
@@ -24,24 +18,20 @@ protobuf {
       artifact = "io.grpc:protoc-gen-grpc-java:$grpcVersion"
     }
 //    create("grpckt") {
-//      artifact = "io.grpc:protoc-gen-grpc-kotlin:$protocKotlinVersion:jdk8@jar"
+//      artifact = "io.grpc:protoc-gen-grpc-kotlin:grpcKotlinVersion:jdk8@jar"
 //    }
   }
 
   generateProtoTasks {
     all().forEach {
       it.plugins {
-        create("grpc") {
-          option("lite")
-        }
+        create("grpc") {}
 //          create("grpckt") {
 //            option("lite")
 //          }
       }
       it.builtins {
-        named("java") {
-          option("lite")
-        }
+        named("java") {}
 //          create("kotlin") {
 //            option("lite")
 //          }

@@ -4,8 +4,8 @@ import com.github.lalifeier.mall.cloud.log.function.ParseFunction;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 public class ParseFunctionFactory {
   private Map<String, ParseFunction> allFunctionMap;

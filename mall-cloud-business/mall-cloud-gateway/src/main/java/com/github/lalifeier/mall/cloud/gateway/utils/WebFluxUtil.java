@@ -83,7 +83,7 @@ public final class WebFluxUtil {
     Flux<DataBuffer> body = serverHttpRequest.getBody();
     AtomicReference<String> bodyRef = new AtomicReference<>();
     body.subscribe(buffer -> {
-      CharBuffer charBuffer = StandardCharsets.UTF_8.decode(buffer.asByteBuffer());
+      CharBuffer charBuffer = StandardCharsets.UTF_8.decode(buffer.toByteBuffer());
       DataBufferUtils.release(buffer);
       bodyRef.set(charBuffer.toString());
     });
@@ -101,7 +101,7 @@ public final class WebFluxUtil {
       return null;
     }
     DataBuffer buffer = (DataBuffer) obj;
-    CharBuffer charBuffer = StandardCharsets.UTF_8.decode(buffer.asByteBuffer());
+    CharBuffer charBuffer = StandardCharsets.UTF_8.decode(buffer.toByteBuffer());
     return charBuffer.toString();
   }
 

@@ -1,5 +1,7 @@
 plugins {
+  `java-gradle-plugin`
   `kotlin-dsl`
+  `kotlin-dsl-precompiled-script-plugins`
 }
 
 dependencies {
@@ -16,4 +18,6 @@ dependencies {
   implementation(libs.shadow.gradle.plugin)
   implementation(libs.githook.gradle.plugin)
   implementation(libs.commitlint.gradle.plugin)
+  // hack to access version catalogue https://github.com/gradle/gradle/issues/15383
+  // implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
 }

@@ -2,7 +2,6 @@ package com.github.lalifeier.mall.cloud.enums.context;
 
 import com.github.lalifeier.mall.cloud.enums.annocation.EnumInfo;
 import com.github.lalifeier.mall.cloud.enums.model.EnumDefinition;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

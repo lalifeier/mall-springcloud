@@ -13,6 +13,8 @@ import java.io.IOException;
 public class EnumDeserializer<T extends BaseEnum> extends JsonDeserializer<T>
     implements ContextualDeserializer {
 
+  public static final EnumDeserializer INSTANCE = new EnumDeserializer();
+
   private Class<T> enumClass;
 
   public EnumDeserializer() {}

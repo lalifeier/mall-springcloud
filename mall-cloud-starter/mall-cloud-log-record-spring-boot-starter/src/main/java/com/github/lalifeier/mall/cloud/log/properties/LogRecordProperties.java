@@ -1,8 +1,8 @@
 package com.github.lalifeier.mall.cloud.log.properties;
 
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.util.StringUtils;
 
 @Data
 @ConfigurationProperties(prefix = "mall.cloud.log.record")

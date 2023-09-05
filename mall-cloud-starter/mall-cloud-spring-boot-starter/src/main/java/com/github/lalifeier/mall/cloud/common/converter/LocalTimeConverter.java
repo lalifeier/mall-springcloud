@@ -8,7 +8,7 @@ import org.springframework.core.convert.converter.Converter;
 
 public class LocalTimeConverter extends BaseDateConverter<LocalTime>
     implements Converter<String, LocalTime> {
-  protected static final Map<String, String> FORMAT = new LinkedHashMap(2);
+  protected static final Map<String, String> FORMAT = new LinkedHashMap<>(2);
 
   static {
     FORMAT.put("HH:mm:ss", "^\\d{1,2}:\\d{2}:\\d{2}$");

@@ -13,7 +13,7 @@ import org.springframework.core.convert.converter.Converter;
 @Slf4j
 public class DateConverter extends BaseDateConverter<Date> implements Converter<String, Date> {
 
-  protected static final Map<String, String> FORMAT = new LinkedHashMap(15);
+  protected static final Map<String, String> FORMAT = new LinkedHashMap<>(15);
 
   static {
     FORMAT.put("yyyy", "^\\d{4}");

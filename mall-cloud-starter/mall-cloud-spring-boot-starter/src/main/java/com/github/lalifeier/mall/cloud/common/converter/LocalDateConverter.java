@@ -8,7 +8,7 @@ import org.springframework.core.convert.converter.Converter;
 
 public class LocalDateConverter extends BaseDateConverter<LocalDate>
     implements Converter<String, LocalDate> {
-  protected static final Map<String, String> FORMAT = new LinkedHashMap(2);
+  protected static final Map<String, String> FORMAT = new LinkedHashMap<>(2);
 
   static {
     FORMAT.put("yyyy-MM-dd", "^\\d{4}-\\d{1,2}-\\d{1,2}$");

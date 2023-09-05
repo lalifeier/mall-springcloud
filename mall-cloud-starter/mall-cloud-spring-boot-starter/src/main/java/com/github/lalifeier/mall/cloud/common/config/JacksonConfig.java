@@ -59,22 +59,27 @@ public class JacksonConfig implements Jackson2ObjectMapperBuilderCustomizer, Ord
     simpleModule.addSerializer(BigInteger.class, ToStringSerializer.instance);
     simpleModule.addSerializer(BigDecimal.class, ToStringSerializer.instance);
 
+    // simpleModule.addSerializer(BaseEnum.class, EnumSerializer.INSTANCE);
+    // simpleModule.addDeserializer(BaseEnum.class, EnumDeserializer.INSTANCE);
+
     // 创建一个 JavaTimeModule 用于日期和时间的序列化和反序列化
     JavaTimeModule javaTimeModule = new JavaTimeModule();
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT);
     javaTimeModule.addSerializer(LocalDateTime.class,
-        new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT)));
+        new LocalDateTimeSerializer(dateTimeFormatter));
     javaTimeModule.addDeserializer(LocalDateTime.class,
-        new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT)));
-    javaTimeModule.addSerializer(LocalDate.class,
-        new LocalDateSerializer(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT)));
-    javaTimeModule.addDeserializer(LocalDate.class,
-        new LocalDateDeserializer(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT)));
-    javaTimeModule.addSerializer(LocalTime.class,
-        new LocalTimeSerializer(DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT)));
-    javaTimeModule.addDeserializer(LocalTime.class,
-        new LocalTimeDeserializer(DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT)));
+        new LocalDateTimeDeserializer(dateTimeFormatter));
+
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT);
+    javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer(dateFormatter));
+    javaTimeModule.addDeserializer(LocalDate.class, new LocalDateDeserializer(dateFormatter));
+
+    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT);
+    javaTimeModule.addSerializer(LocalTime.class, new LocalTimeSerializer(timeFormatter));
+    javaTimeModule.addDeserializer(LocalTime.class, new LocalTimeDeserializer(timeFormatter));
 
     // 将 SimpleModule 和 JavaTimeModule 注册到 builder 中
+    // builder.timeZone(TimeZone.getDefault());
     builder.modules(simpleModule, javaTimeModule);
   }
 

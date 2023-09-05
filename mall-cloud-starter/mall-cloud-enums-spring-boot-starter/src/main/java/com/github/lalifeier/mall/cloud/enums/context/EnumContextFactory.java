@@ -1,8 +1,7 @@
 package com.github.lalifeier.mall.cloud.enums.context;
 
-import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-
 import com.github.lalifeier.mall.cloud.enums.scanner.EnumScanner;
+import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 
 public class EnumContextFactory {
   private static EnumContext enumContext;

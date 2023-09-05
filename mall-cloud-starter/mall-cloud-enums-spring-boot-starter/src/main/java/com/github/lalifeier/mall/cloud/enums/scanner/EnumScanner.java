@@ -1,16 +1,14 @@
 package com.github.lalifeier.mall.cloud.enums.scanner;
 
+import com.github.lalifeier.mall.cloud.enums.annocation.EnumInfo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.core.type.filter.AssignableTypeFilter;
-
-import com.github.lalifeier.mall.cloud.enums.annocation.EnumInfo;
 
 public class EnumScanner extends ClassPathBeanDefinitionScanner {
 

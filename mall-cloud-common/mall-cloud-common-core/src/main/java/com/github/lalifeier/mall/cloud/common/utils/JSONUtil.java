@@ -18,8 +18,7 @@ public class JSONUtil {
 
   public static String toPrettyJson(String uglyJsonStr) {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    JsonParser jp = new JsonParser();
-    JsonElement je = jp.parse(uglyJsonStr);
+    JsonElement je = JsonParser.parseString(uglyJsonStr);
     String prettyJsonString = gson.toJson(je);
     return prettyJsonString;
   }

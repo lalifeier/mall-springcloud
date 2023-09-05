@@ -7,4 +7,5 @@ dependencies {
   implementation(libs.feign.core)
   implementation(libs.dubbo)
   implementation(libs.transmittable.thread.local)
+  implementation(libs.commons.lang3)
 }
