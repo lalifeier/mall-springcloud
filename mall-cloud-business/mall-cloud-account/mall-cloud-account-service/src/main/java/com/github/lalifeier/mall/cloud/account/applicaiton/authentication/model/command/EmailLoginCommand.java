@@ -9,11 +9,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class EmailLoginCommand extends LoginCommand {
-  private final String email;
-  private final String password;
+    private final String email;
+    private final String password;
 
-  @Override
-  public LoginTypeEnum getLoginType() {
-    return LoginTypeEnum.EMAIL;
-  }
+    @Override
+    public LoginTypeEnum getLoginType() {
+        return LoginTypeEnum.EMAIL;
+    }
 }

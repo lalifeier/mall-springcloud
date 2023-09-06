@@ -8,17 +8,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConditionalOnProperty(prefix = "springdoc.api-docs", name = "enabled", havingValue = "true",
-    matchIfMissing = true)
+@ConditionalOnProperty(prefix = "springdoc.api-docs", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class DocAutoConfiguration {
-  @Bean
-  @ConfigurationProperties(prefix = "springdoc.api-docs.info")
-  public Info springDocInfo() {
-    return new Info();
-  }
+    @Bean
+    @ConfigurationProperties(prefix = "springdoc.api-docs.info")
+    public Info springDocInfo() {
+        return new Info();
+    }
 
-  @Bean
-  public OpenAPI openAPI(Info apiInfo) {
-    return new OpenAPI().info(apiInfo);
-  }
+    @Bean
+    public OpenAPI openAPI(Info apiInfo) {
+        return new OpenAPI().info(apiInfo);
+    }
 }

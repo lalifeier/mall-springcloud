@@ -44,211 +44,211 @@ import reactor.core.publisher.Mono;
 // @Component
 @AllArgsConstructor
 public class AccessLogFilter implements GlobalFilter, Ordered {
-  private AccessLogService accessLogService;
-  private final List<HttpMessageReader<?>> messageReaders =
-      HandlerStrategies.withDefaults().messageReaders();
+    private AccessLogService accessLogService;
+    private final List<HttpMessageReader<?>> messageReaders =
+            HandlerStrategies.withDefaults().messageReaders();
 
-  @Override
-  public int getOrder() {
-    return -100;
-  }
-
-  @Override
-  @SuppressWarnings("unchecked")
-  public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-
-    ServerHttpRequest request = exchange.getRequest();
-    String requestPath = request.getPath().pathWithinApplication().value();
-    Route route = getGatewayRoute(exchange);
-
-    String ipAddress = IpUtil.getIpAddress(request);
-
-    GatewayLog gatewayLog = new GatewayLog();
-    gatewayLog.setSchema(request.getURI().getScheme());
-    gatewayLog.setRequestMethod(request.getMethod().name());
-    gatewayLog.setRequestPath(requestPath);
-    gatewayLog.setTargetServer(route.getId());
-    gatewayLog.setRequestTime(new Date());
-    gatewayLog.setIp(ipAddress);
-
-    MediaType mediaType = request.getHeaders().getContentType();
-
-    if (MediaType.APPLICATION_FORM_URLENCODED.isCompatibleWith(mediaType)
-        || MediaType.APPLICATION_JSON.isCompatibleWith(mediaType)) {
-      return writeBodyLog(exchange, chain, gatewayLog);
-    } else {
-      return writeBasicLog(exchange, chain, gatewayLog);
+    @Override
+    public int getOrder() {
+        return -100;
     }
-  }
 
-  /**
-   * 记录基本日志-不需要重新body
-   *
-   * @param exchange
-   * @param chain
-   * @param accessLog
-   * @return
-   */
-  private Mono<Void> writeBasicLog(ServerWebExchange exchange, GatewayFilterChain chain,
-      GatewayLog accessLog) {
-    StringBuilder builder = new StringBuilder();
-    MultiValueMap<String, String> queryParams = exchange.getRequest().getQueryParams();
-    for (Map.Entry<String, List<String>> entry : queryParams.entrySet()) {
-      builder.append(entry.getKey()).append("=").append(StringUtils.join(entry.getValue(), ","));
-    }
-    accessLog.setRequestBody(builder.toString());
+    @Override
+    @SuppressWarnings("unchecked")
+    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
-    // 获取响应体
-    ServerHttpResponseDecorator decoratedResponse = recordResponseLog(exchange, accessLog);
+        ServerHttpRequest request = exchange.getRequest();
+        String requestPath = request.getPath().pathWithinApplication().value();
+        Route route = getGatewayRoute(exchange);
 
-    return chain.filter(exchange.mutate().response(decoratedResponse).build())
-        .then(Mono.fromRunnable(() -> {
-          // 打印日志
-          writeAccessLog(accessLog);
-        }));
-  }
+        String ipAddress = IpUtil.getIpAddress(request);
 
-  /**
-   * 记录带body时的日志，解决 request body 只能读取一次问题
-   * org.springframework.cloud.gateway.filter.factory.rewrite.ModifyRequestBodyGatewayFilterFactory
-   *
-   * @param exchange
-   * @param chain
-   * @param gatewayLog
-   * @return
-   */
-  @SuppressWarnings("unchecked")
-  private Mono writeBodyLog(ServerWebExchange exchange, GatewayFilterChain chain,
-      GatewayLog gatewayLog) {
-    ServerRequest serverRequest = ServerRequest.create(exchange, messageReaders);
+        GatewayLog gatewayLog = new GatewayLog();
+        gatewayLog.setSchema(request.getURI().getScheme());
+        gatewayLog.setRequestMethod(request.getMethod().name());
+        gatewayLog.setRequestPath(requestPath);
+        gatewayLog.setTargetServer(route.getId());
+        gatewayLog.setRequestTime(new Date());
+        gatewayLog.setIp(ipAddress);
 
-    Mono<String> modifiedBody = serverRequest.bodyToMono(String.class).flatMap(body -> {
-      gatewayLog.setRequestBody(body);
-      return Mono.just(body);
-    });
+        MediaType mediaType = request.getHeaders().getContentType();
 
-    // 通过 BodyInserter 插入 body(支持修改body), 避免 request body 只能获取一次
-    BodyInserter bodyInserter = BodyInserters.fromPublisher(modifiedBody, String.class);
-    HttpHeaders headers = new HttpHeaders();
-    headers.putAll(exchange.getRequest().getHeaders());
-    // the new content type will be computed by bodyInserter
-    // and then set in the request decorator
-    headers.remove(HttpHeaders.CONTENT_LENGTH);
-
-    CachedBodyOutputMessage outputMessage = new CachedBodyOutputMessage(exchange, headers);
-
-    return bodyInserter.insert(outputMessage, new BodyInserterContext()).then(Mono.defer(() -> {
-      // 重新封装请求
-      ServerHttpRequest decoratedRequest = requestDecorate(exchange, headers, outputMessage);
-
-      // 记录响应日志
-      ServerHttpResponseDecorator decoratedResponse = recordResponseLog(exchange, gatewayLog);
-
-      // 记录普通的
-      return chain
-          .filter(exchange.mutate().request(decoratedRequest).response(decoratedResponse).build())
-          .then(Mono.fromRunnable(() -> {
-            // 打印日志
-            writeAccessLog(gatewayLog);
-          }));
-    }));
-  }
-
-  private void writeAccessLog(GatewayLog gatewayLog) {
-    log.info(gatewayLog.toString());
-    // accessLogService.saveAccessLog(gatewayLog).subscribe();
-  }
-
-  private Route getGatewayRoute(ServerWebExchange exchange) {
-    return exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
-  }
-
-  /**
-   * 请求装饰器，重新计算 headers
-   *
-   * @param exchange
-   * @param headers
-   * @param outputMessage
-   * @return
-   */
-  private ServerHttpRequestDecorator requestDecorate(ServerWebExchange exchange,
-      HttpHeaders headers, CachedBodyOutputMessage outputMessage) {
-    return new ServerHttpRequestDecorator(exchange.getRequest()) {
-      @Override
-      public HttpHeaders getHeaders() {
-        long contentLength = headers.getContentLength();
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.putAll(super.getHeaders());
-        if (contentLength > 0) {
-          httpHeaders.setContentLength(contentLength);
+        if (MediaType.APPLICATION_FORM_URLENCODED.isCompatibleWith(mediaType)
+                || MediaType.APPLICATION_JSON.isCompatibleWith(mediaType)) {
+            return writeBodyLog(exchange, chain, gatewayLog);
         } else {
-          // TODO: this causes a 'HTTP/1.1 411 Length Required' // on
-          // httpbin.org
-          httpHeaders.set(HttpHeaders.TRANSFER_ENCODING, "chunked");
+            return writeBasicLog(exchange, chain, gatewayLog);
         }
-        return httpHeaders;
-      }
+    }
 
-      @Override
-      public Flux<DataBuffer> getBody() {
-        return outputMessage.getBody();
-      }
-    };
-  }
-
-  /**
-   * 记录响应日志 通过 DataBufferFactory 解决响应体分段传输问题。
-   *
-   * @param exchange
-   * @param gatewayLog
-   * @return
-   */
-  private ServerHttpResponseDecorator recordResponseLog(ServerWebExchange exchange,
-      GatewayLog gatewayLog) {
-    ServerHttpResponse response = exchange.getResponse();
-    DataBufferFactory bufferFactory = response.bufferFactory();
-
-    return new ServerHttpResponseDecorator(response) {
-      @Override
-      public Mono<Void> writeWith(Publisher<? extends DataBuffer> body) {
-        if (body instanceof Flux) {
-          Date responseTime = new Date();
-          gatewayLog.setResponseTime(responseTime);
-          // 计算执行时间
-          long executeTime = (responseTime.getTime() - gatewayLog.getRequestTime().getTime());
-
-          gatewayLog.setExecuteTime(executeTime);
-
-          // 获取响应类型，如果是 json 就打印
-          String originalResponseContentType =
-              exchange.getAttribute(ServerWebExchangeUtils.ORIGINAL_RESPONSE_CONTENT_TYPE_ATTR);
-
-          if (Objects.equals(this.getStatusCode(), HttpStatus.OK)
-              && StringUtils.isNotBlank(originalResponseContentType)
-              && originalResponseContentType.contains("application/json")) {
-
-            Flux<? extends DataBuffer> fluxBody = Flux.from(body);
-            return super.writeWith(fluxBody.buffer().map(dataBuffers -> {
-
-              // 合并多个流集合，解决返回体分段传输
-              DataBufferFactory dataBufferFactory = new DefaultDataBufferFactory();
-              DataBuffer join = dataBufferFactory.join(dataBuffers);
-              byte[] content = new byte[join.readableByteCount()];
-              join.read(content);
-
-              // 释放掉内存
-              DataBufferUtils.release(join);
-              String responseResult = new String(content, StandardCharsets.UTF_8);
-
-              gatewayLog.setResponseData(responseResult);
-
-              return bufferFactory.wrap(content);
-            }));
-          }
+    /**
+     * 记录基本日志-不需要重新body
+     *
+     * @param exchange
+     * @param chain
+     * @param accessLog
+     * @return
+     */
+    private Mono<Void> writeBasicLog(ServerWebExchange exchange, GatewayFilterChain chain, GatewayLog accessLog) {
+        StringBuilder builder = new StringBuilder();
+        MultiValueMap<String, String> queryParams = exchange.getRequest().getQueryParams();
+        for (Map.Entry<String, List<String>> entry : queryParams.entrySet()) {
+            builder.append(entry.getKey()).append("=").append(StringUtils.join(entry.getValue(), ","));
         }
-        // if body is not a flux. never got there.
-        return super.writeWith(body);
-      }
-    };
-  }
+        accessLog.setRequestBody(builder.toString());
+
+        // 获取响应体
+        ServerHttpResponseDecorator decoratedResponse = recordResponseLog(exchange, accessLog);
+
+        return chain.filter(exchange.mutate().response(decoratedResponse).build())
+                .then(Mono.fromRunnable(() -> {
+                    // 打印日志
+                    writeAccessLog(accessLog);
+                }));
+    }
+
+    /**
+     * 记录带body时的日志，解决 request body 只能读取一次问题
+     * org.springframework.cloud.gateway.filter.factory.rewrite.ModifyRequestBodyGatewayFilterFactory
+     *
+     * @param exchange
+     * @param chain
+     * @param gatewayLog
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    private Mono writeBodyLog(ServerWebExchange exchange, GatewayFilterChain chain, GatewayLog gatewayLog) {
+        ServerRequest serverRequest = ServerRequest.create(exchange, messageReaders);
+
+        Mono<String> modifiedBody = serverRequest.bodyToMono(String.class).flatMap(body -> {
+            gatewayLog.setRequestBody(body);
+            return Mono.just(body);
+        });
+
+        // 通过 BodyInserter 插入 body(支持修改body), 避免 request body 只能获取一次
+        BodyInserter bodyInserter = BodyInserters.fromPublisher(modifiedBody, String.class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.putAll(exchange.getRequest().getHeaders());
+        // the new content type will be computed by bodyInserter
+        // and then set in the request decorator
+        headers.remove(HttpHeaders.CONTENT_LENGTH);
+
+        CachedBodyOutputMessage outputMessage = new CachedBodyOutputMessage(exchange, headers);
+
+        return bodyInserter.insert(outputMessage, new BodyInserterContext()).then(Mono.defer(() -> {
+            // 重新封装请求
+            ServerHttpRequest decoratedRequest = requestDecorate(exchange, headers, outputMessage);
+
+            // 记录响应日志
+            ServerHttpResponseDecorator decoratedResponse = recordResponseLog(exchange, gatewayLog);
+
+            // 记录普通的
+            return chain.filter(exchange.mutate()
+                            .request(decoratedRequest)
+                            .response(decoratedResponse)
+                            .build())
+                    .then(Mono.fromRunnable(() -> {
+                        // 打印日志
+                        writeAccessLog(gatewayLog);
+                    }));
+        }));
+    }
+
+    private void writeAccessLog(GatewayLog gatewayLog) {
+        log.info(gatewayLog.toString());
+        // accessLogService.saveAccessLog(gatewayLog).subscribe();
+    }
+
+    private Route getGatewayRoute(ServerWebExchange exchange) {
+        return exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
+    }
+
+    /**
+     * 请求装饰器，重新计算 headers
+     *
+     * @param exchange
+     * @param headers
+     * @param outputMessage
+     * @return
+     */
+    private ServerHttpRequestDecorator requestDecorate(
+            ServerWebExchange exchange, HttpHeaders headers, CachedBodyOutputMessage outputMessage) {
+        return new ServerHttpRequestDecorator(exchange.getRequest()) {
+            @Override
+            public HttpHeaders getHeaders() {
+                long contentLength = headers.getContentLength();
+                HttpHeaders httpHeaders = new HttpHeaders();
+                httpHeaders.putAll(super.getHeaders());
+                if (contentLength > 0) {
+                    httpHeaders.setContentLength(contentLength);
+                } else {
+                    // TODO: this causes a 'HTTP/1.1 411 Length Required' // on
+                    // httpbin.org
+                    httpHeaders.set(HttpHeaders.TRANSFER_ENCODING, "chunked");
+                }
+                return httpHeaders;
+            }
+
+            @Override
+            public Flux<DataBuffer> getBody() {
+                return outputMessage.getBody();
+            }
+        };
+    }
+
+    /**
+     * 记录响应日志 通过 DataBufferFactory 解决响应体分段传输问题。
+     *
+     * @param exchange
+     * @param gatewayLog
+     * @return
+     */
+    private ServerHttpResponseDecorator recordResponseLog(ServerWebExchange exchange, GatewayLog gatewayLog) {
+        ServerHttpResponse response = exchange.getResponse();
+        DataBufferFactory bufferFactory = response.bufferFactory();
+
+        return new ServerHttpResponseDecorator(response) {
+            @Override
+            public Mono<Void> writeWith(Publisher<? extends DataBuffer> body) {
+                if (body instanceof Flux) {
+                    Date responseTime = new Date();
+                    gatewayLog.setResponseTime(responseTime);
+                    // 计算执行时间
+                    long executeTime = (responseTime.getTime()
+                            - gatewayLog.getRequestTime().getTime());
+
+                    gatewayLog.setExecuteTime(executeTime);
+
+                    // 获取响应类型，如果是 json 就打印
+                    String originalResponseContentType =
+                            exchange.getAttribute(ServerWebExchangeUtils.ORIGINAL_RESPONSE_CONTENT_TYPE_ATTR);
+
+                    if (Objects.equals(this.getStatusCode(), HttpStatus.OK)
+                            && StringUtils.isNotBlank(originalResponseContentType)
+                            && originalResponseContentType.contains("application/json")) {
+
+                        Flux<? extends DataBuffer> fluxBody = Flux.from(body);
+                        return super.writeWith(fluxBody.buffer().map(dataBuffers -> {
+
+                            // 合并多个流集合，解决返回体分段传输
+                            DataBufferFactory dataBufferFactory = new DefaultDataBufferFactory();
+                            DataBuffer join = dataBufferFactory.join(dataBuffers);
+                            byte[] content = new byte[join.readableByteCount()];
+                            join.read(content);
+
+                            // 释放掉内存
+                            DataBufferUtils.release(join);
+                            String responseResult = new String(content, StandardCharsets.UTF_8);
+
+                            gatewayLog.setResponseData(responseResult);
+
+                            return bufferFactory.wrap(content);
+                        }));
+                    }
+                }
+                // if body is not a flux. never got there.
+                return super.writeWith(body);
+            }
+        };
+    }
 }

@@ -5,5 +5,5 @@ import reactor.core.publisher.Mono;
 
 public interface AccessLogService {
 
-  Mono<GatewayLog> saveAccessLog(GatewayLog gatewayLog);
+    Mono<GatewayLog> saveAccessLog(GatewayLog gatewayLog);
 }

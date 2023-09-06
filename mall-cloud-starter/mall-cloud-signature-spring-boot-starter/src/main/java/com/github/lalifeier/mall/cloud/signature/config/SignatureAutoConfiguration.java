@@ -20,47 +20,44 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @EnableConfigurationProperties(SignatureProperties.class)
 public class SignatureAutoConfiguration {
 
-  private final SignatureProperties properties;
+    private final SignatureProperties properties;
 
-  public SignatureAutoConfiguration(SignatureProperties properties) {
-    this.properties = properties;
-  }
+    public SignatureAutoConfiguration(SignatureProperties properties) {
+        this.properties = properties;
+    }
 
-  @Bean
-  public SignatureFilter signatureFilter(RedisTemplate<String, Object> redisTemplate) {
-    return new SignatureFilter(redisTemplate, properties);
-  }
+    @Bean
+    public SignatureFilter signatureFilter(RedisTemplate<String, Object> redisTemplate) {
+        return new SignatureFilter(redisTemplate, properties);
+    }
 
-  @Bean
-  @ConditionalOnMissingBean(name = "redisTemplate")
-  public RedisTemplate<String, Object> redisTemplate(
-      RedisConnectionFactory redisConnectionFactory) {
-    RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-    redisTemplate.setConnectionFactory(redisConnectionFactory);
+    @Bean
+    @ConditionalOnMissingBean(name = "redisTemplate")
+    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(redisConnectionFactory);
 
-    StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
-    RedisSerializer<Object> serializer = redisSerializer();
+        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+        RedisSerializer<Object> serializer = redisSerializer();
 
-    redisTemplate.setKeySerializer(stringRedisSerializer);
-    redisTemplate.setValueSerializer(serializer);
+        redisTemplate.setKeySerializer(stringRedisSerializer);
+        redisTemplate.setValueSerializer(serializer);
 
-    redisTemplate.setHashKeySerializer(stringRedisSerializer);
-    redisTemplate.setHashValueSerializer(serializer);
+        redisTemplate.setHashKeySerializer(stringRedisSerializer);
+        redisTemplate.setHashValueSerializer(serializer);
 
-    redisTemplate.afterPropertiesSet();
+        redisTemplate.afterPropertiesSet();
 
-    return redisTemplate;
-  }
+        return redisTemplate;
+    }
 
-  @Bean
-  @ConditionalOnMissingBean
-  public RedisSerializer<Object> redisSerializer() {
-    ObjectMapper objectMapper = new ObjectMapper();
-    objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-    objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance,
-        ObjectMapper.DefaultTyping.NON_FINAL);
-    Jackson2JsonRedisSerializer<Object> serializer =
-        new Jackson2JsonRedisSerializer<>(objectMapper, Object.class);
-    return serializer;
-  }
+    @Bean
+    @ConditionalOnMissingBean
+    public RedisSerializer<Object> redisSerializer() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
+        Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(objectMapper, Object.class);
+        return serializer;
+    }
 }

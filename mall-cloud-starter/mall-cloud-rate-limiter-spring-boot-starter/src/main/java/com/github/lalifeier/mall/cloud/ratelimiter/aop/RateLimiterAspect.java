@@ -19,51 +19,51 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class RateLimiterAspect {
-  private final RedisRateLimiter redisRateLimiter;
+    private final RedisRateLimiter redisRateLimiter;
 
-  public RateLimiterAspect(RedisRateLimiter redisRateLimiter) {
-    this.redisRateLimiter = redisRateLimiter;
-  }
-
-  @Pointcut("@annotation(rateLimiter)")
-  public void rateLimiterPointcut(RateLimiter rateLimiter) {}
-
-  @Around("rateLimiterPointcut(rateLimiter)")
-  public Object around(ProceedingJoinPoint point, RateLimiter rateLimiter) throws Throwable {
-    MethodSignature signature = (MethodSignature) point.getSignature();
-    Method method = signature.getMethod();
-    log.info("当前限流方法:" + method.toGenericString());
-
-    LimitTypeEnum limitType = rateLimiter.limitType();
-    String key = getKey(point, limitType);
-
-    if (redisRateLimiter.acquire(key, rateLimiter)) {
-      return point.proceed();
-    } else {
-      throw new TooManyRequestsException(rateLimiter.message());
-    }
-  }
-
-  private String getKey(JoinPoint point, LimitTypeEnum limitType) {
-    String key = "";
-    switch (limitType) {
-      case GLOBAL:
-        key = ((Class) point.getTarget()).getName() + ":"
-            + ((MethodSignature) point.getSignature()).getMethod().getName();
-        break;
-      case IP:
-        key = WebUtil.getIP();
-        break;
-      case USER:
-        // Long userId = SecurityUtil.getUserId();
-        // if (userId == null) {
-        // }
-        // key = String.valueOf(userId);
-        break;
-      default:
-        key = "";
+    public RateLimiterAspect(RedisRateLimiter redisRateLimiter) {
+        this.redisRateLimiter = redisRateLimiter;
     }
 
-    return key;
-  }
+    @Pointcut("@annotation(rateLimiter)")
+    public void rateLimiterPointcut(RateLimiter rateLimiter) {}
+
+    @Around("rateLimiterPointcut(rateLimiter)")
+    public Object around(ProceedingJoinPoint point, RateLimiter rateLimiter) throws Throwable {
+        MethodSignature signature = (MethodSignature) point.getSignature();
+        Method method = signature.getMethod();
+        log.info("当前限流方法:" + method.toGenericString());
+
+        LimitTypeEnum limitType = rateLimiter.limitType();
+        String key = getKey(point, limitType);
+
+        if (redisRateLimiter.acquire(key, rateLimiter)) {
+            return point.proceed();
+        } else {
+            throw new TooManyRequestsException(rateLimiter.message());
+        }
+    }
+
+    private String getKey(JoinPoint point, LimitTypeEnum limitType) {
+        String key = "";
+        switch (limitType) {
+            case GLOBAL:
+                key = ((Class) point.getTarget()).getName() + ":"
+                        + ((MethodSignature) point.getSignature()).getMethod().getName();
+                break;
+            case IP:
+                key = WebUtil.getIP();
+                break;
+            case USER:
+                // Long userId = SecurityUtil.getUserId();
+                // if (userId == null) {
+                // }
+                // key = String.valueOf(userId);
+                break;
+            default:
+                key = "";
+        }
+
+        return key;
+    }
 }

@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserContextFilter implements Filter {
 
-  @Override
-  public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
-      FilterChain filterChain) throws IOException, ServletException {
-    HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+            throws IOException, ServletException {
+        HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
 
-    // UserContextHolder.getContext().setUserId();
+        // UserContextHolder.getContext().setUserId();
 
-    filterChain.doFilter(httpServletRequest, servletResponse);
-  }
+        filterChain.doFilter(httpServletRequest, servletResponse);
+    }
 }

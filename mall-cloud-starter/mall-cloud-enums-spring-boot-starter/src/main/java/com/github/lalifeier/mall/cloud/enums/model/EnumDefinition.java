@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class EnumDefinition {
-  private String name;
-  private String key;
-  private String description;
+    private String name;
+    private String key;
+    private String description;
 }

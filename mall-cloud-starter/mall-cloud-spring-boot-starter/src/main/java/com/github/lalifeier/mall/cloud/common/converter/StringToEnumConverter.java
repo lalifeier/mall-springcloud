@@ -8,21 +8,21 @@ import org.springframework.core.convert.converter.Converter;
 
 public class StringToEnumConverter<T extends BaseEnum<String>> implements Converter<String, T> {
 
-  private final Map<String, T> enumConstantMap = new ConcurrentHashMap<>();
+    private final Map<String, T> enumConstantMap = new ConcurrentHashMap<>();
 
-  public StringToEnumConverter(Class<T> enumType) {
-    T[] enumConstants = enumType.getEnumConstants();
-    for (T enumConstant : enumConstants) {
-      this.enumConstantMap.put(enumConstant.getCode(), enumConstant);
+    public StringToEnumConverter(Class<T> enumType) {
+        T[] enumConstants = enumType.getEnumConstants();
+        for (T enumConstant : enumConstants) {
+            this.enumConstantMap.put(enumConstant.getCode(), enumConstant);
+        }
     }
-  }
 
-  @Override
-  public T convert(@NotNull String source) {
-    T enumValue = enumConstantMap.get(source);
-    if (enumValue == null) {
-      throw new IllegalArgumentException("StringToEnumConverter: invalid enum code " + source);
+    @Override
+    public T convert(@NotNull String source) {
+        T enumValue = enumConstantMap.get(source);
+        if (enumValue == null) {
+            throw new IllegalArgumentException("StringToEnumConverter: invalid enum code " + source);
+        }
+        return enumValue;
     }
-    return enumValue;
-  }
 }

@@ -17,44 +17,57 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig {
 
-  private final String adminContextPath;
-  private final List<String> patterns;
+    private final String adminContextPath;
+    private final List<String> patterns;
 
-  public SecurityConfig(AdminServerProperties adminServerProperties) {
-    this.adminContextPath = adminServerProperties.getContextPath();
+    public SecurityConfig(AdminServerProperties adminServerProperties) {
+        this.adminContextPath = adminServerProperties.getContextPath();
 
-    this.patterns =
-        Arrays.asList(this.adminContextPath + "/assets/**", this.adminContextPath + "/login",
-            "/actuator/**", "/actuator", "/instances", "/instances/**");
-  }
-
-  @Bean
-  public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-    SavedRequestAwareAuthenticationSuccessHandler successHandler =
-        new SavedRequestAwareAuthenticationSuccessHandler();
-    successHandler.setTargetUrlParameter("redirectTo");
-    successHandler.setDefaultTargetUrl(adminContextPath + "/");
-
-    return httpSecurity.headers()
-        .frameOptions(frameOptionsCustomizer -> frameOptionsCustomizer.disable()).and()
-        .authorizeHttpRequests(authorizeHttpRequestsCustomizer -> {
-          authorizeHttpRequestsCustomizer.requestMatchers(toRequestMatchers(this.patterns))
-              .permitAll().anyRequest().authenticated();
-        })
-        .formLogin(formLoginCustomizer -> formLoginCustomizer.loginPage(adminContextPath + "/login")
-            .successHandler(successHandler))
-        .logout(logoutCustomizer -> logoutCustomizer.logoutUrl(adminContextPath + "/logout"))
-        .httpBasic().and().csrf(csrf -> csrf.disable()).build();
-  }
-
-  public RequestMatcher[] toRequestMatchers(List<String> paths) {
-    if (CollectionUtils.isNotEmpty(paths)) {
-      List<AntPathRequestMatcher> matchers =
-          paths.stream().map(AntPathRequestMatcher::new).toList();
-      RequestMatcher[] result = new RequestMatcher[matchers.size()];
-      return matchers.toArray(result);
-    } else {
-      return new RequestMatcher[] {};
+        this.patterns = Arrays.asList(
+                this.adminContextPath + "/assets/**",
+                this.adminContextPath + "/login",
+                "/actuator/**",
+                "/actuator",
+                "/instances",
+                "/instances/**");
     }
-  }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+        SavedRequestAwareAuthenticationSuccessHandler successHandler =
+                new SavedRequestAwareAuthenticationSuccessHandler();
+        successHandler.setTargetUrlParameter("redirectTo");
+        successHandler.setDefaultTargetUrl(adminContextPath + "/");
+
+        return httpSecurity
+                .headers()
+                .frameOptions(frameOptionsCustomizer -> frameOptionsCustomizer.disable())
+                .and()
+                .authorizeHttpRequests(authorizeHttpRequestsCustomizer -> {
+                    authorizeHttpRequestsCustomizer
+                            .requestMatchers(toRequestMatchers(this.patterns))
+                            .permitAll()
+                            .anyRequest()
+                            .authenticated();
+                })
+                .formLogin(formLoginCustomizer -> formLoginCustomizer
+                        .loginPage(adminContextPath + "/login")
+                        .successHandler(successHandler))
+                .logout(logoutCustomizer -> logoutCustomizer.logoutUrl(adminContextPath + "/logout"))
+                .httpBasic()
+                .and()
+                .csrf(csrf -> csrf.disable())
+                .build();
+    }
+
+    public RequestMatcher[] toRequestMatchers(List<String> paths) {
+        if (CollectionUtils.isNotEmpty(paths)) {
+            List<AntPathRequestMatcher> matchers =
+                    paths.stream().map(AntPathRequestMatcher::new).toList();
+            RequestMatcher[] result = new RequestMatcher[matchers.size()];
+            return matchers.toArray(result);
+        } else {
+            return new RequestMatcher[] {};
+        }
+    }
 }

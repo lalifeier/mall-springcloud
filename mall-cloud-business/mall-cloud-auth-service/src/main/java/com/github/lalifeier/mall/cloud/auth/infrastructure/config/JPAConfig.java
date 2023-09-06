@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 // @EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 public class JPAConfig {
 
-  // @Bean
-  // AuditorAware<String> auditorProvider() {
-  // return new UsernameAuditorAware();
-  // }
+    // @Bean
+    // AuditorAware<String> auditorProvider() {
+    // return new UsernameAuditorAware();
+    // }
 }

@@ -8,16 +8,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class PhoneLoginProvider extends AbstractLoginProvider {
 
-  @Override
-  protected void preAuthenticationCheck(LoginCommand loginCommand) {}
+    @Override
+    protected void preAuthenticationCheck(LoginCommand loginCommand) {}
 
-  @Override
-  protected Account authenticate(LoginCommand loginCommand) {
-    return null;
-  }
+    @Override
+    protected Account authenticate(LoginCommand loginCommand) {
+        return null;
+    }
 
-  @Override
-  public boolean supports(LoginTypeEnum loginTypeEnum) {
-    return loginTypeEnum.equals(LoginTypeEnum.PHONE);
-  }
+    @Override
+    public boolean supports(LoginTypeEnum loginTypeEnum) {
+        return loginTypeEnum.equals(LoginTypeEnum.PHONE);
+    }
 }

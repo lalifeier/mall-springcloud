@@ -16,24 +16,24 @@ import org.springframework.context.annotation.Import;
 @Import(EnumAutoConfiguration.class)
 public @interface EnableEnum {
 
-  /**
-   * 包路径
-   *
-   * @return 包路径
-   */
-  String[] value() default {};
+    /**
+     * 包路径
+     *
+     * @return 包路径
+     */
+    String[] value() default {};
 
-  /**
-   * 包路径
-   *
-   * @return 包路径
-   */
-  String[] basePackages() default {};
+    /**
+     * 包路径
+     *
+     * @return 包路径
+     */
+    String[] basePackages() default {};
 
-  /**
-   * 包路径
-   *
-   * @return 包路径
-   */
-  Class<?>[] basePackageClasses() default {};
+    /**
+     * 包路径
+     *
+     * @return 包路径
+     */
+    Class<?>[] basePackageClasses() default {};
 }

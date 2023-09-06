@@ -9,14 +9,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDao extends JpaRepository<UserPO, Long> {
 
-  UserPO findUserByUsername(String username);
+    UserPO findUserByUsername(String username);
 
-  UserPO findUserByEmail(String email);
+    UserPO findUserByEmail(String email);
 
-  UserPO findUserByPhone(String phone);
+    UserPO findUserByPhone(String phone);
 
-  @Query("SELECT u FROM UserPO u WHERE u.username = :usernameOrPhoneOrEmail OR u.phone ="
-      + " :usernameOrPhoneOrEmail OR u.email = :usernameOrPhoneOrEmail")
-  UserPO findUserByUsernameOrPhoneOrEmail(
-      @Param("usernameOrPhoneOrEmail") String usernameOrPhoneOrEmail);
+    @Query("SELECT u FROM UserPO u WHERE u.username = :usernameOrPhoneOrEmail OR u.phone ="
+            + " :usernameOrPhoneOrEmail OR u.email = :usernameOrPhoneOrEmail")
+    UserPO findUserByUsernameOrPhoneOrEmail(@Param("usernameOrPhoneOrEmail") String usernameOrPhoneOrEmail);
 }

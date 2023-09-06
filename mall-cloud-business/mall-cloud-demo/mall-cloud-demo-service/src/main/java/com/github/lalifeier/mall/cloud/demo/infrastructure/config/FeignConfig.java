@@ -17,30 +17,30 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(Feign.class)
 @AutoConfigureBefore(FeignAutoConfiguration.class)
 public class FeignConfig {
-  //
-  // @Bean
-  // public OkHttpClient okHttpClient(OkhttpProperties okhttpProperties) {
-  // return new OkHttpClient.Builder()
-  // .connectTimeout(okhttpProperties.getConnectTimeout(), TimeUnit.MILLISECONDS)
-  // .readTimeout(okhttpProperties.getReadTimeout(), TimeUnit.MILLISECONDS)
-  // .writeTimeout(okhttpProperties.getWriteTimeout(), TimeUnit.MILLISECONDS)
-  // .retryOnConnectionFailure(true)
-  // .connectionPool(new ConnectionPool())
-  // .build();
-  // }
+    //
+    // @Bean
+    // public OkHttpClient okHttpClient(OkhttpProperties okhttpProperties) {
+    // return new OkHttpClient.Builder()
+    // .connectTimeout(okhttpProperties.getConnectTimeout(), TimeUnit.MILLISECONDS)
+    // .readTimeout(okhttpProperties.getReadTimeout(), TimeUnit.MILLISECONDS)
+    // .writeTimeout(okhttpProperties.getWriteTimeout(), TimeUnit.MILLISECONDS)
+    // .retryOnConnectionFailure(true)
+    // .connectionPool(new ConnectionPool())
+    // .build();
+    // }
 
-  @Bean
-  public OkHttpClient okHttpClient() {
-    return new OkHttpClient.Builder().connectionPool(new ConnectionPool()).build();
-  }
+    @Bean
+    public OkHttpClient okHttpClient() {
+        return new OkHttpClient.Builder().connectionPool(new ConnectionPool()).build();
+    }
 
-  @Bean
-  public Logger.Level feignLoggerLevel() {
-    return Logger.Level.BASIC;
-  }
+    @Bean
+    public Logger.Level feignLoggerLevel() {
+        return Logger.Level.BASIC;
+    }
 
-  @Bean
-  public Retryer feignRetry() {
-    return new Retryer.Default();
-  }
+    @Bean
+    public Retryer feignRetry() {
+        return new Retryer.Default();
+    }
 }

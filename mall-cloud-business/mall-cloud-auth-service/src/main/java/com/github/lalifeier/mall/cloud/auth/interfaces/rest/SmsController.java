@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class SmsController {
-  @PostMapping("/sendSmsCode")
-  public void sendSmsCode(HttpSession session, @RequestParam String phoneNumber) {}
+    @PostMapping("/sendSmsCode")
+    public void sendSmsCode(HttpSession session, @RequestParam String phoneNumber) {}
 }

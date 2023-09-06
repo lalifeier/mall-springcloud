@@ -16,15 +16,18 @@ spotless {
     target("src/*/java/**/*.java")
     targetExclude("**/build/")
 
-    importOrder()
+    // importOrder()
+    // removeUnusedImports()
+    //  trimTrailingWhitespace()
 
-    removeUnusedImports()
+    // fix formatting of type annotations
+    // formatAnnotations()
 
-    eclipse().configFile("$rootDir/style/eclipse-java-google-style.xml")
+    // Choose one of these formatters.
+    // eclipse().configFile("$rootDir/style/eclipse-java-google-style.xml")
+    palantirJavaFormat("2.35.0")
 
-    formatAnnotations()
-
-//    licenseHeaderFile("$rootDir/style/spotless.license.java", "(package|import)")
+    // licenseHeaderFile("$rootDir/style/spotless.license.java", "(package|import)")
   }
 
   kotlin {

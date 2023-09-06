@@ -10,20 +10,20 @@ import org.slf4j.LoggerFactory;
 /** 操作日志存储接口默认实现类 */
 public class DefaultLogRecordServiceImpl implements LogRecordService {
 
-  private static final Logger logger = LoggerFactory.getLogger(DefaultLogRecordServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(DefaultLogRecordServiceImpl.class);
 
-  @Override
-  public void record(LogRecord logRecord) {
-    logger.info("【操作日志】{}", logRecord);
-  }
+    @Override
+    public void record(LogRecord logRecord) {
+        logger.info("【操作日志】{}", logRecord);
+    }
 
-  @Override
-  public List<LogRecord> queryLog(String bizNo, String type) {
-    return new ArrayList<>();
-  }
+    @Override
+    public List<LogRecord> queryLog(String bizNo, String type) {
+        return new ArrayList<>();
+    }
 
-  @Override
-  public List<LogRecord> queryLogByBizNo(String bizNo, String type, String subType) {
-    return new ArrayList<>();
-  }
+    @Override
+    public List<LogRecord> queryLogByBizNo(String bizNo, String type, String subType) {
+        return new ArrayList<>();
+    }
 }

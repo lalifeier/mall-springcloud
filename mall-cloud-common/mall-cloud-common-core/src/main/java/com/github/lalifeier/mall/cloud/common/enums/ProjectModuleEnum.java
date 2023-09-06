@@ -7,18 +7,18 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ProjectModuleEnum implements ProjectModule {
-  /** 默认项目模块 */
-  DEFAULT(0, 0, "default", "default");
+    /** 默认项目模块 */
+    DEFAULT(0, 0, "default", "default");
 
-  /** 项目代码 */
-  private final int projectCode;
+    /** 项目代码 */
+    private final int projectCode;
 
-  /** 模块代码 */
-  private final int moduleCode;
+    /** 模块代码 */
+    private final int moduleCode;
 
-  /** 项目名称 */
-  private final String projectName;
+    /** 项目名称 */
+    private final String projectName;
 
-  /** 模块名称 */
-  private final String moduleName;
+    /** 模块名称 */
+    private final String moduleName;
 }

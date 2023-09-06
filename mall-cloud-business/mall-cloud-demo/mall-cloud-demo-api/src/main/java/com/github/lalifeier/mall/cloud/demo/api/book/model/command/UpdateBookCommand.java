@@ -6,9 +6,9 @@ import lombok.Data;
 
 @Data
 public class UpdateBookCommand implements Command {
-  @Schema(hidden = true)
-  private Long id;
+    @Schema(hidden = true)
+    private Long id;
 
-  @Schema(description = "书籍名称", required = true)
-  private String name;
+    @Schema(description = "书籍名称", required = true)
+    private String name;
 }

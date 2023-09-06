@@ -22,66 +22,41 @@ dependencyResolutionManagement {
   }
 }
 
-//mall-cloud-common
-include("mall-cloud-common:mall-cloud-common-core")
-include("mall-cloud-common:mall-cloud-common-error")
-include("mall-cloud-common:mall-cloud-common-version")
-include("mall-cloud-common:mall-cloud-common-dict")
-include("mall-cloud-common:mall-cloud-common-mark")
-include("mall-cloud-common:mall-cloud-common-web")
-include("mall-cloud-common:mall-cloud-common-distributed-id")
+fun File.autoIncludeModules(excludeDirs: Array<String> = emptyArray(), parentDirName: String = "") {
+  val moduleSymbol = arrayOf("build.gradle", "build.gradle.kts")
 
-//mall-cloud-starter
-include("mall-cloud-starter:mall-cloud-spring-boot-starter")
-include("mall-cloud-starter:mall-cloud-spring-cloud-starter")
-include("mall-cloud-starter:mall-cloud-jpa-spring-boot-starter")
-include("mall-cloud-starter:mall-cloud-mybatis-plus-spring-boot-starter")
-include("mall-cloud-starter:mall-cloud-doc-spring-boot-starter")
-include("mall-cloud-starter:mall-cloud-redis-spring-boot-starter")
-include("mall-cloud-starter:mall-cloud-feign-spring-boot-starter")
-include("mall-cloud-starter:mall-cloud-log-spring-boot-starter")
-include("mall-cloud-starter:mall-cloud-log-record-spring-boot-starter")
-include("mall-cloud-starter:mall-cloud-signature-spring-boot-starter")
-include("mall-cloud-starter:mall-cloud-multilevel-cache-spring-boot-starter")
-include("mall-cloud-starter:mall-cloud-http-spring-boot-starter")
-include("mall-cloud-starter:mall-cloud-xxl-job-spring-boot-starter")
-include("mall-cloud-starter:mall-cloud-local-cache-spring-boot-starter")
-include("mall-cloud-starter:mall-cloud-encrypt-body-spring-boot-starter")
-include("mall-cloud-starter:mall-cloud-repeat-submit-spring-boot-starter")
-include("mall-cloud-starter:mall-cloud-rate-limiter-spring-boot-starter")
-include("mall-cloud-starter:mall-cloud-trace-spring-boot-starter")
-include("mall-cloud-starter:mall-cloud-security-spring-boot-starter")
-include("mall-cloud-starter:mall-cloud-distributed-lock-spring-boot-starter")
-include("mall-cloud-starter:mall-cloud-prometheus-spring-boot-starter")
-include("mall-cloud-starter:mall-cloud-enums-spring-boot-starter")
+  val ignoreDirs =
+    arrayOf(
+      "buildSrc",
+      ".gradle",
+      ".idea",
+      ".vscode",
+      ".git",
+      ".github",
+      ".devcontainer",
+      "gradle",
+      "bin",
+      "build",
+      "src"
+    ) + excludeDirs
 
-//demo
-include("mall-cloud-business:mall-cloud-demo:mall-cloud-demo-api")
-include("mall-cloud-business:mall-cloud-demo:mall-cloud-demo-feign")
-include("mall-cloud-business:mall-cloud-demo:mall-cloud-demo-grpc")
-include("mall-cloud-business:mall-cloud-demo:mall-cloud-demo-dubbo")
-include("mall-cloud-business:mall-cloud-demo:mall-cloud-demo-service")
+  listFiles()?.forEach { file ->
+    if (file.isDirectory && !file.name.startsWith(".") && !ignoreDirs.contains(file.name)) {
+      val subFiles = file.listFiles()
+      val currentDirName = if (parentDirName.isNotBlank()) "$parentDirName:${file.name}" else file.name
+      if (subFiles?.any { it.isFile && moduleSymbol.any { symbol -> it.name == symbol } } == true) {
+        logger.lifecycle("Including module: $currentDirName")
+        include(currentDirName)
+      }
+      file.autoIncludeModules(excludeDirs, currentDirName)
+    }
+  }
+}
 
-//gateway
-include("mall-cloud-business:mall-cloud-gateway")
+rootDir.autoIncludeModules(arrayOf("docs", "deploy", "docker", "style"))
 
-//monitor
-include("mall-cloud-business:mall-cloud-monitor")
-
-//admin
-include("mall-cloud-business:mall-cloud-admin")
-
-//account
-include("mall-cloud-business:mall-cloud-account:mall-cloud-account-api")
-include("mall-cloud-business:mall-cloud-account:mall-cloud-account-grpc")
-include("mall-cloud-business:mall-cloud-account:mall-cloud-account-service")
-
-//auth
-include("mall-cloud-business:mall-cloud-auth-service")
-
-
-include("mall-cloud-kotlin:mall-cloud-demo")
-
-//bigdata
-include("mall-cloud-bigdata:mall-cloud-data-analysis")
-include("mall-cloud-bigdata:mall-cloud-data-sync")
+gradle.settingsEvaluated {
+  if (JavaVersion.current() < JavaVersion.VERSION_17) {
+    throw GradleException("This build requires JDK 17. It's currently ${JavaVersion.current()}. You can ignore this check by passing '-Dorg.gradle.ignoreBuildJavaVersionCheck'.")
+  }
+}

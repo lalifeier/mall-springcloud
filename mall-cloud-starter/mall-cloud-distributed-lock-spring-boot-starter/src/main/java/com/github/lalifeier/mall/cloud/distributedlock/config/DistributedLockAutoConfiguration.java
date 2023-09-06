@@ -13,24 +13,27 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DistributedLockAutoConfiguration {
-  private static final String REDISSON_PREFIX = "redis://";
-  @Resource
-  private RedisProperties redisProperties;
+    private static final String REDISSON_PREFIX = "redis://";
 
-  @Bean
-  @ConditionalOnMissingBean(RedissonClient.class)
-  public RedissonClient redissonClient() {
-    Config config = new Config();
-    String host = redisProperties.getHost();
-    int port = redisProperties.getPort();
-    config.useSingleServer().setAddress(REDISSON_PREFIX + host + ":" + port)
-        .setDatabase(redisProperties.getDatabase()).setPassword(redisProperties.getPassword());
-    return Redisson.create(config);
-  }
+    @Resource
+    private RedisProperties redisProperties;
 
-  @Bean
-  @ConditionalOnBean(RedissonClient.class)
-  public DistributedLockAspect distributedLockAspect(RedissonClient redissonClient) {
-    return new DistributedLockAspect(redissonClient);
-  }
+    @Bean
+    @ConditionalOnMissingBean(RedissonClient.class)
+    public RedissonClient redissonClient() {
+        Config config = new Config();
+        String host = redisProperties.getHost();
+        int port = redisProperties.getPort();
+        config.useSingleServer()
+                .setAddress(REDISSON_PREFIX + host + ":" + port)
+                .setDatabase(redisProperties.getDatabase())
+                .setPassword(redisProperties.getPassword());
+        return Redisson.create(config);
+    }
+
+    @Bean
+    @ConditionalOnBean(RedissonClient.class)
+    public DistributedLockAspect distributedLockAspect(RedissonClient redissonClient) {
+        return new DistributedLockAspect(redissonClient);
+    }
 }

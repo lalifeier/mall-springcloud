@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Bean;
 
 public class BookProducer {
 
-  @Bean
-  public Supplier<String> source1() {
-    return () -> "Hello, world!";
-  }
+    @Bean
+    public Supplier<String> source1() {
+        return () -> "Hello, world!";
+    }
 }

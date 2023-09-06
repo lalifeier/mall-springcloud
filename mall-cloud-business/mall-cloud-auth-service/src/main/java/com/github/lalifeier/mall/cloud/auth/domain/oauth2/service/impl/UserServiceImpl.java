@@ -17,18 +17,18 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserServiceImpl implements UserService {
 
-  private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-  @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    UserPrincipal userPrincipal = userRepository.findByUsername(username);
-    if (userPrincipal == null) {
-      throw new UsernameNotFoundException("用户名或密码错误");
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserPrincipal userPrincipal = userRepository.findByUsername(username);
+        if (userPrincipal == null) {
+            throw new UsernameNotFoundException("用户名或密码错误");
+        }
+
+        List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
+
+        return new User(
+                userPrincipal.getUsername(), userPrincipal.getPassword(), true, true, true, true, authorityList);
     }
-
-    List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
-
-    return new User(userPrincipal.getUsername(), userPrincipal.getPassword(), true, true, true,
-        true, authorityList);
-  }
 }

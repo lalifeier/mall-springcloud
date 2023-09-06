@@ -9,14 +9,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class DictSensitiveAnnotationIntrospector extends NopAnnotationIntrospector {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @Override
-  public Object findSerializer(Annotated am) {
-    Dict dict = am.getAnnotation(Dict.class);
-    if (dict != null) {
-      return DictSerializer.class;
+    @Override
+    public Object findSerializer(Annotated am) {
+        Dict dict = am.getAnnotation(Dict.class);
+        if (dict != null) {
+            return DictSerializer.class;
+        }
+        return null;
     }
-    return null;
-  }
 }

@@ -8,8 +8,8 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface UserConverter {
-  UserConverter INSTANCE = Mappers.getMapper(UserConverter.class);
+    UserConverter INSTANCE = Mappers.getMapper(UserConverter.class);
 
-  @Mapping(target = "authorities", ignore = true)
-  UserPrincipal toData(UserPO userPO);
+    @Mapping(target = "authorities", ignore = true)
+    UserPrincipal toData(UserPO userPO);
 }

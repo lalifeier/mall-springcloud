@@ -7,5 +7,4 @@ import org.springframework.stereotype.Component;
 
 @Component
 @FeignClient(name = "demo-service", path = "/", fallback = HelloClientFallbackFactory.class)
-public interface HelloClient extends HelloApi {
-}
+public interface HelloClient extends HelloApi {}

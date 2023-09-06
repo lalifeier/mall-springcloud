@@ -8,9 +8,6 @@ package com.github.lalifeier
 //  osName.contains("linux") -> if (osArch.contains("64")) "linux-x86_64" else "linux-x86"
 //  else -> throw GradleException("Unsupported OS: ${osName.toUpperCase()}")
 //}
-
-
-////  apply(from = "$rootDir/gradle/protobuf.gradle.kts")
 //
 //  apply(plugin = "com.google.protobuf")
 //

@@ -18,27 +18,27 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class BookQueryApplicationServiceImpl implements BookQueryApplicationService {
-  private final BookDomainService bookDomainService;
+    private final BookDomainService bookDomainService;
 
-  private final BookQueryRepository bookQueryRepository;
+    private final BookQueryRepository bookQueryRepository;
 
-  private final BookMapper bookMapper;
+    private final BookMapper bookMapper;
 
-  private final BookAssembler bookAssembler = BookAssembler.INSTANCE;
+    private final BookAssembler bookAssembler = BookAssembler.INSTANCE;
 
-  @Override
-  public BookDTO get(Long id) {
-    BookId bookId = new BookId(id);
-    Book book = bookDomainService.get(bookId);
-    return this.bookAssembler.toDTO(book);
-  }
+    @Override
+    public BookDTO get(Long id) {
+        BookId bookId = new BookId(id);
+        Book book = bookDomainService.get(bookId);
+        return this.bookAssembler.toDTO(book);
+    }
 
-  @Override
-  public PageResult<BookDTO> query(BookPageQuery query) {
-    Pagination<Book> bookPagination = bookQueryRepository.query(query);
+    @Override
+    public PageResult<BookDTO> query(BookPageQuery query) {
+        Pagination<Book> bookPagination = bookQueryRepository.query(query);
 
-    List<BookDTO> bookDTOList = bookAssembler.toDTO(bookPagination.getData());
+        List<BookDTO> bookDTOList = bookAssembler.toDTO(bookPagination.getData());
 
-    return PageResult.success(bookDTOList, bookPagination.getPageInfo());
-  }
+        return PageResult.success(bookDTOList, bookPagination.getPageInfo());
+    }
 }

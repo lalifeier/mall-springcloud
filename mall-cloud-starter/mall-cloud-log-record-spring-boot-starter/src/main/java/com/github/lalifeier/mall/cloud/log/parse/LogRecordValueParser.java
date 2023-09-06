@@ -16,25 +16,26 @@ import org.springframework.beans.factory.BeanFactoryAware;
 @RequiredArgsConstructor
 public class LogRecordValueParser implements BeanFactoryAware {
 
-  protected BeanFactory beanFactory;
-  private final FunctionService functionService;
-  private final LogRecordExpressionEvaluator expressionEvaluator =
-      new LogRecordExpressionEvaluator();
+    protected BeanFactory beanFactory;
+    private final FunctionService functionService;
+    private final LogRecordExpressionEvaluator expressionEvaluator = new LogRecordExpressionEvaluator();
 
-  private static final Pattern PATTERN = Pattern.compile("\\{\\s*(\\w*)\\s*\\{(.*?)}}");
+    private static final Pattern PATTERN = Pattern.compile("\\{\\s*(\\w*)\\s*\\{(.*?)}}");
 
-  @Override
-  public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-    this.beanFactory = beanFactory;
-  }
+    @Override
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        this.beanFactory = beanFactory;
+    }
 
-  public Map<String, String> processTemplate(Collection<String> templates,
-      ExecuteResult executeResult, Map<String, String> beforeFunctionNameAndReturnMap) {
-    return null;
-  }
+    public Map<String, String> processTemplate(
+            Collection<String> templates,
+            ExecuteResult executeResult,
+            Map<String, String> beforeFunctionNameAndReturnMap) {
+        return null;
+    }
 
-  public Map<String, String> processBeforeExecuteFunctionTemplate(Collection<String> templates,
-      MethodInfo methodInfo) {
-    return null;
-  }
+    public Map<String, String> processBeforeExecuteFunctionTemplate(
+            Collection<String> templates, MethodInfo methodInfo) {
+        return null;
+    }
 }

@@ -8,12 +8,12 @@ import java.lang.annotation.*;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RepeatSubmit {
-  /** 间隔时间(ms)，小于此时间视为重复提交 */
-  int interval() default 3000;
+    /** 间隔时间(ms)，小于此时间视为重复提交 */
+    int interval() default 3000;
 
-  /** 防重复提交的方式，支持 参数 和 token 两种方式，默认为 参数 */
-  RepeatSubmitType type() default RepeatSubmitType.PARAM;
+    /** 防重复提交的方式，支持 参数 和 token 两种方式，默认为 参数 */
+    RepeatSubmitType type() default RepeatSubmitType.PARAM;
 
-  /** 提示消息 */
-  String message() default "不允许重复提交，请稍后再试";
+    /** 提示消息 */
+    String message() default "不允许重复提交，请稍后再试";
 }

@@ -12,16 +12,16 @@ import org.springframework.web.util.ContentCachingResponseWrapper;
 
 @WebFilter
 public class WrapRequestFilter extends OncePerRequestFilter {
-  @Override
-  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-      FilterChain filterChain) throws ServletException, IOException {
-    ContentCachingRequestWrapper requestWrapper = new ContentCachingRequestWrapper(request);
-    ContentCachingResponseWrapper responseWrapper = new ContentCachingResponseWrapper(response);
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+        ContentCachingRequestWrapper requestWrapper = new ContentCachingRequestWrapper(request);
+        ContentCachingResponseWrapper responseWrapper = new ContentCachingResponseWrapper(response);
 
-    filterChain.doFilter(requestWrapper, responseWrapper);
+        filterChain.doFilter(requestWrapper, responseWrapper);
 
-    responseWrapper.copyBodyToResponse();
-  }
+        responseWrapper.copyBodyToResponse();
+    }
 }
 
 // @WebFilter(urlPatterns = "/*")

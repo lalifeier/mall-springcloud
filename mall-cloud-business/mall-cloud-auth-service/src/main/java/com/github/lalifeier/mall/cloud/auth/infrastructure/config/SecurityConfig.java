@@ -29,75 +29,74 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class SecurityConfig {
 
-  private final UserService userService;
+    private final UserService userService;
 
-  @Bean
-  public WebSecurityCustomizer webSecurityCustomizer() {
-    return (web) -> web.ignoring().requestMatchers("/webjars/**", "/assets/**", "/actuator/**",
-        "/h2-console/**");
-  }
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().requestMatchers("/webjars/**", "/assets/**", "/actuator/**", "/h2-console/**");
+    }
 
-  @Bean
-  SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-    http.authorizeHttpRequests(authorizeHttpRequestsCustomizer -> authorizeHttpRequestsCustomizer
-        .requestMatchers(new AntPathRequestMatcher("/login", "POST")).permitAll().anyRequest()
-        .authenticated())
-        .formLogin(formLoginCustomizer -> formLoginCustomizer.loginProcessingUrl("/login")
-            .successHandler(authenticationSuccessHandler())
-            .failureHandler(authenticationFailureHandler()))
-        .logout(logoutCustomizer -> logoutCustomizer.logoutUrl("/logout")
-            .logoutSuccessHandler(new RestLogoutSuccessHandler()))
-        .csrf(csrfCustomizer -> csrfCustomizer.disable())
-        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
-    // .apply(passwordAuthenticationSecurityConfig());
+    @Bean
+    SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(authorizeHttpRequestsCustomizer -> authorizeHttpRequestsCustomizer
+                        .requestMatchers(new AntPathRequestMatcher("/login", "POST"))
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated())
+                .formLogin(formLoginCustomizer -> formLoginCustomizer
+                        .loginProcessingUrl("/login")
+                        .successHandler(authenticationSuccessHandler())
+                        .failureHandler(authenticationFailureHandler()))
+                .logout(logoutCustomizer ->
+                        logoutCustomizer.logoutUrl("/logout").logoutSuccessHandler(new RestLogoutSuccessHandler()))
+                .csrf(csrfCustomizer -> csrfCustomizer.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
+        // .apply(passwordAuthenticationSecurityConfig());
 
-    return http.build();
-  }
+        return http.build();
+    }
 
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-  @Bean
-  public UserDetailsService userDetailsService() {
-    return username -> userService.loadUserByUsername(username);
-  }
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return username -> userService.loadUserByUsername(username);
+    }
 
-  @Bean
-  public AuthenticationProvider authenticationProvider() {
-    DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-    authProvider.setUserDetailsService(userService);
-    authProvider.setPasswordEncoder(passwordEncoder());
-    return authProvider;
-  }
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
 
-  @Bean
-  @SneakyThrows
-  public AuthenticationManager authenticationManager(
-      AuthenticationConfiguration authenticationConfiguration) {
-    return authenticationConfiguration.getAuthenticationManager();
-  }
+    @Bean
+    @SneakyThrows
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
 
-  @Bean
-  public PasswordAuthenticationSecurityConfig passwordAuthenticationSecurityConfig() {
-    PasswordAuthenticationSecurityConfig passwordAuthenticationSecurityConfig =
-        new PasswordAuthenticationSecurityConfig();
-    passwordAuthenticationSecurityConfig.setUserService(userService);
-    passwordAuthenticationSecurityConfig
-        .setAuthenticationSuccessHandler(authenticationSuccessHandler());
-    passwordAuthenticationSecurityConfig
-        .setAuthenticationFailureHandler(authenticationFailureHandler());
-    return passwordAuthenticationSecurityConfig;
-  }
+    @Bean
+    public PasswordAuthenticationSecurityConfig passwordAuthenticationSecurityConfig() {
+        PasswordAuthenticationSecurityConfig passwordAuthenticationSecurityConfig =
+                new PasswordAuthenticationSecurityConfig();
+        passwordAuthenticationSecurityConfig.setUserService(userService);
+        passwordAuthenticationSecurityConfig.setAuthenticationSuccessHandler(authenticationSuccessHandler());
+        passwordAuthenticationSecurityConfig.setAuthenticationFailureHandler(authenticationFailureHandler());
+        return passwordAuthenticationSecurityConfig;
+    }
 
-  @Bean
-  RestAuthenticationSuccessHandler authenticationSuccessHandler() {
-    return new RestAuthenticationSuccessHandler();
-  }
+    @Bean
+    RestAuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new RestAuthenticationSuccessHandler();
+    }
 
-  @Bean
-  RestAuthenticationFailureHandler authenticationFailureHandler() {
-    return new RestAuthenticationFailureHandler();
-  }
+    @Bean
+    RestAuthenticationFailureHandler authenticationFailureHandler() {
+        return new RestAuthenticationFailureHandler();
+    }
 }

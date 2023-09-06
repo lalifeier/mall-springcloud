@@ -6,12 +6,12 @@ import lombok.Getter;
 
 @Getter
 public class AccountId implements Identifier<Long> {
-  private final Long value;
+    private final Long value;
 
-  public AccountId(final Long value) {
-    if (value == null) {
-      throw new ValidationException("账号id不能为空");
+    public AccountId(final Long value) {
+        if (value == null) {
+            throw new ValidationException("账号id不能为空");
+        }
+        this.value = value;
     }
-    this.value = value;
-  }
 }

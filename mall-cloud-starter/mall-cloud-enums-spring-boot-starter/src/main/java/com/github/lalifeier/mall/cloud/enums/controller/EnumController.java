@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/enum")
 public class EnumController {
-  @RequestMapping("/{name}")
-  public void getEnum(@PathVariable String name) {
-    EnumContext enumContext = EnumContextFactory.getEnumContext();
+    @RequestMapping("/{name}")
+    public void getEnum(@PathVariable String name) {
+        EnumContext enumContext = EnumContextFactory.getEnumContext();
 
-    try {
-      Class<?> enumClass = enumContext.getEnum(name);
-    } catch (Exception e) {
+        try {
+            Class<?> enumClass = enumContext.getEnum(name);
+        } catch (Exception e) {
 
+        }
     }
-  }
 }

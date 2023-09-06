@@ -8,5 +8,4 @@ import org.springframework.context.annotation.Import;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Import(RepeatSubmitAutoConfiguration.class)
-public @interface EnableRepeatSubmit {
-}
+public @interface EnableRepeatSubmit {}

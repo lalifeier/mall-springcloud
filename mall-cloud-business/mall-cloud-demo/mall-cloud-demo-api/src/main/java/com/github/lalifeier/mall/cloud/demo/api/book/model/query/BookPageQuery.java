@@ -6,5 +6,4 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BookPageQuery extends AbstractPageQuery {
-}
+public class BookPageQuery extends AbstractPageQuery {}

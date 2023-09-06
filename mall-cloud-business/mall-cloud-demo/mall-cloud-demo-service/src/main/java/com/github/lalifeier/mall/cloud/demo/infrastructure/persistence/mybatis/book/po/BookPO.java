@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @TableName(value = "t_book")
 public class BookPO extends BaseEntity<Long> {
-  private String name;
-  // private String author;
-  // private String publisher;
+    private String name;
+    // private String author;
+    // private String publisher;
 }

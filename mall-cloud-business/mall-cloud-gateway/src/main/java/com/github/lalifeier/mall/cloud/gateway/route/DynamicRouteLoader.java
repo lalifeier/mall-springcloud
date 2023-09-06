@@ -19,53 +19,54 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class DynamicRouteLoader {
-  private final GatewayRouteConfig gatewayRouteConfig;
-  private final DynamicRouteService dynamicRouteService;
-  private final RefreshRouteService refreshRouteService;
+    private final GatewayRouteConfig gatewayRouteConfig;
+    private final DynamicRouteService dynamicRouteService;
+    private final RefreshRouteService refreshRouteService;
 
-  private ConfigService configService;
+    private ConfigService configService;
 
-  public DynamicRouteLoader(GatewayRouteConfig gatewayRouteConfig,
-      DynamicRouteService dynamicRouteService, RefreshRouteService refreshRouteService) {
-    this.gatewayRouteConfig = gatewayRouteConfig;
-    this.dynamicRouteService = dynamicRouteService;
-    this.refreshRouteService = refreshRouteService;
+    public DynamicRouteLoader(
+            GatewayRouteConfig gatewayRouteConfig,
+            DynamicRouteService dynamicRouteService,
+            RefreshRouteService refreshRouteService) {
+        this.gatewayRouteConfig = gatewayRouteConfig;
+        this.dynamicRouteService = dynamicRouteService;
+        this.refreshRouteService = refreshRouteService;
 
-    try {
-      this.configService =
-          NacosFactory.createConfigService(gatewayRouteConfig.getServiceProperties());
+        try {
+            this.configService = NacosFactory.createConfigService(gatewayRouteConfig.getServiceProperties());
 
-      String configInfo = this.configService.getConfig(gatewayRouteConfig.getDataId(),
-          gatewayRouteConfig.getRouteGroup(), GatewayRouteConfig.TIMEOUT);
-      List<RouteDefinition> routeDefinitions = convert(configInfo);
-      dynamicRouteService.batchSave(routeDefinitions);
+            String configInfo = this.configService.getConfig(
+                    gatewayRouteConfig.getDataId(), gatewayRouteConfig.getRouteGroup(), GatewayRouteConfig.TIMEOUT);
+            List<RouteDefinition> routeDefinitions = convert(configInfo);
+            dynamicRouteService.batchSave(routeDefinitions);
 
-      this.configService.addListener(gatewayRouteConfig.getDataId(),
-          gatewayRouteConfig.getRouteGroup(), new NacosListener());
-    } catch (NacosException e) {
-      log.error("初始化网关路由时发生错误", e);
-    }
-  }
-
-  private class NacosListener implements Listener {
-    @Override
-    public Executor getExecutor() {
-      return null;
+            this.configService.addListener(
+                    gatewayRouteConfig.getDataId(), gatewayRouteConfig.getRouteGroup(), new NacosListener());
+        } catch (NacosException e) {
+            log.error("初始化网关路由时发生错误", e);
+        }
     }
 
-    @Override
-    public void receiveConfigInfo(String configInfo) {
+    private class NacosListener implements Listener {
+        @Override
+        public Executor getExecutor() {
+            return null;
+        }
 
-      List<RouteDefinition> routeDefinitions = convert(configInfo);
-      dynamicRouteService.fullUpdateRoute(routeDefinitions);
-      refreshRouteService.refreshRoutes();
-    }
-  }
+        @Override
+        public void receiveConfigInfo(String configInfo) {
 
-  private List<RouteDefinition> convert(String configInfo) {
-    if (StringUtils.isBlank(configInfo)) {
-      return Collections.emptyList();
+            List<RouteDefinition> routeDefinitions = convert(configInfo);
+            dynamicRouteService.fullUpdateRoute(routeDefinitions);
+            refreshRouteService.refreshRoutes();
+        }
     }
-    return new Gson().fromJson(configInfo, new TypeToken<List<RouteDefinition>>() {}.getType());
-  }
+
+    private List<RouteDefinition> convert(String configInfo) {
+        if (StringUtils.isBlank(configInfo)) {
+            return Collections.emptyList();
+        }
+        return new Gson().fromJson(configInfo, new TypeToken<List<RouteDefinition>>() {}.getType());
+    }
 }

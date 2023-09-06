@@ -14,23 +14,26 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @Component
 public class TraceFilter implements GlobalFilter, Ordered {
-  @Override
-  public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+    @Override
+    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
-    MDCTraceUtil.addTrace();
+        MDCTraceUtil.addTrace();
 
-    String traceId = MDCTraceUtil.getTraceId();
-    ServerHttpRequest serverHttpRequest = exchange.getRequest().mutate().headers(h -> {
-      h.add(HeaderConstants.TRACE_ID, traceId);
-    }).build();
+        String traceId = MDCTraceUtil.getTraceId();
+        ServerHttpRequest serverHttpRequest = exchange.getRequest()
+                .mutate()
+                .headers(h -> {
+                    h.add(HeaderConstants.TRACE_ID, traceId);
+                })
+                .build();
 
-    ServerWebExchange build = exchange.mutate().request(serverHttpRequest).build();
+        ServerWebExchange build = exchange.mutate().request(serverHttpRequest).build();
 
-    return chain.filter(build);
-  }
+        return chain.filter(build);
+    }
 
-  @Override
-  public int getOrder() {
-    return Ordered.HIGHEST_PRECEDENCE;
-  }
+    @Override
+    public int getOrder() {
+        return Ordered.HIGHEST_PRECEDENCE;
+    }
 }

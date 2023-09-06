@@ -73,6 +73,7 @@ easy-es = "2.0.0-beta3"
 jjwt = "0.9.1"
 redisson = "3.23.2"
 
+
 spring-dependency-management = "1.0.15.RELEASE"
 docker-plugin = "9.3.1"
 protobuf-plugin = "0.9.4"
@@ -85,7 +86,7 @@ commitlint = "1.4.3"
 githook = "1.2.1"
 git-changelog = "1.79.0"
 springdoc-plugin = "1.7.0"
-
+palantir = "2.35.0"
 
 [libraries]
 cglib-nodep = { group = "cglib", name = "cglib-nodep", version.ref = "cglib" }

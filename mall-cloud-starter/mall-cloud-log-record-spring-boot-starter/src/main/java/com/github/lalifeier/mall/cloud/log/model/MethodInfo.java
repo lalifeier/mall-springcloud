@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @Builder
 public class MethodInfo {
-  private Class<?> clazz;
-  private Method method;
-  private Object[] args;
+    private Class<?> clazz;
+    private Method method;
+    private Object[] args;
 }

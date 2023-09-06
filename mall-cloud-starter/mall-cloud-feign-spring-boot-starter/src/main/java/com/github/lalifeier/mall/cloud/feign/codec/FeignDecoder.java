@@ -18,50 +18,50 @@ import org.springframework.stereotype.Component;
 @Component
 public class FeignDecoder implements Decoder {
 
-  private final Decoder decoder;
+    private final Decoder decoder;
 
-  public FeignDecoder(Decoder decoder) {
-    this.decoder = decoder;
-  }
-
-  @Override
-  public Object decode(Response response, Type type) throws IOException, FeignException {
-    if (response.body() == null) {
-      return null;
+    public FeignDecoder(Decoder decoder) {
+        this.decoder = decoder;
     }
 
-    if (isResultType(type)) {
-      Type dataType = getDataType(type);
+    @Override
+    public Object decode(Response response, Type type) throws IOException, FeignException {
+        if (response.body() == null) {
+            return null;
+        }
 
-      Result<Object> result = parseResponse(response, dataType);
+        if (isResultType(type)) {
+            Type dataType = getDataType(type);
 
-      if (result.isSuccess()) {
-        return result.getData();
-      }
+            Result<Object> result = parseResponse(response, dataType);
 
-      throw new BusinessException(result.getMessage());
+            if (result.isSuccess()) {
+                return result.getData();
+            }
+
+            throw new BusinessException(result.getMessage());
+        }
+
+        return decoder.decode(response, type);
     }
 
-    return decoder.decode(response, type);
-  }
-
-  private boolean isResultType(Type type) {
-    if (type instanceof ParameterizedType) {
-      ParameterizedType parameterizedType = (ParameterizedType) type;
-      if (parameterizedType.getRawType().equals(Result.class)) {
-        return true;
-      }
+    private boolean isResultType(Type type) {
+        if (type instanceof ParameterizedType) {
+            ParameterizedType parameterizedType = (ParameterizedType) type;
+            if (parameterizedType.getRawType().equals(Result.class)) {
+                return true;
+            }
+        }
+        return false;
     }
-    return false;
-  }
 
-  private Type getDataType(Type type) {
-    ParameterizedType parameterizedType = (ParameterizedType) type;
-    return parameterizedType.getActualTypeArguments()[0];
-  }
+    private Type getDataType(Type type) {
+        ParameterizedType parameterizedType = (ParameterizedType) type;
+        return parameterizedType.getActualTypeArguments()[0];
+    }
 
-  private Result<Object> parseResponse(Response response, Type dataType) throws IOException {
-    Reader reader = response.body().asReader(Charset.defaultCharset());
-    return new Gson().fromJson(reader, dataType);
-  }
+    private Result<Object> parseResponse(Response response, Type dataType) throws IOException {
+        Reader reader = response.body().asReader(Charset.defaultCharset());
+        return new Gson().fromJson(reader, dataType);
+    }
 }

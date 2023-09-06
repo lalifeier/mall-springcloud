@@ -14,6 +14,11 @@ tasks.withType<JavaCompile> {
 //  options.compilerArgs.add("-Werror")
 }
 
+tasks.named<Jar>("jar") {
+  enabled = true
+  archiveClassifier.set("")
+}
+
 tasks.withType<Test> {
   useJUnitPlatform()
 }

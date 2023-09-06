@@ -4,17 +4,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EnumContext {
-  private Map<String, Class<?>> enumMap;
+    private Map<String, Class<?>> enumMap;
 
-  public EnumContext() {
-    this.enumMap = new HashMap<>();
-  }
+    public EnumContext() {
+        this.enumMap = new HashMap<>();
+    }
 
-  public void registerEnum(String name, Class<?> enumClass) {
-    enumMap.put(name, enumClass);
-  }
+    public void registerEnum(String name, Class<?> enumClass) {
+        enumMap.put(name, enumClass);
+    }
 
-  public Class<?> getEnum(String name) {
-    return enumMap.get(name);
-  }
+    public Class<?> getEnum(String name) {
+        return enumMap.get(name);
+    }
 }

@@ -5,5 +5,4 @@ import com.github.lalifeier.mall.cloud.demo.infrastructure.persistence.mybatis.b
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface BookMapper extends BaseMapper<BookPO> {
-}
+public interface BookMapper extends BaseMapper<BookPO> {}

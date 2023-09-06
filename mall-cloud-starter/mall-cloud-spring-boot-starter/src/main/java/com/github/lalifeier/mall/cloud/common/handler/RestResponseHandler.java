@@ -22,60 +22,62 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @Order(Ordered.LOWEST_PRECEDENCE)
 public class RestResponseHandler implements ResponseBodyAdvice<Object> {
 
-  private final ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
-  public RestResponseHandler(ObjectMapper objectMapper) {
-    this.objectMapper = objectMapper;
-  }
-
-  @Override
-  public boolean supports(MethodParameter returnType,
-      Class<? extends HttpMessageConverter<?>> converterType) {
-    // if (returnType.getDeclaringClass().getName().contains("springdoc")) {
-    // return false;
-    // }
-    if (returnType.getDeclaringClass().isAnnotationPresent(IgnoreResponseAdvice.class)) {
-      return false;
-    }
-    if (Objects.requireNonNull(returnType.getMethod())
-        .isAnnotationPresent(IgnoreResponseAdvice.class)) {
-      return false;
+    public RestResponseHandler(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
     }
 
-    return true;
-  }
+    @Override
+    public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
+        // if (returnType.getDeclaringClass().getName().contains("springdoc")) {
+        // return false;
+        // }
+        if (returnType.getDeclaringClass().isAnnotationPresent(IgnoreResponseAdvice.class)) {
+            return false;
+        }
+        if (Objects.requireNonNull(returnType.getMethod()).isAnnotationPresent(IgnoreResponseAdvice.class)) {
+            return false;
+        }
 
-  @Override
-  public Object beforeBodyWrite(Object body, MethodParameter returnType,
-      MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType,
-      ServerHttpRequest request, ServerHttpResponse response) {
-    Result<Object> result = Result.success();
-
-    if (body == null) {
-      return result;
+        return true;
     }
 
-    if (body instanceof String) {
-      try {
+    @Override
+    public Object beforeBodyWrite(
+            Object body,
+            MethodParameter returnType,
+            MediaType selectedContentType,
+            Class<? extends HttpMessageConverter<?>> selectedConverterType,
+            ServerHttpRequest request,
+            ServerHttpResponse response) {
+        Result<Object> result = Result.success();
+
+        if (body == null) {
+            return result;
+        }
+
+        if (body instanceof String) {
+            try {
+                result.setData(body);
+                response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
+                return objectMapper.writeValueAsString(result);
+            } catch (JsonProcessingException e) {
+                log.error(e.getMessage(), e);
+                throw new RuntimeException(e.getMessage(), e);
+            }
+        }
+
+        if (body instanceof Result) {
+            return (Result<?>) body;
+        }
+
+        if (body instanceof PageResult) {
+            return (PageResult<?>) body;
+        }
+
         result.setData(body);
-        response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
-        return objectMapper.writeValueAsString(result);
-      } catch (JsonProcessingException e) {
-        log.error(e.getMessage(), e);
-        throw new RuntimeException(e.getMessage(), e);
-      }
+
+        return result;
     }
-
-    if (body instanceof Result) {
-      return (Result<?>) body;
-    }
-
-    if (body instanceof PageResult) {
-      return (PageResult<?>) body;
-    }
-
-    result.setData(body);
-
-    return result;
-  }
 }

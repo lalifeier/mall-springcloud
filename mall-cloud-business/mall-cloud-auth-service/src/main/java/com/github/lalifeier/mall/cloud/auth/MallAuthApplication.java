@@ -8,7 +8,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 public class MallAuthApplication {
 
-  public static void main(String[] args) {
-    SpringApplication.run(MallAuthApplication.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(MallAuthApplication.class, args);
+    }
 }

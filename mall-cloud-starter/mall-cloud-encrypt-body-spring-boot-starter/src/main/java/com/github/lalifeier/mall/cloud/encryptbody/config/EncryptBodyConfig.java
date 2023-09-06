@@ -7,8 +7,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class EncryptBodyConfig {
 
-  private Boolean enable;
-  private String publicKey;
-  private String privateKey;
-  private String encoding;
+    private Boolean enable;
+    private String publicKey;
+    private String privateKey;
+    private String encoding;
 }

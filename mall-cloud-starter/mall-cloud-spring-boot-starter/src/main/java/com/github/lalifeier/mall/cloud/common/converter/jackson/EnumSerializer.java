@@ -9,19 +9,18 @@ import java.util.Objects;
 
 public class EnumSerializer extends JsonSerializer<BaseEnum<String>> {
 
-  public static final EnumSerializer INSTANCE = new EnumSerializer();
+    public static final EnumSerializer INSTANCE = new EnumSerializer();
 
-  @Override
-  public void serialize(BaseEnum value, JsonGenerator gen, SerializerProvider serializers)
-      throws IOException {
-    if (Objects.isNull(value)) {
-      gen.writeNull();
-      return;
+    @Override
+    public void serialize(BaseEnum value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+        if (Objects.isNull(value)) {
+            gen.writeNull();
+            return;
+        }
+
+        gen.writeStartObject();
+        gen.writeObjectField("code", value.getCode());
+        gen.writeObjectField("desc", value.getDesc());
+        gen.writeEndObject();
     }
-
-    gen.writeStartObject();
-    gen.writeObjectField("code", value.getCode());
-    gen.writeObjectField("desc", value.getDesc());
-    gen.writeEndObject();
-  }
 }

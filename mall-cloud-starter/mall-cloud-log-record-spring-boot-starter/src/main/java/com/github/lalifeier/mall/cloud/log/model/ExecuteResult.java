@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class ExecuteResult {
-  private boolean success;
-  private Throwable throwable;
-  private String errorMessage;
-  private Object result;
+    private boolean success;
+    private Throwable throwable;
+    private String errorMessage;
+    private Object result;
 }

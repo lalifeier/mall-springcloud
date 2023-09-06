@@ -9,42 +9,43 @@ import org.apache.dubbo.rpc.*;
 import org.springframework.core.Ordered;
 
 /** dubbo过滤器，传递traceId */
-@Activate(group = {CommonConstants.PROVIDER, CommonConstants.CONSUMER},
-    order = Ordered.HIGHEST_PRECEDENCE)
+@Activate(
+        group = {CommonConstants.PROVIDER, CommonConstants.CONSUMER},
+        order = Ordered.HIGHEST_PRECEDENCE)
 public class DubboTraceFilter implements Filter {
 
-  private final TraceProperties traceProperties;
+    private final TraceProperties traceProperties;
 
-  public DubboTraceFilter(TraceProperties traceProperties) {
-    this.traceProperties = traceProperties;
-  }
-
-  /**
-   * 服务消费者：传递traceId给下游服务 服务提供者：获取traceId并赋值给MDC
-   */
-  @Override
-  public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
-    boolean isProviderSide = RpcContext.getServerContext().isProviderSide();
-    if (isProviderSide) {
-      String traceId = invocation.getAttachment(MDCTraceUtil.TRACE_ID);
-      if (StringUtils.isEmpty(traceId)) {
-        MDCTraceUtil.addTrace();
-      } else {
-        MDCTraceUtil.putTrace(traceId);
-      }
-    } else {
-      String traceId = MDCTraceUtil.getTraceId();
-      if (!StringUtils.isEmpty(traceId)) {
-        invocation.setAttachment(MDCTraceUtil.TRACE_ID, traceId);
-      }
+    public DubboTraceFilter(TraceProperties traceProperties) {
+        this.traceProperties = traceProperties;
     }
 
-    try {
-      return invoker.invoke(invocation);
-    } finally {
-      if (isProviderSide) {
-        MDCTraceUtil.removeTrace();
-      }
+    /**
+     * 服务消费者：传递traceId给下游服务 服务提供者：获取traceId并赋值给MDC
+     */
+    @Override
+    public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
+        boolean isProviderSide = RpcContext.getServerContext().isProviderSide();
+        if (isProviderSide) {
+            String traceId = invocation.getAttachment(MDCTraceUtil.TRACE_ID);
+            if (StringUtils.isEmpty(traceId)) {
+                MDCTraceUtil.addTrace();
+            } else {
+                MDCTraceUtil.putTrace(traceId);
+            }
+        } else {
+            String traceId = MDCTraceUtil.getTraceId();
+            if (!StringUtils.isEmpty(traceId)) {
+                invocation.setAttachment(MDCTraceUtil.TRACE_ID, traceId);
+            }
+        }
+
+        try {
+            return invoker.invoke(invocation);
+        } finally {
+            if (isProviderSide) {
+                MDCTraceUtil.removeTrace();
+            }
+        }
     }
-  }
 }

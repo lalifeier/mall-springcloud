@@ -14,22 +14,25 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass({DecryptRequestBodyAdvice.class, EncryptResponseBodyAdvice.class})
 public class EncryptBodyAutoConfiguration {
 
-  @Bean
-  @ConditionalOnMissingBean
-  public EncryptBodyConfig encryptBodyConfig(EncryptBodyProperties properties) {
-    return new EncryptBodyConfig(properties.getEnable(), properties.getPublicKey(),
-        properties.getPrivateKey(), properties.getEncoding());
-  }
+    @Bean
+    @ConditionalOnMissingBean
+    public EncryptBodyConfig encryptBodyConfig(EncryptBodyProperties properties) {
+        return new EncryptBodyConfig(
+                properties.getEnable(),
+                properties.getPublicKey(),
+                properties.getPrivateKey(),
+                properties.getEncoding());
+    }
 
-  @Bean
-  @ConditionalOnMissingBean
-  public EncryptResponseBodyAdvice encryptResponseBodyAdvice(EncryptBodyConfig encryptBodyConfig) {
-    return new EncryptResponseBodyAdvice(encryptBodyConfig);
-  }
+    @Bean
+    @ConditionalOnMissingBean
+    public EncryptResponseBodyAdvice encryptResponseBodyAdvice(EncryptBodyConfig encryptBodyConfig) {
+        return new EncryptResponseBodyAdvice(encryptBodyConfig);
+    }
 
-  @Bean
-  @ConditionalOnMissingBean
-  public DecryptRequestBodyAdvice decryptRequestBodyAdvice(EncryptBodyConfig encryptBodyConfig) {
-    return new DecryptRequestBodyAdvice(encryptBodyConfig);
-  }
+    @Bean
+    @ConditionalOnMissingBean
+    public DecryptRequestBodyAdvice decryptRequestBodyAdvice(EncryptBodyConfig encryptBodyConfig) {
+        return new DecryptRequestBodyAdvice(encryptBodyConfig);
+    }
 }

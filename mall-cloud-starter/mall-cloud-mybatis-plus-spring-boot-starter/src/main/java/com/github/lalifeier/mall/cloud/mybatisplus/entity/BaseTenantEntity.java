@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public abstract class BaseTenantEntity extends BaseEntity {
 
-  /** 租户 id */
-  private Long tenantId;
+    /** 租户 id */
+    private Long tenantId;
 }

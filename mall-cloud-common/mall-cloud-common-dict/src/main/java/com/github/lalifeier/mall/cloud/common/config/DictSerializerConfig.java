@@ -9,11 +9,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DictSerializerConfig {
 
-  @Resource
-  private DictSensitiveAnnotationIntrospector dictSensitiveAnnotationIntrospector;
+    @Resource
+    private DictSensitiveAnnotationIntrospector dictSensitiveAnnotationIntrospector;
 
-  @Bean
-  public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
-    return builder -> builder.annotationIntrospector(dictSensitiveAnnotationIntrospector);
-  }
+    @Bean
+    public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
+        return builder -> builder.annotationIntrospector(dictSensitiveAnnotationIntrospector);
+    }
 }

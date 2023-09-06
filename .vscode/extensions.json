@@ -3,6 +3,7 @@
     "vscjava.vscode-java-pack",
     "vmware.vscode-boot-dev-pack",
     "vscjava.vscode-lombok",
-    "richardwillis.vscode-gradle-extension-pack"
+    "richardwillis.vscode-gradle-extension-pack",
+    "richardwillis.vscode-spotless-gradle"
   ]
 }

@@ -6,20 +6,20 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 public class JSONUtil {
-  private static Gson gson = new GsonBuilder().create();
+    private static Gson gson = new GsonBuilder().create();
 
-  public static String toJson(Object obj) {
-    return gson.toJson(obj);
-  }
+    public static String toJson(Object obj) {
+        return gson.toJson(obj);
+    }
 
-  public static <T> T fromJson(String jsonStr, Class<T> clazz) {
-    return gson.fromJson(jsonStr, clazz);
-  }
+    public static <T> T fromJson(String jsonStr, Class<T> clazz) {
+        return gson.fromJson(jsonStr, clazz);
+    }
 
-  public static String toPrettyJson(String uglyJsonStr) {
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    JsonElement je = JsonParser.parseString(uglyJsonStr);
-    String prettyJsonString = gson.toJson(je);
-    return prettyJsonString;
-  }
+    public static String toPrettyJson(String uglyJsonStr) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonElement je = JsonParser.parseString(uglyJsonStr);
+        String prettyJsonString = gson.toJson(je);
+        return prettyJsonString;
+    }
 }

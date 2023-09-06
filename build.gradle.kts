@@ -1,13 +1,9 @@
-import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
-
-import org.springframework.boot.gradle.tasks.bundling.BootJar
-
 plugins {
   idea
   java
   id("com.github.lalifeier.java") apply false
   id("com.github.lalifeier.kotlin") apply false
-  id("com.github.lalifeier.spring") apply false
+  id("com.github.lalifeier.spring-boot") apply false
   id("com.github.lalifeier.protobuf") apply false
   id("com.github.lalifeier.maven") apply false
   id("com.github.lalifeier.docker") apply false
@@ -39,14 +35,12 @@ val bootProjects = subprojects.filter {
 }
 val grpcProjects = subprojects.filter { it.name.endsWith("-grpc") }
 val dubboProjects = subprojects.filter { it.name.endsWith("-dubbo") }
-//val kotlinProjects = subprojects.filter { it.file("build.gradle.kts").exists() }
 
 configure(javaProjects) {
   apply(plugin = "java")
   apply(plugin = "java-library")
   apply(plugin = "com.github.lalifeier.java")
   apply(plugin = "com.github.lalifeier.kotlin")
-  apply(plugin = "com.github.lalifeier.spring")
   apply(plugin = "com.github.lalifeier.maven")
   apply(plugin = "com.github.lalifeier.spotless")
 
@@ -57,11 +51,6 @@ configure(javaProjects) {
         cacheDynamicVersionsFor(24, "hours")
       }
     }
-  }
-
-  configure<DependencyManagementExtension> {
-    imports {}
-    dependencies {}
   }
 
   dependencies {
@@ -76,39 +65,14 @@ configure(javaProjects) {
   }
 }
 
-//grpc
 configure(grpcProjects) {
   apply(plugin = "com.github.lalifeier.protobuf")
 }
 
-//dubbo
-//configure(dubboProjects) {
-//}
-
-//docker
 configure(bootProjects) {
   apply(plugin = "com.github.lalifeier.docker")
   apply(plugin = "com.github.lalifeier.shadow")
-
-  tasks.named<Jar>("jar") {
-    enabled = false
-  }
-
-  tasks.named<BootJar>("bootJar") {
-    enabled = true
-  }
-
-//  val developmentOnly1 by configurations.creating
-//  configurations {
-//    runtimeClasspath {
-//      extendsFrom(developmentOnly1)
-//    }
-//  }
-
-  dependencies {
-    runtimeOnly("org.springframework.boot:spring-boot-devtools")
-//    runtimeOnly("org.springframework.boot:spring-boot-properties-migrator")
-  }
+  apply(plugin = "com.github.lalifeier.spring-boot")
 }
 
 

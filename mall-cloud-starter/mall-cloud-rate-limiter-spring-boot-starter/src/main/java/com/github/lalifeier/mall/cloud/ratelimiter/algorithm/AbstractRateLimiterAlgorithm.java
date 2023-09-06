@@ -9,37 +9,37 @@ import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.scripting.support.ResourceScriptSource;
 
 public abstract class AbstractRateLimiterAlgorithm implements RateLimiterAlgorithm<List<Long>> {
-  private final String scriptName;
+    private final String scriptName;
 
-  private final RedisScript<List<Long>> script;
+    private final RedisScript<List<Long>> script;
 
-  protected abstract String getKeyName();
+    protected abstract String getKeyName();
 
-  protected AbstractRateLimiterAlgorithm(String scriptName) {
-    DefaultRedisScript redisScript = new DefaultRedisScript<>();
-    String scriptPath = Constants.SCRIPT_PATH + scriptName;
-    redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource(scriptPath)));
-    redisScript.setResultType(List.class);
+    protected AbstractRateLimiterAlgorithm(String scriptName) {
+        DefaultRedisScript redisScript = new DefaultRedisScript<>();
+        String scriptPath = Constants.SCRIPT_PATH + scriptName;
+        redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource(scriptPath)));
+        redisScript.setResultType(List.class);
 
-    this.script = redisScript;
-    this.scriptName = scriptName;
-  }
+        this.script = redisScript;
+        this.scriptName = scriptName;
+    }
 
-  @Override
-  public String getScriptName() {
-    return scriptName;
-  }
+    @Override
+    public String getScriptName() {
+        return scriptName;
+    }
 
-  @Override
-  public RedisScript<List<Long>> getScript() {
-    return script;
-  }
+    @Override
+    public RedisScript<List<Long>> getScript() {
+        return script;
+    }
 
-  @Override
-  public List<String> getKeys(String key) {
-    String prefix = getKeyName() + ".{" + key;
-    String tokenKey = prefix + "}.tokens";
-    String timestampKey = prefix + "}.timestamp";
-    return Arrays.asList(tokenKey, timestampKey);
-  }
+    @Override
+    public List<String> getKeys(String key) {
+        String prefix = getKeyName() + ".{" + key;
+        String tokenKey = prefix + "}.tokens";
+        String timestampKey = prefix + "}.timestamp";
+        return Arrays.asList(tokenKey, timestampKey);
+    }
 }

@@ -19,24 +19,27 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @Order(Ordered.LOWEST_PRECEDENCE)
 public class TraceResponseHandler implements ResponseBodyAdvice<Object> {
 
-  private final TraceProperties traceProperties;
+    private final TraceProperties traceProperties;
 
-  public TraceResponseHandler(TraceProperties traceProperties) {
-    this.traceProperties = traceProperties;
-  }
+    public TraceResponseHandler(TraceProperties traceProperties) {
+        this.traceProperties = traceProperties;
+    }
 
-  @Override
-  public boolean supports(MethodParameter returnType,
-      Class<? extends HttpMessageConverter<?>> converterType) {
-    return traceProperties.getEnable();
-  }
+    @Override
+    public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
+        return traceProperties.getEnable();
+    }
 
-  @Override
-  public Object beforeBodyWrite(Object body, MethodParameter returnType,
-      MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType,
-      ServerHttpRequest request, ServerHttpResponse response) {
-    String traceId = MDCTraceUtil.getTraceId();
-    response.getHeaders().add(HeaderConstants.TRACE_ID, traceId);
-    return body;
-  }
+    @Override
+    public Object beforeBodyWrite(
+            Object body,
+            MethodParameter returnType,
+            MediaType selectedContentType,
+            Class<? extends HttpMessageConverter<?>> selectedConverterType,
+            ServerHttpRequest request,
+            ServerHttpResponse response) {
+        String traceId = MDCTraceUtil.getTraceId();
+        response.getHeaders().add(HeaderConstants.TRACE_ID, traceId);
+        return body;
+    }
 }

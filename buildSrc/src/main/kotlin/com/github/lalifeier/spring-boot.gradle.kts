@@ -1,23 +1,25 @@
 package com.github.lalifeier
 
-import org.gradle.kotlin.dsl.named
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
+  java
   id("org.springframework.boot")
   id("io.spring.dependency-management")
 }
 
-
 tasks.named<Jar>("jar") {
-  enabled = true
-  archiveClassifier.set("")
-}
-
-tasks.named<BootJar>("bootJar") {
   enabled = false
 }
 
+tasks.named<BootJar>("bootJar") {
+  enabled = true
+}
+
+dependencies {
+  runtimeOnly("org.springframework.boot:spring-boot-devtools")
+//    runtimeOnly("org.springframework.boot:spring-boot-properties-migrator")
+}
 
 //tasks.register<Copy>("copyJar") {
 //  from("${buildDir}/libs")

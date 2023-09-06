@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class DemoJobHandler {
 
-  // @Override
-  @XxlJob("demoJobHandler")
-  public ReturnT<String> execute(String... param) throws Exception {
+    // @Override
+    @XxlJob("demoJobHandler")
+    public ReturnT<String> execute(String... param) throws Exception {
 
-    return ReturnT.SUCCESS;
-  }
+        return ReturnT.SUCCESS;
+    }
 }

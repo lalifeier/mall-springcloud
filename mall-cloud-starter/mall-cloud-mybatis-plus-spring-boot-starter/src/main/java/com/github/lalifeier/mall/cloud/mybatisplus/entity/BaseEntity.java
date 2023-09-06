@@ -11,22 +11,22 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 public abstract class BaseEntity<T extends Serializable> implements Serializable {
-  @TableId(type = IdType.AUTO)
-  private T id;
+    @TableId(type = IdType.AUTO)
+    private T id;
 
-  @TableField(fill = FieldFill.INSERT)
-  private Long createdBy;
+    @TableField(fill = FieldFill.INSERT)
+    private Long createdBy;
 
-  @TableField(fill = FieldFill.INSERT)
-  private LocalDateTime createdTime;
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createdTime;
 
-  @TableField(fill = FieldFill.INSERT_UPDATE)
-  private Long updatedBy;
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Long updatedBy;
 
-  @TableField(fill = FieldFill.INSERT_UPDATE)
-  private LocalDateTime updatedTime;
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updatedTime;
 
-  @TableLogic
-  @TableField(value = "is_deleted")
-  private Boolean deleted;
+    @TableLogic
+    @TableField(value = "is_deleted")
+    private Boolean deleted;
 }

@@ -8,11 +8,11 @@ import com.github.lalifeier.mall.cloud.account.domain.account.model.valueobject.
 import com.github.lalifeier.mall.cloud.common.model.marker.Repository;
 
 public interface AccountRepository extends Repository<Account, AccountId> {
-  Account findByUsername(AccountName name);
+    Account findByUsername(AccountName name);
 
-  Account findByEmail(Email email);
+    Account findByEmail(Email email);
 
-  Account findByPhone(PhoneNumber phone);
+    Account findByPhone(PhoneNumber phone);
 
-  Long countByUserNameOrEmailOrPhone(AccountName name, Email email, PhoneNumber phone);
+    Long countByUserNameOrEmailOrPhone(AccountName name, Email email, PhoneNumber phone);
 }

@@ -10,6 +10,6 @@ import lombok.Setter;
 @Setter
 public abstract class BaseUuidEntity {
 
-  @TableId(value = "id", type = IdType.ASSIGN_UUID)
-  private UUID id;
+    @TableId(value = "id", type = IdType.ASSIGN_UUID)
+    private UUID id;
 }

@@ -26,31 +26,34 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AuthenticationApplicationServiceImpl implements AuthenticationApplicationService {
-  private final List<LoginProvider> loginProviders;
-  private final AccountRepository accountRepository;
+    private final List<LoginProvider> loginProviders;
+    private final AccountRepository accountRepository;
 
-  private final AuthenticationAssembler authenticationAssembler = AuthenticationAssembler.INSTANCE;
+    private final AuthenticationAssembler authenticationAssembler = AuthenticationAssembler.INSTANCE;
 
-  @Override
-  public RegisterDTO register(RegisterCommand command) {
-    Long count =
-        accountRepository.countByUserNameOrEmailOrPhone(new AccountName(command.getUsername()),
-            new Email(command.getEmail()), new PhoneNumber(command.getPhone()));
-    if (count > 0) {
-      throw new RegisterException(RegisterErrorCodeEnum.B_USER_EXIST);
+    @Override
+    public RegisterDTO register(RegisterCommand command) {
+        Long count = accountRepository.countByUserNameOrEmailOrPhone(
+                new AccountName(command.getUsername()),
+                new Email(command.getEmail()),
+                new PhoneNumber(command.getPhone()));
+        if (count > 0) {
+            throw new RegisterException(RegisterErrorCodeEnum.B_USER_EXIST);
+        }
+
+        Account account = authenticationAssembler.toEntity(command);
+
+        accountRepository.save(account);
+
+        return authenticationAssembler.toRegisterDTO(account);
     }
 
-    Account account = authenticationAssembler.toEntity(command);
-
-    accountRepository.save(account);
-
-    return authenticationAssembler.toRegisterDTO(account);
-  }
-
-  @Override
-  public LoginDTO login(LoginCommand command) {
-    return loginProviders.stream().filter(provider -> provider.supports(command.getLoginType()))
-        .findFirst().map(provider -> provider.login(command))
-        .orElseThrow(() -> new LoginException(LoginErrorCodeEnum.B_LOGIN_TYPE_NOT_SUPPORT));
-  }
+    @Override
+    public LoginDTO login(LoginCommand command) {
+        return loginProviders.stream()
+                .filter(provider -> provider.supports(command.getLoginType()))
+                .findFirst()
+                .map(provider -> provider.login(command))
+                .orElseThrow(() -> new LoginException(LoginErrorCodeEnum.B_LOGIN_TYPE_NOT_SUPPORT));
+    }
 }

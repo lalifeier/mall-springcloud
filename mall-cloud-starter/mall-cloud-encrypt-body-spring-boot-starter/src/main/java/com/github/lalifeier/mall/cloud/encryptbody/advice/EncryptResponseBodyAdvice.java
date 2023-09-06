@@ -19,56 +19,59 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @ControllerAdvice
 public class EncryptResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
-  private final EncryptBodyConfig config;
+    private final EncryptBodyConfig config;
 
-  private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
-  public EncryptResponseBodyAdvice(EncryptBodyConfig config) {
-    this.config = config;
-  }
-
-  @Override
-  public boolean supports(MethodParameter returnType,
-      Class<? extends HttpMessageConverter<?>> converterType) {
-    System.out.println(
-        "============================EncryptResponseBodyAdvice=======================================");
-
-    if (!config.getEnable()) {
-      return false;
+    public EncryptResponseBodyAdvice(EncryptBodyConfig config) {
+        this.config = config;
     }
 
-    if (returnType.hasMethodAnnotation(EncryptResponse.class)) {
-      return true;
+    @Override
+    public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
+        System.out.println(
+                "============================EncryptResponseBodyAdvice=======================================");
+
+        if (!config.getEnable()) {
+            return false;
+        }
+
+        if (returnType.hasMethodAnnotation(EncryptResponse.class)) {
+            return true;
+        }
+
+        Class<?> declaringClass = returnType.getDeclaringClass();
+        return declaringClass.isAnnotationPresent(EncryptResponse.class);
     }
 
-    Class<?> declaringClass = returnType.getDeclaringClass();
-    return declaringClass.isAnnotationPresent(EncryptResponse.class);
-  }
+    @Override
+    public Object beforeBodyWrite(
+            Object body,
+            MethodParameter returnType,
+            MediaType selectedContentType,
+            Class<? extends HttpMessageConverter<?>> selectedConverterType,
+            ServerHttpRequest request,
+            ServerHttpResponse response) {
+        if (body == null) {
+            return null;
+        }
 
-  @Override
-  public Object beforeBodyWrite(Object body, MethodParameter returnType,
-      MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType,
-      ServerHttpRequest request, ServerHttpResponse response) {
-    if (body == null) {
-      return null;
+        try {
+            String publicKey = config.getPublicKey();
+
+            if (body instanceof Result) {
+                Object data = ((Result<?>) body).getData();
+                EncryptBody encryptBody = EncryptBodyUtil.encrypt(data.toString(), publicKey);
+                ((Result<EncryptBody>) body).setData(encryptBody);
+                return body;
+            } else {
+                EncryptBody encryptedBody = EncryptBodyUtil.encrypt((String) body, publicKey);
+                return objectMapper.writeValueAsString(encryptedBody);
+            }
+        } catch (Exception e) {
+            log.error("Failed to encrypt the response body", e);
+        }
+
+        return null;
     }
-
-    try {
-      String publicKey = config.getPublicKey();
-
-      if (body instanceof Result) {
-        Object data = ((Result<?>) body).getData();
-        EncryptBody encryptBody = EncryptBodyUtil.encrypt(data.toString(), publicKey);
-        ((Result<EncryptBody>) body).setData(encryptBody);
-        return body;
-      } else {
-        EncryptBody encryptedBody = EncryptBodyUtil.encrypt((String) body, publicKey);
-        return objectMapper.writeValueAsString(encryptedBody);
-      }
-    } catch (Exception e) {
-      log.error("Failed to encrypt the response body", e);
-    }
-
-    return null;
-  }
 }

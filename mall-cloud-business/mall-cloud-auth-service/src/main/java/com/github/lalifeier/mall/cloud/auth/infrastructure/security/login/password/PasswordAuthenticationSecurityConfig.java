@@ -11,60 +11,56 @@ import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 public class PasswordAuthenticationSecurityConfig
-    extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
-  private UserService userService;
-  private PasswordEncoder passwordEncoder;
-  private RestAuthenticationSuccessHandler authenticationSuccessHandler;
-  private RestAuthenticationFailureHandler authenticationFailureHandler;
+        extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
+    private UserService userService;
+    private PasswordEncoder passwordEncoder;
+    private RestAuthenticationSuccessHandler authenticationSuccessHandler;
+    private RestAuthenticationFailureHandler authenticationFailureHandler;
 
-  @Override
-  public void configure(HttpSecurity http) {
-    PasswordAuthenticationFilter passwordAuthenticationFilter = new PasswordAuthenticationFilter();
-    passwordAuthenticationFilter
-        .setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
-    passwordAuthenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
-    passwordAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
+    @Override
+    public void configure(HttpSecurity http) {
+        PasswordAuthenticationFilter passwordAuthenticationFilter = new PasswordAuthenticationFilter();
+        passwordAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
+        passwordAuthenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
+        passwordAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
 
-    PasswordAuthenticationProvider passwordAuthenticationProvider =
-        new PasswordAuthenticationProvider();
-    passwordAuthenticationProvider.setUserService(userService);
-    passwordAuthenticationProvider.setPasswordEncoder(passwordEncoder);
+        PasswordAuthenticationProvider passwordAuthenticationProvider = new PasswordAuthenticationProvider();
+        passwordAuthenticationProvider.setUserService(userService);
+        passwordAuthenticationProvider.setPasswordEncoder(passwordEncoder);
 
-    http.authenticationProvider(passwordAuthenticationProvider)
-        .addFilterAfter(passwordAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-  }
+        http.authenticationProvider(passwordAuthenticationProvider)
+                .addFilterAfter(passwordAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+    }
 
-  public UserService getUserService() {
-    return userService;
-  }
+    public UserService getUserService() {
+        return userService;
+    }
 
-  public void setUserService(UserService userService) {
-    this.userService = userService;
-  }
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
-  public PasswordEncoder getPasswordEncoder() {
-    return passwordEncoder;
-  }
+    public PasswordEncoder getPasswordEncoder() {
+        return passwordEncoder;
+    }
 
-  public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-    this.passwordEncoder = passwordEncoder;
-  }
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
-  public RestAuthenticationSuccessHandler getAuthenticationSuccessHandler() {
-    return authenticationSuccessHandler;
-  }
+    public RestAuthenticationSuccessHandler getAuthenticationSuccessHandler() {
+        return authenticationSuccessHandler;
+    }
 
-  public void setAuthenticationSuccessHandler(
-      RestAuthenticationSuccessHandler authenticationSuccessHandler) {
-    this.authenticationSuccessHandler = authenticationSuccessHandler;
-  }
+    public void setAuthenticationSuccessHandler(RestAuthenticationSuccessHandler authenticationSuccessHandler) {
+        this.authenticationSuccessHandler = authenticationSuccessHandler;
+    }
 
-  public RestAuthenticationFailureHandler getAuthenticationFailureHandler() {
-    return authenticationFailureHandler;
-  }
+    public RestAuthenticationFailureHandler getAuthenticationFailureHandler() {
+        return authenticationFailureHandler;
+    }
 
-  public void setAuthenticationFailureHandler(
-      RestAuthenticationFailureHandler authenticationFailureHandler) {
-    this.authenticationFailureHandler = authenticationFailureHandler;
-  }
+    public void setAuthenticationFailureHandler(RestAuthenticationFailureHandler authenticationFailureHandler) {
+        this.authenticationFailureHandler = authenticationFailureHandler;
+    }
 }

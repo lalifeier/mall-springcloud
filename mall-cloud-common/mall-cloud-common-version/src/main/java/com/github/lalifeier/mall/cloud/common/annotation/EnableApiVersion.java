@@ -8,5 +8,4 @@ import org.springframework.context.annotation.Import;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Import(ApiAutoConfiguration.class)
-public @interface EnableApiVersion {
-}
+public @interface EnableApiVersion {}

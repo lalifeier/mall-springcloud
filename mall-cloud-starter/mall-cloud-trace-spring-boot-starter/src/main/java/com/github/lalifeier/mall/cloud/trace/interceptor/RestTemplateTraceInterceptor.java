@@ -11,20 +11,20 @@ import org.springframework.http.client.ClientHttpResponse;
 
 public class RestTemplateTraceInterceptor implements ClientHttpRequestInterceptor {
 
-  private final TraceProperties traceProperties;
+    private final TraceProperties traceProperties;
 
-  public RestTemplateTraceInterceptor(TraceProperties traceProperties) {
-    this.traceProperties = traceProperties;
-  }
-
-  @Override
-  public ClientHttpResponse intercept(HttpRequest request, byte[] body,
-      ClientHttpRequestExecution execution) throws IOException {
-    if (traceProperties.getEnable()) {
-      String traceId = MDCTraceUtil.getTraceId();
-      request.getHeaders().set(HeaderConstants.TRACE_ID, traceId);
+    public RestTemplateTraceInterceptor(TraceProperties traceProperties) {
+        this.traceProperties = traceProperties;
     }
 
-    return execution.execute(request, body);
-  }
+    @Override
+    public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
+            throws IOException {
+        if (traceProperties.getEnable()) {
+            String traceId = MDCTraceUtil.getTraceId();
+            request.getHeaders().set(HeaderConstants.TRACE_ID, traceId);
+        }
+
+        return execution.execute(request, body);
+    }
 }

@@ -21,32 +21,32 @@ import org.springframework.context.annotation.Configuration;
 // @EnableCaching
 public class CacheAutoConfiguration {
 
-  // @Bean
-  // public Cache<String, Object> caffeineCache() {
-  // return Caffeine.newBuilder()
-  // // 设置最后一次写入或访问后经过固定时间过期
-  // .expireAfterWrite(expireAfterWrite, TimeUnit.SECONDS)
-  // // 初始的缓存空间大小
-  // .initialCapacity(100)
-  // // 缓存的最大条数
-  // .maximumSize(maxSize)
-  // .build();
-  // }
+    // @Bean
+    // public Cache<String, Object> caffeineCache() {
+    // return Caffeine.newBuilder()
+    // // 设置最后一次写入或访问后经过固定时间过期
+    // .expireAfterWrite(expireAfterWrite, TimeUnit.SECONDS)
+    // // 初始的缓存空间大小
+    // .initialCapacity(100)
+    // // 缓存的最大条数
+    // .maximumSize(maxSize)
+    // .build();
+    // }
 
-  @Bean
-  @ConditionalOnMissingBean
-  public CacheManager cacheManager(CacheProperties properties) {
-    List<CaffeineCache> caffeineCaches = new ArrayList<>();
+    @Bean
+    @ConditionalOnMissingBean
+    public CacheManager cacheManager(CacheProperties properties) {
+        List<CaffeineCache> caffeineCaches = new ArrayList<>();
 
-    CaffeineCacheManager cacheManager = new CaffeineCacheManager();
-    cacheManager.setCaffeine(Caffeine.newBuilder()
-        // 设置最后一次写入或访问后经过固定时间过期
-        .expireAfterAccess(properties.getExpireAfterWrite(), TimeUnit.SECONDS)
-        // 初始的缓存空间大小
-        // .initialCapacity(100)
-        // 缓存的最大条数
-        .maximumSize(properties.getMaximumSize()));
+        CaffeineCacheManager cacheManager = new CaffeineCacheManager();
+        cacheManager.setCaffeine(Caffeine.newBuilder()
+                // 设置最后一次写入或访问后经过固定时间过期
+                .expireAfterAccess(properties.getExpireAfterWrite(), TimeUnit.SECONDS)
+                // 初始的缓存空间大小
+                // .initialCapacity(100)
+                // 缓存的最大条数
+                .maximumSize(properties.getMaximumSize()));
 
-    return cacheManager;
-  }
+        return cacheManager;
+    }
 }
