@@ -13,4 +13,5 @@ dependencies {
   implementation(libs.validation.api)
   implementation(libs.easyexcel)
   implementation(libs.servlet.api)
+  implementation(libs.persistence.api)
 }
