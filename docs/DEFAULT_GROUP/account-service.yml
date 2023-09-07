@@ -30,6 +30,7 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     cache-enabled: false
     url-encoder: false
+    #    default-enum-type-handler: com.example.mybatis.typeHandler.MybatisEnumTypeHandler
 
 management:
   endpoints:

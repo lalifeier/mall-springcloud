@@ -14,7 +14,6 @@ import org.mapstruct.factory.Mappers;
 public interface AuthenticationAssembler {
     AuthenticationAssembler INSTANCE = Mappers.getMapper(AuthenticationAssembler.class);
 
-    @Mapping(target = "id.value", ignore = true)
     @Mapping(source = "username", target = "username.value")
     @Mapping(target = "password", qualifiedByName = "encryptPassword")
     @Mapping(source = "email", target = "email.value")

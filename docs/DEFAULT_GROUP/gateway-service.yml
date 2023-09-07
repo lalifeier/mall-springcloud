@@ -143,17 +143,17 @@ gateway:
     - "/v3/api-docs/swagger-config"
     - "/v3/api-docs/**"
     - "/swagger-ui/index.html"
-    - "/*.html",
     - "/favicon.ico"
-    - "/**/*.html",
-    - "/**/*.css",
-    - "/**/*.js",
+    - "/*/*.html"
+    - "/*/*.css"
+    - "/*/*.js"
     - "/*/*.js"
     - "/*/*.css"
     - "/*/*.png"
     - "/*/*.ico"
     - "/webjars/**"
     - "/demo/**"
+    - "/account/**"
   sign:
     enabled: false
     timeout: 6000
@@ -166,17 +166,17 @@ gateway:
       - "/v3/api-docs/swagger-config"
       - "/v3/api-docs/**"
       - "/swagger-ui/index.html"
-      - "/*.html",
       - "/favicon.ico"
-      - "/**/*.html",
-      - "/**/*.css",
-      - "/**/*.js",
+      - "/*/*.html"
+      - "/*/*.css"
+      - "/*/*.js"
       - "/*/*.js"
       - "/*/*.css"
       - "/*/*.png"
       - "/*/*.ico"
       - "/webjars/**"
       - "/demo/**"
+      - "/account/**"
 
 knife4j:
   gateway:

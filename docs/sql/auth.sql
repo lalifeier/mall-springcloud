@@ -28,8 +28,6 @@ CREATE TABLE IF NOT EXISTS `user_group`
   `created_by`   int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '创建人',
   `updated_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `updated_by`   int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '更新人',
-
-
   `is_deleted`   tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除：0未删除，1已删除',
   PRIMARY KEY (`user_id`, `group_id`)
 ) ENGINE = InnoDB

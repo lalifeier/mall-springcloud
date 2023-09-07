@@ -13,7 +13,7 @@ public class Account implements Aggregate<AccountId> {
     private AccountPassword password;
     private Email email;
     private PhoneNumber phone;
-    // private StatusEnum status;
+    //     private StatusEnum status;
 
     @Override
     public AccountId getId() {
