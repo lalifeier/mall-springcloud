@@ -13,6 +13,14 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
+import com.github.lalifeier.mall.cloud.common.converter.jackson.EnumDeserializer;
+import com.github.lalifeier.mall.cloud.common.enums.BaseEnum;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
@@ -22,11 +30,6 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.TimeZone;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 @Configuration
 @ConditionalOnClass({Jackson2ObjectMapperBuilder.class, ObjectMapper.class})
@@ -60,7 +63,7 @@ public class JacksonConfig implements Jackson2ObjectMapperBuilderCustomizer, Ord
         simpleModule.addSerializer(BigDecimal.class, ToStringSerializer.instance);
 
         // simpleModule.addSerializer(BaseEnum.class, EnumSerializer.INSTANCE);
-        // simpleModule.addDeserializer(BaseEnum.class, EnumDeserializer.INSTANCE);
+        simpleModule.addDeserializer(BaseEnum.class, EnumDeserializer.INSTANCE);
 
         // 创建一个 JavaTimeModule 用于日期和时间的序列化和反序列化
         JavaTimeModule javaTimeModule = new JavaTimeModule();

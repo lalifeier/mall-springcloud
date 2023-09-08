@@ -1,11 +1,13 @@
 package com.github.lalifeier.mall.cloud.mybatisplus.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.DataPermissionInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.github.lalifeier.mall.cloud.mybatisplus.handler.AutoEnumTypeHandler;
 import com.github.lalifeier.mall.cloud.mybatisplus.handler.DefaultMetaObjectHandler;
 import com.github.lalifeier.mall.cloud.mybatisplus.handler.MybatisPlusDataPermissionHandler;
 import com.github.lalifeier.mall.cloud.mybatisplus.injector.MySqlInjector;
@@ -17,6 +19,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 public class MybatisPlusAutoConfiguration {
+
+    @Bean
+    public ConfigurationCustomizer configurationCustomizer() {
+        return configuration -> {
+            configuration.setDefaultEnumTypeHandler(AutoEnumTypeHandler.class);
+        };
+    }
+
     @Bean
     @ConditionalOnMissingBean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {

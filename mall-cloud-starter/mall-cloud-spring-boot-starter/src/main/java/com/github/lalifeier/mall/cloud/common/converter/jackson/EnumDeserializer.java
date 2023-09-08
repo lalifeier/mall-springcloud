@@ -1,42 +1,42 @@
 package com.github.lalifeier.mall.cloud.common.converter.jackson;
 
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.BeanProperty;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
 import com.github.lalifeier.mall.cloud.common.enums.BaseEnum;
+
 import java.io.IOException;
 
-public class EnumDeserializer<T extends BaseEnum> extends JsonDeserializer<T> implements ContextualDeserializer {
+public class EnumDeserializer<E extends Enum<E> & BaseEnum<E, T>, T> extends JsonDeserializer<E>
+        implements ContextualDeserializer {
 
     public static final EnumDeserializer INSTANCE = new EnumDeserializer();
 
-    private Class<T> enumClass;
+    private Class<E> enumClass;
 
     public EnumDeserializer() {}
 
-    private EnumDeserializer(Class<T> enumClass) {
+    private EnumDeserializer(Class<E> enumClass) {
         this.enumClass = enumClass;
     }
 
     @Override
-    public T deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
-            throws IOException, JsonProcessingException {
-        String code = jsonParser.getText();
-        for (T constant : enumClass.getEnumConstants()) {
-            if (constant.getCode().equals(code)) {
-                return constant;
-            }
+    public E deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+        String value = jsonParser.getValueAsString();
+
+        if (BaseEnum.class.isAssignableFrom(enumClass)) {
+            return BaseEnum.parse(enumClass, (T) value);
+        } else {
+            return Enum.valueOf(enumClass, value);
         }
-        throw new IllegalArgumentException("Unknown enum code: " + code);
     }
 
     @Override
     public JsonDeserializer<?> createContextual(
-            DeserializationContext deserializationContext, BeanProperty beanProperty) throws JsonMappingException {
-        return new EnumDeserializer(beanProperty.getType().getRawClass());
+            DeserializationContext deserializationContext, BeanProperty beanProperty) {
+        Class<?> enumType = deserializationContext.getContextualType().getRawClass();
+        return new EnumDeserializer<>((Class<E>) enumType);
     }
 }

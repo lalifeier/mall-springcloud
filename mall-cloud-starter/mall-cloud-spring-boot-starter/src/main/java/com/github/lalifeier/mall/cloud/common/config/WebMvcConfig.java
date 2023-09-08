@@ -21,7 +21,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverterFactory(new IntegerToEnumConverterFactory());
+        //        registry.addConverterFactory(new IntegerToEnumConverterFactory());
         registry.addConverterFactory(new StringToEnumConverterFactory());
 
         registry.addConverter(new DateConverter());

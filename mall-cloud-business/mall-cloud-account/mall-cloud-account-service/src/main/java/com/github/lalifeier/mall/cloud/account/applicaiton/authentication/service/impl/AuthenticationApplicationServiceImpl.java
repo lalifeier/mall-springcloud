@@ -16,11 +16,13 @@ import com.github.lalifeier.mall.cloud.account.infrastructure.enums.LoginErrorCo
 import com.github.lalifeier.mall.cloud.account.infrastructure.enums.RegisterErrorCodeEnum;
 import com.github.lalifeier.mall.cloud.account.infrastructure.exception.LoginException;
 import com.github.lalifeier.mall.cloud.account.infrastructure.exception.RegisterException;
-import java.util.List;
+import com.github.lalifeier.mall.cloud.common.enums.StatusEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -42,6 +44,7 @@ public class AuthenticationApplicationServiceImpl implements AuthenticationAppli
         }
 
         Account account = authenticationAssembler.toEntity(command);
+        account.setStatus(StatusEnum.ENABLED);
 
         accountRepository.save(account);
 

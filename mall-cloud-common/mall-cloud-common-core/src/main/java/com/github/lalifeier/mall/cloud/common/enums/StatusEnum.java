@@ -1,40 +1,17 @@
 package com.github.lalifeier.mall.cloud.common.enums;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import org.apache.commons.lang3.StringUtils;
 
-@Getter
 @AllArgsConstructor
-public enum StatusEnum {
-    ENABLED("启用", "1"),
-    DISABLED("禁用", "0");
+public enum StatusEnum implements BaseEnum<StatusEnum, Integer> {
+    ENABLED(1, "启用"),
+    DISABLED(0, "禁用");
 
-    private String label;
+    private final int code;
+    private final String description;
 
-    private String value;
-
-    public static String getLabelByValue(String value) {
-        if (StringUtils.isBlank(value)) {
-            return "";
-        }
-        for (StatusEnum s : StatusEnum.values()) {
-            if (value.equals(s.getValue())) {
-                return s.getLabel();
-            }
-        }
-        return "";
-    }
-
-    public static StatusEnum getStatusEnum(String value) {
-        if (StringUtils.isBlank(value)) {
-            return null;
-        }
-        for (StatusEnum s : StatusEnum.values()) {
-            if (value.equals(s.getValue())) {
-                return s;
-            }
-        }
-        return null;
+    @Override
+    public Integer getCode() {
+        return code;
     }
 }

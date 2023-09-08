@@ -24,17 +24,11 @@ public interface AccountConverter {
         return new AccountPassword(new AccountPassword.EncryptPassword(password));
     }
 
-    // @Named("convertStatus")
-    // default Integer convertTargetType(int status) {
-    // return StatusEnum.getStatusEnum(status);
-    // }
-
     @Mapping(source = "id.value", target = "id")
     @Mapping(source = "username.value", target = "username")
     @Mapping(source = "password.encryptPassword", target = "password")
     @Mapping(source = "email.value", target = "email")
     @Mapping(source = "phone.value", target = "phone")
-    @Mapping(target = "status", ignore = true)
     @Mapping(target = "createdTime", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
     @Mapping(target = "updatedTime", ignore = true)

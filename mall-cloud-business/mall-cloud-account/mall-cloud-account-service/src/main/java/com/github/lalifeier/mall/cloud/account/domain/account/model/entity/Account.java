@@ -1,6 +1,7 @@
 package com.github.lalifeier.mall.cloud.account.domain.account.model.entity;
 
 import com.github.lalifeier.mall.cloud.account.domain.account.model.valueobject.*;
+import com.github.lalifeier.mall.cloud.common.enums.StatusEnum;
 import com.github.lalifeier.mall.cloud.common.model.marker.Aggregate;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +14,7 @@ public class Account implements Aggregate<AccountId> {
     private AccountPassword password;
     private Email email;
     private PhoneNumber phone;
-    //     private StatusEnum status;
+    private StatusEnum status;
 
     @Override
     public AccountId getId() {

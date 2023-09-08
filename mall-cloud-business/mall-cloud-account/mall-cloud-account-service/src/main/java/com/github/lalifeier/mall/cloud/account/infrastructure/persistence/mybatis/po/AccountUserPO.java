@@ -1,6 +1,7 @@
 package com.github.lalifeier.mall.cloud.account.infrastructure.persistence.mybatis.po;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.github.lalifeier.mall.cloud.common.enums.StatusEnum;
 import com.github.lalifeier.mall.cloud.mybatisplus.entity.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,5 +23,5 @@ public class AccountUserPO extends BaseEntity<Long> {
     private String phone;
 
     /** 帐号状态：0 - 无效，1 - 有效 */
-    private int status;
+    private StatusEnum status;
 }

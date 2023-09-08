@@ -1,31 +1,31 @@
 package com.github.lalifeier.mall.cloud.common.converter;
 
+import com.github.lalifeier.mall.cloud.common.enums.BaseEnum;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.core.convert.converter.Converter;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.springframework.core.convert.converter.Converter;
+public class StringToEnumConverter<E extends Enum<E> & BaseEnum<?, String>> implements Converter<String, E> {
 
-import com.github.lalifeier.mall.cloud.common.enums.BaseEnum;
+    private final Map<String, E> enumConstantMap = new ConcurrentHashMap<>();
 
-import jakarta.validation.constraints.NotNull;
-
-public class StringToEnumConverter<T extends BaseEnum<?, String>> implements Converter<String, T> {
-
-  private final Map<String, T> enumConstantMap = new ConcurrentHashMap<>();
-
-  public StringToEnumConverter(Class<T> enumType) {
-    T[] enumConstants = enumType.getEnumConstants();
-    for (T enumConstant : enumConstants) {
-      this.enumConstantMap.put(enumConstant.getCode(), enumConstant);
+    public StringToEnumConverter(Class<E> enumType) {
+        E[] enumConstants = enumType.getEnumConstants();
+        for (E enumConstant : enumConstants) {
+            this.enumConstantMap.put(
+                    enumConstant instanceof BaseEnum ? enumConstant.getCode() : String.valueOf(enumConstant.ordinal()),
+                    enumConstant);
+        }
     }
-  }
 
-  @Override
-  public T convert(@NotNull String source) {
-    T enumValue = enumConstantMap.get(source);
-    if (enumValue == null) {
-      throw new IllegalArgumentException("StringToEnumConverter: invalid enum code " + source);
+    @Override
+    public E convert(@NotNull String source) {
+        E enumValue = enumConstantMap.get(source);
+        if (enumValue == null) {
+            throw new IllegalArgumentException("invalid enum code " + source);
+        }
+        return enumValue;
     }
-    return enumValue;
-  }
 }

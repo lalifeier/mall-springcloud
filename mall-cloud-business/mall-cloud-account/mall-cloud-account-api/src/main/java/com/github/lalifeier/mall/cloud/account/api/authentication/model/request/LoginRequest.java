@@ -1,5 +1,6 @@
 package com.github.lalifeier.mall.cloud.account.api.authentication.model.request;
 
+import com.github.lalifeier.mall.cloud.account.api.authentication.enums.LoginTypeEnum;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -8,7 +9,7 @@ import lombok.Data;
 @Valid
 public class LoginRequest {
     @NotBlank(message = "登录类型不能为空")
-    private String type;
+    private LoginTypeEnum type;
 
     private String username;
     private String email;

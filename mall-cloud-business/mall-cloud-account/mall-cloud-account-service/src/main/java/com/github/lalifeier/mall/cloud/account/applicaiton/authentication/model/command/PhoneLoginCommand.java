@@ -1,6 +1,6 @@
 package com.github.lalifeier.mall.cloud.account.applicaiton.authentication.model.command;
 
-import com.github.lalifeier.mall.cloud.account.infrastructure.enums.LoginTypeEnum;
+import com.github.lalifeier.mall.cloud.account.api.authentication.enums.LoginTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
