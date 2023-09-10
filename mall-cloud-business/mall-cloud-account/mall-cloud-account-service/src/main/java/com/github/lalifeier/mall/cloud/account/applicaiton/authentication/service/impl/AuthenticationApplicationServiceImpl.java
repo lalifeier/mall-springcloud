@@ -17,12 +17,11 @@ import com.github.lalifeier.mall.cloud.account.infrastructure.enums.RegisterErro
 import com.github.lalifeier.mall.cloud.account.infrastructure.exception.LoginException;
 import com.github.lalifeier.mall.cloud.account.infrastructure.exception.RegisterException;
 import com.github.lalifeier.mall.cloud.common.enums.StatusEnum;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Slf4j
 @Service
