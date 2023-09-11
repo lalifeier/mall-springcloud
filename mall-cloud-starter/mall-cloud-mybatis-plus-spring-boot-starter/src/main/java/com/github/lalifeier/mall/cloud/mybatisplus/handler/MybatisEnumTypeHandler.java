@@ -6,13 +6,6 @@ import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.github.lalifeier.mall.cloud.common.annocation.EnumValue;
 import com.github.lalifeier.mall.cloud.common.enums.BaseEnum;
-import org.apache.ibatis.reflection.DefaultReflectorFactory;
-import org.apache.ibatis.reflection.MetaClass;
-import org.apache.ibatis.reflection.ReflectorFactory;
-import org.apache.ibatis.reflection.invoker.Invoker;
-import org.apache.ibatis.type.BaseTypeHandler;
-import org.apache.ibatis.type.JdbcType;
-
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.sql.CallableStatement;
@@ -24,6 +17,12 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import org.apache.ibatis.reflection.DefaultReflectorFactory;
+import org.apache.ibatis.reflection.MetaClass;
+import org.apache.ibatis.reflection.ReflectorFactory;
+import org.apache.ibatis.reflection.invoker.Invoker;
+import org.apache.ibatis.type.BaseTypeHandler;
+import org.apache.ibatis.type.JdbcType;
 
 public class MybatisEnumTypeHandler<E extends Enum<E> & BaseEnum<E, T>, T> extends BaseTypeHandler<E> {
 

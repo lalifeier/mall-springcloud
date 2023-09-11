@@ -2,7 +2,6 @@ package com.github.lalifeier.mall.cloud.jpa.converter;
 
 import com.github.lalifeier.mall.cloud.common.enums.BaseEnum;
 import jakarta.persistence.AttributeConverter;
-
 import java.lang.reflect.ParameterizedType;
 
 /**
