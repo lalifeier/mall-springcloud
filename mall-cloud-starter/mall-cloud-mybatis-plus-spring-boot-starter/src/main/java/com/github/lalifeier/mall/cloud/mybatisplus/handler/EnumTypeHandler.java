@@ -1,12 +1,13 @@
 package com.github.lalifeier.mall.cloud.mybatisplus.handler;
 
 import com.github.lalifeier.mall.cloud.common.enums.BaseEnum;
+import org.apache.ibatis.type.BaseTypeHandler;
+import org.apache.ibatis.type.JdbcType;
+
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.apache.ibatis.type.BaseTypeHandler;
-import org.apache.ibatis.type.JdbcType;
 
 public class EnumTypeHandler<E extends Enum<E>> extends BaseTypeHandler<E> {
 
@@ -18,7 +19,7 @@ public class EnumTypeHandler<E extends Enum<E>> extends BaseTypeHandler<E> {
         }
 
         if (BaseEnum.class.isAssignableFrom(type)) {
-            typeHandler = new BaseEnumTypeHandler(type);
+            typeHandler = new MybatisEnumTypeHandler(type);
         } else {
             // 默认转换器 也可换成 EnumOrdinalTypeHandler
             typeHandler = new org.apache.ibatis.type.EnumTypeHandler<>(type);

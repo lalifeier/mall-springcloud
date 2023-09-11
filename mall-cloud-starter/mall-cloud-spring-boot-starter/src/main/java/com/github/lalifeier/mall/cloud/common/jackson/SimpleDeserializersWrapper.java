@@ -18,7 +18,7 @@ public class SimpleDeserializersWrapper extends SimpleDeserializers {
             return enumDeserializer;
         }
 
-        // 重写增强：开始查找指定枚举类型的接口的反序列化器
+        // 重写增强：查找指定枚举类型的接口的反序列化器
         for (Class<?> typeInterface : type.getInterfaces()) {
             enumDeserializer = this._classMappings.get(new ClassKey(typeInterface));
             if (enumDeserializer != null) {

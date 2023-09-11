@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.inner.DataPermissionIntercepto
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.github.lalifeier.mall.cloud.mybatisplus.handler.DefaultMetaObjectHandler;
-import com.github.lalifeier.mall.cloud.mybatisplus.handler.EnumTypeHandler;
+import com.github.lalifeier.mall.cloud.mybatisplus.handler.MybatisEnumTypeHandler;
 import com.github.lalifeier.mall.cloud.mybatisplus.handler.MybatisPlusDataPermissionHandler;
 import com.github.lalifeier.mall.cloud.mybatisplus.injector.MySqlInjector;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -23,7 +23,7 @@ public class MybatisPlusAutoConfiguration {
     @Bean
     public ConfigurationCustomizer configurationCustomizer() {
         return configuration -> {
-            configuration.setDefaultEnumTypeHandler(EnumTypeHandler.class);
+            configuration.setDefaultEnumTypeHandler(MybatisEnumTypeHandler.class);
         };
     }
 

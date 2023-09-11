@@ -1,12 +1,7 @@
 package com.github.lalifeier.mall.cloud.common.config;
 
 import com.github.lalifeier.mall.cloud.common.aspect.WebLogAspect;
-import com.github.lalifeier.mall.cloud.common.converter.DateConverter;
-import com.github.lalifeier.mall.cloud.common.converter.IntegerToBaseEnumConverterFactory;
-import com.github.lalifeier.mall.cloud.common.converter.LocalDateConverter;
-import com.github.lalifeier.mall.cloud.common.converter.LocalDateTimeConverter;
-import com.github.lalifeier.mall.cloud.common.converter.LocalTimeConverter;
-import com.github.lalifeier.mall.cloud.common.converter.StringToBaseEnumConverterFactory;
+import com.github.lalifeier.mall.cloud.common.converter.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
@@ -24,7 +19,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverterFactory(new IntegerToBaseEnumConverterFactory());
-        registry.addConverterFactory(new StringToBaseEnumConverterFactory());
+        registry.addConverterFactory(new StringToEnumConverterFactory());
 
         registry.addConverter(new DateConverter());
         registry.addConverter(new LocalDateConverter());
