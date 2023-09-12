@@ -7,14 +7,14 @@ import lombok.Data;
 @AllArgsConstructor
 public class IpRegion {
 
-  private String country;
-  private String region;
-  private String province;
-  private String city;
-  private String isp;
+    private String country;
+    private String region;
+    private String province;
+    private String city;
+    private String isp;
 
-  public IpRegion(String province, String city) {
-    this.province = province;
-    this.city = city;
-  }
+    public IpRegion(String province, String city) {
+        this.province = province;
+        this.city = city;
+    }
 }
