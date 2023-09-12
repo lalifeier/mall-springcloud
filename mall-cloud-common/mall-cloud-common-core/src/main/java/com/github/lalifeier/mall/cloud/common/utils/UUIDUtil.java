@@ -1,10 +1,9 @@
 package com.github.lalifeier.mall.cloud.common.utils;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UUIDUtil {

@@ -2,7 +2,6 @@ package com.github.lalifeier.mall.cloud.common.utils.net;
 
 import com.google.common.net.InetAddresses;
 import com.google.common.primitives.Ints;
-
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;

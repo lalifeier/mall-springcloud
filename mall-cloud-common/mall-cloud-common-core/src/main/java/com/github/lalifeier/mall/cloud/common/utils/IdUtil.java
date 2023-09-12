@@ -1,13 +1,12 @@
 package com.github.lalifeier.mall.cloud.common.utils;
 
-import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
-import java.util.UUID;
-
 import static com.aventrix.jnanoid.jnanoid.NanoIdUtils.DEFAULT_ALPHABET;
 import static com.aventrix.jnanoid.jnanoid.NanoIdUtils.DEFAULT_NUMBER_GENERATOR;
+
+import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
+import java.util.UUID;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class IdUtil {
