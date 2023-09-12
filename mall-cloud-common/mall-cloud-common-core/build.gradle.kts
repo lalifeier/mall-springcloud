@@ -9,6 +9,7 @@ dependencies {
   implementation(libs.apm.toolkit.trace)
   implementation(libs.transmittable.thread.local)
   implementation(libs.nanoid)
+  implementation(libs.ip2region)
   implementation(libs.slf4j.api)
   implementation(libs.cglib.nodep)
   implementation(libs.validation.api)
