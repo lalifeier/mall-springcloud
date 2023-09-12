@@ -72,6 +72,7 @@ elasticsearch = "7.14.0"
 easy-es = "2.0.0-beta3"
 jjwt = "0.9.1"
 redisson = "3.23.2"
+nanoid = "2.0.0"
 
 
 spring-dependency-management = "1.0.15.RELEASE"
@@ -188,7 +189,7 @@ jjwt-api = { group = "io.jsonwebtoken", name = "jjwt-api", version.ref = "jjwt" 
 jjwt-impl = { group = "io.jsonwebtoken", name = "jjwt-impl", version.ref = "jjwt" }
 jjwt-jackson = { group = "io.jsonwebtoken", name = "jjwt-jackson", version.ref = "jjwt" }
 redisson = { group = "org.redisson", name = "redisson", version.ref = "redisson" }
-
+nanoid = { group = "com.aventrix.jnanoid", name = "jnanoid", version.ref = "nanoid" }
 
 spring-boot-gradle-plugin = { group = "org.springframework.boot", name = "spring-boot-gradle-plugin", version.ref = "spring-boot" }
 spring-dependency-management-plugin = { group = "io.spring.gradle", name = "dependency-management-plugin", version.ref = "spring-dependency-management" }

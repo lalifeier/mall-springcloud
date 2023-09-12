@@ -1,4 +1,4 @@
-package com.github.lalifeier.mall.cloud.common.utils.encoding;
+package com.github.lalifeier.mall.cloud.common.utils.codec;
 
 import org.apache.commons.codec.binary.Base64;
 

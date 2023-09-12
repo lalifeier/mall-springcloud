@@ -8,6 +8,7 @@ dependencies {
   implementation(libs.apm.toolkit.logback)
   implementation(libs.apm.toolkit.trace)
   implementation(libs.transmittable.thread.local)
+  implementation(libs.nanoid)
   implementation(libs.slf4j.api)
   implementation(libs.cglib.nodep)
   implementation(libs.validation.api)
