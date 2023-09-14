@@ -1,5 +1,7 @@
 package com.github.lalifeier.mall.cloud.common.utils;
 
+import com.github.lalifeier.mall.cloud.common.annocation.EnumValue;
+import com.github.lalifeier.mall.cloud.common.enums.BaseEnum;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,10 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import com.github.lalifeier.mall.cloud.common.annocation.EnumValue;
-import com.github.lalifeier.mall.cloud.common.enums.BaseEnum;
-
 import lombok.extern.slf4j.Slf4j;
 
 /**
