@@ -1,7 +1,5 @@
 package com.github.lalifeier.mall.cloud.common.utils;
 
-import com.github.lalifeier.mall.cloud.common.annocation.EnumValue;
-import com.github.lalifeier.mall.cloud.common.enums.BaseEnum;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,9 +8,15 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.github.lalifeier.mall.cloud.common.annocation.EnumValue;
+import com.github.lalifeier.mall.cloud.common.enums.BaseEnum;
+
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 实用工具类，用于处理枚举类型
  */
+@Slf4j
 public class EnumUtil {
     public EnumUtil() {}
 
@@ -145,40 +149,67 @@ public class EnumUtil {
                 .collect(Collectors.toMap(BaseEnum::getCode, BaseEnum::getDescription));
     }
 
+    /**
+     * 获取枚举类中用于表示字段名的属性名称。
+     *
+     * @param enumClass 枚举类
+     * @return 用于表示字段名的属性名称
+     * @throws IllegalArgumentException 如果在枚举类中找不到适当的属性
+     */
     public static String getEnumFieldName(Class<?> enumClass) {
         if (BaseEnum.class.isAssignableFrom(enumClass)) {
             return BaseEnum.code;
         } else {
-            Field field = getEnumAnnotationField(enumClass)
+            return getEnumAnnotationField(enumClass)
+                    .map(Field::getName)
                     .orElseThrow(() -> new IllegalArgumentException(
-                            String.format("Could not find @EnumValue in Class: %s.", enumClass.getName())));
-
-            return field.getName();
+                            String.format("Could not find appropriate property in Class: %s.", enumClass.getName())));
         }
     }
 
+    /**
+     * 获取枚举类中带有 @EnumValue 注解的字段。
+     *
+     * @param enumClass 枚举类
+     * @return 带有 @EnumValue 注解的字段
+     */
     public static Optional<Field> getEnumAnnotationField(Class<?> enumClass) {
         return Arrays.stream(enumClass.getDeclaredFields())
                 .filter(field -> field.isAnnotationPresent(EnumValue.class))
                 .findFirst();
     }
 
+    /**
+     * 获取枚举类中指定字段的类型。
+     *
+     * @param enumClass  枚举类
+     * @param fieldName 字段名
+     * @return 字段的类型，如果字段不存在则返回 null
+     */
     public static Class<?> getEnumFieldType(Class<?> enumClass, String fieldName) {
         try {
             Field field = enumClass.getDeclaredField(fieldName);
             return field.getType();
         } catch (NoSuchFieldException e) {
+            log.error("Failed to get field type", e);
+            return null;
         }
-        return null;
     }
 
-    public static Object getEnumFieldValue(Enum<?> enumClass, String fieldName) {
+    /**
+     * 获取枚举类中指定字段的值。
+     *
+     * @param enumClass  枚举实例
+     * @param fieldName 字段名
+     * @return 字段的值，如果字段不存在或无法访问则返回 null
+     */
+    public static Object getEnumFieldValue(Object enumConstant, String fieldName) {
         try {
-            Field field = enumClass.getDeclaringClass().getDeclaredField(fieldName);
+            Field field = enumConstant.getClass().getDeclaredField(fieldName);
             field.setAccessible(true);
-            return field.get(enumClass);
+            return field.get(enumConstant);
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
+            log.error("Failed to get field value", e);
         }
         return null;
     }

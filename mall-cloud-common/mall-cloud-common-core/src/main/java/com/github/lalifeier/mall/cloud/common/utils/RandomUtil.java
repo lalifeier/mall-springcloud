@@ -1,3 +1,5 @@
 package com.github.lalifeier.mall.cloud.common.utils;
 
-public class RandomUtil {}
+import org.apache.commons.lang3.RandomUtils;
+
+public class RandomUtil extends RandomUtils {}

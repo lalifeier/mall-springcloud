@@ -5,13 +5,11 @@ import com.github.lalifeier.mall.cloud.common.enums.HttpErrorCodeEnum;
 import com.github.lalifeier.mall.cloud.common.exception.BaseException;
 import com.github.lalifeier.mall.cloud.common.model.result.Result;
 import com.google.common.base.Joiner;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -25,6 +23,11 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestControllerAdvice
@@ -48,12 +51,17 @@ public class RestExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(value = ServletException.class)
+    public Result<?> handleServletException(HttpServletRequest request, ServletException exception) {
+        log.error("ServletException, request: {}", parseParam(request), exception);
+        return Result.failure(HttpErrorCodeEnum.BAD_REQUEST, exception.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public Result<?> handleValidatedException(HttpServletRequest request, MethodArgumentNotValidException exception) {
         log.error("BadRequestException, request: {}", parseParam(request), exception);
-        String message = exception.getBindingResult().getAllErrors().stream()
-                .map(ObjectError::getDefaultMessage)
-                .collect(Collectors.joining(", "));
+        String message = getErrorMessage(exception.getAllErrors());
         return Result.failure(HttpErrorCodeEnum.BAD_REQUEST, message);
     }
 
@@ -61,9 +69,7 @@ public class RestExceptionHandler {
     @ExceptionHandler(value = ConstraintViolationException.class)
     public Result<?> handleValidatedException(HttpServletRequest request, ConstraintViolationException exception) {
         log.error("BadRequestException, request: {}", parseParam(request), exception);
-        String message = exception.getConstraintViolations().stream()
-                .map(ConstraintViolation::getMessage)
-                .collect(Collectors.joining(", "));
+        String message = getErrorMessage(exception.getConstraintViolations());
         return Result.failure(HttpErrorCodeEnum.BAD_REQUEST, message);
     }
 
@@ -71,10 +77,23 @@ public class RestExceptionHandler {
     @ExceptionHandler(value = BindException.class)
     public Result<?> handleValidatedException(HttpServletRequest request, BindException exception) {
         log.error("BadRequestException, request: {}", parseParam(request), exception);
-        String message = exception.getAllErrors().stream()
-                .map(ObjectError::getDefaultMessage)
-                .collect(Collectors.joining(", "));
+        String message = getErrorMessage(exception.getAllErrors());
         return Result.failure(HttpErrorCodeEnum.BAD_REQUEST, message);
+    }
+
+    private String getErrorMessage(Collection<?> errors) {
+        return errors.stream()
+                .map(error -> {
+                    if (error instanceof ObjectError) {
+                        return ((ObjectError) error).getDefaultMessage();
+                    } else if (error instanceof ConstraintViolation) {
+                        return ((ConstraintViolation<?>) error).getMessage();
+                    } else {
+                        return "";
+                    }
+                })
+                .filter(message -> !message.isEmpty())
+                .collect(Collectors.joining(", "));
     }
 
     // @ExceptionHandler(value = TooManyRequestsException.class)

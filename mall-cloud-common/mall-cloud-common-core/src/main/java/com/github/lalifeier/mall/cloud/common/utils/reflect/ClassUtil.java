@@ -12,30 +12,32 @@ import org.slf4j.LoggerFactory;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ClassUtil extends ClassUtils {
 
-    private static Logger logger = LoggerFactory.getLogger(ClassUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(ClassUtil.class);
     private static final String CGLIB_CLASS_SEPARATOR = "$$";
 
     /**
-     * https://github.com/linkedin/linkedin-utils/blob/master/org.linkedin.util-core/src/main/java/org/linkedin/util/reflect/ReflectUtils.java
+     * 判断一个类是否是另一个类的子类或子接口。
      *
-     * The purpose of this method is somewhat to provide a better naming / documentation than the
-     * javadoc of <code>Class.isAssignableFrom</code> method.
-     *
-     * @return <code>true</code> if subclass is a subclass or sub interface of superclass
+     * @param subclass   子类
+     * @param superclass 父类
+     * @return 如果 subclass 是 superclass 的子类或子接口，则返回 true；否则返回 false
      */
-    public static boolean isSubClassOrInterfaceOf(Class subclass, Class superclass) {
+    public static boolean isSubClassOrInterfaceOf(Class<?> subclass, Class<?> superclass) {
         return superclass.isAssignableFrom(subclass);
     }
 
     /**
-     * 获取CGLib处理过后的实体的原Class.
+     * 获取经过 CGLib 处理后的对象的原始类。
+     *
+     * @param instance 对象实例
+     * @return 经过 CGLib 处理后的对象的原始类
      */
     public static Class<?> unwrapCglib(Object instance) {
         Validate.notNull(instance, "Instance must not be null");
         Class<?> clazz = instance.getClass();
-        if ((clazz != null) && clazz.getName().contains(CGLIB_CLASS_SEPARATOR)) {
+        if (clazz.getName().contains(CGLIB_CLASS_SEPARATOR)) {
             Class<?> superClass = clazz.getSuperclass();
-            if ((superClass != null) && !Object.class.equals(superClass)) {
+            if (superClass != null && !Object.class.equals(superClass)) {
                 return superClass;
             }
         }
@@ -43,36 +45,23 @@ public class ClassUtil extends ClassUtils {
     }
 
     /**
-     * 通过反射, 获得Class定义中声明的泛型参数的类型,
+     * 通过反射获取类定义中声明的泛型参数的类型。
      *
-     * 注意泛型必须定义在父类处. 这是唯一可以通过反射从泛型获得Class实例的地方.
-     *
-     * 如无法找到, 返回Object.class.
-     *
-     * eg. public UserDao extends HibernateDao<User>
-     *
-     * @param clazz The class to introspect
-     * @return the first generic declaration, or Object.class if cannot be determined
+     * @param clazz 类
+     * @return 第一个泛型参数的类型，如果无法确定则返回 Object.class
      */
-    public static <T> Class<T> getClassGenericType(final Class clazz) {
+    public static Class<?> getClassGenericType(final Class<?> clazz) {
         return getClassGenericType(clazz, 0);
     }
 
     /**
-     * 通过反射, 获得Class定义中声明的父类的泛型参数的类型.
+     * 通过反射获取类定义中声明的父类的泛型参数的类型。
      *
-     * 注意泛型必须定义在父类处. 这是唯一可以通过反射从泛型获得Class实例的地方.
-     *
-     * 如无法找到, 返回Object.class.
-     *
-     * 如public UserDao extends HibernateDao<User,Long>
-     *
-     * @param clazz clazz The class to introspect
-     * @param index the Index of the generic declaration, start from 0.
-     * @return the index generic declaration, or Object.class if cannot be determined
+     * @param clazz 类
+     * @param index 泛型参数的索引，从 0 开始
+     * @return 第 index 个泛型参数的类型，如果无法确定则返回 Object.class
      */
-    public static Class getClassGenericType(final Class clazz, final int index) {
-
+    public static Class<?> getClassGenericType(final Class<?> clazz, final int index) {
         Type genType = clazz.getGenericSuperclass();
 
         if (!(genType instanceof ParameterizedType)) {
@@ -82,7 +71,7 @@ public class ClassUtil extends ClassUtils {
 
         Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
 
-        if ((index >= params.length) || (index < 0)) {
+        if (index < 0 || index >= params.length) {
             logger.warn("Index: " + index + ", Size of " + clazz.getSimpleName() + "'s Parameterized Type: "
                     + params.length);
             return Object.class;
@@ -92,6 +81,6 @@ public class ClassUtil extends ClassUtils {
             return Object.class;
         }
 
-        return (Class) params[index];
+        return (Class<?>) params[index];
     }
 }
