@@ -2,14 +2,11 @@ package com.github.lalifeier.mall.cloud.common.utils;
 
 import com.github.lalifeier.mall.cloud.common.annocation.EnumValue;
 import com.github.lalifeier.mall.cloud.common.enums.BaseEnum;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
+
+import java.lang.reflect.Field;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 实用工具类，用于处理枚举类型
@@ -197,7 +194,7 @@ public class EnumUtil {
     /**
      * 获取枚举类中指定字段的值。
      *
-     * @param enumClass  枚举实例
+     * @param enumConstant  枚举实例
      * @param fieldName 字段名
      * @return 字段的值，如果字段不存在或无法访问则返回 null
      */
@@ -211,4 +208,46 @@ public class EnumUtil {
         }
         return null;
     }
+
+    //    private static boolean isMatch(Object enumConstant, String value) {
+    //        if (enumConstant instanceof BaseEnum) {
+    //            return ((BaseEnum<?, ?>) enumConstant).getCode().equals(value);
+    //        }
+    //
+    //        Optional<Field> field = EnumUtil.getEnumAnnotationField(enumConstant.getClass());
+    //        if (field.isPresent()) {
+    //            try {
+    //                Field enumField = field.get();
+    //                Object fieldValue = enumField.get(enumConstant);
+    //                return fieldValue.equals(value);
+    //            } catch (Exception e) {
+    //                return false;
+    //            }
+    //        }
+    //
+    //        return enumConstant.equals(value);
+    //    }
+    //
+    //    public static Class<?> getEnum(Class<?> enumClass, String value) {
+    //        Object[] enumConstants = enumClass.getEnumConstants();
+    //
+    //        for (Object enumConstant : enumConstants) {
+    //            if (isMatch(enumConstant, value)) {
+    //                return enumConstant.getClass();
+    //            }
+    //        }
+    //
+    //        return null;
+    //    }
+    //
+    //    public static Object getEnumValue(Class<?> enumClass) {
+    //        if (BaseEnum.class.isAssignableFrom(enumClass)) {}
+    //
+    //        Optional<Field> field = EnumUtil.getEnumAnnotationField(enumClass.getClass());
+    //        if (field.isPresent()) {
+    //            try {
+    //            } catch (Exception e) {
+    //            }
+    //        }
+    //    }
 }
