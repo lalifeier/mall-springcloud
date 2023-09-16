@@ -52,7 +52,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Setup the requested Java Distribution and Version from the matrix
       - name: Set up JDK ${{ matrix.java-version }}
