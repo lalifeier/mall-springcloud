@@ -1,0 +1,93 @@
+spring:
+  shardingsphere:
+    props:
+      sql:
+        show: true
+
+    #  数据源
+    datasource:
+      names: ds-master, ds-slave-1, ds-slave-2
+      # 主库数据源配置
+      ds-master:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/my_database?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useSSL=false
+        username: root
+        password: 123456
+      # 从库1数据源配置
+      ds-slave-1:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3307/my_database?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useSSL=false
+        username: root
+        password: 123456
+      # 从库2数据源配置
+      ds-slave-2:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3308/my_database?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useSSL=false
+        username: root
+        password: 123456
+
+    rules:
+      # 读写分离
+      # https://shardingsphere.apache.org/document/5.3.2/en/user-manual/shardingsphere-jdbc/yaml-config/rules/readwrite-splitting/
+      readwrite-splitting:
+        data-sources:
+          ds:
+            write_data_source_name: ds-master
+            read_data_source_names: ds-slave-1, ds-slave-2
+            load-balancer-name: round_robin
+
+        # 负载均衡算法
+        load-balancers:
+          # 轮询算法
+          round_robin:
+            type: ROUND_ROBIN
+          # 随机访问
+          random:
+            type: RANDOM
+
+      # 分片
+      # https://shardingsphere.apache.org/document/5.3.2/en/user-manual/shardingsphere-jdbc/yaml-config/rules/sharding/
+      sharding:
+        # 分库分表
+        tables:
+          t_order:
+            #  实际数据库节点
+            actual-data-nodes: ds.t_order_$->{0..1}
+            #  分表策略
+            table-strategy:
+              standard:
+                sharding-column: order_id
+                sharding-algorithm-name: order-table-strategy-inline
+            key-generate-strategy:
+              column: order_id
+              key-generator-name: snowflake
+        binding-tables:
+        broadcast-tables:
+        # 分库默认分片策略
+        default-database-strategy: none
+        # 分表默认分片策略
+        default-table-strategy: none
+        # 默认自增主键生成器
+        default-key-generate-strategy:
+          column: id
+          key-generator-name: snowflake
+        default-sharding-column: id
+
+        # 分片算法
+        sharding-algorithms:
+          order-table-strategy-inline:
+            type: INLINE
+            props:
+              algorithm-expression: t_order_$->{order_id % 2}
+
+        # 分片序列生成器
+        key-generators:
+          snowflake:
+            type: SNOWFLAKE
+          #            props:
+          #              worker-id: 31
+          uuid:
+            type: UUID

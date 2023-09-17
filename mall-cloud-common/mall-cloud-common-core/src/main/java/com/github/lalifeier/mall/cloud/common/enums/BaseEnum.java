@@ -2,35 +2,25 @@ package com.github.lalifeier.mall.cloud.common.enums;
 
 import java.util.Arrays;
 
-// @JsonSerialize(using = BaseEnumSerializer.class)
+import com.github.lalifeier.mall.cloud.common.utils.reflect.ClassUtil;
+
 public interface BaseEnum<E extends Enum<E>, T> {
 
-    public static String code = "code";
+  // @JsonValue
+  T getCode();
 
-    public static String description = "description";
+  String getDescription();
 
-    // @JsonValue
-    T getCode();
-
-    String getDescription();
-
-    static <E extends Enum<E> & BaseEnum<E, T>, T> E parse(Class<E> enumClass, Object code) {
-        if (code == null || code.toString().isEmpty()) {
-            return null;
-        }
-
-        return Arrays.stream(enumClass.getEnumConstants())
-                .filter(e -> String.valueOf(e.getCode()).equalsIgnoreCase(String.valueOf(code)))
-                .findFirst()
-                .orElse(null);
+  static <E extends Enum<E> & BaseEnum<E, T>, T> E valueOf(Class<E> enumClass, Object enumValue) {
+    if (!ClassUtil.isEnum(enumClass)) {
+      return null;
+    }
+    if (enumValue == null || enumValue.toString().isEmpty()) {
+      return null;
     }
 
-    //    default Class<?> getPropertyType() {
-    //        try {
-    //            Field codeField = this.getClass().getField(code);
-    //            return codeField.getType();
-    //        } catch (NoSuchFieldException e) {
-    //            return null;
-    //        }
-    //    }
+    return Arrays.stream(enumClass.getEnumConstants())
+        .filter(e -> String.valueOf(e.getCode()).equalsIgnoreCase(String.valueOf(enumValue)))
+        .findFirst().orElse(null);
+  }
 }

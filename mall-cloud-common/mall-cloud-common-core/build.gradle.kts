@@ -16,4 +16,5 @@ dependencies {
   implementation(libs.easyexcel)
   implementation(libs.servlet.api)
   implementation(libs.persistence.api)
+  implementation(libs.jackson.annotations)
 }

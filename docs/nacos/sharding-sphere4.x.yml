@@ -1,0 +1,64 @@
+spring:
+  # https://shardingsphere.apache.org/document/legacy/4.x/document/en/manual/sharding-jdbc/configuration/config-yaml/
+  shardingsphere:
+    props:
+      sql:
+        show: true
+
+    #  数据源
+    datasource:
+      names: ds-master, ds-slave-1, ds-slave-2
+      # 主库数据源配置
+      ds-master:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/my_database?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useSSL=false
+        username: root
+        password: 123456
+      # 从库1数据源配置
+      ds-slave-1:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3307/my_database?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useSSL=false
+        username: root
+        password: 123456
+      # 从库2数据源配置
+      ds-slave-2:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3308/my_database?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&useSSL=false
+        username: root
+        password: 123456
+
+    #    # 读写分离
+    #    masterslave:
+    #      ds:
+    #        master-data-source-name: ds-master
+    #        slave-data-source-names: ds-slave-1, ds-slave-2
+    #        load-balance-algorithm-type: ROUND_ROBIN
+
+    # 分片
+    sharding:
+
+      # 读写分离
+      master-slave-rules:
+        ds:
+          master-data-source-name: ds-master
+          slave-data-source-names: ds-slave-1, ds-slave-2
+          load-balance-algorithm-type: ROUND_ROBIN
+      # 分库分表
+      tables:
+        t_order:
+          actual-data-nodes: ds.t_order_$->{0..1}
+          table-strategy:
+            inline:
+              sharding-column: id
+              algorithm-expression: t_order_$->{id % 2}
+          key-generator:
+            column: id
+            type: SNOWFLAKE
+      binding-tables:
+      broadcast-tables:
+      default-database-strategy: none
+      default-table-strategy: none
+

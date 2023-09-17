@@ -13,7 +13,7 @@ githook {
   createHooksDirIfNotExist = false
   hooks {
     register("pre-commit") {
-      task = "spotlessCheck spotlessApply"
+      task = "spotlessCheck"
     }
 //    register("commit-msg") {
 //      task = "commitlint -Dmsgfile=$1"

@@ -1,11 +1,11 @@
 package com.github.lalifeier.mall.cloud.log.model;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 @Data
-@Builder
+@Accessors(chain = true)
 public class Operator {
-    private String operatorId;
-    private String operatorName;
+  private String operatorId;
+  private String operatorName;
 }
