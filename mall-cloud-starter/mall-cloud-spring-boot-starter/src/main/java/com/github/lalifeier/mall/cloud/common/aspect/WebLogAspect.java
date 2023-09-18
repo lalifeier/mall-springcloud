@@ -24,7 +24,7 @@ public class WebLogAspect {
 
     private final Logger log = LoggerFactory.getLogger("apiLog");
 
-    @Pointcut("@within(org.springframework.web.bind.annotation.RestController) &&" + " within(com.github.lalifeier.*)")
+    @Pointcut("@within(org.springframework.web.bind.annotation.RestController) && within(com.github.lalifeier..*)")
     public void webLog() {}
 
     @Around("webLog()")

@@ -74,7 +74,7 @@ jjwt = "0.9.1"
 redisson = "3.23.2"
 nanoid = "2.0.0"
 reflections = "0.10.2"
-
+liteflow = "2.11.0"
 
 spring-dependency-management = "1.0.15.RELEASE"
 docker-plugin = "9.3.1"
@@ -192,6 +192,7 @@ jjwt-jackson = { group = "io.jsonwebtoken", name = "jjwt-jackson", version.ref =
 redisson = { group = "org.redisson", name = "redisson", version.ref = "redisson" }
 nanoid = { group = "com.aventrix.jnanoid", name = "jnanoid", version.ref = "nanoid" }
 reflections = { group = "org.reflections", name = "reflections", version.ref = "reflections" }
+liteflow = { group = "com.yomahub", name = "liteflow-spring-boot-starter", version.ref = "liteflow" }
 
 spring-boot-gradle-plugin = { group = "org.springframework.boot", name = "spring-boot-gradle-plugin", version.ref = "spring-boot" }
 spring-dependency-management-plugin = { group = "io.spring.gradle", name = "dependency-management-plugin", version.ref = "spring-dependency-management" }
