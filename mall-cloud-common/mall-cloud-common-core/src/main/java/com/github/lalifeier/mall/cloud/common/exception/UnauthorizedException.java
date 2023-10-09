@@ -5,24 +5,20 @@ import com.github.lalifeier.mall.cloud.common.enums.HttpErrorCodeEnum;
 
 public class UnauthorizedException extends SystemException {
 
-    public UnauthorizedException(Throwable cause) {
-        super(cause);
-    }
-
     public UnauthorizedException(String message) {
         super(message);
     }
 
-    public UnauthorizedException(ErrorCode errorCode) {
-        super(errorCode);
+    public UnauthorizedException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    public UnauthorizedException(ErrorCode errorCode, Object... args) {
-        super(errorCode, args);
+    public UnauthorizedException(Throwable cause) {
+        super(cause);
     }
 
     @Override
-    public ErrorCode defaultErrorCode() {
+    public ErrorCode getErrorCode() {
         return HttpErrorCodeEnum.UNAUTHORIZED;
     }
 }

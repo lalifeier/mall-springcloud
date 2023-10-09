@@ -1,11 +1,9 @@
 package com.github.lalifeier.mall.cloud.account.api.authentication.model.request;
 
 import com.github.lalifeier.mall.cloud.account.api.authentication.enums.LoginTypeEnum;
-import jakarta.validation.Valid;
 import lombok.Data;
 
 @Data
-@Valid
 public class LoginRequest {
     // @NotBlank(message = "登录类型不能为空")
     // @JsonDeserialize(using = BaseEnumDeserializer.class)

@@ -11,6 +11,7 @@ import com.github.lalifeier.mall.cloud.mybatisplus.handler.DefaultMetaObjectHand
 import com.github.lalifeier.mall.cloud.mybatisplus.handler.MybatisEnumTypeHandler;
 import com.github.lalifeier.mall.cloud.mybatisplus.handler.MybatisPlusDataPermissionHandler;
 import com.github.lalifeier.mall.cloud.mybatisplus.injector.MySqlInjector;
+import com.github.lalifeier.mall.cloud.mybatisplus.interceptor.SlowSqlInterceptor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +25,7 @@ public class MybatisPlusAutoConfiguration {
     public ConfigurationCustomizer configurationCustomizer() {
         return configuration -> {
             configuration.setDefaultEnumTypeHandler(MybatisEnumTypeHandler.class);
+            // configuration.addInterceptor(slowSqlInterceptor());
         };
     }
 
@@ -61,6 +63,11 @@ public class MybatisPlusAutoConfiguration {
         DataPermissionInterceptor dataPermissionInterceptor = new DataPermissionInterceptor();
         dataPermissionInterceptor.setDataPermissionHandler(new MybatisPlusDataPermissionHandler());
         return dataPermissionInterceptor;
+    }
+
+    @Bean
+    public SlowSqlInterceptor slowSqlInterceptor() {
+        return new SlowSqlInterceptor();
     }
 
     /** 元对象字段填充控制器 */

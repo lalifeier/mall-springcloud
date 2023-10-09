@@ -20,17 +20,13 @@ public class FeignExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result<?> handleFeignException(FeignException e) {
         log.error("远程调用出错：{}", e.getMessage());
-        return Result.failure(ErrorCodeEnum.REMOTE_SERVER_ERROR);
+        return Result.failure(ErrorCodeEnum.REMOTE_SERVER_ERROR, "远程调用出错");
     }
 
     @ExceptionHandler(DecodeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result<?> handleDecodeException(DecodeException e) {
         log.error("远程调用解析返回值时出错：{}", e.getMessage());
-        // Throwable cause = e.getCause();
-        // if (cause instanceof BizException){
-        // BizException bizException = (BizException) cause;
-        // }
-        return Result.failure(ErrorCodeEnum.REMOTE_SERVER_ERROR.getCode(), "远程调用解析返回值时出错");
+        return Result.failure(ErrorCodeEnum.REMOTE_SERVER_ERROR, "远程调用解析返回值时出错");
     }
 }

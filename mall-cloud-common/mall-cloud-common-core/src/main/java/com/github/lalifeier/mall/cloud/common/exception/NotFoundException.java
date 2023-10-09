@@ -4,25 +4,20 @@ import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
 import com.github.lalifeier.mall.cloud.common.enums.HttpErrorCodeEnum;
 
 public class NotFoundException extends SystemException {
+    public NotFoundException(String message) {
+        super(message);
+    }
+
+    public NotFoundException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
     public NotFoundException(Throwable cause) {
         super(cause);
     }
 
-    public NotFoundException(String message) {
-        super(message);
-    }
-
-    public NotFoundException(ErrorCode errorCode) {
-        super(errorCode);
-    }
-
-    public NotFoundException(ErrorCode errorCode, Object... args) {
-        super(errorCode, args);
-    }
-
     @Override
-    public ErrorCode defaultErrorCode() {
+    public ErrorCode getErrorCode() {
         return HttpErrorCodeEnum.NOT_FOUND;
     }
 }

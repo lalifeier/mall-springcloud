@@ -5,24 +5,20 @@ import com.github.lalifeier.mall.cloud.common.enums.ErrorCodeEnum;
 
 public class RemoteServiceException extends SystemException {
 
-    public RemoteServiceException(Throwable cause) {
-        super(cause);
-    }
-
     public RemoteServiceException(String message) {
         super(message);
     }
 
-    public RemoteServiceException(ErrorCode errorCode) {
-        super(errorCode);
+    public RemoteServiceException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    public RemoteServiceException(ErrorCode errorCode, Object... args) {
-        super(errorCode, args);
+    public RemoteServiceException(Throwable cause) {
+        super(cause);
     }
 
     @Override
-    public ErrorCode defaultErrorCode() {
+    public ErrorCode getErrorCode() {
         return ErrorCodeEnum.REMOTE_SERVER_ERROR;
     }
 }

@@ -9,8 +9,7 @@ import com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.BookQueryAp
 import com.github.lalifeier.mall.cloud.demo.applicaiton.book.service.repository.BookQueryRepository;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.entity.Book;
 import com.github.lalifeier.mall.cloud.demo.domain.book.model.valueobject.BookId;
-import com.github.lalifeier.mall.cloud.demo.domain.book.service.BookDomainService;
-import com.github.lalifeier.mall.cloud.demo.infrastructure.persistence.mybatis.book.mapper.BookMapper;
+import com.github.lalifeier.mall.cloud.demo.domain.book.repository.BookRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,19 +17,18 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class BookQueryApplicationServiceImpl implements BookQueryApplicationService {
-    private final BookDomainService bookDomainService;
+    private final BookRepository bookRepository;
 
     private final BookQueryRepository bookQueryRepository;
-
-    private final BookMapper bookMapper;
-
     private final BookAssembler bookAssembler = BookAssembler.INSTANCE;
 
     @Override
     public BookDTO get(Long id) {
         BookId bookId = new BookId(id);
-        Book book = bookDomainService.get(bookId);
-        return this.bookAssembler.toDTO(book);
+
+        Book book = bookRepository.find(bookId);
+
+        return bookAssembler.toDTO(book);
     }
 
     @Override

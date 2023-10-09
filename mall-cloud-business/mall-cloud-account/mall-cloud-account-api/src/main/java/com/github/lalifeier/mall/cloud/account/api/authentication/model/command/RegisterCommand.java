@@ -1,12 +1,10 @@
 package com.github.lalifeier.mall.cloud.account.api.authentication.model.command;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-@Valid
 public class RegisterCommand {
     @NotBlank(message = "用户名不能为空")
     private String username;

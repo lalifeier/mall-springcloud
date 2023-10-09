@@ -8,7 +8,6 @@ import com.github.lalifeier.mall.cloud.account.api.authentication.model.request.
 import com.github.lalifeier.mall.cloud.account.applicaiton.authentication.factory.LoginCommandFactory;
 import com.github.lalifeier.mall.cloud.account.applicaiton.authentication.model.command.LoginCommand;
 import com.github.lalifeier.mall.cloud.account.applicaiton.authentication.service.AuthenticationApplicationService;
-import com.github.lalifeier.mall.cloud.common.enums.StatusEnum;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,10 +28,5 @@ public class AuthenticationController implements AuthenticationApi {
     @Override
     public RegisterDTO register(RegisterCommand command) {
         return authenticationApplicationService.register(command);
-    }
-
-    @Override
-    public StatusEnum getEnum(StatusEnum status) {
-        return status;
     }
 }

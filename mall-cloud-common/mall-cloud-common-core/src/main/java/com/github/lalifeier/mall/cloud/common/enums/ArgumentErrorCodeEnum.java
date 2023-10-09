@@ -5,38 +5,30 @@ import com.github.lalifeier.mall.cloud.common.api.ProjectModule;
 import lombok.Getter;
 
 @Getter
-public enum ErrorCodeEnum implements ErrorCode {
-    SUCCESS(0, "请求成功"),
+public enum ArgumentErrorCodeEnum implements ErrorCode {
+    VALID_ERROR(1, "参数校验异常"),
 
-    BASE_ERROR(-1, ""),
+    DATA_NOT_NULL(2, "{0}不能为空"),
 
-    UNKNOWN_ERROR(-1, "未知系统异常"),
-
-    SYSTEM_EXCEPTION(-1, "系统异常"),
-
-    BUSINESS_EXCEPTION(-1, "业务异常"),
-
-    DB_ERROR(-1, "数据库异常"),
-
-    REMOTE_SERVER_ERROR(-1, "远程调用错误");
+    DADA_REPEAT(3, "{0}已存在");
 
     private final int nodeNum;
     private final String description;
     private final String message;
 
-    ErrorCodeEnum(int nodeNum, String description, String message) {
+    ArgumentErrorCodeEnum(int nodeNum, String description, String message) {
         this.nodeNum = nodeNum;
         this.description = description;
         this.message = message;
     }
 
-    ErrorCodeEnum(int nodeNum, String description) {
+    ArgumentErrorCodeEnum(int nodeNum, String description) {
         this(nodeNum, description, "");
     }
 
     @Override
     public ProjectModule getProjectModule() {
-        return ProjectModuleEnum.DEFAULT;
+        return ProjectModuleEnum.ARGUMENT;
     }
 
     @Override

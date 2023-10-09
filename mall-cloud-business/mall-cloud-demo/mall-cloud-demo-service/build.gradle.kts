@@ -15,6 +15,7 @@ dependencies {
   implementation(libs.mybatis.plus.generator)
   implementation(libs.freemarker)
   implementation(libs.mysql.connector.java)
+  implementation(libs.spring.retry)
 //  implementation(libs.dubbo.spring.boot.starter)
 //  implementation("org.springframework.boot:spring-boot-starter-cache")
   implementation(libs.caffeine)

@@ -3,13 +3,6 @@ package com.github.lalifeier.mall.cloud.common.api;
 public interface ErrorCode {
 
     /**
-     * 获取HTTP状态码
-     *
-     * @return HTTP状态码
-     */
-    int getHttpCode();
-
-    /**
      * 获取项目模块
      *
      * @return 项目模块

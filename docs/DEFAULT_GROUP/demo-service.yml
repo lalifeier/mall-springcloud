@@ -12,13 +12,20 @@ server:
 grpc:
   server:
     port: 0
-#  client:
-#    grpc_server:
-#      negotiation-type: plaintext
+  #  client:
+  #    grpc_server:
+  #      negotiation-type: plaintext
+
+
 
 spring:
   profiles:
     active: dev
+
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
 
   #    jackson:
   #      date-format: yyyy-MM-dd HH:mm:ss

@@ -1,21 +1,21 @@
 package com.github.lalifeier.mall.cloud.common.exception;
 
 import com.github.lalifeier.mall.cloud.common.api.ErrorCode;
-import org.slf4j.helpers.MessageFormatter;
+import com.github.lalifeier.mall.cloud.common.enums.ErrorCodeEnum;
 
 public abstract class BaseException extends RuntimeException {
-
-    /** 错误码 */
-    private final ErrorCode errorCode;
-
-    public BaseException(Throwable cause) {
-        super(cause);
-        this.errorCode = defaultErrorCode();
-    }
+    private ErrorCode errorCode = ErrorCodeEnum.BASE_ERROR;
 
     public BaseException(String message) {
         super(message);
-        this.errorCode = defaultErrorCode();
+    }
+
+    public BaseException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public BaseException(Throwable cause) {
+        super(cause);
     }
 
     public BaseException(ErrorCode errorCode) {
@@ -23,18 +23,26 @@ public abstract class BaseException extends RuntimeException {
         this.errorCode = errorCode;
     }
 
-    public BaseException(ErrorCode errorCode, Object... args) {
-        super(MessageFormatter.arrayFormat(errorCode.getMessage(), args).getMessage());
+    public BaseException(ErrorCode errorCode, String message) {
+        super(message);
         this.errorCode = errorCode;
     }
 
-    public abstract ErrorCode defaultErrorCode();
+    public BaseException(ErrorCode errorCode, String message, Throwable cause) {
+        super(message, cause);
+        this.errorCode = errorCode;
+    }
 
-    /**
-     * 获取错误码
-     *
-     * @return 错误码
-     */
+    public BaseException(ErrorCode errorCode, Throwable cause) {
+        super(cause);
+        this.errorCode = errorCode;
+    }
+
+    public BaseException(ErrorCode errorCode, Object... args) {
+        super(String.format(errorCode.getMessage(), args));
+        this.errorCode = errorCode;
+    }
+
     public ErrorCode getErrorCode() {
         return errorCode;
     }

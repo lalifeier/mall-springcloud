@@ -5,24 +5,20 @@ import com.github.lalifeier.mall.cloud.common.enums.HttpErrorCodeEnum;
 
 public class ServiceException extends SystemException {
 
-    public ServiceException(Throwable cause) {
-        super(cause);
-    }
-
     public ServiceException(String message) {
         super(message);
     }
 
-    public ServiceException(ErrorCode errorCode) {
-        super(errorCode);
+    public ServiceException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    public ServiceException(ErrorCode errorCode, Object... args) {
-        super(errorCode, args);
+    public ServiceException(Throwable cause) {
+        super(cause);
     }
 
     @Override
-    public ErrorCode defaultErrorCode() {
+    public ErrorCode getErrorCode() {
         return HttpErrorCodeEnum.INTERNAL_SERVER_ERROR;
     }
 }

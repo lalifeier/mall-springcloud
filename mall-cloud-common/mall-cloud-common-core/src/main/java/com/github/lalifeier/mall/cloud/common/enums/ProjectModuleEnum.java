@@ -8,7 +8,11 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ProjectModuleEnum implements ProjectModule {
     /** 默认项目模块 */
-    DEFAULT(0, 0, "default", "default");
+    DEFAULT(0, 0, "default", "default"),
+
+    SERVLET(1, 0, "argument", "argument"),
+
+    ARGUMENT(4, 0, "argument", "argument");
 
     /** 项目代码 */
     private final int projectCode;

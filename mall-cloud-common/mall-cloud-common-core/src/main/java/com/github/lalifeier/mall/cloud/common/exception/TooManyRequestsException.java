@@ -9,24 +9,20 @@ public class TooManyRequestsException extends SystemException {
     @Getter
     private long limitTimestamp;
 
-    public TooManyRequestsException(Throwable cause) {
-        super(cause);
-    }
-
     public TooManyRequestsException(String message) {
         super(message);
     }
 
-    public TooManyRequestsException(ErrorCode errorCode) {
-        super(errorCode);
+    public TooManyRequestsException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    public TooManyRequestsException(ErrorCode errorCode, Object... args) {
-        super(errorCode, args);
+    public TooManyRequestsException(Throwable cause) {
+        super(cause);
     }
 
     @Override
-    public ErrorCode defaultErrorCode() {
+    public ErrorCode getErrorCode() {
         return HttpErrorCodeEnum.TOO_MANY_REQUESTS;
     }
 }
